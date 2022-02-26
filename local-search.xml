@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>About personal blog</title>
+    <link href="/2022/02/26/About-personal-blog/"/>
+    <url>/2022/02/26/About-personal-blog/</url>
+    
+    <content type="html"><![CDATA[<h2 id="关于hexo个人博客"><a href="#关于hexo个人博客" class="headerlink" title="关于hexo个人博客"></a>关于hexo个人博客</h2><p>博客参考 <a href="https://kok-s0s.top/">https://kok-s0s.top</a></p><blockquote><p>几个标准命令</p><ul><li>n new <ul><li>hexo new post  <code>filename</code></li><li>hexo new page <code>pagename</code></li></ul></li><li>g generate</li><li>s server (localhost4000 deploy)</li><li>c clean up buffet</li><li>d deploy</li></ul></blockquote><ul><li><h4 id="博客404解决方案-第一次出现是由于缺失index-html-想要远程访问必须先访问index文件，可以直接生成-https-www-jianshu-com-p-2349c763cc02"><a href="#博客404解决方案-第一次出现是由于缺失index-html-想要远程访问必须先访问index文件，可以直接生成-https-www-jianshu-com-p-2349c763cc02" class="headerlink" title="博客404解决方案(第一次出现是由于缺失index.html 想要远程访问必须先访问index文件，可以直接生成) https://www.jianshu.com/p/2349c763cc02"></a>博客404解决方案(第一次出现是由于缺失index.html 想要远程访问必须先访问index文件，可以直接生成) <a href="https://www.jianshu.com/p/2349c763cc02">https://www.jianshu.com/p/2349c763cc02</a></h4></li></ul>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Hello World</title>
     <link href="/2022/02/11/hello-world/"/>
     <url>/2022/02/11/hello-world/</url>
