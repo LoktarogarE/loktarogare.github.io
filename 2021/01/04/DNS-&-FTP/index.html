@@ -1,0 +1,525 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar1.png">
+  <link rel="icon" href="/img/avatar1.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Natsumi">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="4.1 域名服务系统 DNS[Domain Name System]DNS系统概述我们显然可以通过输入 IP地址来访问网站。 使用DNS只是为了 让字符化的计算机域名 能够起到 特征标示的作用。 DNS 的作用是 将 用户使用的域名 和 计算机使用的IP地址 互相转换(translation) 备注： 1. DNS 同时也表示 Domain Name Server 2. DNS所实现的转换是 双向">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DNS">
+<meta property="og:url" content="http://example.com/2021/01/04/DNS-&-FTP/index.html">
+<meta property="og:site_name" content="Natsumi&#39;s Mementos">
+<meta property="og:description" content="4.1 域名服务系统 DNS[Domain Name System]DNS系统概述我们显然可以通过输入 IP地址来访问网站。 使用DNS只是为了 让字符化的计算机域名 能够起到 特征标示的作用。 DNS 的作用是 将 用户使用的域名 和 计算机使用的IP地址 互相转换(translation) 备注： 1. DNS 同时也表示 Domain Name Server 2. DNS所实现的转换是 双向">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-01-03T17:02:44.000Z">
+<meta property="article:modified_time" content="2022-02-28T13:50:57.673Z">
+<meta property="article:author" content="Natsumi">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>DNS - Natsumi&#39;s Mementos</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Natsumi&#39;s Mementos</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                我
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="DNS">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.6k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      30 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">DNS</h1>
+            
+            <div class="markdown-body">
+              <h2 id="4-1-域名服务系统-DNS-Domain-Name-System"><a href="#4-1-域名服务系统-DNS-Domain-Name-System" class="headerlink" title="4.1 域名服务系统 DNS[Domain Name System]"></a>4.1 域名服务系统 DNS[Domain Name System]</h2><h3 id="DNS系统概述"><a href="#DNS系统概述" class="headerlink" title="DNS系统概述"></a>DNS系统概述</h3><p>我们显然可以通过输入 IP地址来访问网站。 使用DNS只是为了 让字符化的计算机域名 能够起到 特征标示的作用。</p>
+<p><em><strong>DNS 的作用是 将 用户使用的域名 和 计算机使用的IP地址 互相转换(translation)</strong></em></p>
+<p><strong>备注：</strong></p>
+<p><strong>1. DNS 同时也表示 Domain Name Server</strong></p>
+<p><strong>2. DNS所实现的转换是 双向的</strong></p>
+<p><strong>3. 域名的翻译是自动完成的 依赖分布在全球的一系列服务器完成， DNS实现的翻译 属于C&#x2F;S交互</strong></p>
+<h3 id="Internet-域名构造"><a href="#Internet-域名构造" class="headerlink" title="Internet 域名构造"></a>Internet 域名构造</h3><p><strong>因特网将这些域名划分成 树状体系 最高级的域名一般是通用域名&#x2F;国家&#x2F;基础结构域类。 在这些最高级域名下划分子类 逐渐延伸</strong></p>
+<p>我们的高级域名<code>.cn</code> 之下 定义了7个2级域名 ac(研究机构)  com    edu    gov    mil    net    org    以及34个行政区域名</p>
+<p><strong>如果你想要使用最高级域名， 必须向Internet管理机构ICANN(或其授权管理机构 比如中国的CCNIC)登记，层层递进</strong></p>
+<h3 id="DNS层次结构和服务器分布模型"><a href="#DNS层次结构和服务器分布模型" class="headerlink" title="DNS层次结构和服务器分布模型"></a>DNS层次结构和服务器分布模型</h3><ul>
+<li>每个DNS服务器 都是域名体系中部分域名的实际管理者，要负责具有某后缀的所有计算机权威管理</li>
+<li>每个计算机域名也必须在对应的DNS组织(服务器)登记</li>
+<li>DNS具有命名 和 服务器设置的 自治性</li>
+<li>每个DNS服务器 只能完成部分计算机域名的处理，因此因特网所有的DNS服务器宏观上被连接成了一个系统。<ul>
+<li>这意味着：<strong>每个DNS服务器都知道如何找到根DNS服务器，以及如何找到下级的DNS服务器</strong></li>
+</ul>
+</li>
+<li>对大型组织集中单一DNS服务很困难。但由于DNS服务具有 <strong>局部访问性原理</strong> 我们可以按照层次制定分布DNS服务策略</li>
+</ul>
+<h3 id="DNS记录和协议报文格式"><a href="#DNS记录和协议报文格式" class="headerlink" title="DNS记录和协议报文格式"></a>DNS记录和协议报文格式</h3><h5 id="DNS的拓扑"><a href="#DNS的拓扑" class="headerlink" title="DNS的拓扑"></a>DNS的拓扑</h5><p>一般组织使用单一DNS服务器，小型公司作为用户，和提供DNS的ISP连接，DNS服务也由和其连接的ISP完成</p>
+<hr>
+<blockquote>
+<p><strong>试解释中文域名可能的工作原理</strong></p>
+<p>我认为现在的DNS系统已经比较成熟，所以中文域名的工作可以从从用户角度入手，即将用户输入的中文域名，翻译成英文域名，然后接入现有的DNS体系框架内。</p>
+<p>在用户使用的浏览器中添加扩展，使得浏览器能够实现汉字输入转换，并考虑使用缺省和机器学习来优化</p>
+<p>如输入 百度 则浏览器转化为 <a target="_blank" rel="noopener" href="https://www.baidu.com/">https://www.baidu.com</a> 实际上仍然使用现有的DNS服务</p>
+</blockquote>
+<blockquote>
+<p><strong>试说明DNS服务器怎样获取请求客户主机域名的？</strong></p>
+<ol>
+<li>客户机想要查询时首先在本地计算机缓存中查找，如果无法获得查询信息，则向本地DNS服务器发送查询请求</li>
+<li>本地DNS服务器收到请求，首先在其管理区域记录里查询，如果找到了，则直接解析并返回，没找到则执行3</li>
+<li>本地DNS服务器将客户的请求发送到根域名DNS服务器。根域名服务器解析请求的根域部分，并以此获知管理下一级域名的DNS服务器地址，并将这个地址返回给本地DNS服务器。</li>
+<li>本地DNS服务器利用上一级域名服务器给出的地址访问下一级DNS服务器，得到更下一级的DNS服务器地址，同样，这个地址被返回给本地DNS服务器。</li>
+<li>返回递归执行步骤4 直到本地DNS服务器获取到知道域名对应IP的DNS服务器传回的IP地址</li>
+<li>本地DNS服务器将查询结果返回客户 完成解析过程</li>
+</ol>
+<p><strong>两个DNS服务器包含完全相同的域名有意义吗？为什么？</strong></p>
+<p>是有意义的。因为DNS的解析是递归的过程，如果有两个不同的DNS服务器都包含这个域名，说不定可以减少递归的次数，提高DNS服务的效率。</p>
+<p><strong>试分析DNS体系的层次数对域名解析速度是否有影响？</strong></p>
+<p><strong>有影响</strong>。如果你要访问的域名离自己的本地DNS服务器太远，你的访问请求将被迫一级一级的不断上传，同时一级一级的向下返回，虽然传输的时延不长，但处理和排队的时延累加起来就很长了。比如我们访问国外的网站，即使没有被屏蔽也会很慢。</p>
+<p><strong>DNS系统为什么要优化，优化措施主要有哪些？</strong></p>
+<p><strong>无论是递归还是迭代</strong>的请求方式，本质上其实<strong>效率都很糟糕</strong>，特别是根服务器的负载非常大，并且根服务器作为枢纽一旦下线，非本地访问的DNS服务几乎就中断了。</p>
+<h5 id="但由于一台计算机经常访问本地域名或重复访问同样的域名，所以可以进行以下的优化处理："><a href="#但由于一台计算机经常访问本地域名或重复访问同样的域名，所以可以进行以下的优化处理：" class="headerlink" title="但由于一台计算机经常访问本地域名或重复访问同样的域名，所以可以进行以下的优化处理："></a>但由于一台计算机经常访问本地域名或重复访问同样的域名，所以可以进行以下的优化处理：</h5><ol>
+<li>复制。复制多个根服务器副本，按照地域分布，实现就地DNS域名服务</li>
+<li>缓存。每次查找新域名 本地DNS服务器将地址联编副本进行缓存 实际上客户的浏览器也有类似的 域名缓存措施</li>
+</ol>
+</blockquote>
+<hr>
+<h2 id="4-2-FTP-File-Transfer-Protocol"><a href="#4-2-FTP-File-Transfer-Protocol" class="headerlink" title="4.2 FTP [File Transfer Protocol]"></a>4.2 FTP [File Transfer Protocol]</h2><h3 id="FTP-概述"><a href="#FTP-概述" class="headerlink" title="FTP 概述"></a>FTP 概述</h3><p>FTP的产生 $\rightarrow$ 早期Internet(ARPANET) 的工作主要是 信息交互 (特别是文件交互共享)</p>
+<p><strong>从历史上讲 FTP的产生要早于TCP (现在则是使用新的FTP协议 ) 在95年之前 FTP占据因特网通信量的 1&#x2F;3</strong></p>
+<h2 id="FTP需要解决-在异构计算机之间的-通用文件传递-这需要克服不同文件系统的差异："><a href="#FTP需要解决-在异构计算机之间的-通用文件传递-这需要克服不同文件系统的差异：" class="headerlink" title="FTP需要解决 在异构计算机之间的 通用文件传递 这需要克服不同文件系统的差异："></a>FTP需要解决 在<em><strong>异构计算机之间的 通用文件传递</strong></em> 这需要克服不同文件系统的差异：</h2><ol>
+<li>通用性 </li>
+<li>跨平台特性</li>
+<li>传输和控制 $\rightarrow$ 控制 上传 下载</li>
+<li><strong>FTP可以支持 任意类型的数据文件</strong></li>
+<li>FTP可以加密 可以控制访问</li>
+</ol>
+<h5 id="FTP主要提供2种交互方式-即-实时交互-和-批处理"><a href="#FTP主要提供2种交互方式-即-实时交互-和-批处理" class="headerlink" title="FTP主要提供2种交互方式 即  实时交互 和 批处理"></a>FTP主要提供2种交互方式 即  实时交互 和 批处理</h5><p>值得注意的是 可以建立一种 同时实现两种方式的 服务</p>
+<h2 id="FTP只有-文本-和-binary-两种格式「FTP传输的是-文件的副本-而不是文件本身」"><a href="#FTP只有-文本-和-binary-两种格式「FTP传输的是-文件的副本-而不是文件本身」" class="headerlink" title="FTP只有 文本 和 binary 两种格式「FTP传输的是 文件的副本 而不是文件本身」"></a>FTP只有 文本 和 binary 两种格式「<em><strong>FTP传输的是 文件的副本 而不是文件本身</strong></em>」</h2><p>视频 浮点数 图形… 只要不是文本 全部都使用binary 传输</p>
+<p>当然 二进制会出现在FTP两边格式不一样的情况 这FTP不管</p>
+<h3 id="FTP工作原理-「两条连接-控制和数据传输分离」"><a href="#FTP工作原理-「两条连接-控制和数据传输分离」" class="headerlink" title="FTP工作原理 「两条连接 控制和数据传输分离」"></a>FTP工作原理 「两条连接 控制和数据传输分离」</h3><p><strong>两端的进程会分别启动 控制和数据传送进程(它们是主进程的从属进程 并且相互独立)</strong></p>
+<ol>
+<li><strong>客户通过临时端口号N 和 FTP服务器(端口号 21 这是个熟知端口)  建立TCP链接</strong><ul>
+<li><strong>这条连接 只是用来控制 由客户发起 服务器接受。 客户端输入的命令从这里发到服务器中</strong></li>
+</ul>
+</li>
+<li><strong>服务器并不会马上 建立传输连接，而是在客户发起命令 确认一个文件之后</strong> </li>
+<li><strong>服务器通过 <em>端口号20</em> 与<em>客户端口号N+1</em> 建立TCP连接</strong><ul>
+<li>*<em>这条连接 只是用来传输 <em>由服务器发起 也会由服务器结束</em>。</em>*</li>
+</ul>
+</li>
+</ol>
+<h3 id="FTP交互方式的特点"><a href="#FTP交互方式的特点" class="headerlink" title="FTP交互方式的特点"></a>FTP交互方式的特点</h3><ol>
+<li>两个不同的端口号分别建立控制连接和数据连接 目的是让命令交互 和 文件数据交互 之间不互相干扰</li>
+<li>服务器在完成文件传递后 关闭数据连接 给客户端一个 文件结束条件</li>
+<li>FTP命令可以控制远程计算机上的文件操作 就好像在操作本地文件一样</li>
+</ol>
+<h3 id="FTP登陆-和-常用命令"><a href="#FTP登陆-和-常用命令" class="headerlink" title="FTP登陆 和 常用命令"></a>FTP登陆 和 常用命令</h3><ol>
+<li>输入 Open计算机域名 和这个计算机建立TCP连接。 使用Close 来关闭连接(并不是关闭FTP程序！)</li>
+<li>对于私有的FTP服务 需要输入用户名+口令； 而有些开放的FTP服务 使用anonymous(guest) &#x2F; 电邮账户 即可实现访问了</li>
+</ol>
+<p><strong>FTP 一般使用命令行进行交互 客户端有约50条命令</strong></p>
+<p>通用标准化处理(解决跨平台(OS)传输)</p>
+<p>我们想要做到OS对FTP的C&#x2F;S透明。因此定义了 <strong>Telnet NVT(Network Vietual Terminal)网络虚拟终端</strong></p>
+<p>这样 FTP和OS就不进行直接的交互了 而是通过NVT标准格式接口 在传输过程中 实际上就是</p>
+<p>本地终端格式 $\rightarrow$转换为 NVT格式 $\rightarrow$ 传输 $\rightarrow$ NVT转换为本地主机格式 $\rightarrow$ 本地主机格式</p>
+<p>NVT格式 统一使用8bit通信 7位ASCII码 最高位 为1 $\rightarrow$ 控制命令</p>
+<h3 id="NFS-Network-File-System"><a href="#NFS-Network-File-System" class="headerlink" title="NFS(Network File System)"></a>NFS(Network File System)</h3><p>一般被集成在一个大的文件系统里</p>
+<p>和FTP类似 但不传输文件副本 一般只传递 复制&#x2F;改变 文件的小片段</p>
+<p>使用TCP和UDP 实现不同操作系统的各种终端和主机间远程登录和文件命令操作</p>
+<blockquote>
+<p><strong>1、怎样理解NVT？</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>2、FTP目前主要使用在什么场合，为什么不十分流行？</strong></p>
+<p>FTP目前一般在公司或单位的内部进行公开的文件传输时使用。</p>
+<p>不流行的原因：<br>\1. 使用命令行进行交互 没有图形界面 这意味着使用FTP的门槛要更高。</p>
+<p>\2. 安全性不够高，FTP的信息在信道上可能被劫持 这样信息就全部泄漏了。</p>
+<p>\3. FTP诞生时间太早，不适合现在的网络架构。使用两条TCP连接比较浪费，虽然是稳定的传输，但效率不够高，会浪费一些网络资源。</p>
+</blockquote>
+<blockquote>
+<p><strong>3、在一条传输链路连接的网络两端，用FTP传输一个大文件，然后根据文件字节数和传输的时间测量链路的数据传输容量，是否准确？试说明理由。</strong></p>
+<p>不准确。因为FTP的底层是TCP传输(TCP传输又需要进行IP层的封装)，这意味着大文件 会被封装成TCP报文段。大文件长度很可能大大超过了MTU，这意味着需要很多个TCP报文段来传输这个文件。如果只算文件字节数而忽略TCP报文头和IP报文头，算出的数据传输容量会有较大的偏差(会偏小)。</p>
+</blockquote>
+<blockquote>
+<p><strong>4、二进制模式和文本模式下传输同一个文本文件，试说明两种模式传输时间哪个大？为什么？</strong></p>
+<p>文本模式下 会花费更长时间。 FTP的文本使用ASCII&#x2F;EBCDIC 字符集，在FTP发送和接收前需要经过转换(本地文本文件$\rightarrow$ ASCII&#x2F;EBCDIC $\rightarrow$ 本地文本文件)，并且还需要加入控制字符。而二进制是不进行任何表达转换处理，直接传输文件副本。</p>
+</blockquote>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/01/04/Email-&amp;&amp;-WWW/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Email && WWW</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/01/04/C:S%E4%B8%8EAPI/">
+                        <span class="hidden-mobile">网络服务模式&API</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://loktarogare.github.io/" target="_blank" rel="nofollow noopener"><span>Natsumi</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

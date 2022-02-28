@@ -1,0 +1,609 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar1.png">
+  <link rel="icon" href="/img/avatar1.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Natsumi">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="因特网路由与协议RIP BGP位于应用层 3个概念：路由选择 路由协议 路由算法路由选择$\rightarrow$通过互连网络从源节点向目的节点传输信息的通道，且中间至少有一个中间节点 路由协议$\rightarrow$路由指导IP数据报发送过程中事先约定好的规定和标准(规定了IP数据报在网络中存储和转发的方式) ​    路由协议决定了路由选择，而路由算法是路由协议的实现。 ​    在一个Au">
+<meta property="og:type" content="article">
+<meta property="og:title" content="因特网路由与协议">
+<meta property="og:url" content="http://example.com/2021/01/04/%E5%9B%A0%E7%89%B9%E7%BD%91%E8%B7%AF%E7%94%B1%E4%B8%8E%E5%8D%8F%E8%AE%AE/index.html">
+<meta property="og:site_name" content="Natsumi&#39;s Mementos">
+<meta property="og:description" content="因特网路由与协议RIP BGP位于应用层 3个概念：路由选择 路由协议 路由算法路由选择$\rightarrow$通过互连网络从源节点向目的节点传输信息的通道，且中间至少有一个中间节点 路由协议$\rightarrow$路由指导IP数据报发送过程中事先约定好的规定和标准(规定了IP数据报在网络中存储和转发的方式) ​    路由协议决定了路由选择，而路由算法是路由协议的实现。 ​    在一个Au">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-01-03T16:02:48.000Z">
+<meta property="article:modified_time" content="2022-02-28T13:52:57.408Z">
+<meta property="article:author" content="Natsumi">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>因特网路由与协议 - Natsumi&#39;s Mementos</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Natsumi&#39;s Mementos</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                我
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="因特网路由与协议">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.9k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      49 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">因特网路由与协议</h1>
+            
+            <div class="markdown-body">
+              <h1 id="因特网路由与协议"><a href="#因特网路由与协议" class="headerlink" title="因特网路由与协议"></a>因特网路由与协议</h1><p>RIP BGP位于应用层</p>
+<h5 id="3个概念：路由选择-路由协议-路由算法"><a href="#3个概念：路由选择-路由协议-路由算法" class="headerlink" title="3个概念：路由选择 路由协议 路由算法"></a>3个概念：路由选择 路由协议 路由算法</h5><p><strong>路由选择</strong>$\rightarrow$通过互连网络从源节点向目的节点传输信息的通道，且中间至少有一个中间节点</p>
+<p><strong>路由协议</strong>$\rightarrow$路由指导IP数据报发送过程中事先约定好的规定和标准(规定了IP数据报在网络中存储和转发的方式)</p>
+<p>​    <em>路由协议决定了路由选择，而路由算法是路由协议的实现。</em></p>
+<p>​    <em>在一个Autonomous System内的路由协议被称为Interior Gateway Protocol</em></p>
+<p>​    <em>而AS之间的路由协议则是Exterior Gateway Protocol</em></p>
+<p>​    <em>内部网关协议：RIP IGRP EIGRP IS-IS OSPF</em></p>
+<p>​    <em>外部网关协议：EGP BGP</em></p>
+<p><strong>路由算法</strong>$\rightarrow$提高路由协议的功能，尽量减少路由时带来的开销的算法</p>
+<h2 id="分层的路由选择协议"><a href="#分层的路由选择协议" class="headerlink" title="分层的路由选择协议"></a>分层的路由选择协议</h2><p>实际上的Internet是由各个组织的自治域系统AS(Autonomous System)网络互连而成。</p>
+<p>而作用在AS内部的 被称为内部网关协议IGP(RIP,OSPF)，外部的则称为外部网关协议EGP(BGP)</p>
+<hr>
+<h5 id="目前主要使用自适应-分布式协议，对于理想的路由协议-如何实现"><a href="#目前主要使用自适应-分布式协议，对于理想的路由协议-如何实现" class="headerlink" title="目前主要使用自适应 分布式协议，对于理想的路由协议 如何实现?"></a>目前主要使用自适应 分布式协议，对于理想的路由协议 如何实现?</h5><blockquote>
+<p>正确性+完整性$\rightarrow$沿着路由表 肯定能到达所有主机</p>
+<p>简洁性+合理性$\rightarrow$是保证时延最小 占有系统资源少 同时要求算法技术复杂性尽可能低</p>
+<p>健壮性+可靠性$\rightarrow$根据结点故障，拥塞情况等进行动态的调整</p>
+<p>稳定性$\rightarrow$网络结构稳定时避免路由表不断变化</p>
+<p>公平性$\rightarrow$除非紧急，否则所有用户数据报进行一样的处理</p>
+</blockquote>
+<h2 id="内部网关协议RIP"><a href="#内部网关协议RIP" class="headerlink" title="内部网关协议RIP"></a>内部网关协议RIP</h2><h5 id="RIP简介"><a href="#RIP简介" class="headerlink" title="RIP简介"></a>RIP简介</h5><p>路由信息协议Router Information Protocol 是最早的广泛应用的分布式路由选择协议 </p>
+<p>是比较简单的内部网关协议Interior Gateway Protocol</p>
+<p>包括了RIP-1和RIP-2 其中2是1的扩充版</p>
+<h5 id="最大的特点：好消息传的快-坏消息传的慢"><a href="#最大的特点：好消息传的快-坏消息传的慢" class="headerlink" title="最大的特点：好消息传的快 坏消息传的慢"></a>最大的特点：好消息传的快 坏消息传的慢</h5><blockquote>
+<p>它的设计基于距离矢量算法(Distance-Vector)，使用Hop Count(跳数)来度量和目的网络之间的距离</p>
+<p>与设备直连时跳数为0，这个度量值等于到达目的网络间的设备数量。</p>
+</blockquote>
+<p>&#x3D;&#x3D;为了限制收敛时间，RIP规定度量值取0～15之间的整数 大于等于16目的网络不可达 <strong>这也直接使得RIP不可能应用在大型网络里</strong>&#x3D;&#x3D;</p>
+<blockquote>
+<p>ps: 什么是路由收敛，什么是收敛时间</p>
+</blockquote>
+<p><strong><u>路由收敛 $\rightarrow$ 所有路由器对当前的网络结构和路由转发达成一致的状态</u></strong></p>
+<p><strong><u>收敛时间 $\rightarrow$ 从网络拓扑发生变化，到所有相关路由器都得知这个变化并作出相应改变所需要的时间</u></strong></p>
+<h5 id="RIP如何工作"><a href="#RIP如何工作" class="headerlink" title="RIP如何工作"></a>RIP如何工作</h5><blockquote>
+<p>路由器A只和邻居路由器交换信息(同一网段所有路由器的接口)，采用主动发送 被动接收的方式</p>
+<p>RIP交换的信息是路由器当前所知的全部信息(路由表主体)</p>
+<p>每<strong>30s</strong>完成一次信息交换，更新各自路由器的路由表 &#x3D;&#x3D;在更新时，RIPv1总是广播更新，而v2是组播更新&#x3D;&#x3D;</p>
+<p>(具体的情况就是 在第一次交换之前 路由器只有直连网络的信息，在几次交换之后，会得到整个自治域的最短距离信息) 在几次交换之后，就能实现每次转发距离最小。</p>
+</blockquote>
+<h5 id="形成RIP路由表"><a href="#形成RIP路由表" class="headerlink" title="形成RIP路由表"></a>形成RIP路由表</h5><ul>
+<li>RouterA启动了RIP协议，向相邻路由器广播一个Request报文</li>
+<li>RouterB是A的邻居，受到Request报文后将自己的<strong>整个路由表</strong>封装在Response报文里，向接口对应的网络广播</li>
+<li>RouterA根据B的报文形成自己的路由表</li>
+</ul>
+<h5 id="与RIPv1相比，RIPv2的不同"><a href="#与RIPv1相比，RIPv2的不同" class="headerlink" title="与RIPv1相比，RIPv2的不同"></a>与RIPv1相比，RIPv2的不同</h5><ol>
+<li>v1是有类路由协议，v2是无类路由协议</li>
+<li>v1不支持VLSM v2支持</li>
+<li>v1没有认证功能，v2有明文和MD5认证</li>
+<li>v1没有手工汇总，必须自动；v2可以关闭自动汇总</li>
+<li><strong>V1总是广播更新，v2组播更新</strong></li>
+<li>v1没有路由标记 不能过滤和实施策略</li>
+<li>v1发送的updata包没有next-hop属性，这个属性可以用来进行路由更新的重定</li>
+<li>使用v1的路由器可以接收v2的报文，而使用v2的则不能接收v1的报文</li>
+</ol>
+<h5 id="RIP协议-如何出现环路？"><a href="#RIP协议-如何出现环路？" class="headerlink" title="RIP协议 如何出现环路？"></a>RIP协议 如何出现环路？</h5><p>在如下的网段里，R1和C直连 跳数为1 R2到C跳数则为2</p>
+<p>现在C网段出现故障 R1到C距离为16 不可达</p>
+<p><code>R1</code>准备在下一个30秒内告诉<code>R2</code>这个坏消息，但是<code>R2</code>先把自己的所有信息都告诉了<code>R1</code>,<code>R1</code>一看咦？<code>R2</code>到<code>C</code>的跳数是2，我到<code>R2</code>就一跳，现在虽然我不能直接到<code>C</code>了，那么绕道<code>R2</code>不就可以了吗？说干就干，于是把自己到<code>C</code>的跳数改为<code>3</code>.好了，真相被谎言掩盖了。</p>
+<p><code>R1</code>向<code>R2</code>这个坦白所有的信息，<code>R2</code>看到<code>R1</code>到<code>C</code>的距离变为3了，<code>R2</code>知道自己是经过<code>R1</code>才到达的<code>C</code>，于是毫不犹豫的改为4.下一次再把全部信息告诉<code>R1</code>,<code>R1</code>收到一看，咋回事啊，怎么又加一跳了呢！<code>R2</code>那边发生了什么？但是还是得根据规则，毫不犹豫的修改到C的距离跳数。<strong>就这样不断增加，直到都为16</strong>，才恍然大悟，原来大家都到不了了啊。</p>
+<hr>
+<h2 id="内部网关协议OSPF"><a href="#内部网关协议OSPF" class="headerlink" title="内部网关协议OSPF"></a>内部网关协议OSPF</h2><h5 id="OSPF简介"><a href="#OSPF简介" class="headerlink" title="OSPF简介"></a>OSPF简介</h5><p>Open Shortest Path First 开放最短路径优先协议 是为了克服RIP的缺陷而设计的。</p>
+<p>属于典型链路状态(link-state)协议。在区域内的所有路由器维护共同的链路状态数据库。</p>
+<p>维护的数据包括    链路标号    两端连接路由器    链路度量(距离 费用 带宽 时延)</p>
+<p><em><strong>可以用在较大的网络中 但路由协议和算法比较复杂</strong></em></p>
+<blockquote>
+<p>AS 被OSPF划分成若干个区域，每个区域路由器数量不超过200个，并由32位区域标识符描述。</p>
+<p>在某个区域的所有路由器，只需要知道本区域的网络拓扑结构即可。这使得OSPF协议的效率比较高</p>
+</blockquote>
+<p>AS被划分成 Backbone Area(主干区域,0.0.0.0) 和Area，主干区域路由器就是主干路由器，区域之间设置区域边界路由器，这个路由器和主干路由器连接。</p>
+<h5 id="OSPF工作原理"><a href="#OSPF工作原理" class="headerlink" title="OSPF工作原理"></a>OSPF工作原理</h5><blockquote>
+<p>在区域中使用flooding(泛洪法)，由路由器所有输出接口向相邻路由器发送某个特定链路状态信息(我所知的相邻路由器的链路状态)，再由相邻路由器向其他地方转发(不会发回来) 注意：转发的是人家的包？</p>
+<p>经过信息交换，区域中的每个路由器都保存了所有路由链路状态信息 据此组成相同链路状态数据库(LSDB)</p>
+<p>在进行数据报的路由选择时，可以通过链路状态计算得到最短路径，并且通过链路度量，能更加灵活的处理</p>
+<p>链路发生变化时，OSPF才使用泛洪法发送变化的信息</p>
+</blockquote>
+<p>分层区域设置 让交换路由信息的种类增加。随着层次增加，OSPF会逐渐变的更加复杂 但在更强大的设备加持下，OSPF能够有效的管理大规模的网络</p>
+<p>网络按照层次结构设计时大规模网络普遍采用的设计原则。一般分为接入层、汇聚层(边缘层)、核心层；同样的设备在不同的层次时所完成的工作也是不同的。</p>
+<h5 id="OSPF路由算法"><a href="#OSPF路由算法" class="headerlink" title="OSPF路由算法"></a>OSPF路由算法</h5><p>在建立链路状态数据库后 路由器相当于拥有了网络拓扑的完整信息，根据网络拓扑构建网络最短路径树，路由器就能建立自己的***<u>隐式路由表</u>***(只供自己使用)</p>
+<blockquote>
+<p>根据本区域的 链路状态数据库 计算到本区域的各个网络路由</p>
+<p>根据本AS的 链路状态数据库 计算到AS中其他区域各个网络路由。</p>
+<p>​    主干路由器根据到区域边界路由器(ABR)距离,和ABR到区内网络的距离综合选择路由</p>
+<p>根据到AS域边界路由器+AS边界路由器到外部目的网络的距离，计算选择的路由</p>
+</blockquote>
+<p>OSPF可以根据IP首部的TOS(Type Of Service服务类型)对不同的链路设置代价(1-65535) 根据链路带宽 时延来计算</p>
+<p>如果有多个相同代价的路由，还可以作多路径间多负载均衡，支持VLSM和CIDR 健壮性、稳定性、服务质量都不错。</p>
+<h5 id="OSPF和RIP的区别"><a href="#OSPF和RIP的区别" class="headerlink" title="OSPF和RIP的区别"></a>OSPF和RIP的区别</h5><p>RIP只关注最短路径(这个路径还是只看跳数决定的)和下一跳路由器；而OSPF则能进行链路状态计算，还有链路度量机制</p>
+<p>RIP在进行信息交换时不是转发人家发来的包，而是根据他的人包更新，然后发送自己的包(OSPF是转发)</p>
+<p>RIP的信息交换是定时的！而OSPF则是检测到链路变化时才发送。</p>
+<p>OSPF虽然有着更好的服务效果，但对计算能力的要求比较高</p>
+<p><em><strong>对于距离矢量路由协议来说交换的是路由表，每个路由器的路由表都是照搬其他人的包，并不需要计算</strong></em></p>
+<p><em><strong>而链路状态路由协议交换链路状态</strong></em></p>
+<h2 id="边界网关协议BGP"><a href="#边界网关协议BGP" class="headerlink" title="边界网关协议BGP"></a>边界网关协议BGP</h2><h5 id="BGP简介"><a href="#BGP简介" class="headerlink" title="BGP简介"></a>BGP简介</h5><p>自治域间的路由选择由外部网关协议负责。    早期出现的EGP(外部网关协议)已经不再使用</p>
+<p>Border Gateway Protocol(version 4)占有重要地位 所有的 AS都需要通过BGP-4获取彼此路由信息。</p>
+<h5 id="在域间路由选择时面临的问题"><a href="#在域间路由选择时面临的问题" class="headerlink" title="在域间路由选择时面临的问题"></a>在域间路由选择时面临的问题</h5><blockquote>
+<p>可扩展性 ：</p>
+<p>域间路由器必须能转发Internet里所有可能的地址的分组。需要的路由表必须提供任何合法的IP地址分配</p>
+<p>适应 域的自治特性：</p>
+<p>每个自治域被允许使用自己的内部路由协议，选择一条穿越多个AS的路径的最优化是无意义的</p>
+<p>对自治域的信任问题</p>
+<p>在路由信息交互时，各个ISP提供的路由选择信息是否存在错误？以及域间路由的灵活策略(如一个多连接的ISP可制定通往AS1与AS3的策略 存在信任问题)</p>
+</blockquote>
+<h5 id="BGP的工作原理"><a href="#BGP的工作原理" class="headerlink" title="BGP的工作原理"></a>BGP的工作原理</h5><p>&#x3D;&#x3D;<em><strong>首要目标是 找到任何一条 无环的 通往预定目的地的路径(可达优先，没必要最优)</strong></em>&#x3D;&#x3D;</p>
+<p>其处理特点是：</p>
+<p><em><strong>能够进行路由优选 避免路由环路 更高效传递路由和维护大量路由信息</strong></em></p>
+<p>跨越多跳路由器建立邻居关系(基于TCP协议) 在BGP路由里携带丰富的属性值</p>
+<ol>
+<li>自治域间路由，系统层次：自治域外提供路由信息，也就是边界路由器，一个AS设置一个发言人和其他AS交换信息</li>
+<li>政策性约束，管理员可以配置BGP对某些路径不提供中转的策略，即使它知道如何到达目的地址</li>
+<li>中转路由设施，当一个自治域同意某个业务流通过本系统转送到另外一个AS时，BGP会作为Transit System。当有一个以上的其他AS连接 但拒绝中转通信的AS称为Multihomed AS，只和一个AS连接 只传输本地业务流称为Stub System(桩AS)</li>
+<li>可靠传输，BGP使用TCP通信。</li>
+</ol>
+<hr>
+<blockquote>
+<p>路由器中路由协议和路由算法各自完成什么作用？</p>
+</blockquote>
+<p>​    路由协议规定和指导IP数据报在网络中的存储转发方式。路由算法则需要提高路由协议的功能(工作效率),尽量减少路由时产生的开销，并且尽可能做到快速收敛。</p>
+<p>路由协议完成路由信息动态交换，并以此建立路由表；路由算法是根据转发IP包的目的地址，依据路由表计算出最优转发路径和端口。</p>
+<blockquote>
+<p>什么是跳数？RIP协议为什么将最大跳数设为16？</p>
+</blockquote>
+<p>​    跳数(Hop Count)，从源端口到目的端口所经过的路由设备个数</p>
+<p>​    为了限制收敛时间。在网络中有一个设备出现故障时，与其直连的设备知道网络不可达，但在更新之前如果其他不知情的路由设备向故障网段发送报文，就会出现误解的情况从而出现环路，两个设备到故障网段的跳数不断增加直到达到16时才能确认不可达。</p>
+<blockquote>
+<p>RIP协议工作的基本思想，主要问题在那里？</p>
+</blockquote>
+<p>​    1.只和相邻路由器交换信息 采取主动发送 被动接收到方式</p>
+<p>​    2.每30s一次交换，每次都交换整个路由表</p>
+<p>主要的问题：</p>
+<div class="code-wrapper"><pre><code class="hljs">1. 规定最多16跳，所有路由器持有全部路由信息，不能用在大型网络上
+
+2. 只根据跳数来判断传输效率，不考虑链路带宽和延时等等其他因素
+3. 发生故障时，收敛速度慢
+4. 无法考虑多链路的负载均衡机制
+5. 不能识别服务等级和类型
+</code></pre></div>
+<blockquote>
+<p>目前网络路由协议主要考虑的哪些要素？</p>
+</blockquote>
+<p>见<code>理想路由协议如何实现</code></p>
+<blockquote>
+<p>简述互联网为什么要定义自治域AS，解释为什么要分层路由。</p>
+</blockquote>
+<p>定义自治域AS：全球有很多的公司和组织需要接入互联网，但根据其业务或条件的不同，其内部拓扑有着很大区别，并且其网络构成细节也希望不对外界公开，所以引入AS的概念来让不同的互联网实体可以无障碍沟通的同时保留自己的完整性。</p>
+<p>分层路由：实际上的互联网是由各个AS互连而成，而由于业务等等因素的区别，每个AS的内部拓扑和使用的协议不一定相同，因此进行分层的路由，在AS内部使用IGP，只需要考虑内部的拓扑结构，而AS之间使用BGP也可以无视不同AS内部的差异。</p>
+<blockquote>
+<p>RIP与OSPF协议主要特点，各自处理的自治域规模一般多大？</p>
+</blockquote>
+<p>RIP是基于距离矢量算法设计，只考虑跳数，所以路由选择没有考虑到链路的带宽和延时，引入不可超过16跳来避免环路也让其只能用于早期的 小型的互联网。但其的算法思路简单，对路由设备算力的要求低于OSPF协议。</p>
+<p>OSPF则属于典型链路状态协议。在区域内的所有路由器维护共同的链路状态数据库，能够考虑到各种链路因素。自治域在OSPF中被划分成了若干个区域(每区域不超过200个路由器)，这使得OSPF不仅效率高，而且也能用在较大规模的自治域中。但随着层次的增加，OSPF协议会变的更加复杂，所以对设备的配置有一定要求。</p>
+<p>RIP只能用在小型的自治域中(如果自治域中任意两个端点的最短距离大于等于16就不能再使用RIP协议了)</p>
+<p>OSPF可以用在大规模的自治域中。</p>
+<blockquote>
+<p>简单说明IGP和EGP协议主要区别。</p>
+</blockquote>
+<p>IGP(Interior Gateway Protocol)用在自治域的内部，用来在AS内部交换路由信息。</p>
+<p>EGP(Exterior Gateway Protocol)用于连接不同的自治域，通过策略和过滤来控制路由信息在不同AS间的传播。</p>
+<blockquote>
+<p>简述自治域划分与因特网主干网、区域ISP和用户接入网的关系。</p>
+</blockquote>
+<p>因特网主干网作为一个自治域和多个其他主干网互连，区域ISP则可以直接接入因特网主干网，而用户接入网则作为ISP的客户接入ISP，通过ISP来访问主干网。</p>
+<blockquote>
+<p>BGP协议是否一定能提供最佳路径，为什么？</p>
+</blockquote>
+<p>我认为不是。虽然BGP协议能路由优选 避免路由环路 更高效传递路由和维护大量路由信息。但首要目标是找到任何一条无环的通往预定目的地的路径(可达性为最优先)</p>
+<blockquote>
+<p>简述因特网的实际结构和特点，中国因特网可能的基本组成结构是？</p>
+</blockquote>
+<p>​    因特网实际上是由各个组织的自治域系统AS网络互连而成，并非平面结构而是层次结构。由核心层 分布层 接入层构成。主干网，城域网(ISP)和用户网(LAN)组成了其层次结构。</p>
+<p>组成成分：</p>
+<ol>
+<li>网根结构是多个主干网(AS)互连</li>
+<li>大公司和ISP直接与一个或者多个主干网连接</li>
+<li>小公司和个人用户作为ISP的客户接入ISP</li>
+</ol>
+<blockquote>
+<p>RIP为什么称为距离向量协议？</p>
+</blockquote>
+<p>基于距离矢量算法设计</p>
+<blockquote>
+<p>路由协议有什么作用？</p>
+</blockquote>
+<p>路由指导数据报转送方式，是传输过程中事先约定好的规定和标准</p>
+<blockquote>
+<p>什么是自治域？举两个例子。</p>
+</blockquote>
+<p>一个自治系统（Autonomous System，AS）是一组路由器的集合，它们拥有同样的选路策略、被同一技术管理部门管理运行。  </p>
+<blockquote>
+<p>因特网中的路由器任何配置？</p>
+</blockquote>
+<blockquote>
+<p>OSPF协议交换什么信息，路径最优含义？</p>
+</blockquote>
+<p>交换的是链路状态信息，包括接口上的IP地址 子网码 网络类型 代价 区域</p>
+<p>开放最短路径优先，构建一颗最短路径优先树。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/01/04/C:S%E4%B8%8EAPI/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">网络服务模式&API</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/01/03/NAT%E4%B8%8EDHCP/">
+                        <span class="hidden-mobile">NAT</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://loktarogare.github.io/" target="_blank" rel="nofollow noopener"><span>Natsumi</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
