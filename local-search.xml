@@ -4,11 +4,30 @@
   
   
   <entry>
+    <title>Vscode为什么这么多奇怪问题</title>
+    <link href="/2022/02/28/Vscode%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E4%B9%88%E5%A4%9A%E5%A5%87%E6%80%AA%E9%97%AE%E9%A2%98/"/>
+    <url>/2022/02/28/Vscode%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E4%B9%88%E5%A4%9A%E5%A5%87%E6%80%AA%E9%97%AE%E9%A2%98/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Vscode"><a href="#Vscode" class="headerlink" title="Vscode"></a>Vscode</h1><ul><li><h4 id="SyntaxError-Non-ASCII-character-39-xe6-39-in-file"><a href="#SyntaxError-Non-ASCII-character-39-xe6-39-in-file" class="headerlink" title="SyntaxError: Non-ASCII character &#39;\xe6&#39; in file"></a><code>SyntaxError: Non-ASCII character &#39;\xe6&#39; in file</code></h4><ul><li>解决方案：主文件输入 <code>-\*- coding: utf-8 -* </code></li><li>原理：未知</li></ul></li><li><h4 id="python无法找到本就存在的库"><a href="#python无法找到本就存在的库" class="headerlink" title="python无法找到本就存在的库"></a>python无法找到本就存在的库</h4><ul><li>解决方案1：<ul><li>import ssl</li><li>ssl._create_default_https_context &#x3D; ssl._create_unverified_context</li></ul></li><li>另外 出现使用vscode自带runcode找不到，但在终端里直接python3运行跑起来的情况，很离谱</li></ul></li></ul>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>编程</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>About hexo blog</title>
     <link href="/2022/02/21/about-hexo-blog/"/>
     <url>/2022/02/21/about-hexo-blog/</url>
     
-    <content type="html"><![CDATA[<h2 id="About-hexo-个人博客"><a href="#About-hexo-个人博客" class="headerlink" title="About hexo 个人博客"></a>About hexo 个人博客</h2><p><a href="https://hexo.io/zh-cn/">hexo</a>, 基于node.js的网站开发框架，无论是各种配置还是部署都足够的方便且容易。</p><p><a href="https://kok-s0s.top/">友情链接</a>,很棒的个人博客示范</p><blockquote><p>几个标准命令</p><ul><li>n new <ul><li>hexo new post  <code>filename</code></li><li>hexo new page <code>pagename</code></li></ul></li><li>g generate</li><li>s server (localhost4000 deploy)</li><li>c clean up buffet</li><li>d deploy</li></ul></blockquote><h3 id="出现的问题和解决方案"><a href="#出现的问题和解决方案" class="headerlink" title="出现的问题和解决方案"></a>出现的问题和解决方案</h3><ul><li><p>博客页面404</p><ul><li>缺少index.html 非常基础的问题<ul><li><a href="https://www.jianshu.com/p/2349c763cc02">解决方案</a></li></ul></li></ul></li><li><p>deploy失败</p><blockquote><p>一般情况下只要localhost工作正常就可不需调整，一般是服务器缓存的问题，需要等待</p></blockquote></li><li><p>tag词云</p><ul><li></li></ul></li></ul><h4 id="主题推荐："><a href="#主题推荐：" class="headerlink" title="主题推荐："></a>主题推荐：</h4><ul><li><a href="https://github.com/fluid-dev/hexo-theme-fluid">fluid</a> 非常细致的配置文件，方便调整<ul><li><a href="https://hexo.fluid-dev.com/docs/guide/#%E5%85%B3%E4%BA%8E%E6%8C%87%E5%8D%97">具体教程</a></li></ul></li></ul>]]></content>
+    <content type="html"><![CDATA[<h2 id="About-hexo-个人博客"><a href="#About-hexo-个人博客" class="headerlink" title="About hexo 个人博客"></a>About hexo 个人博客</h2><p><a href="https://hexo.io/zh-cn/">hexo</a>, 基于node.js的网站开发框架，无论是各种配置还是部署都足够的方便且容易。<br><a href="https://www.yousazoe.top/">来点花活</a></p><blockquote><p>几个标准命令</p><ul><li>n new <ul><li>hexo new post  <code>filename</code></li><li>hexo new page <code>pagename</code></li></ul></li><li>c clean up buffet</li><li>g generate</li><li>s server (localhost4000 deploy, 是实时的)</li><li>d deploy  不要随便deploy 先在本地看一下</li></ul></blockquote><h3 id="Problem-amp-Solve"><a href="#Problem-amp-Solve" class="headerlink" title="Problem &amp; Solve"></a>Problem &amp; Solve</h3><ul><li><p>博客页面404</p><ul><li>缺少index.html 非常基础的问题<ul><li><a href="https://www.jianshu.com/p/2349c763cc02">解决方案</a></li></ul></li></ul></li><li><p>deploy失败</p><blockquote><p>一般情况下只要localhost工作正常就可不需调整，一般是服务器缓存的问题，需要等待</p></blockquote></li><li><p>tag词云</p><ul><li><p>在 package.json下添加一条依赖<code>hexo-tag-cloud :&quot;^2.1.x&quot;</code>，然后在配置文件中找到<code>tags.ejs</code></p></li><li><p>将tags.ejs 进行修改，加入词云配置，同时一些调整也是在这个ejs文件中进行的</p><ul><li>如果想调整非运动字体的大小 调整min_font 和max_font</li><li>如果要调整动画字体， 调整 width 和 height</li><li>目前使用的这个方式有点小糊， 使用css绘制有可能可以解决这个问题</li></ul><p>以下是原本的文件</p><p>&lt;%<br>page.layout &#x3D; “tags”<br>page.title &#x3D; theme.tag.title || __(‘tag.title’)<br>page.subtitle &#x3D; theme.tag.subtitle || __(‘tag.subtitle’)<br>page.banner_img &#x3D; theme.tag.banner_img<br>page.banner_img_height &#x3D; theme.tag.banner_img_height<br>page.banner_mask_alpha &#x3D; theme.tag.banner_mask_alpha</p><p>var min_font &#x3D; theme.tag.tagcloud.min_font || 15<br>var max_font &#x3D; theme.tag.tagcloud.max_font || 30<br>var unit &#x3D; theme.tag.tagcloud.unit || ‘px’<br>var start_color &#x3D; theme.tag.tagcloud.start_color || ‘#BBBBEE’<br>var end_color &#x3D; theme.tag.tagcloud.end_color || ‘#337ab7’<br>%&gt;<br>&lt;div class&#x3D;”text-center tagcloud”&gt;<br>  &lt;%- tagcloud({<br>    min_font: min_font,<br>    max_font: max_font,<br>    amount: 999,<br>    unit: unit,<br>    color: true,<br>    start_color,<br>    end_color<br>  }) %&gt;<br>&lt;&#x2F;div&gt;</p></li></ul></li></ul><h4 id="主题推荐："><a href="#主题推荐：" class="headerlink" title="主题推荐："></a>主题推荐：</h4><ul><li><a href="https://github.com/fluid-dev/hexo-theme-fluid">fluid</a> 非常细致的配置文件，方便调整<ul><li><a href="https://hexo.fluid-dev.com/docs/guide/#%E5%85%B3%E4%BA%8E%E6%8C%87%E5%8D%97">具体教程</a></li></ul></li></ul>]]></content>
     
     
     
