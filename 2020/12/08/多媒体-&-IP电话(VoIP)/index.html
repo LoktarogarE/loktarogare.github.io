@@ -24,8 +24,9 @@
 <meta property="og:description" content="多媒体 &amp; IP电话(VoIP)互联网中的实时业务 多媒体「multimedia」 一般用来指含有音频&#x2F;视频的数据，当然也适用于文本  这类信号在数字化后如果按照因特网传输数据的方式到达接收方，并实时的展示出来 其结果是难以接受的 我们知道 音视频信号的传播过程 包括 抽样、编码(D&#x3D;&gt;S)、网络传输、解码 而因特网存在的 丢包 和 乱序问题 丢包 $\Right">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-12-08T08:42:19.000Z">
-<meta property="article:modified_time" content="2022-02-28T13:54:16.292Z">
+<meta property="article:modified_time" content="2022-03-01T11:32:52.057Z">
 <meta property="article:author" content="Natsumi">
+<meta property="article:tag" content="互联网原理">
 <meta name="twitter:card" content="summary_large_image">
   
   
@@ -99,6 +100,18 @@
               <a class="nav-link" href="/">
                 <i class="iconfont icon-home-fill"></i>
                 首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
               </a>
             </li>
           
@@ -351,6 +364,13 @@
               <div class="post-metas mb-3">
                 
                 
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E4%BA%92%E8%81%94%E7%BD%91%E5%8E%9F%E7%90%86/">互联网原理</a>
+                    
+                  </div>
+                
               </div>
               
               
@@ -401,7 +421,7 @@
       var s = document.createElement('script');
       s.setAttribute('src', 'https://utteranc.es/client.js');
       s.setAttribute('repo', 'LoktarogarE / commit-utterance');
-      s.setAttribute('issue-term', 'pathname');
+      s.setAttribute('issue-term', '/comments/');
       
       s.setAttribute('label', 'utterances');
       
@@ -549,6 +569,48 @@
 
 
 
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
 
 
 
