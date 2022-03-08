@@ -24,7 +24,7 @@
 <meta property="og:description" content="About hexo 个人博客hexo, 基于node.js的网站开发框架，无论是各种配置还是部署都足够的方便且容易。来点花活  几个标准命令  n new  hexo new post  filename hexo new page pagename   c clean up buffet g generate s server (localhost4000 deploy, 是实时的) d de">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-02-21T07:43:22.848Z">
-<meta property="article:modified_time" content="2022-03-01T13:10:08.497Z">
+<meta property="article:modified_time" content="2022-03-08T16:12:20.574Z">
 <meta property="article:author" content="Natsumi">
 <meta property="article:tag" content="blog">
 <meta name="twitter:card" content="summary_large_image">
@@ -190,7 +190,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.2k 字
+      1.5k 字
     </span>
   
 
@@ -199,7 +199,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11 分钟
+      13 分钟
     </span>
   
 
@@ -274,6 +274,17 @@
 <p>&lt;%<br>page.layout &#x3D; “tags”<br>page.title &#x3D; theme.tag.title || __(‘tag.title’)<br>page.subtitle &#x3D; theme.tag.subtitle || __(‘tag.subtitle’)<br>page.banner_img &#x3D; theme.tag.banner_img<br>page.banner_img_height &#x3D; theme.tag.banner_img_height<br>page.banner_mask_alpha &#x3D; theme.tag.banner_mask_alpha</p>
 <p>var min_font &#x3D; theme.tag.tagcloud.min_font || 15<br>var max_font &#x3D; theme.tag.tagcloud.max_font || 30<br>var unit &#x3D; theme.tag.tagcloud.unit || ‘px’<br>var start_color &#x3D; theme.tag.tagcloud.start_color || ‘#BBBBEE’<br>var end_color &#x3D; theme.tag.tagcloud.end_color || ‘#337ab7’<br>%&gt;<br>&lt;div class&#x3D;”text-center tagcloud”&gt;<br>  &lt;%- tagcloud({<br>    min_font: min_font,<br>    max_font: max_font,<br>    amount: 999,<br>    unit: unit,<br>    color: true,<br>    start_color,<br>    end_color<br>  }) %&gt;<br>&lt;&#x2F;div&gt;</p>
 </li>
+</ul>
+</li>
+<li><p>部署域名</p>
+<ul>
+<li>先去申请域名，在DNS解析时候记得多填入两个解析方式。</li>
+<li>然后进入repo找到setting，选择<code>Pages</code>，然后填入你的URL即可</li>
+</ul>
+</li>
+<li><p>配置域名后出现404现象</p>
+<ul>
+<li>问题原因: hexo d 会把public目录中的文件和目录推送到_config.yml中指定的远端仓库和分支里，并且完全覆盖该分支下已有内容。由于本地的public分支下没有CNAME文件，而我创建重定向时是在远端配置的，因此CNAME文件就被删除了，从而导致404。</li>
 </ul>
 </li>
 </ul>
