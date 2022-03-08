@@ -16,21 +16,21 @@
   <meta name="author" content="Natsumi">
   <meta name="keywords" content="">
   
-    <meta name="description" content="about Binary Search 二分查找普通的二分查找123456789101112131415int BinarySearch_nonrecursive(vector&lt;int&gt;&amp; nums, int target) &amp;#123;    int left &#x3D; 0, right &#x3D; (int)nums.size() - 1;    while (left &lt;&#x3D; ri">
+    <meta name="description" content="计算机技术杂谈大数据与云计算大数据不是数据存储技术，而是和海量数据相关的抽取、集成、管理、分析、解释方法，是一个庞大的框架系统。宏观上讲，对数据进行映射和提炼，发现其数据特征并加以利用。从技术上说，是通过获取、存储、分析，从大容量数据里挖掘价值的技术架构。 大数据的量级在 PB(1024TB)或者EB级，其关键特点有 Volume(量)、Variety、**Velocity(时效性短)**、Val">
 <meta property="og:type" content="article">
-<meta property="og:title" content="about Binary Search">
-<meta property="og:url" content="http://example.com/2021/04/07/about%20Binary%20Search%20%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/index.html">
+<meta property="og:title" content="计算机技术杂谈">
+<meta property="og:url" content="http://example.com/2022/03/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/index.html">
 <meta property="og:site_name" content="Natsumi&#39;s Mementos">
-<meta property="og:description" content="about Binary Search 二分查找普通的二分查找123456789101112131415int BinarySearch_nonrecursive(vector&lt;int&gt;&amp; nums, int target) &amp;#123;    int left &#x3D; 0, right &#x3D; (int)nums.size() - 1;    while (left &lt;&#x3D; ri">
+<meta property="og:description" content="计算机技术杂谈大数据与云计算大数据不是数据存储技术，而是和海量数据相关的抽取、集成、管理、分析、解释方法，是一个庞大的框架系统。宏观上讲，对数据进行映射和提炼，发现其数据特征并加以利用。从技术上说，是通过获取、存储、分析，从大容量数据里挖掘价值的技术架构。 大数据的量级在 PB(1024TB)或者EB级，其关键特点有 Volume(量)、Variety、**Velocity(时效性短)**、Val">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-04-07T08:11:24.000Z">
-<meta property="article:modified_time" content="2022-03-01T13:14:36.500Z">
+<meta property="article:published_time" content="2022-03-04T08:38:20.837Z">
+<meta property="article:modified_time" content="2022-03-08T02:39:15.883Z">
 <meta property="article:author" content="Natsumi">
-<meta property="article:tag" content="编程">
+<meta property="article:tag" content="计算机技术">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>about Binary Search - Natsumi&#39;s Mementos</title>
+  <title>计算机技术杂谈 - Natsumi&#39;s Mementos</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -176,7 +176,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="about Binary Search">
+            <span class="h2" id="subtitle" title="计算机技术杂谈">
               
             </span>
 
@@ -190,7 +190,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1k 字
+      596 字
     </span>
   
 
@@ -199,7 +199,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      9 分钟
+      5 分钟
     </span>
   
 
@@ -228,17 +228,24 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">about Binary Search</h1>
+            <h1 style="display: none">计算机技术杂谈</h1>
             
             <div class="markdown-body">
-              <h1 id="about-Binary-Search-二分查找"><a href="#about-Binary-Search-二分查找" class="headerlink" title="about Binary Search 二分查找"></a>about Binary Search 二分查找</h1><h3 id="普通的二分查找"><a href="#普通的二分查找" class="headerlink" title="普通的二分查找"></a>普通的二分查找</h3><figure class="highlight c++"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></div></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">BinarySearch_nonrecursive</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> target)</span> </span>&#123;<br>    <span class="hljs-type">int</span> left = <span class="hljs-number">0</span>, right = (<span class="hljs-type">int</span>)nums.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">while</span> (left &lt;= right) &#123;  <span class="hljs-comment">//不加 = 如果数组长度为1 会错</span><br>        <span class="hljs-type">int</span> mid = (left + right)/<span class="hljs-number">2</span>;<br>        <span class="hljs-keyword">if</span> (nums[mid] &gt; target) &#123;<br>            right = mid - <span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums[mid] &lt; target) &#123;<br>            left = mid + <span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> mid;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
-
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//递归 </span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">BinarySearch_recursive</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> target, <span class="hljs-type">int</span> left, <span class="hljs-type">int</span> right)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (left &gt; right) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    <span class="hljs-type">int</span> mid = (left + right) / <span class="hljs-number">2</span>;<br>    <span class="hljs-keyword">if</span> (nums[mid] &gt; target) <span class="hljs-keyword">return</span> <span class="hljs-built_in">BinarySearch_recursive</span>(nums, target, left, mid - <span class="hljs-number">1</span>);<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums[mid] &lt; target) <span class="hljs-keyword">return</span> <span class="hljs-built_in">BinarySearch_recursive</span>(nums, target, mid + <span class="hljs-number">1</span>, right);<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> mid;<br>    <br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h3 id="如果你只想要二分查找找到的第一个："><a href="#如果你只想要二分查找找到的第一个：" class="headerlink" title="如果你只想要二分查找找到的第一个："></a>如果你只想要二分查找找到的第一个：</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">BinarySearch_First_nonrecursive</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> target)</span> </span>&#123; <span class="hljs-comment">//查找第一个</span><br>    <span class="hljs-type">int</span> left = <span class="hljs-number">0</span>, right = (<span class="hljs-type">int</span>)nums.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">while</span> (left &lt;= right) &#123;<br>        <span class="hljs-type">int</span> mid = (left + right)/<span class="hljs-number">2</span>;<br>        <span class="hljs-keyword">if</span> (nums[mid] &lt; target) &#123;<br>            left = mid + <span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-keyword">else</span> &#123;<br>            right = mid - <span class="hljs-number">1</span>;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> nums[left] == target ? left : <span class="hljs-number">-1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<ul>
-<li>(l + r + 1) &gt;&gt; 1; 进阶的 (r - l)&#x2F;2 + l;</li>
+              <h1 id="计算机技术杂谈"><a href="#计算机技术杂谈" class="headerlink" title="计算机技术杂谈"></a>计算机技术杂谈</h1><h3 id="大数据与云计算"><a href="#大数据与云计算" class="headerlink" title="大数据与云计算"></a>大数据与云计算</h3><p>大数据不是数据存储技术，而是和海量数据相关的抽取、集成、管理、分析、解释方法，是一个庞大的框架系统。宏观上讲，对数据进行映射和提炼，发现其数据特征并加以利用。从技术上说，是通过<strong>获取、存储、分析，从大容量数据里挖掘价值的</strong>技术架构。</p>
+<p>大数据的量级在 PB(1024TB)或者EB级，其关键特点有 Volume(量)、Variety、**Velocity(时效性短)**、Value(价值密度低)</p>
+<p>云计算：这种基于互联网的计算方式，可以更好的对软硬计算资源进行整合，在我看来，这个概念有些类似操作系统中提供虚拟化资源的概念，相当于是面向互联网计算的虚拟计算环境，使用户能够方便、有效地共享和利用网络上的资源</p>
+<hr>
+<h3 id="前端-amp-后端"><a href="#前端-amp-后端" class="headerlink" title="前端 &amp; 后端"></a>前端 &amp; 后端</h3><ul>
+<li>广义上说，任何和UI直接相关的工作，都属于前端，狭义上讲，前端就是网页端</li>
+<li>后端 是具体实现功能的地方，<strong>并且负责关键的 状态维护 和 控制权限</strong>，这些控制机制不能被放在前端</li>
+</ul>
+<h3 id="JavaScript，CSS与HTML的关系"><a href="#JavaScript，CSS与HTML的关系" class="headerlink" title="JavaScript，CSS与HTML的关系"></a>JavaScript，CSS与HTML的关系</h3><ul>
+<li><strong>HTML定义页面结构和核心内容，CSS则为这些内容加上样式，JS则可以同时做到这两件事。</strong><ul>
+<li>抽象的说，html是骨，负责将信息结构化，CSS则是肉，负责添加装饰性内容</li>
+<li>CSS可以更简单的完成一些html完成很麻烦的工作，比如将所有的标题居中。</li>
+</ul>
+</li>
+<li>JS可以完成html和css的工作，但复杂一些，其主要功能是 <strong>指导浏览器如何动态建立结构和作用样式，也就是负责控制逻辑</strong></li>
 </ul>
 
             </div>
@@ -250,7 +257,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E7%BC%96%E7%A8%8B/">编程</a>
+                      <a class="hover-with-bg" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF/">计算机技术</a>
                     
                   </div>
                 
@@ -261,9 +268,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/04/15/about%20DP/">
+                      <a href="/2022/03/08/About-Homomorphic-encryption,-MPC-&amp;-Crypten/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">about Dynamic Programming</span>
+                        <span class="hidden-mobile">About Homomorphic encryption, MPC & Crypten</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -271,8 +278,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/04/05/about%20vector/">
-                        <span class="hidden-mobile">about vector</span>
+                      <a href="/2022/03/04/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/">
+                        <span class="hidden-mobile">Brief Introduction to Artificial Intelligence</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
