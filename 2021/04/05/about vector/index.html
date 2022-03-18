@@ -18,20 +18,20 @@
   
     <meta name="description" content="1234567891011121314151617181920212223242526272829303132#include&lt;vector&gt;vector&lt;int&gt; a,b; &#x2F;&#x2F;缺省所有参数时 size直接为0的vector&lt;int&gt; a(10) &#x2F;&#x2F;注意不使用[] 使用()来选定大小 值默认为0vector&lt;&gt;::reverse_iterator">
 <meta property="og:type" content="article">
-<meta property="og:title" content="about vector">
-<meta property="og:url" content="http://www.mementos.top/2021/04/05/about%20vector/index.html">
+<meta property="og:title" content="About C++ Vector">
+<meta property="og:url" content="http://www.mementos.top/2021/04/05/About%20vector/index.html">
 <meta property="og:site_name" content="Natsumi&#39;s Mementos">
 <meta property="og:description" content="1234567891011121314151617181920212223242526272829303132#include&lt;vector&gt;vector&lt;int&gt; a,b; &#x2F;&#x2F;缺省所有参数时 size直接为0的vector&lt;int&gt; a(10) &#x2F;&#x2F;注意不使用[] 使用()来选定大小 值默认为0vector&lt;&gt;::reverse_iterator">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-04-05T02:10:53.000Z">
-<meta property="article:modified_time" content="2022-03-08T15:47:25.911Z">
+<meta property="article:modified_time" content="2022-03-18T15:20:14.301Z">
 <meta property="article:author" content="Natsumi">
 <meta property="article:tag" content="Programming">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>about vector - Natsumi&#39;s Mementos</title>
+  <title>About C++ Vector - Natsumi&#39;s Mementos</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -110,18 +110,6 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
               <a class="nav-link" href="/tags/">
                 <i class="iconfont icon-tags-fill"></i>
                 标签
@@ -136,7 +124,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/about/">
                 <i class="iconfont icon-user-fill"></i>
-                我
+                关于我
               </a>
             </li>
           
@@ -177,7 +165,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="about vector">
+            <span class="h2" id="subtitle" title="About C++ Vector">
               
             </span>
 
@@ -229,10 +217,10 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">about vector</h1>
+            <h1 style="display: none">About C++ Vector</h1>
             
             <div class="markdown-body">
-              <figure class="highlight c"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></div></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;vector&gt;</span></span><br><span class="hljs-built_in">vector</span>&lt;<span class="hljs-type">int</span>&gt; a,b; <span class="hljs-comment">//缺省所有参数时 size直接为0的</span><br><span class="hljs-built_in">vector</span>&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title function_">a</span><span class="hljs-params">(<span class="hljs-number">10</span>)</span> <span class="hljs-comment">//注意不使用[] 使用()来选定大小 值默认为0</span><br><br><span class="hljs-built_in">vector</span>&lt;&gt;::reverse_iterator i;<span class="hljs-comment">//在STL库中定义反向迭代器 </span><br><span class="hljs-comment">//迭代器可以用来遍历，反向迭代器++之后往前移动 通过加*号的迭代器 也可以直接访问数组元素的值(作为在STL中封装好的指针来使用)</span><br>begin(),end(),rbegin(),rend(); <span class="hljs-comment">//后两个的意思</span><br><br>a.assign(b.begin(),b.begin()+<span class="hljs-number">3</span>); <span class="hljs-comment">//b数组的前3个元素分给a</span><br>a.assign(<span class="hljs-number">4</span>,<span class="hljs-number">2</span>); <span class="hljs-comment">//4个2</span><br><br>a.back(); a.front(); a[i]; a.clear(); a.empty(); a.pop_back();<br><br><span class="hljs-comment">//删除a中第一个（从第0个算起）到第二个元素，也就是说删除的元素从a.begin()+1算起（包括它）一直到a.begin()+3（不包括它）结束</span><br>a.erase(a.begin()+<span class="hljs-number">1</span>,a.begin()+<span class="hljs-number">3</span>);<br>a.push_back(); a.emplace_back(); <span class="hljs-comment">//两者一样功能 建议使用emplace 优化内存 c++11可以使用</span><br><br>a.insert(a.begin()+<span class="hljs-number">1</span>,<span class="hljs-number">5</span>); <span class="hljs-comment">//第一个参数就是插入值之后这个值在数组里的下标！注意使用迭代器(前插)</span><br>a.insert(a.begin()+<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">5</span>); <span class="hljs-comment">//可以连续插入多个一样的 插入个数是第二个参数</span><br>a.inse3rt(a.begin()+<span class="hljs-number">1</span>,b+<span class="hljs-number">3</span>,b+<span class="hljs-number">6</span>); <span class="hljs-comment">//b是数组，在1号下标插入 b的[3,6)下标元素(不包括最后一个)</span><br><br>a.size();a.capacity(); <span class="hljs-comment">//返回数组大小 由于在空间不够时vector每次都直接扩大一倍，size返回的是元素的个数 而capacity返回的是现在vector能容纳多少个元素</span><br><br>a.resize(<span class="hljs-number">10</span>); <span class="hljs-comment">//把长度变成10 多删 少补(值随机)</span><br>a.resize(<span class="hljs-number">10</span>,<span class="hljs-number">2</span>); <span class="hljs-comment">//与上面的区别在于补的数值默认为2</span><br>a.reserve(<span class="hljs-number">100</span>); <span class="hljs-comment">//注意和reverse区分 注意：reserve是保留空间，但不创建对象(resize的可以直接调用)</span><br><br><br>a.swap(b); <span class="hljs-comment">//交换向量a和b</span><br><span class="hljs-comment">//b为向量，向量的比较操作还有 != &gt;= &gt; &lt;= &lt;</span><br>a==b;<br><span class="hljs-keyword">return</span> <span class="hljs-built_in">vector</span>&lt;<span class="hljs-type">int</span>&gt;(a.begin(), a.begin()+k) ; 我们可以通过这个语句 来返回数组的 前k项<br></code></pre></td></tr></table></figure>
+              <figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;vector&gt;</span></span><br><span class="hljs-built_in">vector</span>&lt;<span class="hljs-type">int</span>&gt; a,b; <span class="hljs-comment">//缺省所有参数时 size直接为0的</span><br><span class="hljs-built_in">vector</span>&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title function_">a</span><span class="hljs-params">(<span class="hljs-number">10</span>)</span> <span class="hljs-comment">//注意不使用[] 使用()来选定大小 值默认为0</span><br><br><span class="hljs-built_in">vector</span>&lt;&gt;::reverse_iterator i;<span class="hljs-comment">//在STL库中定义反向迭代器 </span><br><span class="hljs-comment">//迭代器可以用来遍历，反向迭代器++之后往前移动 通过加*号的迭代器 也可以直接访问数组元素的值(作为在STL中封装好的指针来使用)</span><br>begin(),end(),rbegin(),rend(); <span class="hljs-comment">//后两个的意思</span><br><br>a.assign(b.begin(),b.begin()+<span class="hljs-number">3</span>); <span class="hljs-comment">//b数组的前3个元素分给a</span><br>a.assign(<span class="hljs-number">4</span>,<span class="hljs-number">2</span>); <span class="hljs-comment">//4个2</span><br><br>a.back(); a.front(); a[i]; a.clear(); a.empty(); a.pop_back();<br><br><span class="hljs-comment">//删除a中第一个（从第0个算起）到第二个元素，也就是说删除的元素从a.begin()+1算起（包括它）一直到a.begin()+3（不包括它）结束</span><br>a.erase(a.begin()+<span class="hljs-number">1</span>,a.begin()+<span class="hljs-number">3</span>);<br>a.push_back(); a.emplace_back(); <span class="hljs-comment">//两者一样功能 建议使用emplace 优化内存 c++11可以使用</span><br><br>a.insert(a.begin()+<span class="hljs-number">1</span>,<span class="hljs-number">5</span>); <span class="hljs-comment">//第一个参数就是插入值之后这个值在数组里的下标！注意使用迭代器(前插)</span><br>a.insert(a.begin()+<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">5</span>); <span class="hljs-comment">//可以连续插入多个一样的 插入个数是第二个参数</span><br>a.inse3rt(a.begin()+<span class="hljs-number">1</span>,b+<span class="hljs-number">3</span>,b+<span class="hljs-number">6</span>); <span class="hljs-comment">//b是数组，在1号下标插入 b的[3,6)下标元素(不包括最后一个)</span><br><br>a.size();a.capacity(); <span class="hljs-comment">//返回数组大小 由于在空间不够时vector每次都直接扩大一倍，size返回的是元素的个数 而capacity返回的是现在vector能容纳多少个元素</span><br><br>a.resize(<span class="hljs-number">10</span>); <span class="hljs-comment">//把长度变成10 多删 少补(值随机)</span><br>a.resize(<span class="hljs-number">10</span>,<span class="hljs-number">2</span>); <span class="hljs-comment">//与上面的区别在于补的数值默认为2</span><br>a.reserve(<span class="hljs-number">100</span>); <span class="hljs-comment">//注意和reverse区分 注意：reserve是保留空间，但不创建对象(resize的可以直接调用)</span><br><br><br>a.swap(b); <span class="hljs-comment">//交换向量a和b</span><br><span class="hljs-comment">//b为向量，向量的比较操作还有 != &gt;= &gt; &lt;= &lt;</span><br>a==b;<br><span class="hljs-keyword">return</span> <span class="hljs-built_in">vector</span>&lt;<span class="hljs-type">int</span>&gt;(a.begin(), a.begin()+k) ; 我们可以通过这个语句 来返回数组的 前k项<br></code></pre></div></td></tr></table></figure>
 
 <p><strong>注意</strong></p>
 <blockquote>
@@ -283,7 +271,7 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/04/07/about%20Binary%20Search%20%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
+                      <a href="/2021/04/07/About%20Binary%20Search%20%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">about Binary Search</span>
                         <span class="visible-mobile">上一篇</span>
@@ -294,7 +282,7 @@
                     
                     
                       <a href="/2021/03/24/Chapter%203%20Stack/">
-                        <span class="hidden-mobile">Stack Leetcode</span>
+                        <span class="hidden-mobile">Chapter3 Stack Leetcode</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

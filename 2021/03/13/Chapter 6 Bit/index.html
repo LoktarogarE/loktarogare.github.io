@@ -18,7 +18,7 @@
   
     <meta name="description" content="1680. 连接连续二进制数字「Medium」给你一个整数 n ，请你将 1 到 n 的二进制表示连接起来，并返回连接结果对应的 十进制 数字对 10^9 + 7 取余的结果。 示例 1： 123输入：n &#x3D; 1输出：1解释：二进制的 &quot;1&quot; 对应着十进制的 1 。  示例 2： 1234输入：n &#x3D; 3输出：27解释：二进制下，1，2 和 3 分别对应 &quot;1&amp;quo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Bit Leetcode">
+<meta property="og:title" content="Chapter4 Bit Manipulation Leetcode">
 <meta property="og:url" content="http://www.mementos.top/2021/03/13/Chapter%206%20Bit/index.html">
 <meta property="og:site_name" content="Natsumi&#39;s Mementos">
 <meta property="og:description" content="1680. 连接连续二进制数字「Medium」给你一个整数 n ，请你将 1 到 n 的二进制表示连接起来，并返回连接结果对应的 十进制 数字对 10^9 + 7 取余的结果。 示例 1： 123输入：n &#x3D; 1输出：1解释：二进制的 &quot;1&quot; 对应着十进制的 1 。  示例 2： 1234输入：n &#x3D; 3输出：27解释：二进制下，1，2 和 3 分别对应 &quot;1&amp;quo">
@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://pic.leetcode-cn.com/1603022900-hnUxBz-Picture5.png">
 <meta property="og:image" content="https://pic.leetcode-cn.com/9716b1a1ead21824b8216c7d54910bee4d838c011581f4e3d82a14f71cb392a1-Picture1.png">
 <meta property="article:published_time" content="2021-03-13T02:52:27.000Z">
-<meta property="article:modified_time" content="2022-03-08T16:46:00.005Z">
+<meta property="article:modified_time" content="2022-03-18T15:21:22.666Z">
 <meta property="article:author" content="Natsumi">
 <meta property="article:tag" content="Programming">
 <meta property="article:tag" content="Algorithm">
@@ -37,7 +37,7 @@
 <meta name="twitter:image" content="https://pic.leetcode-cn.com/1611415418-aCzGJI-Picture2.png">
   
   
-  <title>Bit Leetcode - Natsumi&#39;s Mementos</title>
+  <title>Chapter4 Bit Manipulation Leetcode - Natsumi&#39;s Mementos</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -116,18 +116,6 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
               <a class="nav-link" href="/tags/">
                 <i class="iconfont icon-tags-fill"></i>
                 标签
@@ -142,7 +130,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/about/">
                 <i class="iconfont icon-user-fill"></i>
-                我
+                关于我
               </a>
             </li>
           
@@ -183,7 +171,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Bit Leetcode">
+            <span class="h2" id="subtitle" title="Chapter4 Bit Manipulation Leetcode">
               
             </span>
 
@@ -235,7 +223,7 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Bit Leetcode</h1>
+            <h1 style="display: none">Chapter4 Bit Manipulation Leetcode</h1>
             
             <div class="markdown-body">
               <h1 id="1680-连接连续二进制数字「Medium」"><a href="#1680-连接连续二进制数字「Medium」" class="headerlink" title="1680. 连接连续二进制数字「Medium」"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/concatenation-of-consecutive-binary-numbers/">1680. 连接连续二进制数字「Medium」</a></h1><p>给你一个整数 <code>n</code> ，请你将 <code>1</code> 到 <code>n</code> 的二进制表示连接起来，并返回连接结果对应的 <strong>十进制</strong> 数字对 <code>10^9 + 7</code> 取余的结果。</p>
@@ -368,7 +356,7 @@
 </blockquote>
 <figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-type">int</span> a, <span class="hljs-type">int</span> b)</span> </span>&#123;<br>        <span class="hljs-keyword">while</span> (b != <span class="hljs-number">0</span>) &#123; <span class="hljs-comment">// 当进位为 0 时跳出</span><br>            <span class="hljs-type">int</span> c = (<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span>)(a &amp; b) &lt;&lt; <span class="hljs-number">1</span>;  <span class="hljs-comment">// c = 进位</span><br>            a ^= b; <span class="hljs-comment">// a = 非进位和</span><br>            b = c; <span class="hljs-comment">// b = 进位</span><br>        &#125;<br>        <span class="hljs-keyword">return</span> a;<br>    &#125;<br>&#125;;<br></code></pre></div></td></tr></table></figure>
 
-<h1 id=""><a href="#" class="headerlink" title=""></a></h1>
+<h1 id><a href="#" class="headerlink" title></a></h1>
             </div>
             <hr>
             <div>
@@ -393,7 +381,7 @@
                     
                       <a href="/2021/03/13/Chapter%205%20Tree/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Tree Leetcode</span>
+                        <span class="hidden-mobile">Chapter5 Tree Leetcode</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -401,8 +389,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/01/18/about%20priority_queue%20&amp;%20heap/">
-                        <span class="hidden-mobile">about priority_queue & heap</span>
+                      <a href="/2021/01/18/About%20priority_queue%20&amp;%20heAp/">
+                        <span class="hidden-mobile">About Priority_queue & Heap</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
