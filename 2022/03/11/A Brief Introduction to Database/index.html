@@ -19,12 +19,12 @@
     <meta name="description" content="第一章  数据库系统概述1、四个概念：什么是数据?  什么是数据库? 什么是数据库管理系统（DBMS）？什么是数据库系统(DBS)？2、熟记数据库系统的组成。3、理解DBA是对数据库进行集中控制和管理的最重要人员。4、实例和模式的对比（内容&#x2F;状态 vs 结构，变化 vs 稳定）5、三级模式：物理模式（又称内模式、存储模式），逻辑模式（又称模式），和子模式（又称外模式）的含义是什么？一个数">
 <meta property="og:type" content="article">
 <meta property="og:title" content="A Brief Introduction to database">
-<meta property="og:url" content="http://www.mementos.top/2022/03/11/%E6%95%B0%E6%8D%AE%E5%BA%93DB/index.html">
+<meta property="og:url" content="http://www.mementos.top/2022/03/11/A%20Brief%20Introduction%20to%20Database/index.html">
 <meta property="og:site_name" content="Natsumi&#39;s Mementos">
 <meta property="og:description" content="第一章  数据库系统概述1、四个概念：什么是数据?  什么是数据库? 什么是数据库管理系统（DBMS）？什么是数据库系统(DBS)？2、熟记数据库系统的组成。3、理解DBA是对数据库进行集中控制和管理的最重要人员。4、实例和模式的对比（内容&#x2F;状态 vs 结构，变化 vs 稳定）5、三级模式：物理模式（又称内模式、存储模式），逻辑模式（又称模式），和子模式（又称外模式）的含义是什么？一个数">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-11T10:30:55.135Z">
-<meta property="article:modified_time" content="2022-03-11T11:24:31.304Z">
+<meta property="article:modified_time" content="2022-03-16T07:47:26.096Z">
 <meta property="article:author" content="Natsumi">
 <meta property="article:tag" content="Computation tech">
 <meta property="article:tag" content="Database">
@@ -191,7 +191,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      4.4k 字
+      4.6k 字
     </span>
   
 
@@ -200,7 +200,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      37 分钟
+      39 分钟
     </span>
   
 
@@ -287,9 +287,20 @@
 <li>不同域之间的笛卡尔积<ul>
 <li>比如D1 {计算机系，日语系}； D2 {1班，2班}； D3 {张三，李四，王五}</li>
 <li>三者相互组合，形如 <code>(计算机系，1班，张三)</code> 被我们看作一个<code>元组</code>(在实际的表格里，这就是一行), 3个域的笛卡尔积能形成 2 * 2 * 3共 12个元组，整个笛卡尔积则是 3(3个域) * 12(12个元组) 的表格。 <strong>应当注意的是，实际上的关系，则是取整个笛卡尔积中有效的部分</strong></li>
-<li></li>
 </ul>
 </li>
+<li>关系的性质<ul>
+<li>一行为一个元组，一列称为一个属性 </li>
+<li><strong>码</strong> ： <ul>
+<li>Candidate Key  候选码 : 可以唯一标识一个元组的属性 (比如 学号属性可以唯一标识出学生)</li>
+<li>All Key   如果说所有的属性才可以唯一的标识一个元组(极端情况)，那么这些属性组 合起来称为全码</li>
+<li>Primary Key 主码：和全码的意义差不多相反，如果有很多个属性都可以唯一的标识一个元组(也就是有多个候选码)，那么选定其中的一个属性作为主码。</li>
+</ul>
+</li>
+<li>在关系数据库中，行(列)的次序是可以任意更换的， 并且每个分量都是不可分的数据项</li>
+</ul>
+</li>
+<li>关系的五种基本操作 「选择 投影 并 差 笛卡尔积」</li>
 </ul>
 
             </div>
