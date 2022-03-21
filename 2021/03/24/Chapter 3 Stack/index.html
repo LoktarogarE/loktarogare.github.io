@@ -1,0 +1,645 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar1.png">
+  <link rel="icon" href="/img/avatar1.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Natsumi">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="84. 柱状图中最大的矩形「Hard」给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。 求在该柱状图中，能够勾勒出来的矩形的最大面积。  以上是柱状图的示例，其中每个柱子的宽度为 1，给定的高度为 [2,1,5,6,2,3]。  图中阴影部分为所能勾勒出的最大矩形面积，其面积为 10 个单位。 示例: 12输入: [2,1,5,6,2,3]输出: 10">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chapter3 Stack Leetcode">
+<meta property="og:url" content="http://www.mementos.top/2021/03/24/Chapter%203%20Stack/index.html">
+<meta property="og:site_name" content="Natsumi&#39;s Mementos">
+<meta property="og:description" content="84. 柱状图中最大的矩形「Hard」给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。 求在该柱状图中，能够勾勒出来的矩形的最大面积。  以上是柱状图的示例，其中每个柱子的宽度为 1，给定的高度为 [2,1,5,6,2,3]。  图中阴影部分为所能勾勒出的最大矩形面积，其面积为 10 个单位。 示例: 12输入: [2,1,5,6,2,3]输出: 10">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/12/histogram.png">
+<meta property="og:image" content="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/12/histogram_area.png">
+<meta property="og:image" content="https://assets.leetcode-cn.com/solution-static/331/1.png">
+<meta property="article:published_time" content="2021-03-24T14:42:32.000Z">
+<meta property="article:modified_time" content="2022-03-18T15:21:02.801Z">
+<meta property="article:author" content="Natsumi">
+<meta property="article:tag" content="Programming">
+<meta property="article:tag" content="Algorithm">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/12/histogram.png">
+  
+  
+  <title>Chapter3 Stack Leetcode - Natsumi&#39;s Mementos</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"www.mementos.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Natsumi&#39;s Mementos</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于我
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Chapter3 Stack Leetcode">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      7.1k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      60 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Chapter3 Stack Leetcode</h1>
+            
+            <div class="markdown-body">
+              <h1 id="84-柱状图中最大的矩形「Hard」"><a href="#84-柱状图中最大的矩形「Hard」" class="headerlink" title="84. 柱状图中最大的矩形「Hard」"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/largest-rectangle-in-histogram/">84. 柱状图中最大的矩形「Hard」</a></h1><p>给定 <code>n</code> 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 <code>1</code> 。</p>
+<p>求在该柱状图中，能够勾勒出来的矩形的最大面积。</p>
+<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/12/histogram.png" srcset="/img/loading.gif" lazyload alt="picture"></p>
+<p>以上是柱状图的示例，其中每个柱子的宽度为 1，给定的高度为 <code>[2,1,5,6,2,3]</code>。</p>
+<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/12/histogram_area.png" srcset="/img/loading.gif" lazyload alt="pictture"></p>
+<p>图中阴影部分为所能勾勒出的最大矩形面积，其面积为 <code>10</code> 个单位。</p>
+<p><strong>示例:</strong></p>
+<figure class="highlight tex"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs tex">输入: [2,1,5,6,2,3]<br>输出: 10<br></code></pre></div></td></tr></table></figure>
+
+<blockquote>
+<p>算法分析：</p>
+<p>枚举「宽」的暴力法这里就不再过多赘述了。</p>
+<p>&#x3D;&#x3D;算法引入&#x3D;&#x3D;：</p>
+<p>我们对枚举「高」来做一些分析以及优化。</p>
+<p>对枚举「高」的暴力法就是对每一条「高」进行中心扩展：</p>
+<ul>
+<li>首先我们枚举某一根柱子 $i$ 作为高 $h&#x3D;height[i]$.</li>
+<li>随后我们需要进行向左右两边扩展，使得扩展到的柱子的高度均不小于 $h$，也就是说，我们需要找到<strong>左右两侧最近的高度小于 $h$ 的柱子</strong>，这两根柱子之间的所有柱子的高度均不小于 $h$，这就是 $i$ 能扩展的最远范围.</li>
+</ul>
+<p>对于上述分析我们可知，我们可以使用<strong>单调栈</strong>来维护左边和右边的高度依赖关系。由分析可知，我们需要查找的是距离 $i$ 最近比 $h$ 低的柱子，所以我们可以维护一个单调递增的栈，每次只需要查找对比栈顶元素与当前的柱子高度，进行 $pop$ 操作和 $push$ 操作即可。</p>
+<p>&#x3D;&#x3D;单调栈的算法如下&#x3D;&#x3D;：</p>
+<ul>
+<li>当我们枚举到第 $i$ 根柱子时，我们从栈顶不断移除 $height[j]&gt;height[i]$ 的 $j$ 值。在移除完毕后，栈顶元素的 $j$ 值就一定满足 $height[j]&lt;height[i]$，此时 $j$ 就是 $i$ 左侧且最近的小于其高度的柱子。</li>
+<li>这里会有一种特殊情况。如果我们移除了栈中所有的 $j$ 值，说明 $i$ 左侧所有柱子的高度都大于 $height[i]$，那么我们可以认为 $i$ 左侧且最近的小于其高度的柱子在位置 $j&#x3D;-1$，它是一根「虚拟」的、高度无限低的柱子。这样的定义不会对我们的答案产生任何的影响，我们也称这根「虚拟」的柱子为「哨兵」。</li>
+<li>最后我们将 $i$ 这根柱子入栈。</li>
+</ul>
+<p>Details：</p>
+<p>我们在栈中存放的是柱子的下标而非柱子高度。</p>
+<p>最后求面积为 <code>maxArea = max(maxArea, (right[i] - left[i] - 1) * heights[i])</code>，具体下标的长度需要注意。</p>
+<p>本题还能进行常数优化 $\Rightarrow$ 一次遍历，这里就不提了</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">largestRectangleArea</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; heights)</span> </span>&#123;<br>        <span class="hljs-type">int</span> maxArea = <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> n = (<span class="hljs-type">int</span>)heights.<span class="hljs-built_in">size</span>();<br>        stack&lt;<span class="hljs-type">int</span>&gt; min_stack;<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">left</span><span class="hljs-params">(n)</span>, <span class="hljs-title">right</span><span class="hljs-params">(n)</span></span>;<br>        <br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; ++i) &#123;<br>            <span class="hljs-keyword">while</span> (!min_stack.<span class="hljs-built_in">empty</span>() <span class="hljs-keyword">and</span> heights[i] &lt;= heights[min_stack.<span class="hljs-built_in">top</span>()]) &#123;<br>                min_stack.<span class="hljs-built_in">pop</span>();<br>            &#125;<br>            left[i] = min_stack.<span class="hljs-built_in">empty</span>() ? <span class="hljs-number">-1</span> : min_stack.<span class="hljs-built_in">top</span>();<br>            min_stack.<span class="hljs-built_in">push</span>(i);<br>        &#125;<br>        <br>        min_stack = <span class="hljs-built_in">stack</span>&lt;<span class="hljs-type">int</span>&gt;();<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = n - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; --i) &#123;<br>            <span class="hljs-keyword">while</span> (!min_stack.<span class="hljs-built_in">empty</span>() <span class="hljs-keyword">and</span> heights[i] &lt;= heights[min_stack.<span class="hljs-built_in">top</span>()]) &#123;<br>                min_stack.<span class="hljs-built_in">pop</span>();<br>            &#125;<br>            right[i] = min_stack.<span class="hljs-built_in">empty</span>() ? n : min_stack.<span class="hljs-built_in">top</span>();<br>            min_stack.<span class="hljs-built_in">push</span>(i);<br>        &#125;<br>        <br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; ++i) &#123;<br>            maxArea = <span class="hljs-built_in">max</span>(maxArea, (right[i] - left[i] - <span class="hljs-number">1</span>) * heights[i]);<br>        &#125;<br>        <span class="hljs-keyword">return</span> maxArea;<br>    &#125;<br>&#125;;<br></code></pre></div></td></tr></table></figure>
+
+<h1 id="503-下一个更大元素-II「Medium」"><a href="#503-下一个更大元素-II「Medium」" class="headerlink" title="503. 下一个更大元素 II「Medium」"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/next-greater-element-ii/">503. 下一个更大元素 II「Medium」</a></h1><p>给定一个循环数组（最后一个元素的下一个元素是数组的第一个元素），输出每个元素的下一个更大元素。数字 $x$ 的下一个更大的元素是按数组遍历顺序，这个数字之后的第一个比它更大的数，这意味着你应该循环地搜索它的下一个更大的数。如果不存在，则输出 $-1$.</p>
+<p><strong>示例 1:</strong></p>
+<figure class="highlight tex"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs tex">输入: [1,2,1]<br>输出: [2,-1,2]<br>解释: 第一个 1 的下一个更大的数是 2；<br>数字 2 找不到下一个更大的数； <br>第二个 1 的下一个最大的数需要循环搜索，结果也是 2。<br></code></pre></div></td></tr></table></figure>
+
+<blockquote>
+<p>算法分析：</p>
+<p>我们可以使用单调栈解决本题。单调栈中保存的是下标，从栈底到栈顶的下标在数组 $nums$ 中对应的值是单调不升的。</p>
+<p>每次我们移动到数组中的一个新的位置 $i$，我们就将当前单调栈中所有对应值小于 $nums[i]$ 的下标弹出单调栈，这些值的下一个更大元素即为 $nums[i]$，随后我们将位置 $i$ 入栈.</p>
+<p>但是注意到只遍历一次序列是不够的，例如序列 $[2,3,1]$，最后单调栈中将剩余 $[3,1]$，其中元素 $[1]$ 的下一个更大元素还是不知道的</p>
+<p>一个朴素的思想是，我们可以把这个循环数组「拉直」，即复制该序列的前 $n-1$ 个元素拼接在原序列的后面。这样我们就可以将这个新序列当作普通序列，用上文的方法来处理。</p>
+<p>而在本题中，我们不需要显性地将该循环数组「拉直」，而只需要在处理时对下标取模即可。</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">nextGreaterElements</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> n = nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">ret</span><span class="hljs-params">(n, <span class="hljs-number">-1</span>)</span></span>;<br>        stack&lt;<span class="hljs-type">int</span>&gt; stk;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n * <span class="hljs-number">2</span> - <span class="hljs-number">1</span>; i++) &#123;<br>            <span class="hljs-keyword">while</span> (!stk.<span class="hljs-built_in">empty</span>() &amp;&amp; nums[stk.<span class="hljs-built_in">top</span>()] &lt; nums[i % n]) &#123;<br>                ret[stk.<span class="hljs-built_in">top</span>()] = nums[i % n];<br>                stk.<span class="hljs-built_in">pop</span>();<br>            &#125;<br>            stk.<span class="hljs-built_in">push</span>(i % n);<br>        &#125;<br>        <span class="hljs-keyword">return</span> ret;<br>    &#125;<br>&#125;;<br></code></pre></div></td></tr></table></figure>
+
+<h1 id="224-基本计算器"><a href="#224-基本计算器" class="headerlink" title="224. 基本计算器"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/basic-calculator/%E3%80%8CHard%E3%80%8D">224. 基本计算器</a></h1><p>实现一个基本的计算器来计算一个简单的字符串表达式 <code>s</code> 的值。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight tex"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs tex">输入：s = &quot;(1+(4+5+2)-3)+(6+8)&quot;<br>输出：23<br></code></pre></div></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= s.length &lt;= 3 * 105</code></li>
+<li><code>s</code> 由数字、<code>&#39;+&#39;</code>、<code>&#39;-&#39;</code>、<code>&#39;(&#39;</code>、<code>&#39;)&#39;</code>、和 <code>&#39; &#39;</code> 组成</li>
+<li><code>s</code> 表示一个有效的表达式</li>
+</ul>
+<blockquote>
+<p>算法分析：</p>
+<p>方法：括号展开 + 栈</p>
+<p>由于字符串除了数字与括号外，只有加号和减号两种运算符。因此，如果展开表达式中所有的括号，则得到的新表达式中，数字本身不会发生变化，只是每个数字前面的符号会发生变化。</p>
+<p>因此，我们考虑使用一个取值为 {-1, 1} 的整数 $sign$ 代表「当前」的符号。根据括号表达式的性质，它的取值：</p>
+<ul>
+<li>与字符串中当前位置的运算符有关；</li>
+<li>如果当前位置处于一系列括号之内，则也与这些括号前面的运算符有关：每当遇到一个以 -− 号开头的括号，则意味着此后的符号都要被「翻转」。</li>
+</ul>
+<p>考虑到第二点，我们需要维护一个栈 $ops$，其中栈顶元素记录了当前位置所处的每个括号所「共同形成」的符号。例如，对于字符串 $1+2+(3-(4+5))$：</p>
+<ul>
+<li>扫描到 $1+2$ 时，由于当前位置没有被任何括号所包含，则栈顶元素为初始值 $+1$.</li>
+<li>扫描到 $1+2+(3$ 时，当前位置被一个括号所包含，该括号前面的符号为 $+$ 号，因此栈顶元素依然 $+1$.</li>
+<li>扫描到 $1+2+(3-(4$ 时，当前位置被两个括号所包含，分别对应着 $+$ 号和 $-$ 号，由于 $+$ 号和 $-$ 号合并的结果为 $-$ 号，因此栈顶元素变为 $-1$.</li>
+</ul>
+<p>​    在得到栈 $ops$ 之后，$sign$ 的取值就能够确定了：&#x3D;&#x3D;如果当前遇到了 $+$ 号，则更新 $sign\leftarrow ops.top()$ ；如果遇到了遇到了 $-$ 号，则更新 $sign\leftarrow -ops.top()$&#x3D;&#x3D;.</p>
+<p>然后，每当遇到 $($ 时，都要将当前的 $sign$ 取值压入栈中；每当遇到 $)$ 时，都从栈中弹出一个元素。这样，我们能够在扫描字符串的时候，即时地更新 $ops$ 中的元素.</p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">calculate</span><span class="hljs-params">(s <span class="hljs-type">string</span>)</span></span> <span class="hljs-type">int</span> &#123;<br>	n := <span class="hljs-built_in">len</span>(s)<br>	ans := <span class="hljs-number">0</span><br>	ops := []<span class="hljs-type">int</span>&#123;<span class="hljs-number">1</span>&#125;<br>	sign := <span class="hljs-number">1</span><br><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n; &#123;<br>		<span class="hljs-keyword">switch</span> s[i] &#123;<br>		<span class="hljs-keyword">case</span> <span class="hljs-string">&#x27; &#x27;</span>:<br>			i++<br>		<span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;-&#x27;</span>:<br>			sign = -ops[<span class="hljs-built_in">len</span>(ops)<span class="hljs-number">-1</span>]<br>			i++<br>		<span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;+&#x27;</span>:<br>			sign = ops[<span class="hljs-built_in">len</span>(ops)<span class="hljs-number">-1</span>]<br>			i++<br>		<span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;(&#x27;</span>:<br>			ops = <span class="hljs-built_in">append</span>(ops, sign)<br>			i++<br>		<span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;)&#x27;</span>:<br>			ops = ops[:<span class="hljs-built_in">len</span>(ops)<span class="hljs-number">-1</span>]<br>			i++<br>		<span class="hljs-keyword">default</span>:<br>			num := <span class="hljs-number">0</span><br>			<span class="hljs-keyword">for</span> ; i &lt; n &amp;&amp; <span class="hljs-string">&#x27;0&#x27;</span> &lt;= s[i] &amp;&amp; s[i] &lt;= <span class="hljs-string">&#x27;9&#x27;</span>; i++ &#123;<br>				num = num*<span class="hljs-number">10</span> + (<span class="hljs-type">int</span>)(s[i]-<span class="hljs-string">&#x27;0&#x27;</span>)<br>			&#125;<br>			ans += sign * num<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> ans<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<h1 id="331-验证二叉树的前序序列化「Medium」"><a href="#331-验证二叉树的前序序列化「Medium」" class="headerlink" title="331. 验证二叉树的前序序列化「Medium」"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/verify-preorder-serialization-of-a-binary-tree/">331. 验证二叉树的前序序列化「Medium」</a></h1><p>序列化二叉树的一种方法是使用前序遍历。当我们遇到一个非空节点时，我们可以记录下这个节点的值。如果它是一个空节点，我们可以使用一个标记值记录，例如 <code>#</code>。</p>
+<figure class="highlight tex"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs tex">     <span class="hljs-built_in">_</span>9<span class="hljs-built_in">_</span><br>    /   <span class="hljs-keyword">\</span><br><span class="hljs-keyword"></span>   3     2<br>  / <span class="hljs-keyword">\ </span>  / <span class="hljs-keyword">\</span><br><span class="hljs-keyword"></span> 4   1  <span class="hljs-params">#</span>  6<br>/ <span class="hljs-keyword">\ </span>/ <span class="hljs-keyword">\ </span>  / <span class="hljs-keyword">\</span><br><span class="hljs-keyword"></span><span class="hljs-params">#</span> <span class="hljs-params">#</span> <span class="hljs-params">#</span> <span class="hljs-params">#</span>   <span class="hljs-params">#</span> <span class="hljs-params">#</span><br></code></pre></div></td></tr></table></figure>
+
+<p>例如，上面的二叉树可以被序列化为字符串 <code>&quot;9,3,4,#,#,1,#,#,2,#,6,#,#&quot;</code>，其中 <code>#</code> 代表一个空节点。</p>
+<p>给定一串以逗号分隔的序列，验证它是否是正确的二叉树的前序序列化。编写一个在不重构树的条件下的可行算法。</p>
+<p>每个以逗号分隔的字符或为一个整数或为一个表示 <code>null</code> 指针的 <code>&#39;#&#39;</code> 。</p>
+<p>你可以认为输入格式总是有效的，例如它永远不会包含两个连续的逗号，比如 <code>&quot;1,,3&quot;</code> 。</p>
+<p><strong>示例 1:</strong></p>
+<figure class="highlight tex"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs tex">输入: &quot;9,3,4,<span class="hljs-params">#</span>,<span class="hljs-params">#</span>,1,<span class="hljs-params">#</span>,<span class="hljs-params">#</span>,2,<span class="hljs-params">#</span>,6,<span class="hljs-params">#</span>,<span class="hljs-params">#</span>&quot;<br>输出: true<br></code></pre></div></td></tr></table></figure>
+
+<p><strong>示例 2:</strong></p>
+<figure class="highlight tex"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs tex">输入: &quot;1,<span class="hljs-params">#</span>&quot;<br>输出: false<br></code></pre></div></td></tr></table></figure>
+
+<blockquote>
+<p>算法分析：</p>
+<p>&#x3D;&#x3D;方法一：栈&#x3D;&#x3D;<br>我们可以定义一个概念，叫做槽位。一个槽位可以被看作「当前二叉树中正在等待被节点填充」的那些位置。</p>
+<p>二叉树的建立也伴随着槽位数量的变化。每当遇到一个节点时：</p>
+<p>如果遇到了空节点，则要消耗一个槽位；</p>
+<p>如果遇到了非空节点，则除了消耗一个槽位外，还要再补充两个槽位。</p>
+<p>此外，还需要将根节点作为特殊情况处理。</p>
+<p><img src="https://assets.leetcode-cn.com/solution-static/331/1.png" srcset="/img/loading.gif" lazyload alt="p"></p>
+<p>我们使用栈来维护槽位的变化。栈中的每个元素，代表了对应节点处<strong>剩余槽位的数量</strong>，而栈顶元素就对应着下一步可用的槽位数量。当遇到空节点时，仅将栈顶元素减 $1$；当遇到非空节点时，将栈顶元素减 $1$ 后，再向栈中压入一个 $2$。无论何时，如果栈顶元素变为 $0$，就立刻将栈顶弹出。 </p>
+<p>历结束后，若栈为空，说明没有待填充的槽位，因此是一个合法序列；否则若栈不为空，则序列不合法。此外，在遍历的过程中，若槽位数量不足，则序列不合法。</p>
+<ul>
+<li>时间复杂度：$O(n)$.</li>
+<li>空间复杂度：$O(n)$.</li>
+</ul>
+<p>&#x3D;&#x3D;方法二：计数&#x3D;&#x3D;</p>
+<p>回顾方法一的逻辑，如果把栈中元素看成一个整体，即所有剩余槽位的数量，也能维护槽位的变化。</p>
+<p>因此，我们可以只维护一个计数器，代表栈中所有元素之和，其余的操作逻辑均可以保持不变</p>
+<ul>
+<li>时间复杂度：$O(n)$.</li>
+<li>空间复杂度：$O(1)$.</li>
+</ul>
+</blockquote>
+<p>方法一：</p>
+<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">isValidSerialization</span><span class="hljs-params">(preorder <span class="hljs-type">string</span>)</span></span> <span class="hljs-type">bool</span> &#123;<br>    n := <span class="hljs-built_in">len</span>(preorder)<br>    stk := []<span class="hljs-type">int</span>&#123;<span class="hljs-number">1</span>&#125;<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n; &#123;<br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(stk) == <span class="hljs-number">0</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>        &#125;<br>        <span class="hljs-keyword">if</span> preorder[i] == <span class="hljs-string">&#x27;,&#x27;</span> &#123;<br>            i++<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> preorder[i] == <span class="hljs-string">&#x27;#&#x27;</span> &#123;<br>            stk[<span class="hljs-built_in">len</span>(stk)<span class="hljs-number">-1</span>]--<br>            <span class="hljs-keyword">if</span> stk[<span class="hljs-built_in">len</span>(stk)<span class="hljs-number">-1</span>] == <span class="hljs-number">0</span> &#123;<br>                stk = stk[:<span class="hljs-built_in">len</span>(stk)<span class="hljs-number">-1</span>]<br>            &#125;<br>            i++<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">// 读一个数字</span><br>            <span class="hljs-keyword">for</span> i &lt; n &amp;&amp; preorder[i] != <span class="hljs-string">&#x27;,&#x27;</span> &#123;<br>                i++<br>            &#125;<br>            stk[<span class="hljs-built_in">len</span>(stk)<span class="hljs-number">-1</span>]--<br>            <span class="hljs-keyword">if</span> stk[<span class="hljs-built_in">len</span>(stk)<span class="hljs-number">-1</span>] == <span class="hljs-number">0</span> &#123;<br>                stk = stk[:<span class="hljs-built_in">len</span>(stk)<span class="hljs-number">-1</span>]<br>            &#125;<br>            stk = <span class="hljs-built_in">append</span>(stk, <span class="hljs-number">2</span>)<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(stk) == <span class="hljs-number">0</span><br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<p>方法二：</p>
+<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">isValidSerialization</span><span class="hljs-params">(preorder <span class="hljs-type">string</span>)</span></span> <span class="hljs-type">bool</span> &#123;<br>    n := <span class="hljs-built_in">len</span>(preorder)<br>    slots := <span class="hljs-number">1</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n; &#123;<br>        <span class="hljs-keyword">if</span> slots == <span class="hljs-number">0</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>        &#125;<br>        <span class="hljs-keyword">if</span> preorder[i] == <span class="hljs-string">&#x27;,&#x27;</span> &#123;<br>            i++<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> preorder[i] == <span class="hljs-string">&#x27;#&#x27;</span> &#123;<br>            slots--<br>            i++<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">// 读一个数字</span><br>            <span class="hljs-keyword">for</span> i &lt; n &amp;&amp; preorder[i] != <span class="hljs-string">&#x27;,&#x27;</span> &#123;<br>                i++<br>            &#125;<br>            slots++ <span class="hljs-comment">// slots = slots - 1 + 2</span><br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> slots == <span class="hljs-number">0</span><br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<h1 id="456-132-模式「Medium」"><a href="#456-132-模式「Medium」" class="headerlink" title="456. 132 模式「Medium」"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/132-pattern/">456. 132 模式「Medium」</a></h1><p>给你一个整数数组 <code>nums</code> ，数组中共有 <code>n</code> 个整数。</p>
+<p><strong>132 模式的子序列</strong> 由三个整数 <code>nums[i], nums[j]</code> 和 <code>nums[k]</code> 组成</p>
+<p>并同时满足：<code>i &lt; j &lt; k</code> 和 <code>nums[i] &lt; nums[k] &lt; nums[j]</code></p>
+<p>如果 <code>nums</code> 中存在 <strong>132 模式的子序列</strong> ，返回 <code>true</code> ；否则，返回 <code>false</code> </p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight tex"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs tex">输入：nums = [1,2,3,4]<br>输出：false<br>解释：序列中不存在 132 模式的子序列。<br></code></pre></div></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight tex"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs tex">输入：nums = [3,1,4,2]<br>输出：true<br>解释：序列中有 1 个 132 模式的子序列： [1, 4, 2] 。<br></code></pre></div></td></tr></table></figure>
+
+<blockquote>
+<p>算法分析：</p>
+<p>我们首先可以考虑枚举 <code>132</code> 模式中的 <code>3</code></p>
+<ul>
+<li><p>由于 <code>1</code> 是模式中的最小值，因此我们在枚举 <code>j</code> 的同时，维护数组 <code>num[0, j - 1]</code> 中的最小值，因为只有 <code>a[i] &lt; a[j]</code> 时，我们才可以选择 <code>a[i]</code> 作为 <code>1</code>.</p>
+</li>
+<li><p>由于 <code>2</code> 是模式中的次小值，因此我们可以使用一个有序集合（例如平衡树）维护数组中右侧元素</p>
+<p> <code>nums[j + 1, n - 1]</code> 中的所有值。当我们确定了 <code>a[i]</code> 和 <code>a[j]</code> 时，我们就可以在有序集合中查询严格比 <code>a[i]</code> 大的那个最小元素，即为 <code>a[k]</code>.</p>
+</li>
+</ul>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">find132pattern</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> n = nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-keyword">if</span> (n &lt; <span class="hljs-number">3</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br><br>        <span class="hljs-comment">// 左侧最小值</span><br>        <span class="hljs-type">int</span> left_min = nums[<span class="hljs-number">0</span>];<br>        <span class="hljs-comment">// 右侧所有元素</span><br>        multiset&lt;<span class="hljs-type">int</span>&gt; right_all;<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> k = <span class="hljs-number">2</span>; k &lt; n; ++k) &#123;<br>            right_all.<span class="hljs-built_in">insert</span>(nums[k]);<br>        &#125;<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">1</span>; j &lt; n - <span class="hljs-number">1</span>; ++j) &#123;<br>            <span class="hljs-keyword">if</span> (left_min &lt; nums[j]) &#123;<br>                <span class="hljs-keyword">auto</span> it = right_all.<span class="hljs-built_in">upper_bound</span>(left_min);<br>                <span class="hljs-keyword">if</span> (it != right_all.<span class="hljs-built_in">end</span>() &amp;&amp; *it &lt; nums[j]) &#123;<br>                    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>                &#125;<br>            &#125;<br>            left_min = <span class="hljs-built_in">min</span>(left_min, nums[j]);<br>            right_all.<span class="hljs-built_in">erase</span>(right_all.<span class="hljs-built_in">find</span>(nums[j + <span class="hljs-number">1</span>]));<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>&#125;;<br></code></pre></div></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Programming/">Programming</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Algorithm/">Algorithm</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/04/05/about%20vector/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">About C++ Vector</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/03/18/about%20Search/">
+                        <span class="hidden-mobile">About Search</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://loktarogare.github.io/" target="_blank" rel="nofollow noopener"><span>Natsumi</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

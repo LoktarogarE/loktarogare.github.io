@@ -1,0 +1,596 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar1.png">
+  <link rel="icon" href="/img/avatar1.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Natsumi">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1680. 连接连续二进制数字「Medium」给你一个整数 n ，请你将 1 到 n 的二进制表示连接起来，并返回连接结果对应的 十进制 数字对 10^9 + 7 取余的结果。 示例 1： 123输入：n &#x3D; 1输出：1解释：二进制的 &quot;1&quot; 对应着十进制的 1 。  示例 2： 1234输入：n &#x3D; 3输出：27解释：二进制下，1，2 和 3 分别对应 &quot;1&amp;quo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chapter4 Bit Manipulation Leetcode">
+<meta property="og:url" content="http://www.mementos.top/2021/03/13/Chapter%206%20Bit/index.html">
+<meta property="og:site_name" content="Natsumi&#39;s Mementos">
+<meta property="og:description" content="1680. 连接连续二进制数字「Medium」给你一个整数 n ，请你将 1 到 n 的二进制表示连接起来，并返回连接结果对应的 十进制 数字对 10^9 + 7 取余的结果。 示例 1： 123输入：n &#x3D; 1输出：1解释：二进制的 &quot;1&quot; 对应着十进制的 1 。  示例 2： 1234输入：n &#x3D; 3输出：27解释：二进制下，1，2 和 3 分别对应 &quot;1&amp;quo">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.leetcode-cn.com/1611415418-aCzGJI-Picture2.png">
+<meta property="og:image" content="https://pic.leetcode-cn.com/1603022900-GNKGMP-Picture2.png">
+<meta property="og:image" content="https://pic.leetcode-cn.com/1603022900-qIFpAR-Picture4.png">
+<meta property="og:image" content="https://pic.leetcode-cn.com/1603022900-hnUxBz-Picture5.png">
+<meta property="og:image" content="https://pic.leetcode-cn.com/9716b1a1ead21824b8216c7d54910bee4d838c011581f4e3d82a14f71cb392a1-Picture1.png">
+<meta property="article:published_time" content="2021-03-13T02:52:27.000Z">
+<meta property="article:modified_time" content="2022-03-18T15:21:22.666Z">
+<meta property="article:author" content="Natsumi">
+<meta property="article:tag" content="Programming">
+<meta property="article:tag" content="Algorithm">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pic.leetcode-cn.com/1611415418-aCzGJI-Picture2.png">
+  
+  
+  <title>Chapter4 Bit Manipulation Leetcode - Natsumi&#39;s Mementos</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"www.mementos.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Natsumi&#39;s Mementos</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于我
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Chapter4 Bit Manipulation Leetcode">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.8k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      40 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Chapter4 Bit Manipulation Leetcode</h1>
+            
+            <div class="markdown-body">
+              <h1 id="1680-连接连续二进制数字「Medium」"><a href="#1680-连接连续二进制数字「Medium」" class="headerlink" title="1680. 连接连续二进制数字「Medium」"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/concatenation-of-consecutive-binary-numbers/">1680. 连接连续二进制数字「Medium」</a></h1><p>给你一个整数 <code>n</code> ，请你将 <code>1</code> 到 <code>n</code> 的二进制表示连接起来，并返回连接结果对应的 <strong>十进制</strong> 数字对 <code>10^9 + 7</code> 取余的结果。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight tex"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs tex">输入：n = 1<br>输出：1<br>解释：二进制的 &quot;1&quot; 对应着十进制的 1 。<br></code></pre></div></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight tex"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs tex">输入：n = 3<br>输出：27<br>解释：二进制下，1，2 和 3 分别对应 &quot;1&quot; ，&quot;10&quot; 和 &quot;11&quot; 。<br>将它们依次连接，我们得到 &quot;11011&quot; ，对应着十进制的 27 。<br></code></pre></div></td></tr></table></figure>
+
+<p><strong>示例 3：</strong></p>
+<figure class="highlight tex"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs tex">输入：n = 12<br>输出：505379714<br>解释：连接结果为 &quot;1101110010111011110001001101010111100&quot; 。<br>对应的十进制数字为 118505380540 。<br>对 109 + 7 取余后，结果为 505379714 。<br></code></pre></div></td></tr></table></figure>
+
+<blockquote>
+<p>算法分析：</p>
+<p>由于我们需要将「十进制转换成二进制」「进行运算」「将结果转换回十进制」这三个步骤，因此我们不妨直接将整个问题在十进制的角度下进行考虑。</p>
+<p>假设我们当前处理到了数字 $i$，并且前面 $[1,i-1]$ 的二进制连接起来对应的<strong>十进制数</strong>为 $x$，那么我们如何将数字 $i$ 进行连接呢？</p>
+<p>观察二进制连接的过程，我们可以将这一步运算抽象为两个步骤：</p>
+<ol>
+<li>将之前 $[1,i-1]$ 的二进制数<strong>左移</strong>若干位，这个位数就是 $i$ 的二进制表示的位数；</li>
+<li>将 $i$ 通过<strong>加法运算</strong>与左移的结果进行相加。</li>
+</ol>
+<p>这样，我们可以得到 $x$ 的递推式：$x&#x3D;x\times2^{len(i)}+i$.</p>
+<p>我们可以知道 $len(i)$ 和 $len(i-1)$ 要么相等，要么相差 $1$.</p>
+<p>$x$ 是 $(100\cdots)_2$ 的形式存储，而 $x-1$ 是以 $(111\cdots)_2$ 的形式存在，所以当一个数 $x$ 为 $2$ 的倍数次的时候，那么它比 $x-1$ 多一位，因此&#x3D;&#x3D;当 <code>x &amp; (x - 1) == 0</code> 的时候，移位的位数就需要加 $1$&#x3D;&#x3D;，答案就显而易见了。</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-type">const</span> <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> mod = <span class="hljs-number">1e9</span> + <span class="hljs-number">7</span>;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">concatenatedBinary</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>&#123;<br>        <span class="hljs-type">int</span> times = <span class="hljs-number">1</span>;<br>        <span class="hljs-type">int</span> ans = <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">2</span>; i &lt;= n; ++i) &#123;<br>            <span class="hljs-keyword">if</span> ((i &amp; (i - <span class="hljs-number">1</span>)) == <span class="hljs-number">0</span>) ++times;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; times; ++j) &#123;<br>                ans &lt;&lt;= <span class="hljs-number">1</span>;<br>                ans %= mod;<br>            &#125;<br>            ans += i;<br>            ans %= mod;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;;<br></code></pre></div></td></tr></table></figure>
+
+<h1 id="剑指-Offer-56-I-数组中数字出现的次数「Medium」"><a href="#剑指-Offer-56-I-数组中数字出现的次数「Medium」" class="headerlink" title="剑指 Offer 56 - I. 数组中数字出现的次数「Medium」"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-lcof/">剑指 Offer 56 - I. 数组中数字出现的次数「Medium」</a></h1><p>一个整型数组 <code>nums</code> 里除两个数字之外，其他数字都出现了两次。请写程序找出这两个只出现一次的数字。要求时间复杂度是 $O(n)$，空间复杂度是 $O(1)$.</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight tex"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs tex">输入：nums = [4,1,4,6]<br>输出：[1,6] 或 [6,1]<br></code></pre></div></td></tr></table></figure>
+
+<blockquote>
+<p>算法分析：</p>
+<p>设两个只出现一次的数字为 $x,y$，由于 $x≠y$，则 $x$ 和 $y$ 二进制至少有一位不同（即分别为 $0$ 和 $1$ ），根据此位可以将 $nums$ 拆分为分别包含 $x$ 和 $y$ 的两个子数组。</p>
+<p>易知两子数组都满足 「除一个数字之外，其他数字都出现了两次」。因此，仿照以上简化问题的思路，分别对两子数组遍历执行异或操作，即可得到两个只出现一次的数字 $x,y$.</p>
+<p>算法流程：</p>
+<ol>
+<li><p>遍历 $nums$ 执行异或：</p>
+<ul>
+<li>设整型数组 $nums&#x3D;[a,a,b,b\cdots,x,y]$，对 $nums$ 中所有数字进行异或，得到的结果为 $x\bigoplus y$.</li>
+</ul>
+</li>
+<li><p>循环左移计算 m:</p>
+<ul>
+<li><p>根据异或运算定义，若整数 $x\bigoplus y$ 某二进制位为 $1$，则 $x$ 和 $y$ 的此二进制位一定不同。换言之，找到  $x\bigoplus y$ 某位为 $1$ 的二进制位，即可将数组 $nums$ 拆分为上述的两个子数组。根据与运算特点，可知对于任意整数 $a$ 有：</p>
+<ul>
+<li>若 $a$ &amp; $0001&#x3D;1$，则 $a$ 的第一位为 $1$ ；</li>
+<li>若 $a$ &amp; $0010&#x3D;1$，则 $a$ 的第二位为 $1$ ；</li>
+<li>以此类推…</li>
+</ul>
+</li>
+<li><p>因此，初始化一个辅助变量 $m&#x3D;1$，通过与运算从右向左循环判断，可 <strong>获取整数</strong> $x\bigoplus y$ <strong>首位</strong> $1$，记录于 $m$ 中，代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-keyword">while</span>(z &amp; m == <span class="hljs-number">0</span>) <span class="hljs-comment">// m 循环左移一位，直到 z &amp; m ！= 0</span><br>    m &lt;&lt;= <span class="hljs-number">1</span><br></code></pre></div></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>拆分</strong> $nums$ <strong>为两个子数组</strong>；</p>
+</li>
+<li><p><strong>分别遍历两个子数组执行异或</strong>；</p>
+<ul>
+<li>通过遍历判断 $nums$ 中各数字和 $m$ 做与运算的结果，可将数组拆分为两个子数组，并分别对两个子数组遍历求异或，则可得到两个只出现一次的数字</li>
+</ul>
+</li>
+</ol>
+<p><img src="https://pic.leetcode-cn.com/1611415418-aCzGJI-Picture2.png" srcset="/img/loading.gif" lazyload alt="picture"></p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">singleNumbers</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> x = <span class="hljs-number">0</span>, y = <span class="hljs-number">0</span>, n = <span class="hljs-number">0</span>, m = <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> num : nums)         <span class="hljs-comment">// 1. 遍历异或</span><br>            n ^= num;<br>        <span class="hljs-keyword">while</span>((n &amp; m) == <span class="hljs-number">0</span>)         <span class="hljs-comment">// 2. 循环左移，计算 m</span><br>            m &lt;&lt;= <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> num : nums) &#123;       <span class="hljs-comment">// 3. 遍历 nums 分组</span><br>            <span class="hljs-keyword">if</span>(num &amp; m) x ^= num;   <span class="hljs-comment">// 4. 当 num &amp; m != 0</span><br>            <span class="hljs-keyword">else</span> y ^= num;          <span class="hljs-comment">// 4. 当 num &amp; m == 0</span><br>        &#125;<br>        <span class="hljs-keyword">return</span> vector&lt;<span class="hljs-type">int</span>&gt; &#123;x, y&#125;;  <span class="hljs-comment">// 5. 返回出现一次的数字</span><br>    &#125;<br>&#125;;<br></code></pre></div></td></tr></table></figure>
+
+<h1 id="剑指-Offer-56-II-数组中数字出现的次数-II「Medium」"><a href="#剑指-Offer-56-II-数组中数字出现的次数-II「Medium」" class="headerlink" title="剑指 Offer 56 - II. 数组中数字出现的次数 II「Medium」"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-ii-lcof/">剑指 Offer 56 - II. 数组中数字出现的次数 II「Medium」</a></h1><p>在一个数组 <code>nums</code> 中除一个数字只出现一次之外，其他数字都出现了三次。请找出那个只出现一次的数字。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight tex"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs tex">输入：nums = [3,4,3,3]<br>输出：4<br></code></pre></div></td></tr></table></figure>
+
+<blockquote>
+<p>算法分析：</p>
+<p>方法一：有限状态自动机</p>
+<p>各二进制位的 位运算规则相同 ，因此只需考虑一位即可。如下图所示，对于所有数字中的某二进制位 $1$ 的个数，存在 $3$ 种状态，即对 $3$ 余数为 $0, 1, 2$.</p>
+<ul>
+<li>若输入二进制位 $1$，则状态按照 $0\rightarrow1\rightarrow2\rightarrow0\rightarrow\cdots$ 顺序转换；</li>
+<li>若输入二进制位 $0$，则状态不变.</li>
+</ul>
+<p><img src="https://pic.leetcode-cn.com/1603022900-GNKGMP-Picture2.png" srcset="/img/loading.gif" lazyload alt="picture"></p>
+<p>如下图所示，由于二进制只能表示 $0,1$，因此需要使用两个二进制位来表示 $3$ 个状态。设此两位分别为 $two,one$，则状态转换变为：$00\rightarrow01\rightarrow10\rightarrow00\rightarrow\cdots$ </p>
+<p>![image-20210304232713519](&#x2F;Users&#x2F;wanglei&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20210304232713519.png)</p>
+<p>接下来，需要通过<strong>状态转换表</strong>导出<strong>状态转换的计算公式</strong>。首先回忆一下位运算特点，对于任意二进制位 $x$，有：</p>
+<ul>
+<li>异或运算：<code>x ^ 0 = x</code> ， <code>x ^ 1 = ~x</code> </li>
+<li>与运算：<code>x &amp; 0 = 0</code> ， <code>x &amp; 1 = x</code></li>
+</ul>
+<p>&#x3D;&#x3D;计算 $one$ 方法&#x3D;&#x3D;：</p>
+<p>设当前状态为 $two,one$，此时输入二进制位 $n$。如下图所示，通过对状态表的情况拆分，可推出 $one$ 的计算方法为：</p>
+<figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">if</span> two == <span class="hljs-number">0</span>:<br>  <span class="hljs-keyword">if</span> n == <span class="hljs-number">0</span>:<br>    one = one<br>  <span class="hljs-keyword">if</span> n == <span class="hljs-number">1</span>:<br>    one = ~one<br><span class="hljs-keyword">if</span> two == <span class="hljs-number">1</span>:<br>    one = <span class="hljs-number">0</span><br></code></pre></div></td></tr></table></figure>
+
+<p>引入 <strong>异或运算</strong> ，可将以上拆分简化为：</p>
+<figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">if</span> two == <span class="hljs-number">0</span>:<br>    one = one ^ n<br><span class="hljs-keyword">if</span> two == <span class="hljs-number">1</span>:<br>    one = <span class="hljs-number">0</span><br></code></pre></div></td></tr></table></figure>
+
+<p>引入 <strong>与运算</strong> ，可继续简化为：</p>
+<figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python">one = one ^ n &amp; ~two<br></code></pre></div></td></tr></table></figure>
+
+<p><img src="https://pic.leetcode-cn.com/1603022900-qIFpAR-Picture4.png" srcset="/img/loading.gif" lazyload alt="p"></p>
+<p>&#x3D;&#x3D;计算 $two$ 方法&#x3D;&#x3D;：</p>
+<p>由于是先计算 $one$ ，因此应在新 $one$ 的基础上计算 $two$.</p>
+<p>如下图所示，修改为新 $one$ 后，得到了新的状态图。观察发现，可以使用同样的方法计算 $two$，即：</p>
+<figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python">two = two ^ n &amp; ~one<br></code></pre></div></td></tr></table></figure>
+
+<p><img src="https://pic.leetcode-cn.com/1603022900-hnUxBz-Picture5.png" srcset="/img/loading.gif" lazyload alt="picture"></p>
+<p>**&#x3D;&#x3D;返回值&#x3D;&#x3D;**：</p>
+<p>以上是对数字的二进制中 “一位” 的分析，而 <code>int</code> 类型的其他 $31$ 位具有相同的运算规则，因此可将以上公式直接套用在 $32$ 位数上。</p>
+<p>遍历完所有数字后，各二进制位都处于状态 $00$ 和状态 $01$ ( 取决于 “只出现一次的数字” 的各二进制位是 $0$ 还是 $1$ )，而此两状态是由 $one$ 来记录的 ( 此两状态下 $twos$ 恒为 $0$ )，因此返回 $ones$ 即可.</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">singleNumber</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> ones = <span class="hljs-number">0</span>, twos = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> &amp;num : nums)&#123;<br>            ones = ones ^ num &amp; ~twos;<br>            twos = twos ^ num &amp; ~ones;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ones;<br>    &#125;<br>&#125;;<br></code></pre></div></td></tr></table></figure>
+
+<h1 id="剑指-Offer-65-不用加减乘除做加法「Easy」"><a href="#剑指-Offer-65-不用加减乘除做加法「Easy」" class="headerlink" title="剑指 Offer 65. 不用加减乘除做加法「Easy」"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/bu-yong-jia-jian-cheng-chu-zuo-jia-fa-lcof/">剑指 Offer 65. 不用加减乘除做加法「Easy」</a></h1><p>写一个函数，求两个整数之和，要求在函数体内不得使用 “+”、“-”、“*”、“&#x2F;” 四则运算符号。</p>
+<p><strong>示例:</strong></p>
+<figure class="highlight tex"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs tex">输入: a = 1, b = 1<br>输出: 2<br></code></pre></div></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>a</code>, <code>b</code> 均可能是负数或 $0$</li>
+<li>结果不会溢出 $32$ 位整数</li>
+</ul>
+<blockquote>
+<p>算法分析：</p>
+<p>设两数字的二进制形式 $a,b$，求其和 $s&#x3D;a+b$，每一位的计算分为以下四种情况：</p>
+<p>![image-20210305222249494](&#x2F;Users&#x2F;wanglei&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20210305222249494.png)</p>
+<p>观察发现，<strong>无进位和</strong> 与 <strong>异或运算</strong> 规律相同，<strong>进位</strong> 和 <strong>与运算</strong> 规律相同 ( 并需左移一位 ) 。因此，无进位和 $n$ 与进位 $c$ 的计算公式如下：<br>$$<br>\left{<br>\begin{aligned}<br>&amp;n&#x3D;a\bigoplus b &amp; 非进位和：异或运算\<br>&amp;c&#x3D;a<del>&amp;</del>b~&lt;&lt;1 &amp; 进位：与运算+左移一位\<br>\end{aligned}<br>\right.<br>$$<br>和 ( $s$ ）&#x3D;（非进位和 $n$ ）+（进位 $c$ ）。即可将 $s&#x3D;a+b$ 转化为：$s&#x3D;a+b\Rightarrow s&#x3D;n+c$.</p>
+<p>循环求 $n$ 和 $c$，直至进位 $c&#x3D;0$；此时 $s&#x3D;n$，返回 $n$ 即可.</p>
+<p><img src="https://pic.leetcode-cn.com/9716b1a1ead21824b8216c7d54910bee4d838c011581f4e3d82a14f71cb392a1-Picture1.png" srcset="/img/loading.gif" lazyload alt="picture"></p>
+</blockquote>
+<blockquote>
+<p>Q ： 若数字 $a$ 和 $b$ 中有负数，则变成了减法，如何处理？<br>A ： 在计算机系统中，数值一律用 补码 来表示和存储。补码的优势： 加法、减法可以统一处理（CPU只有加法器）。因此，以上方法 同时适用于正数和负数的加法 。</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-type">int</span> a, <span class="hljs-type">int</span> b)</span> </span>&#123;<br>        <span class="hljs-keyword">while</span> (b != <span class="hljs-number">0</span>) &#123; <span class="hljs-comment">// 当进位为 0 时跳出</span><br>            <span class="hljs-type">int</span> c = (<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span>)(a &amp; b) &lt;&lt; <span class="hljs-number">1</span>;  <span class="hljs-comment">// c = 进位</span><br>            a ^= b; <span class="hljs-comment">// a = 非进位和</span><br>            b = c; <span class="hljs-comment">// b = 进位</span><br>        &#125;<br>        <span class="hljs-keyword">return</span> a;<br>    &#125;<br>&#125;;<br></code></pre></div></td></tr></table></figure>
+
+<h1 id><a href="#" class="headerlink" title></a></h1>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Programming/">Programming</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Algorithm/">Algorithm</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/03/13/Chapter%205%20Tree/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Chapter5 Tree Leetcode</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/01/18/about%20priority_queue%20&amp;%20heap/">
+                        <span class="hidden-mobile">About Priority_queue & Heap</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://loktarogare.github.io/" target="_blank" rel="nofollow noopener"><span>Natsumi</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
