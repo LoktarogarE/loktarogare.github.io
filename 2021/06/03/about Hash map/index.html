@@ -16,22 +16,22 @@
   <meta name="author" content="Natsumi">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Hash mapNotifications C++ 17 hash table 遍历 (迭代器遍历则应当注意我们不能通过迭代器更改元素值)for (auto&amp; [_, c] : cnt) {            maxCnt &#x3D; max(maxCnt, c);        } &#x2F;&#x2F; first 和 second, 用 _ 也可以不命名  请务必使用(mp.">
+    <meta name="description" content="Hash table用法 C++ 17 hash table 遍历 (迭代器遍历则应当注意我们不能通过迭代器更改元素值)for (auto&amp; [_, c] : cnt) {            maxCnt &#x3D; max(maxCnt, c);        } &#x2F;&#x2F; first 和 second, 用 _ 也可以不命名  请务必使用(mp.count(ele">
 <meta property="og:type" content="article">
-<meta property="og:title" content="About Hash map">
+<meta property="og:title" content="About Hash table">
 <meta property="og:url" content="http://www.mementos.top/2021/06/03/About%20HAsh%20mAp/index.html">
 <meta property="og:site_name" content="Natsumi&#39;s Mementos">
-<meta property="og:description" content="Hash mapNotifications C++ 17 hash table 遍历 (迭代器遍历则应当注意我们不能通过迭代器更改元素值)for (auto&amp; [_, c] : cnt) {            maxCnt &#x3D; max(maxCnt, c);        } &#x2F;&#x2F; first 和 second, 用 _ 也可以不命名  请务必使用(mp.">
+<meta property="og:description" content="Hash table用法 C++ 17 hash table 遍历 (迭代器遍历则应当注意我们不能通过迭代器更改元素值)for (auto&amp; [_, c] : cnt) {            maxCnt &#x3D; max(maxCnt, c);        } &#x2F;&#x2F; first 和 second, 用 _ 也可以不命名  请务必使用(mp.count(ele">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-06-03T14:05:46.579Z">
-<meta property="article:modified_time" content="2022-03-18T15:19:40.812Z">
+<meta property="article:modified_time" content="2022-03-21T06:16:00.547Z">
 <meta property="article:author" content="Natsumi">
 <meta property="article:tag" content="Programming">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>About Hash map - Natsumi&#39;s Mementos</title>
+  <title>About Hash table - Natsumi&#39;s Mementos</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -165,7 +165,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="About Hash map">
+            <span class="h2" id="subtitle" title="About Hash table">
               
             </span>
 
@@ -179,7 +179,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      214 字
+      198 字
     </span>
   
 
@@ -217,13 +217,13 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">About Hash map</h1>
+            <h1 style="display: none">About Hash table</h1>
             
             <div class="markdown-body">
-              <h1 id="Hash-map"><a href="#Hash-map" class="headerlink" title="Hash map"></a>Hash map</h1><h3 id="Notifications"><a href="#Notifications" class="headerlink" title="Notifications"></a>Notifications</h3><ul>
+              <h1 id="Hash-table"><a href="#Hash-table" class="headerlink" title="Hash table"></a>Hash table</h1><h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><ul>
 <li><h4 id="C-17-hash-table-遍历-迭代器遍历则应当注意我们不能通过迭代器更改元素值"><a href="#C-17-hash-table-遍历-迭代器遍历则应当注意我们不能通过迭代器更改元素值" class="headerlink" title="C++ 17 hash table 遍历 (迭代器遍历则应当注意我们不能通过迭代器更改元素值)"></a>C++ 17 hash table 遍历 (迭代器遍历则应当注意我们不能通过迭代器更改元素值)</h4><p>for (auto&amp; [_, c] : cnt) {            maxCnt &#x3D; max(maxCnt, c);        } &#x2F;&#x2F; first 和 second, 用 <code>_</code> 也可以不命名</p>
 </li>
-<li><h3 id="请务必使用-mp-count-element-来查看是否存在某个元素-使用-mp-element-存在很大问题"><a href="#请务必使用-mp-count-element-来查看是否存在某个元素-使用-mp-element-存在很大问题" class="headerlink" title="请务必使用(mp.count(element)) 来查看是否存在某个元素, 使用 !mp[element] 存在很大问题."></a>请务必使用(mp.count(element)) 来查看是否存在某个元素, 使用 !mp[element] 存在很大问题.</h3><blockquote>
+<li><h4 id="请务必使用-mp-count-element-来查看是否存在某个元素-使用-mp-element"><a href="#请务必使用-mp-count-element-来查看是否存在某个元素-使用-mp-element" class="headerlink" title="请务必使用(mp.count(element)) 来查看是否存在某个元素, 使用 !mp[element]"></a>请务必使用(mp.count(element)) 来查看是否存在某个元素, 使用 !mp[element]</h4><blockquote>
 <p>e.g <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/contiguous-array/">525. 连续数组</a></p>
 </blockquote>
 </li>
