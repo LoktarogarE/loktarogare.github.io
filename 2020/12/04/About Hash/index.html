@@ -16,21 +16,22 @@
   <meta name="author" content="Natsumi">
   <meta name="keywords" content="">
   
-    <meta name="description" content="#SP edition 信息社会传奇 信息网络 能源 交通 是现代社会的三大基础 数据$\Rightarrow$  传输和存储的 可识别的数字符号 信息交互 (一对一 一对多 多对多) 有效性 安全性   计算机网络$\Rightarrow$ 将计算机或外部设备连接在一起，实现 信息交互和应用服务的设备 通信链路 通信规约和软件的集合   因特网 $\Rightarrow$ 特指由美国创建和管理的">
+    <meta name="description" content="HashHash 函数 Hash 并不用来 encryption &#x2F; decryption 但在密码学中具有重要的价值  Hash 函数：任意长度的报文 $\rightarrow$ HASH $\rightarrow$ 较短的 定长的 报文 即 h &#x3D; H(M) (M is variable and h is Hash value)   Hash函数的目的是为 报文等分组数据">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SP edition 信息社会传奇">
-<meta property="og:url" content="http://www.mementos.top/2020/09/14/SP-edition-%E4%BF%A1%E6%81%AF%E7%A4%BE%E4%BC%9A%E4%BC%A0%E5%A5%87/index.html">
+<meta property="og:title" content="安全学 Hash">
+<meta property="og:url" content="http://www.mementos.top/2020/12/04/About%20Hash/index.html">
 <meta property="og:site_name" content="Natsumi&#39;s Mementos">
-<meta property="og:description" content="#SP edition 信息社会传奇 信息网络 能源 交通 是现代社会的三大基础 数据$\Rightarrow$  传输和存储的 可识别的数字符号 信息交互 (一对一 一对多 多对多) 有效性 安全性   计算机网络$\Rightarrow$ 将计算机或外部设备连接在一起，实现 信息交互和应用服务的设备 通信链路 通信规约和软件的集合   因特网 $\Rightarrow$ 特指由美国创建和管理的">
+<meta property="og:description" content="HashHash 函数 Hash 并不用来 encryption &#x2F; decryption 但在密码学中具有重要的价值  Hash 函数：任意长度的报文 $\rightarrow$ HASH $\rightarrow$ 较短的 定长的 报文 即 h &#x3D; H(M) (M is variable and h is Hash value)   Hash函数的目的是为 报文等分组数据">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-09-14T12:46:36.000Z">
-<meta property="article:modified_time" content="2022-03-01T11:32:56.634Z">
+<meta property="article:published_time" content="2020-12-04T01:54:18.000Z">
+<meta property="article:modified_time" content="2022-03-25T08:08:32.220Z">
 <meta property="article:author" content="Natsumi">
-<meta property="article:tag" content="互联网原理">
+<meta property="article:tag" content="Cryptography">
+<meta property="article:tag" content="Security">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>SP edition 信息社会传奇 - Natsumi&#39;s Mementos</title>
+  <title>安全学 Hash - Natsumi&#39;s Mementos</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -164,7 +165,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="SP edition 信息社会传奇">
+            <span class="h2" id="subtitle" title="安全学 Hash">
               
             </span>
 
@@ -178,7 +179,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.6k 字
+      1k 字
     </span>
   
 
@@ -187,7 +188,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      14 分钟
+      9 分钟
     </span>
   
 
@@ -216,66 +217,58 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">SP edition 信息社会传奇</h1>
+            <h1 style="display: none">安全学 Hash</h1>
             
             <div class="markdown-body">
-              <h1 id="SP-edition-信息社会传奇"><a href="#SP-edition-信息社会传奇" class="headerlink" title="#SP edition 信息社会传奇"></a>#SP edition 信息社会传奇</h1><ul>
-<li><strong>信息网络 能源 交通 是现代社会的三大基础</strong></li>
-<li><strong>数据$\Rightarrow$  传输和存储的 可识别的数字符号</strong></li>
-<li>信息交互 (一对一 一对多 多对多)<ul>
-<li>有效性</li>
-<li>安全性</li>
+              <h1 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h1><h2 id="Hash-函数"><a href="#Hash-函数" class="headerlink" title="Hash 函数"></a>Hash 函数</h2><ul>
+<li><p>Hash 并不用来 encryption &#x2F; decryption 但在密码学中具有重要的价值</p>
+</li>
+<li><h3 id="Hash-函数：任意长度的报文-rightarrow-HASH-rightarrow-较短的-定长的-报文"><a href="#Hash-函数：任意长度的报文-rightarrow-HASH-rightarrow-较短的-定长的-报文" class="headerlink" title="Hash 函数：任意长度的报文 $\rightarrow$ HASH $\rightarrow$ 较短的 定长的 报文"></a>Hash 函数：任意长度的报文 $\rightarrow$ HASH $\rightarrow$ 较短的 定长的 报文</h3><ul>
+<li><h3 id="即-h-x3D-H-M-M-is-variable-and-h-is-Hash-value"><a href="#即-h-x3D-H-M-M-is-variable-and-h-is-Hash-value" class="headerlink" title="即 h &#x3D; H(M) (M is variable and h is Hash value)"></a>即 h &#x3D; H(M) (M is variable and h is Hash value)</h3></li>
 </ul>
 </li>
-<li><strong>计算机网络$\Rightarrow$ 将计算机或外部设备连接在一起，实现 <u>信息交互和应用服务</u>的设备 通信链路 通信规约和软件的集合</strong></li>
+<li><p>Hash函数的目的是为 报文等分组数据 产生 “数字指纹”</p>
+</li>
 </ul>
+<h2 id="对Hash-函数的要求"><a href="#对Hash-函数的要求" class="headerlink" title="对Hash 函数的要求"></a>对Hash 函数的要求</h2><ul>
+<li>H 可以用于任意大小的 数据分组 并且 一定产生定长输出</li>
+<li>对于任意的 x，H(x) 要容易计算 (比AES更容易) </li>
+<li><em><strong>单向性 ： 对于任意给定的码y， 寻求 x 使得 H(x) &#x3D; y 在计算上不可行 [即value $\Rightarrow$ key 不可行]</strong></em> </li>
+<li><em><strong>弱抗碰撞性： 任意给定分组 x  寻求不等于x 的 x2 使得 H(x) &#x3D; H(x2) 在计算上不可行 (在班上找和某人 生日相同的人)</strong></em></li>
+<li><em><strong>强抗碰撞性：找到任意一组 (x1, x2) 使得H(x1) &#x3D; H(x2) 在计算上不可行  (在一个班级找任意两个 生日相同的人)</strong></em><ul>
+<li>碰撞 $\rightarrow$ 两个不等的 x  对应同一个 H(x) <strong>在安全学中 我们需求碰撞 不发生</strong></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h5 id="弱碰撞和强碰撞相比-强碰撞非常容易发生-与-生日悖论的原理相同-，-因为弱碰撞指定了x"><a href="#弱碰撞和强碰撞相比-强碰撞非常容易发生-与-生日悖论的原理相同-，-因为弱碰撞指定了x" class="headerlink" title="弱碰撞和强碰撞相比 强碰撞非常容易发生(与 生日悖论的原理相同)， 因为弱碰撞指定了x"></a>弱碰撞和强碰撞相比 强碰撞非常容易发生(与 生日悖论的原理相同)， 因为弱碰撞指定了x</h5></blockquote>
+<h2 id="Keccak"><a href="#Keccak" class="headerlink" title="Keccak"></a>Keccak</h2><ul>
+<li>使用了海绵结构 可以 被视为轻量级密码</li>
+<li>压缩函数 只使用了 XOR ｜ ROT(移位)   无查表和算术运算 $\rightarrow$ 速度 更快</li>
+</ul>
+<h4 id="Sponge-construction"><a href="#Sponge-construction" class="headerlink" title="Sponge construction"></a>Sponge construction</h4><p>全0起手 每次吸收一个m</p>
+<p>包括absorbing phase和Squeezing phase 「吸收和挤压阶段」</p>
 <ul>
-<li>因特网 $\Rightarrow$ 特指由美国创建和管理的全球互联网</li>
+<li>algorithm Theta<ul>
+<li>每个字中的每一位新的值 $\rightarrow$ 当前值 前一列每个字的相同位 后一列每个字的邻接位(移位)</li>
+<li>对 C[x] &#x3D; XOR_i |L[x, i]|</li>
+<li>L[x, y] &#x3D; L[x, y] XOR C[x - 1] XOR ROT(C[x + 1], 1)</li>
 </ul>
-<hr>
-<h4 id="计算机网络发展-Web发展-x2F-快速发展期"><a href="#计算机网络发展-Web发展-x2F-快速发展期" class="headerlink" title="计算机网络发展(Web发展&#x2F;快速发展期)"></a>计算机网络发展(Web发展&#x2F;快速发展期)</h4><ul>
-<li>Tim Berners-Lee 1989年提出了 Web， 1991年开通了第一个 WWW网站<a target="_blank" rel="noopener" href="https://info.cern.ch/">https://info.cern.ch/</a>  1993年制定了全球信息浏览的Web规范</li>
-<li>1994年8月11日 netMarket公司 建立了第一个电子商务网站并完成了全球第一笔网络零售交易</li>
-<li>1995年 杰夫·贝佐斯创建了 Amazon</li>
-<li>1994年4月20日 中国科学技术网成功和Internet连接(64k&#x2F;s)</li>
-<li>1994年10月 Grand Juction公司推出第一套快速以太网</li>
-<li>1995年3月 IEEE宣布了快速以太网标准 Fast Ethernet LAN进入100M时代</li>
-<li>1997年6月 IEEE802.11标准出台 无线网络代替了有线网络实现高效 高速的联网方案 (WIFI)</li>
-<li>1998～1999 高速以太网标准形成 </li>
-<li>1998年9月7日 Google成立 &#x2F; qq出现</li>
-<li>2001年 万兆以太网出现(有线)(用于组网核心 城域网)</li>
-<li>2004年 Mark Zuckerberg 建立Facebook</li>
-<li>2006年 Twitter出现</li>
-<li>2007年6月29日 Steve Jobs的iPhone上市 移动互联网时代开启</li>
-<li>2007年11月 Google发起的手机联盟推出Android 以Apache开源许可证的授权方式开放源代码</li>
+</li>
+<li>algorithm Rho<ul>
+<li>除了L[0, 0]外 每个字的内部使用循环移位进行置换  移位值为 (t+1)(t+2)&#x2F;2 mod 64  「t 使得 [x, y] &#x3D; M^t *[1, 0]^T」  t不是移位值 是找移位值的根据</li>
 </ul>
-<hr>
-<h4 id="计算机网络提供的服务"><a href="#计算机网络提供的服务" class="headerlink" title="计算机网络提供的服务"></a>计算机网络提供的服务</h4><p><strong><u>三大核心$\Rightarrow$应用 交互 管理</u></strong></p>
-<ol>
-<li>网络应用服务</li>
-<li>具体联网和信息交互(解决不同速率 距离 成本需要的组网技术) 1973年 Vinton Cerf&#x2F;Robert Kahn指出不可能存在能满足所有需求的单一分组网络技术</li>
-<li>大规模的组网和信息交互技术</li>
-<li>网络辅助技术 解决网络运行时的问题</li>
-</ol>
-<hr>
-<h4 id="计算机网络应用"><a href="#计算机网络应用" class="headerlink" title="计算机网络应用"></a>计算机网络应用</h4><p>互联网网络应用(服务) 建立在TCP&#x2F;IP协议之上的应用服务</p>
-<p>连接 $\Rightarrow$ 联合</p>
-<p>早期的Internet应用 Telnet(远程计算机访问) Email FTP(文件传送) Newsgroup(新闻组) BBS论坛</p>
-<h5 id="应用的发展过程"><a href="#应用的发展过程" class="headerlink" title="应用的发展过程"></a>应用的发展过程</h5><p>E-mail FTP $\Rightarrow$ 静态网页 $\Rightarrow$ 动态网页 $\Rightarrow$ 网上营销 $\Rightarrow$ 电子商务 $\Rightarrow$ 移动应用服务</p>
-<p>宏观来看 信息交互 $\Rightarrow$ 综合业务应用 多媒体应用 $\Rightarrow$ 物联网 云计算应用</p>
-<h5 id="万维网-World-Wide-Web"><a href="#万维网-World-Wide-Web" class="headerlink" title="万维网 World Wide Web"></a>万维网 World Wide Web</h5><p>万维网起源于欧洲粒子物理研究中心CERN </p>
-<p>核心创新： 广泛关联 文档定位 文档快速传输 多格式文档阅读</p>
-<p>网页(超文本) 表达的不再是线性的信息 而是非线性 联想式 信息关联的信息网。 Web表示这种由超文本连接起来的信息网</p>
-<p>网址 $\Rightarrow$ 统一资源定位符 URL (Uniform Resource Locator)</p>
-<p><a target="_blank" rel="noopener" href="http://www.baidu.com/view/25482.htm">http://www.baidu.com/view/25482.htm</a></p>
-<p> $\Uparrow$                     $\Uparrow$                              $\Uparrow$</p>
-<p>Protocol       Name of Computer    Index and File name</p>
-<p>支持缺省输入(支持默认)</p>
-<h6 id="指定URL后-如何传输？"><a href="#指定URL后-如何传输？" class="headerlink" title="指定URL后 如何传输？"></a>指定URL后 如何传输？</h6><p>浏览器按URL链接服务器 请求服务 $\Rightarrow$ 网页服务器应答 返回 $\Rightarrow$ 浏览器完成解析之后显示网页</p>
-<p>使用超文本传输协议HTTP 让网站和浏览器协商进行网页传输</p>
-<h6 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h6><p>基本功能 $\Rightarrow$ 输入选取URL时 向Web服务器发送请求 接收文档 进行解析和显示</p>
-<hr>
-<p>现代计算机网络创造了全新社会形态 </p>
+</li>
+<li>algorithm Pi<ul>
+<li>字之间进行5x5矩阵 置换 L[0,0] 不变</li>
+<li>L[x, y] &#x3D; L[x1, y1]  其中(x, y ) &#x3D; M * (x1, y1);</li>
+</ul>
+</li>
+<li>algorithm Chi<ul>
+<li>每个字的 每一位新值 取决与 当前值 ｜ 同行的下一个字 的对应位 ｜ 相同行的下下个字的对应位 [循环]</li>
+</ul>
+</li>
+</ul>
 
             </div>
             <hr>
@@ -286,7 +279,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E4%BA%92%E8%81%94%E7%BD%91%E5%8E%9F%E7%90%86/">互联网原理</a>
+                      <a class="hover-with-bg" href="/tags/Cryptography/">Cryptography</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Security/">Security</a>
                     
                   </div>
                 
@@ -297,15 +292,21 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/10/08/Symmetric%20Ciphers/">
+                      <a href="/2020/12/05/about%20numeric%20%E5%BA%93/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">对称密码 Symmetric Ciphers</span>
+                        <span class="hidden-mobile">About C++ numeric</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2020/10/29/RSA%20%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/">
+                        <span class="hidden-mobile">RSA的代码实现(C++)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>

@@ -24,7 +24,7 @@
 <meta property="og:description" content="about 位运算 (运算符)uint32_t   32位二进制整数  一般情况下 左移就是除二x &amp; x-1 可以检测是否是2的整数次幂  (x&amp;x-1 可以清除最右边的1,如果这个1是第一位的1, 那这个数就变为0)n &amp; 1 (在32位下 1是 00000····001 而不是111···1)   用来检测奇偶性(最后一位是否为1)   偶数结果为0对于x , 取其第">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-05-11T06:16:16.000Z">
-<meta property="article:modified_time" content="2022-03-18T15:19:26.205Z">
+<meta property="article:modified_time" content="2022-03-25T06:43:03.796Z">
 <meta property="article:author" content="Natsumi">
 <meta property="article:tag" content="Programming">
 <meta name="twitter:card" content="summary_large_image">
@@ -439,6 +439,10 @@
 </ul>
 <h4 id="关于进制转换问题"><a href="#关于进制转换问题" class="headerlink" title="关于进制转换问题"></a>关于进制转换问题</h4><ul>
 <li>我们使用的进制转换是<strong>短除法</strong>的进制转换，因此最后有一个 reverse 操作，不要忘记</li>
+</ul>
+<h4 id="交换x-y"><a href="#交换x-y" class="headerlink" title="交换x y"></a>交换x y</h4><ul>
+<li>直接交换法:  a &#x3D; a - b , b &#x3D; a + b, a &#x3D; b - a;</li>
+<li>异或法 : x &#x3D; x ^ y, y &#x3D; x ^ y, x &#x3D; x ^ y</li>
 </ul>
 
             </div>
