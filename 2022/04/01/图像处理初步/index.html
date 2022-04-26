@@ -16,21 +16,21 @@
   <meta name="author" content="Natsumi">
   <meta name="keywords" content="">
   
-    <meta name="description" content="计算机技术杂谈大数据与云计算大数据不是数据存储技术，而是和海量数据相关的抽取、集成、管理、分析、解释方法，是一个庞大的框架系统。宏观上讲，对数据进行映射和提炼，发现其数据特征并加以利用。从技术上说，是通过获取、存储、分析，从大容量数据里挖掘价值的技术架构。 大数据的量级在 PB(1024TB)或者EB级，其关键特点有 Volume(量)、Variety、**Velocity(时效性短)**、Val">
+    <meta name="description" content="图像处理opencv CV从大类上讲，应当属于图像处理，而非机器学习！要注意学习图像的基础知识，不可走火入魔 图像的基本知识灰度 1byte  描述灰白图像，一个数值，单通道 RGB 3byte 描述一张彩色图像，3个数值，一般是三通道，但是可以通过压缩，让RGB三个数值总共占16bit(比如RGB 565)，即两通道  反色变换目标：增加暗色背景图像里的明亮区域 如果图像灰度值范围为 [0, L">
 <meta property="og:type" content="article">
-<meta property="og:title" content="计算机技术杂谈">
-<meta property="og:url" content="http://www.mementos.top/2022/03/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/index.html">
+<meta property="og:title" content="Preliminary Image Processing">
+<meta property="og:url" content="http://www.mementos.top/2022/04/01/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E5%88%9D%E6%AD%A5/index.html">
 <meta property="og:site_name" content="Natsumi&#39;s Mementos">
-<meta property="og:description" content="计算机技术杂谈大数据与云计算大数据不是数据存储技术，而是和海量数据相关的抽取、集成、管理、分析、解释方法，是一个庞大的框架系统。宏观上讲，对数据进行映射和提炼，发现其数据特征并加以利用。从技术上说，是通过获取、存储、分析，从大容量数据里挖掘价值的技术架构。 大数据的量级在 PB(1024TB)或者EB级，其关键特点有 Volume(量)、Variety、**Velocity(时效性短)**、Val">
+<meta property="og:description" content="图像处理opencv CV从大类上讲，应当属于图像处理，而非机器学习！要注意学习图像的基础知识，不可走火入魔 图像的基本知识灰度 1byte  描述灰白图像，一个数值，单通道 RGB 3byte 描述一张彩色图像，3个数值，一般是三通道，但是可以通过压缩，让RGB三个数值总共占16bit(比如RGB 565)，即两通道  反色变换目标：增加暗色背景图像里的明亮区域 如果图像灰度值范围为 [0, L">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-03-04T08:38:20.837Z">
-<meta property="article:modified_time" content="2022-04-08T01:33:44.424Z">
+<meta property="article:published_time" content="2022-04-01T13:46:45.246Z">
+<meta property="article:modified_time" content="2022-04-26T02:32:23.035Z">
 <meta property="article:author" content="Natsumi">
-<meta property="article:tag" content="Computation tech">
+<meta property="article:tag" content="Image Processing">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>计算机技术杂谈 - Natsumi&#39;s Mementos</title>
+  <title>Preliminary Image Processing - Natsumi&#39;s Mementos</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -164,7 +164,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="计算机技术杂谈">
+            <span class="h2" id="subtitle" title="Preliminary Image Processing">
               
             </span>
 
@@ -216,48 +216,21 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">计算机技术杂谈</h1>
+            <h1 style="display: none">Preliminary Image Processing</h1>
             
             <div class="markdown-body">
-              <h1 id="计算机技术杂谈"><a href="#计算机技术杂谈" class="headerlink" title="计算机技术杂谈"></a>计算机技术杂谈</h1><h3 id="大数据与云计算"><a href="#大数据与云计算" class="headerlink" title="大数据与云计算"></a>大数据与云计算</h3><p>大数据不是数据存储技术，而是和海量数据相关的抽取、集成、管理、分析、解释方法，是一个庞大的框架系统。宏观上讲，对数据进行映射和提炼，发现其数据特征并加以利用。从技术上说，是通过<strong>获取、存储、分析，从大容量数据里挖掘价值的</strong>技术架构。</p>
-<p>大数据的量级在 PB(1024TB)或者EB级，其关键特点有 Volume(量)、Variety、**Velocity(时效性短)**、Value(价值密度低)</p>
-<p>云计算：这种基于互联网的计算方式，可以更好的对软硬计算资源进行整合，在我看来，这个概念有些类似操作系统中提供虚拟化资源的概念，相当于是面向互联网计算的虚拟计算环境，使用户能够方便、有效地共享和利用网络上的资源</p>
+              <h1 id="图像处理"><a href="#图像处理" class="headerlink" title="图像处理"></a>图像处理</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/LOVEmy134611/article/details/119489496?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164880826916781683965243%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=164880826916781683965243&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-119489496.142%5Ev5%5Epc_search_result_control_group,157%5Ev4%5Econtrol&utm_term=OpenCV&spm=1018.2226.3001.4187">opencv</a></p>
+<p>CV从大类上讲，应当属于图像处理，而非机器学习！要注意学习图像的基础知识，不可走火入魔</p>
+<h2 id="图像的基本知识"><a href="#图像的基本知识" class="headerlink" title="图像的基本知识"></a>图像的基本知识</h2><p>灰度 1byte  描述灰白图像，一个数值，单通道</p>
+<p>RGB 3byte 描述一张彩色图像，3个数值，一般是三通道，但是可以通过压缩，让RGB三个数值总共占16bit(比如RGB 565)，即两通道</p>
 <hr>
-<h3 id="前端-amp-后端"><a href="#前端-amp-后端" class="headerlink" title="前端 &amp; 后端"></a>前端 &amp; 后端</h3><ul>
-<li>广义上说，任何和UI直接相关的工作，都属于前端，狭义上讲，前端就是网页端</li>
-<li>后端 是具体实现功能的地方，<strong>并且负责关键的 状态维护 和 控制权限</strong>，这些控制机制不能被放在前端</li>
-</ul>
-<h3 id="JavaScript，CSS与HTML的关系"><a href="#JavaScript，CSS与HTML的关系" class="headerlink" title="JavaScript，CSS与HTML的关系"></a>JavaScript，CSS与HTML的关系</h3><ul>
-<li><strong>HTML定义页面结构和核心内容，CSS则为这些内容加上样式，JS则可以同时做到这两件事。</strong><ul>
-<li>抽象的说，html是骨，负责将信息结构化，CSS则是肉，负责添加装饰性内容</li>
-<li>CSS可以更简单的完成一些html完成很麻烦的工作，比如将所有的标题居中。</li>
-</ul>
-</li>
-<li>JS可以完成html和css的工作，但复杂一些，其主要功能是 <strong>指导浏览器如何动态建立结构和作用样式，也就是负责控制逻辑</strong></li>
-</ul>
-<hr>
-<h4 id="SSL-amp-SSH"><a href="#SSL-amp-SSH" class="headerlink" title="SSL &amp; SSH"></a>SSL &amp; SSH</h4><p>在原本的HTTP协议中，内容是明文形式传输，而HTTPS &#x3D;&gt; <strong>SSL&#x2F;TLS</strong>(Secure Sockets Layer &#x2F; Transport Layer Security) 协议，默认为443端口，本身可以看作是传输层的附加层。有三个好处</p>
-<ul>
-<li>加密。防窃听</li>
-<li>校验。防篡改</li>
-<li>证书。防冒充</li>
-</ul>
-<p>其基本思路在于 **使用<code>公钥加密</code>加密<code>会话密钥</code>**，注意：会话密钥本身是对称加密的密钥，实际上https客户端和服务器的通信是使用对称加密的，这样更快。</p>
-<h4 id="SSL和SSH-Secure-Shell"><a href="#SSL和SSH-Secure-Shell" class="headerlink" title="SSL和SSH Secure Shell"></a>SSL和SSH Secure Shell</h4><p>两者间建立一条加密通道，将数据加密并且压缩传输。  SSL并非协议，而SSH则是建立在SSL基础上的协议。 SSH可以代替telnet 和 ftp</p>
-<hr>
-<h2 id="成为后端工程师"><a href="#成为后端工程师" class="headerlink" title="成为后端工程师"></a>成为后端工程师</h2><p>语言： Java(Spring)、<strong>Golang</strong>、C++， 和语言对应的Web框架</p>
-<ul>
-<li>计算机网络 TCP&#x2F;IP详解「卷一」，HTTP相关</li>
-<li>算法导论</li>
-<li>OS   OS黑皮</li>
-<li>数据库 <ul>
-<li>MySQL， 高性能MySQL 面之前要看前半段</li>
-<li>非关系数据库 redis</li>
-</ul>
-</li>
-<li>linux  鸟叔私房菜，30天入门linux</li>
-</ul>
-<p>Web项目： 开源项目</p>
+<h3 id="反色变换"><a href="#反色变换" class="headerlink" title="反色变换"></a>反色变换</h3><p>目标：<code>增加暗色背景图像里的明亮区域</code></p>
+<p>如果图像灰度值范围为 [0, L], 则反色变换为 </p>
+<p>$输出灰度值output &#x3D; 最大灰度值L - 输入灰度值input$</p>
+<p>也就是说，输出灰度矩阵中的每个点的灰度，是原图像中最大灰度点的灰度 - 自己本身的灰度 </p>
+<p>​    (如图像最大灰度为160，这个像素点的灰度为20，那么转换后它的灰度为 160-20 &#x3D; 140)</p>
+<figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np   <span class="hljs-comment"># matrix manipulation</span><br><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image   <span class="hljs-comment"># read image from hard disk</span><br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt   <span class="hljs-comment"># matplotlib中的绘图工具</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">image_inverse</span>(<span class="hljs-params"><span class="hljs-built_in">input</span></span>):<br>  value_max = np.<span class="hljs-built_in">max</span>(<span class="hljs-built_in">input</span>)  <span class="hljs-comment"># 求出图片的最大灰度值，注意这里是一个整型</span><br>  output = value_max - <span class="hljs-built_in">input</span>  <span class="hljs-comment"># 利用numpy的广播机制，使得value</span><br>  <br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>		<span class="hljs-comment"># asarray 将图像转变为numpy矩阵</span><br>    gray_img = np.asarray(Image.<span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;./x.jpg&#x27;</span>).convert(<span class="hljs-string">&#x27;L&#x27;</span>))<br>		inv_img = image_inverse(gray_img)<br>    <br>    fig = plt.figure()<br>    ax1 = fig.add_subplot(<span class="hljs-number">121</span>)   <span class="hljs-comment"># 指图像数量为一行两列, 第三个1为1号位置</span><br>    ax1.set_title(<span class="hljs-string">&#x27;before&#x27;</span>)<br>    <span class="hljs-comment"># cmap = &#x27;gray&#x27; 意味着图像以灰度图像的形式显示</span><br>    ax1.imshow(gray_img, cmap = <span class="hljs-string">&#x27;gray&#x27;</span>, vmin = <span class="hljs-number">0</span>, vmax = <span class="hljs-number">255</span>)<br>    <br>    ax2 = fig.add_subplot(<span class="hljs-number">122</span>)<br>    ax2.set_title(<span class="hljs-string">&#x27;after&#x27;</span>)<br>    ax2.imshow(inv_img, cmap = <span class="hljs-string">&#x27;gray&#x27;</span>, vmin = <span class="hljs-number">0</span>, vmax = <span class="hljs-number">255</span>)<br>    <br>    plt.show()<br>    <br></code></pre></div></td></tr></table></figure>
+
 
             </div>
             <hr>
@@ -268,7 +241,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Computation-tech/">Computation tech</a>
+                      <a class="hover-with-bg" href="/tags/Image-Processing/">Image Processing</a>
                     
                   </div>
                 
@@ -279,9 +252,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/03/08/About%20Homomorphic%20Encryption,%20MPC%20&amp;%20Crypten/">
+                      <a href="/2022/04/07/A%20Brief%20%20Introduction%20to%20Deep%20Learning(Andrew%20Ng)/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">About Homomorphic Encryption, MPC & Crypten</span>
+                        <span class="hidden-mobile">A Brief  Introduction to Deep Learning(Andrew Ng)</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -289,8 +262,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/03/04/A%20Brief%20Introduction%20to%20Machine%20Learning/">
-                        <span class="hidden-mobile">A Brief Introduction to Machine Learning</span>
+                      <a href="/2022/03/22/About%20Cloud%20Computing/">
+                        <span class="hidden-mobile">About Cloud Computing</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
