@@ -16,12 +16,12 @@
   <meta name="author" content="Natsumi">
   <meta name="keywords" content="">
   
-    <meta name="description" content="卷积如何完成和矩阵乘法的思想类似，3x3的filter(kernel)和图片中对应的3x3相乘并相加得到最终矩阵里的一个数。之后平移整个 蓝色方块，就可以计算出周围的值(有时需要进行pedding)     以灰阶图像垂直边界检测(6x6图像)为例。结果矩阵里白色就对应边界。 值得注意的是，边界看起来很厚，这是因为图像太小，如果是1000x1000的图像，那么其结果将会不那么厚。   如果我们将原">
+    <meta name="description" content="Convolutional Nerual Network(Andrew Ng)本文是吴恩达老师关于卷积神经网络的课程笔记。 卷积如何完成首先以灰阶图像为例，此时的输入通道为1。下面的图演示了卷积的具体过程。 和矩阵乘法的思想类似，3x3的filter(kernel)和图片中对应的3x3相乘并相加得到最终矩阵里的一个数。之后平移整个 蓝色方块，就可以计算出周围的值(有时需要进行pedding)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Convolutional Nerual Network(Andrew Ng)">
 <meta property="og:url" content="http://www.mementos.top/2022/04/24/Convolutional-Nerual-Network(Andrew%20Ng)/index.html">
 <meta property="og:site_name" content="Natsumi&#39;s Mementos">
-<meta property="og:description" content="卷积如何完成和矩阵乘法的思想类似，3x3的filter(kernel)和图片中对应的3x3相乘并相加得到最终矩阵里的一个数。之后平移整个 蓝色方块，就可以计算出周围的值(有时需要进行pedding)     以灰阶图像垂直边界检测(6x6图像)为例。结果矩阵里白色就对应边界。 值得注意的是，边界看起来很厚，这是因为图像太小，如果是1000x1000的图像，那么其结果将会不那么厚。   如果我们将原">
+<meta property="og:description" content="Convolutional Nerual Network(Andrew Ng)本文是吴恩达老师关于卷积神经网络的课程笔记。 卷积如何完成首先以灰阶图像为例，此时的输入通道为1。下面的图演示了卷积的具体过程。 和矩阵乘法的思想类似，3x3的filter(kernel)和图片中对应的3x3相乘并相加得到最终矩阵里的一个数。之后平移整个 蓝色方块，就可以计算出周围的值(有时需要进行pedding)">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://www.mementos.top/2022/04/24/Convolutional-Nerual-Network(Andrew%20Ng)/image-20220424110852145.png">
 <meta property="og:image" content="http://www.mementos.top/2022/04/24/Convolutional-Nerual-Network(Andrew%20Ng)/image-20220424111324642.png">
@@ -29,7 +29,7 @@
 <meta property="og:image" content="http://www.mementos.top/2022/04/24/Convolutional-Nerual-Network(Andrew%20Ng)/image-20220424113126501.png">
 <meta property="og:image" content="http://www.mementos.top/2022/04/24/Convolutional-Nerual-Network(Andrew%20Ng)/image-20220424113940393.png">
 <meta property="article:published_time" content="2022-04-24T03:07:36.491Z">
-<meta property="article:modified_time" content="2022-04-26T02:27:24.525Z">
+<meta property="article:modified_time" content="2022-05-09T11:35:34.947Z">
 <meta property="article:author" content="Natsumi">
 <meta property="article:tag" content="AI">
 <meta property="article:tag" content="Deep Learning">
@@ -186,7 +186,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      269 字
+      603 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3 分钟
+      6 分钟
     </span>
   
 
@@ -227,7 +227,9 @@
             <h1 style="display: none">Convolutional Nerual Network(Andrew Ng)</h1>
             
             <div class="markdown-body">
-              <h5 id="卷积如何完成"><a href="#卷积如何完成" class="headerlink" title="卷积如何完成"></a>卷积如何完成</h5><p>和矩阵乘法的思想类似，3x3的filter(kernel)和图片中对应的3x3相乘并相加得到最终矩阵里的一个数。之后平移整个 蓝色方块，就可以计算出周围的值(有时需要进行pedding)</p>
+              <h1 id="Convolutional-Nerual-Network-Andrew-Ng"><a href="#Convolutional-Nerual-Network-Andrew-Ng" class="headerlink" title="Convolutional Nerual Network(Andrew Ng)"></a>Convolutional Nerual Network(Andrew Ng)</h1><p>本文是吴恩达老师关于卷积神经网络的课程笔记。</p>
+<h5 id="卷积如何完成"><a href="#卷积如何完成" class="headerlink" title="卷积如何完成"></a>卷积如何完成</h5><p>首先以灰阶图像为例，此时的输入通道为1。下面的图演示了卷积的具体过程。</p>
+<p>和矩阵乘法的思想类似，3x3的filter(kernel)和图片中对应的3x3相乘并相加得到最终矩阵里的一个数。之后平移整个 蓝色方块，就可以计算出周围的值(有时需要进行pedding)</p>
 <img src="/2022/04/24/Convolutional-Nerual-Network(Andrew%20Ng)/image-20220424110852145.png" srcset="/img/loading.gif" lazyload alt="image-20220424110852145" style="zoom:50%;">
 
 <img src="/2022/04/24/Convolutional-Nerual-Network(Andrew%20Ng)/image-20220424111324642.png" srcset="/img/loading.gif" lazyload alt="image-20220424111324642" style="zoom:50%;">
@@ -240,6 +242,14 @@
 
 <p>不难想到，如果想要对灰阶图像进行<u><em>水平边界检测</em></u>，那么可以使用右边的filter来遍历图像。</p>
 <img src="/2022/04/24/Convolutional-Nerual-Network(Andrew%20Ng)/image-20220424113940393.png" srcset="/img/loading.gif" lazyload alt="image-20220424113940393" style="zoom:50%;">
+
+<p>如果输入的图片是彩色图片，它的输入通道数为3，输出通道数也为3。</p>
+<p>![image-20220426154531786](Convolutional-Nerual-Network(Andrew Ng)&#x2F;image-20220426154531786.png)</p>
+<hr>
+<p>学习路线：莫烦Python，吴恩达深度学习+卷积神经网络， fast ai 上手</p>
+<p>雅思：https：ieltsonlinetests.com<br>托福：<a target="_blank" rel="noopener" href="https://toefl.kmf.comexam/mock">https://toefl.kmf.comexam/mock</a></p>
+<p>宏观经济学、 行为经济学</p>
+
             </div>
             <hr>
             <div>
