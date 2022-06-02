@@ -1,0 +1,838 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" >
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar1.png">
+  <link rel="icon" href="/img/avatar1.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Natsumi">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Symmetric CiphersSymmetric Cipher Model 对称算法模型对于对称算法来说重要的概念 Plaintext 明文 Encryption algorithm 加密算法 Secret key  Ciphertext 密文 Decryption algorithm 解码算法 $\rightarrow$ 本质上是加密算法的reverse 从密文中获取明文  对于传统的起保护">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ComSec&amp;Crypto 综述">
+<meta property="og:url" content="http://www.mementos.top/2022/03/08/ComSec&Crypto%20%E7%BB%BC%E8%BF%B0/index.html">
+<meta property="og:site_name" content="Natsumi&#39;s Mementos">
+<meta property="og:description" content="Symmetric CiphersSymmetric Cipher Model 对称算法模型对于对称算法来说重要的概念 Plaintext 明文 Encryption algorithm 加密算法 Secret key  Ciphertext 密文 Decryption algorithm 解码算法 $\rightarrow$ 本质上是加密算法的reverse 从密文中获取明文  对于传统的起保护">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-03-08T11:26:37.131Z">
+<meta property="article:modified_time" content="2022-06-02T08:49:49.282Z">
+<meta property="article:author" content="Natsumi">
+<meta property="article:tag" content="ComSec&amp;Crypto">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>ComSec&amp;Crypto 综述 - Natsumi&#39;s Mementos</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.mementos.top","root":"/","version":"1.9.1","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Natsumi&#39;s Mementos</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于我
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="ComSec&amp;Crypto 综述"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          5.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          44 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">ComSec&amp;Crypto 综述</h1>
+            
+            <div class="markdown-body">
+              
+              <h1 id="Symmetric-Ciphers"><a href="#Symmetric-Ciphers" class="headerlink" title="Symmetric Ciphers"></a>Symmetric Ciphers</h1><h3 id="Symmetric-Cipher-Model-对称算法模型"><a href="#Symmetric-Cipher-Model-对称算法模型" class="headerlink" title="Symmetric Cipher Model 对称算法模型"></a>Symmetric Cipher Model 对称算法模型</h3><h5 id="对于对称算法来说重要的概念"><a href="#对于对称算法来说重要的概念" class="headerlink" title="对于对称算法来说重要的概念"></a>对于对称算法来说重要的概念</h5><blockquote>
+<p>Plaintext 明文</p>
+<p>Encryption algorithm 加密算法</p>
+<p>Secret key </p>
+<p>Ciphertext 密文</p>
+<p>Decryption algorithm 解码算法 $\rightarrow$ 本质上是加密算法的reverse 从密文中获取明文</p>
+</blockquote>
+<h5 id="对于传统的起保护作用的加密算法有两个需要"><a href="#对于传统的起保护作用的加密算法有两个需要" class="headerlink" title="对于传统的起保护作用的加密算法有两个需要"></a>对于传统的起保护作用的加密算法有两个需要</h5><ol>
+<li>我们需要一个强大的加密算法 最少 需要当你的对手<em><strong>知道你的算法并且能获得一个以上密文</strong></em> 的情况下也无法获得密钥或者破译密文。</li>
+<li>发送方和接收方都需要有密钥的副本并且需要保证密钥的安全。如果对手知道你的算法并获取了你的密钥，那么使用这个密钥加密的对话会对其透明。</li>
+</ol>
+<h5 id="对称加密模型"><a href="#对称加密模型" class="headerlink" title="对称加密模型"></a>对称加密模型</h5><p>X 代表明文 K代表密钥 </p>
+<p>For encryption, a key of the form $K &#x3D; [k1,k2,…kj]$ is generated, if the key is generated at the meesage source then it must also be provided to the destination by means of some secure channel.Alternatively, a third party could generate the key and securely deliver it to both source and destination</p>
+<blockquote>
+<p>在编码端 密钥被产出，并安全的递送给接收端。(也可以让第三方接手)</p>
+</blockquote>
+<p>Y代表密文 </p>
+<p>其中 $Y &#x3D; E(K,X)$, </p>
+<blockquote>
+<p>表示编码算法E 将明文X用K加密，得到密文Y</p>
+</blockquote>
+<p>在信道里，想要，并且<strong>持有密钥</strong>的接收者，能够逆转这个信息</p>
+<p>$X &#x3D; D(K,Y)$</p>
+<blockquote>
+<p>表示解码算法D 将密文Y用K解码， 得到明文X</p>
+</blockquote>
+<p>**<u><em>对刚刚的模型，在密码分析的角度(攻破密码) Cryptanalyst(图的上方)</em></u>**：</p>
+<p>相反，得到Y 但没有X或者K，并且想要得到X或者K或都要。并且 我们假定 <strong>你的对手持有加密算法E和解码算法D</strong></p>
+<p>如果只想要这一个密文的内容，就要分析X，如果想要阅读之后的消息，则需要恢复出密钥K。</p>
+<h5 id="密码学-Cryptography"><a href="#密码学-Cryptography" class="headerlink" title="密码学 Cryptography"></a>密码学 Cryptography</h5><p>密码学有着以下的3个独立的维度</p>
+<blockquote>
+<ol>
+<li>The type of operations used for transforming plaintext to ciphertext</li>
+</ol>
+</blockquote>
+<p>所有的编码算法都基于两种原理 ：</p>
+<p><strong>substitution</strong> 替换，<strong>某个元素</strong>被替换成明文中其他的元素，相当于交换位置(<strong>不会出现明文里没有的元素</strong>)</p>
+<p><strong>transposition</strong> 调换，将明文的元素重排 </p>
+<p>这两种原理的特征就是$\Rightarrow$所有的操作都是可逆的(no info be lost)</p>
+<blockquote>
+<ol start="2">
+<li>The number of keys used</li>
+</ol>
+</blockquote>
+<p>如果接收和发送双方都使用同样的密钥，这个密码系统偏向于传统加密算法(对称加密算法)。如果使用不同的密钥，则偏向于asymmetric(非对称的)或者公钥算法</p>
+<blockquote>
+<ol start="3">
+<li>The way in which the plaintext is processed (攻破密码系统)</li>
+</ol>
+</blockquote>
+<p><em>Block Cipher</em> 分组密码 ：每次放入一组元素，一组一组的加密。</p>
+<p><em>Stream Cipher</em> 流密码 ： 连续放入元素 一个个的加密。</p>
+<hr>
+<h1 id="公钥密码学"><a href="#公钥密码学" class="headerlink" title="公钥密码学"></a>公钥密码学</h1><h2 id="公钥密码"><a href="#公钥密码" class="headerlink" title="公钥密码"></a>公钥密码</h2><ul>
+<li>1976年 Diffie和Hellman在 《密码学新方法》提出</li>
+<li>使用 公钥和私钥 $\rightarrow$ 解密和加密并非对称</li>
+<li>利用数论的方法。 补充了对称密码</li>
+</ul>
+<blockquote>
+<p><strong>公钥密码的重要特点</strong></p>
+<ul>
+<li><strong>仅根据 密码算法 和 加密密钥 无法确定解密密钥</strong></li>
+<li><strong>两个密钥中的任何一个可以加密 而另一个解密</strong></li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="RSA"><a href="#RSA" class="headerlink" title="RSA"></a>RSA</h2><ul>
+<li>1977 来自MIT的 Rivest，Shamir &amp; Adleman</li>
+<li>是最著名 应用最广泛的公钥加密体制</li>
+<li><strong>明文和密文是 0-n-1 之间的整数，n的大小通常为 1024位 或者 309位十进制</strong></li>
+</ul>
+<h3 id="RSA描述"><a href="#RSA描述" class="headerlink" title="RSA描述"></a>RSA描述</h3><p>$加密： C &#x3D; M^e mod N, (0\leq M &lt;N ) $</p>
+<p>$解密： M &#x3D; C^d mod N$</p>
+<p>公钥$\rightarrow$ (e,N)   ; 私钥 $\rightarrow$ (d,N)</p>
+<p>其中$M^{ed}&#x3D;MmodN$()</p>
+<p>计算M^e 和 C^d 比较容易 ，但由e和n确定n 是不可行的</p>
+<hr>
+<h1 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h1><h2 id="Hash-函数"><a href="#Hash-函数" class="headerlink" title="Hash 函数"></a>Hash 函数</h2><ul>
+<li><p>Hash 并不用来 encryption &#x2F; decryption 但在密码学中具有重要的价值</p>
+</li>
+<li><h3 id="Hash-函数：任意长度的报文-rightarrow-HASH-rightarrow-较短的-定长的-报文"><a href="#Hash-函数：任意长度的报文-rightarrow-HASH-rightarrow-较短的-定长的-报文" class="headerlink" title="Hash 函数：任意长度的报文 $\rightarrow$ HASH $\rightarrow$ 较短的 定长的 报文"></a>Hash 函数：任意长度的报文 $\rightarrow$ HASH $\rightarrow$ 较短的 定长的 报文</h3><ul>
+<li><h3 id="即-h-x3D-H-M-M-is-variable-and-h-is-Hash-value"><a href="#即-h-x3D-H-M-M-is-variable-and-h-is-Hash-value" class="headerlink" title="即 h &#x3D; H(M) (M is variable and h is Hash value)"></a>即 h &#x3D; H(M) (M is variable and h is Hash value)</h3></li>
+</ul>
+</li>
+<li><p>Hash函数的目的是为 报文等分组数据 产生 “数字指纹”</p>
+</li>
+</ul>
+<h2 id="对Hash-函数的要求"><a href="#对Hash-函数的要求" class="headerlink" title="对Hash 函数的要求"></a>对Hash 函数的要求</h2><ul>
+<li>H 可以用于任意大小的 数据分组 并且 一定产生定长输出</li>
+<li>对于任意的 x，H(x) 要容易计算 (比AES更容易) </li>
+<li><em><strong>单向性 ： 对于任意给定的码y， 寻求 x 使得 H(x) &#x3D; y 在计算上不可行 [即value $\Rightarrow$ key 不可行]</strong></em> </li>
+<li><em><strong>弱抗碰撞性： 任意给定分组 x  寻求不等于x 的 x2 使得 H(x) &#x3D; H(x2) 在计算上不可行 (在班上找和某人 生日相同的人)</strong></em></li>
+<li><em><strong>强抗碰撞性：找到任意一组 (x1, x2) 使得H(x1) &#x3D; H(x2) 在计算上不可行  (在一个班级找任意两个 生日相同的人)</strong></em><ul>
+<li>碰撞 $\rightarrow$ 两个不等的 x  对应同一个 H(x) <strong>在安全学中 我们需求碰撞 不发生</strong></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h5 id="弱碰撞和强碰撞相比-强碰撞非常容易发生-与-生日悖论的原理相同-，-因为弱碰撞指定了x"><a href="#弱碰撞和强碰撞相比-强碰撞非常容易发生-与-生日悖论的原理相同-，-因为弱碰撞指定了x" class="headerlink" title="弱碰撞和强碰撞相比 强碰撞非常容易发生(与 生日悖论的原理相同)， 因为弱碰撞指定了x"></a>弱碰撞和强碰撞相比 强碰撞非常容易发生(与 生日悖论的原理相同)， 因为弱碰撞指定了x</h5></blockquote>
+<h2 id="Keccak"><a href="#Keccak" class="headerlink" title="Keccak"></a>Keccak</h2><ul>
+<li>使用了海绵结构 可以 被视为轻量级密码</li>
+<li>压缩函数 只使用了 XOR ｜ ROT(移位)   无查表和算术运算 $\rightarrow$ 速度 更快</li>
+</ul>
+<h4 id="Sponge-construction"><a href="#Sponge-construction" class="headerlink" title="Sponge construction"></a>Sponge construction</h4><p>全0起手 每次吸收一个m</p>
+<p>包括absorbing phase和Squeezing phase 「吸收和挤压阶段」</p>
+<ul>
+<li>algorithm Theta<ul>
+<li>每个字中的每一位新的值 $\rightarrow$ 当前值 前一列每个字的相同位 后一列每个字的邻接位(移位)</li>
+<li>对 C[x] &#x3D; XOR_i |L[x, i]|</li>
+<li>L[x, y] &#x3D; L[x, y] XOR C[x - 1] XOR ROT(C[x + 1], 1)</li>
+</ul>
+</li>
+<li>algorithm Rho<ul>
+<li>除了L[0, 0]外 每个字的内部使用循环移位进行置换  移位值为 (t+1)(t+2)&#x2F;2 mod 64  「t 使得 [x, y] &#x3D; M^t *[1, 0]^T」  t不是移位值 是找移位值的根据</li>
+</ul>
+</li>
+<li>algorithm Pi<ul>
+<li>字之间进行5x5矩阵 置换 L[0,0] 不变</li>
+<li>L[x, y] &#x3D; L[x1, y1]  其中(x, y ) &#x3D; M * (x1, y1);</li>
+</ul>
+</li>
+<li>algorithm Chi<ul>
+<li>每个字的 每一位新值 取决与 当前值 ｜ 同行的下一个字 的对应位 ｜ 相同行的下下个字的对应位 [循环]</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="About-MPC-Homomorphic-Encryption-amp-CrypTen"><a href="#About-MPC-Homomorphic-Encryption-amp-CrypTen" class="headerlink" title="About MPC, Homomorphic Encryption &amp; CrypTen"></a>About MPC, Homomorphic Encryption &amp; CrypTen</h1><h2 id="MPC-Secure-multi-party-computation"><a href="#MPC-Secure-multi-party-computation" class="headerlink" title="MPC   Secure multi-party computation"></a>MPC   Secure multi-party computation</h2><p>MPC的概念最初是由姚期智教授提出来的，Goldreich等人对其进行了深入研究，奠定了MPC的理论基础。Goldwasser与Cramer认为MPC是密码学中一个极其重要且强有力的工具。对于隐私数据共享的巨大需求使得MPC受到密码学界的高度重视并发展成为解决各种隐私保护问题的关键技术。</p>
+<p>Multiparty Computation (MPC) is a research area within cryptography whose application is generally limited to preserving the privacy of participants to a conversation from each other, rather than to preventing eavesdropping by an outsider.</p>
+<ul>
+<li><p>MPC 用到的三种安全模型： 理想模型(全是好人) ，半诚实模型(不破坏规则，但会推理出额外信息)，恶意模型</p>
+</li>
+<li><p>在无可信第三方的情况下，如何安全的计算一个约定函数(这可能有点像diffie Hellman)</p>
+</li>
+<li><p>Zero-Knowledge Proof 不向验证者提供有效信息的情况下使验证者相信你的论断</p>
+</li>
+<li><p>differential privacy 差分隐私 「利用噪声来实现安全(计算上安全)，而非加密手段」</p>
+</li>
+</ul>
+<p>可以拿出以下这个例子： 两个百万富翁比财产(他们不想让任何人知道自己有多少钱)</p>
+<p>假设两人的财富都是1kw ～ 10kw  拿来10个编号的箱子，编号代表kw数(比如3kw 就是3号箱)，甲会对这10个箱子，每一个的编号对应的钱数 少于自己的 放入苹果，和自己一样的，放入香蕉，多于自己的，放入梨。 然后将10个箱子寄给乙。 乙选出自己对应财富的箱子，并销毁其他的箱子和编号。  这时打开箱子，甲和乙就能知道谁更富有。</p>
+<p>「这个例子 基于半诚实模型，同时也有<code>不经意传输 Obivious Transfer</code>的影子, 即发送方向接收方发送信息中的一个部分，接收方可以正确的接收到信息，但不知道这个信息属于整体的哪个部分」</p>
+<ul>
+<li>MPC的两种应用形式： 外包计算 &#x2F; 多方计算   </li>
+<li>MPC需要确保输入数据的独立性、传递数据的准确性、计算过程的正确性，同时不能将个人的隐私数据泄露给其他参与者。MPC主要是针对在没有可信第三方时保密计算所有参与者约定的一个函数的情况，它在数字签名、电子拍卖、秘密共享等场景中有着重要的作用。</li>
+</ul>
+<p>多方安全计算主要通过以下四大技术来进行保障:</p>
+<p>（1）同态加密（Homomorphic Encryption，简称HE）<br>同态加密是一类具有特殊自然属性的加密方法， 可在密文域下进行数据运算的加密算法。 与一般加密算法相比， 同态加密除了能实现基本的加密操作之外， 还能实现密文间的多种计算功能， 即先计算后解密等价于先解密后计算。</p>
+<p>（2）混淆电路（Garbled Circuit，简称GC）<br>混淆电路思想是利用计算机模拟集成电路的方式来实现多方安<br>全计算的， 它将运算任务转化为门电路的形式， 并且对每一条线路进行加密， 在很大程度上保障了用户的隐私安全。</p>
+<p>（3）不经意传输（Oblivious Transfer，简称OT）</p>
+<p>不经意传输协议是一种可保护隐私的秘密协议， 它使得服务发送方和服务接收方以不经意的方式交互信息， 从而可达到保护隐私的目的。 不经意传输协议是一个两方安全计算协议， 接收方从发送方的数据中选取部分数据， 协议使得接收方除选取的内容外， 对剩余数据一无所知， 并且发送方也无从知道被选取的内容。</p>
+<p>（4） 秘密分享（Secret Sharing，简称SS）<br>秘密分享也被称为秘密分割， 是一种对秘密信息的管理方式， 它将秘密进行拆分， 拆分后的每一个分片由不同的参与者管理， 单个参与者无法恢复秘密信息， 需要超过一定门限数量的人一同协作进行合并才能恢复秘密文件。</p>
+<hr>
+<h2 id="Homomorphic-Encrytion"><a href="#Homomorphic-Encrytion" class="headerlink" title="Homomorphic Encrytion"></a><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%90%8C%E6%80%81%E5%8A%A0%E5%AF%86">Homomorphic Encrytion</a></h2><p>对密文进行特定形式的代数运算后 仍然是加密的结果，这样解密得到的结果和明文进行同样的运算结果一样。 也就是说，这项技术能够在 数据加密的情况下进行诸如 检索、比较等操作，并且得出正确的结果。  这项技术的意义就 是从根本上解决数据被委托给第三方时的保密问题。  </p>
+<p>同态加密在以往都只能实现部分操作，全同态加密的可行性是由09年 斯坦福大学的 Craig Gentry 的 <a target="_blank" rel="noopener" href="https://www.cs.cmu.edu/~odonnell/hits09/gentry-homomorphic-encryption.pdf">《Fully Homomorphic encryption Using Ideal Lattices》</a>一文中，从数学角度上证明了全同态加密的可行性。</p>
+<p>个人比较欣赏Gentry教授的定义，简明扼要的点出了其中的关键</p>
+<blockquote>
+<p> A way to delegate processing of your data, without giving away access to it.</p>
+</blockquote>
+<p>$指定运算符\Delta,加密算法E,解密算法D, 同态加密满足以下条件: E(x\Delta y)&#x3D;E(x)\Delta E(y)$</p>
+<hr>
+<h2 id="CrypTen"><a href="#CrypTen" class="headerlink" title="CrypTen"></a><a target="_blank" rel="noopener" href="https://crypten.readthedocs.io/en/latest/">CrypTen</a></h2><p>隐藏&#x2F;获取明文：</p>
+<blockquote>
+<p>CrypTen支持两种分享类型：arithmetic（ArithmeticSharedTensor）和binary(BinarySharedTensor)。<br>通过cryptensor()方法构造的MPCTensor中默认使用arithmetic分享类型。其中ArithmeticSharedTensor中实现了“add”，“sub”，“mul”，“matmul”等方法。</p>
+<p>明文获取：由于n方的PRZS.share的所有值相加为0。通过pytorch的reduce方式，sum所有节点的tensor.share即可恢复原始tensor。然后使用FixedPointEncoder将tensor解码</p>
+</blockquote>
+<p>模型加密</p>
+<blockquote>
+<p>CrypTen可以先读取pytorch的模型文件，将pytorch模型转化成onnx（Open Neural Network Exchange）文件，并进一步解读onnx文件来构造crypten_model（Graph类或是Module类。Graph继承Container，Container继承Module）调用crypten_model类即可完成对模型的各类操作。图2.3中的同态加密张量和安全加密张量还未实现或通过测试。图2.4演示了使用CrypTen加密模型的方法。</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u012386311/article/details/105264884?spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-2.pc_relevant_paycolumn_v3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-2.pc_relevant_paycolumn_v3&utm_relevant_index=5">Crypten核心代码分析</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u012386311/article/details/104650936">Crypten 环境变量配置</a></p>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/ComSec-Crypto/" class="category-chain-item">ComSec&amp;Crypto</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/ComSec-Crypto/">#ComSec&Crypto</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/03/11/%20Introduction%20to%20Database/" title="Introduction to database">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Introduction to database</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/" title="计算机技术杂谈">
+                        <span class="hidden-mobile">计算机技术杂谈</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://loktarogare.github.io/" target="_blank" rel="nofollow noopener"><span>Natsumi</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        MathJax = {
+          tex    : {
+            inlineMath: { '[+]': [['$', '$']] }
+          },
+          loader : {
+            load: ['ui/lazy']
+          },
+          options: {
+            renderActions: {
+              findScript    : [10, doc => {
+                document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                  const display = !!node.type.match(/; *mode=display/);
+                  const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                  const text = document.createTextNode('');
+                  node.parentNode.replaceChild(text, node);
+                  math.start = { node: text, delim: '', n: 0 };
+                  math.end = { node: text, delim: '', n: 0 };
+                  doc.math.push(math);
+                });
+              }, '', false],
+              insertedScript: [200, () => {
+                document.querySelectorAll('mjx-container').forEach(node => {
+                  let target = node.parentNode;
+                  if (target.nodeName.toLowerCase() === 'li') {
+                    target.parentNode.classList.add('has-jax');
+                  }
+                });
+              }, '', false]
+            }
+          }
+        };
+      </script>
+    
+
+  <script  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
