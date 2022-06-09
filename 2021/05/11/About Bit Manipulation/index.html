@@ -268,6 +268,15 @@
             <!-- SEO header -->
             <h1 style="display: none">About Bit Manipulation</h1>
             
+              <p class="note note-info">
+                
+                  
+                    <!-- compatible with older versions-->
+                    本文最后更新于：2 个月前
+                  
+                
+              </p>
+            
             <div class="markdown-body">
               
               <h1 id="about-位运算-运算符"><a href="#about-位运算-运算符" class="headerlink" title="about 位运算 (运算符)"></a>about 位运算 (运算符)</h1><h3 id="uint32-t-32位二进制整数-一般情况下-左移就是除二"><a href="#uint32-t-32位二进制整数-一般情况下-左移就是除二" class="headerlink" title="uint32_t   32位二进制整数  一般情况下 左移就是除二"></a>uint32_t   32位二进制整数  一般情况下 左移就是除二</h3><h5 id="x-amp-x-1-可以检测是否是2的整数次幂-x-amp-x-1-可以清除最右边的1-如果这个1是第一位的1-那这个数就变为0"><a href="#x-amp-x-1-可以检测是否是2的整数次幂-x-amp-x-1-可以清除最右边的1-如果这个1是第一位的1-那这个数就变为0" class="headerlink" title="x &amp; x-1 可以检测是否是2的整数次幂  (x&amp;x-1 可以清除最右边的1,如果这个1是第一位的1, 那这个数就变为0)"></a>x &amp; x-1 可以检测是否是2的整数次幂  (x&amp;x-1 可以清除最右边的1,如果这个1是第一位的1, 那这个数就变为0)</h5><h4 id="n-amp-1-在32位下-1是-00000····001-而不是111···1-用来检测奇偶性-最后一位是否为1-偶数结果为0"><a href="#n-amp-1-在32位下-1是-00000····001-而不是111···1-用来检测奇偶性-最后一位是否为1-偶数结果为0" class="headerlink" title="n &amp; 1 (在32位下 1是 00000····001 而不是111···1)   用来检测奇偶性(最后一位是否为1)   偶数结果为0"></a>n &amp; 1 (在32位下 1是 00000····001 而不是111···1)   用来检测奇偶性(最后一位是否为1)   偶数结果为0</h4><h4 id="对于x-取其第i位的二进制-rightarrow-x-gt-gt-i-amp-1-比如在477-汉明距离总和-我们有时候可以将每一个二进制位分开来看"><a href="#对于x-取其第i位的二进制-rightarrow-x-gt-gt-i-amp-1-比如在477-汉明距离总和-我们有时候可以将每一个二进制位分开来看" class="headerlink" title="对于x , 取其第i位的二进制 $\rightarrow$ (x &gt;&gt; i) &amp; 1,  比如在477. 汉明距离总和 我们有时候可以将每一个二进制位分开来看"></a>对于x , 取其第i位的二进制 $\rightarrow$ (x &gt;&gt; i) &amp; 1,  比如在<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/total-hamming-distance/">477. 汉明距离总和</a> 我们有时候可以将每一个二进制位分开来看</h4><h3 id="builtin-popcount-i-计算32位整型里-1的个数"><a href="#builtin-popcount-i-计算32位整型里-1的个数" class="headerlink" title="__builtin_popcount(i) 计算32位整型里 1的个数"></a>__builtin_popcount(i) 计算32位整型里 1的个数</h3><table>
