@@ -16,16 +16,16 @@
   <meta name="author" content="Natsumi">
   <meta name="keywords" content="">
   
-    <meta name="description" content="opencv基本信息，opencv 实战 涉及到很多图像处理的基础   opencv的图像是 先宽度 再高度 imread 的图像路径如果包含中文会有bug，因此可以使用imdecode 来代替  图像裁剪「👷‍♀️中」https:&#x2F;&#x2F;blog.csdn.net&#x2F;hfutdog&#x2F;article&#x2F;details&#x2F;82351549Chapter1 基本图像操作1.1 图像的基本I&#x2F;O操作">
+    <meta name="description" content="opencv基本信息，opencv 实战 图像处理的基础  Chapter0 注意事项 opencv的图像是 先宽度 再高度，这点是与numpy不同的  img.shape[0:2] # 0可省略，返回图像的宽和高(长和宽) img.shape[0:3] # 包括通道数一起返回，要3个参数接收   imread 的图像路径如果包含中文会有bug(可能是win特供, 在ubuntu下可以)，因此可以">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OpenCV 视觉编程之旅">
 <meta property="og:url" content="http://www.mementos.top/2022/06/06/opencv%20%E8%A7%86%E8%A7%89%E7%BC%96%E7%A8%8B/index.html">
 <meta property="og:site_name" content="Natsumi&#39;s Mementos">
-<meta property="og:description" content="opencv基本信息，opencv 实战 涉及到很多图像处理的基础   opencv的图像是 先宽度 再高度 imread 的图像路径如果包含中文会有bug，因此可以使用imdecode 来代替  图像裁剪「👷‍♀️中」https:&#x2F;&#x2F;blog.csdn.net&#x2F;hfutdog&#x2F;article&#x2F;details&#x2F;82351549Chapter1 基本图像操作1.1 图像的基本I&#x2F;O操作">
+<meta property="og:description" content="opencv基本信息，opencv 实战 图像处理的基础  Chapter0 注意事项 opencv的图像是 先宽度 再高度，这点是与numpy不同的  img.shape[0:2] # 0可省略，返回图像的宽和高(长和宽) img.shape[0:3] # 包括通道数一起返回，要3个参数接收   imread 的图像路径如果包含中文会有bug(可能是win特供, 在ubuntu下可以)，因此可以">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://www.mementos.top/img/imageprocess.png">
 <meta property="article:published_time" content="2022-06-06T02:30:10.690Z">
-<meta property="article:modified_time" content="2022-06-16T10:59:08.282Z">
+<meta property="article:modified_time" content="2022-06-20T06:06:55.143Z">
 <meta property="article:author" content="Natsumi">
 <meta property="article:tag" content="Image Processing">
 <meta name="twitter:card" content="summary_large_image">
@@ -218,7 +218,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          4.2k 字
+          4.3k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
           <!-- compatible with older versions-->
-          35 分钟
+          37 分钟
         
       </span>
     
@@ -274,7 +274,7 @@
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：3 天前
+                    本文最后更新于：2 分钟前
                   
                 
               </p>
@@ -282,11 +282,19 @@
             <div class="markdown-body">
               
               <p><a target="_blank" rel="noopener" href="http://c.biancheng.net/view/1091.html">opencv基本信息</a>，<a target="_blank" rel="noopener" href="https://blog.csdn.net/LOVEmy134611/article/details/119489496?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522164880826916781683965243%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=164880826916781683965243&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-119489496.142%5Ev5%5Epc_search_result_control_group,157%5Ev4%5Econtrol&utm_term=OpenCV&spm=1018.2226.3001.4187">opencv 实战</a></p>
-<p><a href="https://www.mementos.top/2022/04/01/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E5%88%9D%E6%AD%A5">涉及到很多图像处理的基础</a></p>
+<p><a href="https://www.mementos.top/2022/04/01/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E5%88%9D%E6%AD%A5">图像处理的基础</a></p>
 <hr>
+<h2 id="Chapter0-注意事项"><a href="#Chapter0-注意事项" class="headerlink" title="Chapter0 注意事项"></a>Chapter0 注意事项</h2><ul>
+<li><p>opencv的图像是 先宽度 再高度，这点是与numpy不同的</p>
 <ul>
-<li>opencv的图像是 先宽度 再高度</li>
-<li>imread 的图像路径如果包含中文会有bug，因此可以使用imdecode 来代替</li>
+<li>img.shape[0:2] # 0可省略，返回图像的宽和高(长和宽)</li>
+<li>img.shape[0:3] # 包括通道数一起返回，要3个参数接收</li>
+</ul>
+</li>
+<li><p>imread 的图像路径如果包含中文会有bug(可能是win特供, 在ubuntu下可以)，因此可以使用imdecode 来代替</p>
+</li>
+<li><p>resize 要慎用，因为插值的方法不一定能保证图片前后像素的一致性(除非等倍放缩)</p>
+</li>
 </ul>
 <h2 id="图像裁剪「👷‍♀️中」https-blog-csdn-net-hfutdog-article-details-82351549"><a href="#图像裁剪「👷‍♀️中」https-blog-csdn-net-hfutdog-article-details-82351549" class="headerlink" title="图像裁剪「👷‍♀️中」https://blog.csdn.net/hfutdog/article/details/82351549"></a>图像裁剪「👷‍♀️中」<a target="_blank" rel="noopener" href="https://blog.csdn.net/hfutdog/article/details/82351549">https://blog.csdn.net/hfutdog/article/details/82351549</a></h2><h2 id="Chapter1-基本图像操作"><a href="#Chapter1-基本图像操作" class="headerlink" title="Chapter1 基本图像操作"></a>Chapter1 基本图像操作</h2><h3 id="1-1-图像的基本I-x2F-O操作"><a href="#1-1-图像的基本I-x2F-O操作" class="headerlink" title="1.1 图像的基本I&#x2F;O操作"></a>1.1 图像的基本I&#x2F;O操作</h3><ul>
 <li>注意waitKey() 有返回值，其值是16位int形式的ASCII码</li>
@@ -420,7 +428,8 @@
 
 <hr>
 <h4 id="2-2-2-获取变换矩阵W-（通过这个API获取你想要进行的变换的-变换矩阵W，然后调用warpAffine）"><a href="#2-2-2-获取变换矩阵W-（通过这个API获取你想要进行的变换的-变换矩阵W，然后调用warpAffine）" class="headerlink" title="2.2.2 获取变换矩阵W （通过这个API获取你想要进行的变换的 变换矩阵W，然后调用warpAffine）"></a>2.2.2 获取变换矩阵W （通过这个API获取你想要进行的变换的 变换矩阵W，然后调用warpAffine）</h4><ul>
-<li><p>getRotationMatrix2D(center, angle, scale)    </p>
+<li><p><font color="red">getRotationMatrix2D(center, angle, scale)</font></p>
+<p>​    </p>
 <ul>
 <li><p>center 中心点 , 以图片的哪个点作为旋转时的中心点.</p>
 </li>
@@ -433,6 +442,14 @@
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python3">M = cv2.getRotationMatrix2D((w/2, h/2), 15, 1.0)<br>new = cv2.warpAffine(img, M, (w, h))<br></code></pre></td></tr></table></figure>
 
+
+
+
+
+<ol>
+<li>按照病例来划分训练和测试集，不使用比例划分的方式</li>
+<li>优化多边形和方形裁剪的方式，使得</li>
+</ol>
 
               
             </div>
