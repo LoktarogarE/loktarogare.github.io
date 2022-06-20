@@ -18,14 +18,14 @@
   
     <meta name="description" content="opencv基本信息，opencv 实战 图像处理的基础  Chapter0 注意事项 opencv的图像是 先宽度 再高度，这点是与numpy不同的  img.shape[0:2] # 0可省略，返回图像的宽和高(长和宽) img.shape[0:3] # 包括通道数一起返回，要3个参数接收   imread 的图像路径如果包含中文会有bug(可能是win特供, 在ubuntu下可以)，因此可以">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OpenCV 视觉编程之旅">
+<meta property="og:title" content="OpenCV 视觉编程">
 <meta property="og:url" content="http://www.mementos.top/2022/06/06/opencv%20%E8%A7%86%E8%A7%89%E7%BC%96%E7%A8%8B/index.html">
 <meta property="og:site_name" content="Natsumi&#39;s Mementos">
 <meta property="og:description" content="opencv基本信息，opencv 实战 图像处理的基础  Chapter0 注意事项 opencv的图像是 先宽度 再高度，这点是与numpy不同的  img.shape[0:2] # 0可省略，返回图像的宽和高(长和宽) img.shape[0:3] # 包括通道数一起返回，要3个参数接收   imread 的图像路径如果包含中文会有bug(可能是win特供, 在ubuntu下可以)，因此可以">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://www.mementos.top/img/imageprocess.png">
 <meta property="article:published_time" content="2022-06-06T02:30:10.690Z">
-<meta property="article:modified_time" content="2022-06-20T06:06:55.143Z">
+<meta property="article:modified_time" content="2022-06-20T06:11:31.605Z">
 <meta property="article:author" content="Natsumi">
 <meta property="article:tag" content="Image Processing">
 <meta name="twitter:card" content="summary_large_image">
@@ -33,7 +33,7 @@
   
   
   
-  <title>OpenCV 视觉编程之旅 - Natsumi&#39;s Mementos</title>
+  <title>OpenCV 视觉编程 - Natsumi&#39;s Mementos</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -201,7 +201,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="OpenCV 视觉编程之旅"></span>
+            <span id="subtitle" data-typed-text="OpenCV 视觉编程"></span>
           
         </div>
 
@@ -268,13 +268,13 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">OpenCV 视觉编程之旅</h1>
+            <h1 style="display: none">OpenCV 视觉编程</h1>
             
               <p class="note note-info">
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2 分钟前
+                    本文最后更新于：16 分钟前
                   
                 
               </p>
@@ -428,16 +428,14 @@
 
 <hr>
 <h4 id="2-2-2-获取变换矩阵W-（通过这个API获取你想要进行的变换的-变换矩阵W，然后调用warpAffine）"><a href="#2-2-2-获取变换矩阵W-（通过这个API获取你想要进行的变换的-变换矩阵W，然后调用warpAffine）" class="headerlink" title="2.2.2 获取变换矩阵W （通过这个API获取你想要进行的变换的 变换矩阵W，然后调用warpAffine）"></a>2.2.2 获取变换矩阵W （通过这个API获取你想要进行的变换的 变换矩阵W，然后调用warpAffine）</h4><ul>
-<li><p><font color="red">getRotationMatrix2D(center, angle, scale)</font></p>
-<p>​    </p>
+<li><font color="red">getRotationMatrix2D(center, angle, scale)</font></li>
+</ul>
 <ul>
 <li><p>center 中心点 , 以图片的哪个点作为旋转时的中心点.</p>
 </li>
 <li><p>angle 角度: 旋转的角度, 按照逆时针旋转.</p>
 </li>
 <li><p>scale 缩放比例: 想把图片进行什么样的缩放.</p>
-</li>
-</ul>
 </li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python3">M = cv2.getRotationMatrix2D((w/2, h/2), 15, 1.0)<br>new = cv2.warpAffine(img, M, (w, h))<br></code></pre></td></tr></table></figure>
