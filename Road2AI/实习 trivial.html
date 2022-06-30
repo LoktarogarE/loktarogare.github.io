@@ -23,8 +23,8 @@
 <meta property="og:site_name" content="Natsumi&#39;s Mementos">
 <meta property="og:description" content="CS231n 面向视觉识别的卷积神经网络｜笔记翻译 笔记精简版 SciHub文献库(DOI&#x2F;URL, 不支持检索)  目标检测 Object Detection 评估标准  IoU((Intersection over Union,  交并比)) &#x3D; Area of Overlap &#x2F; Area of Union 神经网络会输出很多个bonding box, 要做的事">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-06-23T02:54:54.254Z">
-<meta property="article:modified_time" content="2022-06-23T02:54:54.249Z">
+<meta property="article:published_time" content="2022-06-27T09:48:13.021Z">
+<meta property="article:modified_time" content="2022-06-27T09:48:13.016Z">
 <meta property="article:author" content="Natsumi">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -349,13 +349,97 @@
 <li>下载pytorch官方的模型时，下载下的pth文件其实是只包含参数的，print一下就知道了。 所以先save(不使用state_dict 而是直接save), 这样就能得到包含网络结构的模型，即可成功调用</li>
 </ul>
 </li>
+<li>ValueError: num_samples should be a positive integer value, but got num_samples&#x3D;0<ul>
+<li>发生在dataloader函数的使用上，这是因为你的input_size可能设置的不对，导致没有可以满足的图片. 或者可能是shuffle的问题，不shuffle才行</li>
+</ul>
+</li>
 </ul>
 <hr>
-<h2 id="To-do"><a href="#To-do" class="headerlink" title="To do"></a>To do</h2><h5 id="阅读经典-「重点看研究方法」"><a href="#阅读经典-「重点看研究方法」" class="headerlink" title="阅读经典 「重点看研究方法」"></a>阅读经典 「重点看研究方法」</h5><ul>
+<h2 id="To-do-list"><a href="#To-do-list" class="headerlink" title="To do list"></a>To do list</h2><h5 id="阅读经典-「重点看研究方法」"><a href="#阅读经典-「重点看研究方法」" class="headerlink" title="阅读经典 「重点看研究方法」"></a>阅读经典 「重点看研究方法」</h5><ul>
 <li>RCNN,  YOLO</li>
 <li>DEEPLEAB </li>
 <li>UNet, (++)</li>
 <li>ResNet</li>
+</ul>
+<h2 id="Log-SOLOv2"><a href="#Log-SOLOv2" class="headerlink" title="Log(SOLOv2)"></a>Log(SOLOv2)</h2><h4 id="5-20"><a href="#5-20" class="headerlink" title="5.20"></a>5.20</h4><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/379249152">https://zhuanlan.zhihu.com/p/379249152</a></p>
+<p>官方的SOLOv2 没有windows版</p>
+<ul>
+<li>配置所需环境<ul>
+<li>环境需要VisualStudio， 要添加vs的环境变量</li>
+<li>mmcv bug实在太多，放弃， 转而尝试用</li>
+</ul>
+</li>
+<li>下载labelme  准备对coco数据集进行处理<ul>
+<li>PyQt5 下不下来</li>
+</ul>
+</li>
+</ul>
+<h4 id="5-23"><a href="#5-23" class="headerlink" title="5.23"></a>5.23</h4><p>决定使用ubuntu 16.04来完成项目</p>
+<p>系统账户名：natsumi-MS-7c98</p>
+<p>系统初始化流程：</p>
+<ul>
+<li>下载NV显卡驱动和cuda（这部分最容易崩溃）<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/CAIYUNFREEDOM/article/details/97616855">安装驱动</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/huohuotu/article/details/77504215?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_title~default-0-77504215-blog-50095409.pc_relevant_default&spm=1001.2101.3001.4242.1&utm_relevant_index=3">解决tyy模式下乱码问题</a><ul>
+<li>原来的内容： “zh_CN.UTF-8”   |   “zh_CN:zh” </li>
+<li>说白了，中文编码错了。 你可以强行把要去的地方给改成英文</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>下载anaconda、vscode等工具<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/marleylee/article/details/70739131">安装.sh文件</a></li>
+</ul>
+</li>
+</ul>
+<h4 id="5-24"><a href="#5-24" class="headerlink" title="5.24"></a>5.24</h4><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43776003/article/details/117740648">复现蓝本</a></p>
+<p>显卡驱动、cuda、anaconda、opencv、pytorch环境搭建完毕</p>
+<p>需要等待github open出来之后再git </p>
+<p>pip install ‘git+<a target="_blank" rel="noopener" href="https://github.com/cocodataset/cocoapi.git#subdirectory=PythonAPI&#39;">https://github.com/cocodataset/cocoapi.git#subdirectory=PythonAPI&#39;</a></p>
+<p>pip install importlib</p>
+<p>下载detectron 失败</p>
+<p>git clone <a target="_blank" rel="noopener" href="https://github.com/facebookresearch/detectron2.git">https://github.com/facebookresearch/detectron2.git</a></p>
+<p>cd detectron2</p>
+<p>python setup.py build develop</p>
+<h4 id="5-26"><a href="#5-26" class="headerlink" title="5.26"></a>5.26</h4><ul>
+<li>安装完毕detectron和AdelaiDet</li>
+<li>跑了demo</li>
+</ul>
+<h4 id="5-27"><a href="#5-27" class="headerlink" title="5.27"></a>5.27</h4><ul>
+<li><p>尝试使用自己的数据集训练</p>
+<ul>
+<li><p>注意在评估时需要提供json，命名为 instances_line_val.json</p>
+</li>
+<li><p>修改文件：</p>
+<ul>
+<li>AdelaiDat&#x2F;adet&#x2F;data -&gt; builtin.py </li>
+<li>AdelaiDat&#x2F;configs&#x2F;SOLOv2 -&gt; Base-SOLOv2.yaml<ul>
+<li>修改了训练和测试的文件路径</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>缺少google protobuf包，在编译python包之前 还需要下载protoc ，并且直接使用apt-get下载的protoc版本不对，需要手动下载（必须下载32位的），不过使用apt-get下载的protoc不是完全没用，用cp命令 将我们下载的低版本exe换成我们下载出的新版本exe</p>
+</li>
+</ul>
+</li>
+<li><p>修改完成后 训练开始</p>
+</li>
+</ul>
+<h4 id="5-31"><a href="#5-31" class="headerlink" title="5.31"></a>5.31</h4><ul>
+<li>测试时有一个数据集注册问题。是text生成问题</li>
+<li>控制分类类别的地方是 &#x2F;adet&#x2F;data  builtin.py  其中的metadata_pic结构</li>
+<li>由于原来的训练集类别标注顺序有问题，所以以A24测试集作为范本来训练</li>
+</ul>
+<h4 id="6-1"><a href="#6-1" class="headerlink" title="6.1"></a>6.1</h4><ul>
+<li>发现将A23和原来的训练集合并之后生成的json可以对的上分类类别，因此把合并之后的作为训练集，总共550张图片</li>
+<li>使用labelme时，发现无法打开。本质上是没安装qt的一个库<ul>
+<li><a target="_blank" rel="noopener" href="https://www.jb51.net/article/193024.htm">解决方案</a></li>
+</ul>
+</li>
+</ul>
+<h4 id="6-8"><a href="#6-8" class="headerlink" title="6.8"></a>6.8</h4><ul>
+<li>原来的模型效果不好，所以更换为参数数量更多，模型更复杂的R101_3x。 但由于第一天的训练未使得loss收敛，因此合并训练和测试集来增加数据量，看看是否能够达到收敛。</li>
 </ul>
 
 
