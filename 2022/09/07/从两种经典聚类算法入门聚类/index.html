@@ -16,32 +16,23 @@
   <meta name="author" content="Natsumi">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Convolutional Nerual Network(Andrew Ng)本文是吴恩达老师关于卷积神经网络的课程笔记。 卷积如何完成首先以灰阶图像为例，此时的输入通道为1。下面的图演示了卷积的具体过程。 和矩阵乘法的思想类似，3x3的filter(kernel)和图片中对应的3x3相乘并相加得到最终矩阵里的一个数。之后平移整个 蓝色方块，就可以计算出周围的值(有时需要进行pedding)">
+    <meta name="description" content="从两种经典聚类算法入门聚类K-Means 「最著名的聚类算法」 K-Means是一种迭代算法, 每轮迭代可以用两步来描述: 簇分配(cluster assignment) 移动聚类中心(move centroid step)     以2聚类为例 做一个简单的步骤描述： 簇分配 指定两个聚类中心(它们是随机初始化的, 推荐做法是随机取几个样本点本身作为聚类中心) 根据距离将每个样本点分配给两个聚类">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Convolutional Nerual Network(Andrew Ng)">
-<meta property="og:url" content="http://www.mementos.top/2022/04/24/Convolutional-Nerual-Network(Andrew%20Ng)/index.html">
+<meta property="og:title" content="从两种经典聚类算法入门聚类">
+<meta property="og:url" content="http://www.mementos.top/2022/09/07/%E4%BB%8E%E4%B8%A4%E7%A7%8D%E7%BB%8F%E5%85%B8%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E8%81%9A%E7%B1%BB/index.html">
 <meta property="og:site_name" content="Natsumi&#39;s Mementos">
-<meta property="og:description" content="Convolutional Nerual Network(Andrew Ng)本文是吴恩达老师关于卷积神经网络的课程笔记。 卷积如何完成首先以灰阶图像为例，此时的输入通道为1。下面的图演示了卷积的具体过程。 和矩阵乘法的思想类似，3x3的filter(kernel)和图片中对应的3x3相乘并相加得到最终矩阵里的一个数。之后平移整个 蓝色方块，就可以计算出周围的值(有时需要进行pedding)">
+<meta property="og:description" content="从两种经典聚类算法入门聚类K-Means 「最著名的聚类算法」 K-Means是一种迭代算法, 每轮迭代可以用两步来描述: 簇分配(cluster assignment) 移动聚类中心(move centroid step)     以2聚类为例 做一个简单的步骤描述： 簇分配 指定两个聚类中心(它们是随机初始化的, 推荐做法是随机取几个样本点本身作为聚类中心) 根据距离将每个样本点分配给两个聚类">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24egy1h2tv8p2502j21xm0u0q77.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24egy1h2tvcajweoj21va0ru42b.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24egy1h337prm2pug20em0aojsv.gif">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24egy1h2tvcpeio0j21mo0u078m.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24egy1h2tvdfq8udj21km0hs76a.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24egy1h2tvgf6l9jj21kq0gk40g.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24egy1h2tvhehnamj21d00g075b.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24egy1h2tvhz3j9rj215o0ikdht.jpg">
-<meta property="article:published_time" content="2022-04-24T03:07:36.491Z">
-<meta property="article:modified_time" content="2022-06-27T09:40:31.900Z">
+<meta property="og:image" content="http://www.mementos.top/img/mountain.jpg">
+<meta property="article:published_time" content="2022-09-07T08:30:48.022Z">
+<meta property="article:modified_time" content="2022-09-12T07:06:19.907Z">
 <meta property="article:author" content="Natsumi">
-<meta property="article:tag" content="Deep Learning">
-<meta property="article:tag" content="Image Processing">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/e6c9d24egy1h2tv8p2502j21xm0u0q77.jpg">
+<meta name="twitter:image" content="http://www.mementos.top/img/mountain.jpg">
   
   
   
-  <title>Convolutional Nerual Network(Andrew Ng) - Natsumi&#39;s Mementos</title>
+  <title>从两种经典聚类算法入门聚类 - Natsumi&#39;s Mementos</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -203,13 +194,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/mountain.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Convolutional Nerual Network(Andrew Ng)"></span>
+            <span id="subtitle" data-typed-text="从两种经典聚类算法入门聚类"></span>
           
         </div>
 
@@ -226,7 +217,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          403 字
+          2.3k 字
         
       </span>
     
@@ -238,7 +229,7 @@
         
         
           <!-- compatible with older versions-->
-          4 分钟
+          19 分钟
         
       </span>
     
@@ -276,35 +267,123 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Convolutional Nerual Network(Andrew Ng)</h1>
+            <h1 style="display: none">从两种经典聚类算法入门聚类</h1>
             
               <p class="note note-info">
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：3 个月前
+                    本文最后更新于：3 分钟前
                   
                 
               </p>
             
             <div class="markdown-body">
               
-              <h1 id="Convolutional-Nerual-Network-Andrew-Ng"><a href="#Convolutional-Nerual-Network-Andrew-Ng" class="headerlink" title="Convolutional Nerual Network(Andrew Ng)"></a>Convolutional Nerual Network(Andrew Ng)</h1><p>本文是吴恩达老师关于卷积神经网络的课程笔记。</p>
-<h5 id="卷积如何完成"><a href="#卷积如何完成" class="headerlink" title="卷积如何完成"></a>卷积如何完成</h5><p>首先以灰阶图像为例，此时的输入通道为1。下面的图演示了卷积的具体过程。</p>
-<p>和矩阵乘法的思想类似，3x3的filter(kernel)和图片中对应的3x3相乘并相加得到最终矩阵里的一个数。之后平移整个 蓝色方块，就可以计算出周围的值(有时需要进行pedding)</p>
-<p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h2tv8p2502j21xm0u0q77.jpg" srcset="/img/loading.gif" lazyload></p>
-<p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h2tvcajweoj21va0ru42b.jpg" srcset="/img/loading.gif" lazyload></p>
-<p>用动画来展示这一点</p>
-<p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h337prm2pug20em0aojsv.gif" srcset="/img/loading.gif" lazyload></p>
-<p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h2tvcpeio0j21mo0u078m.jpg" srcset="/img/loading.gif" lazyload></p>
-<p>以灰阶图像<u><em>垂直边界检测</em></u>(6x6图像)为例。结果矩阵里白色就对应边界。 值得注意的是，边界看起来很厚，这是因为图像太小，如果是1000x1000的图像，那么其结果将会不那么厚。</p>
-<p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h2tvdfq8udj21km0hs76a.jpg" srcset="/img/loading.gif" lazyload></p>
-<p>如果我们将原图片进行灰阶反转，得到的结果会不一样，但本质上仍然可以起到区分的作用。</p>
-<p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h2tvgf6l9jj21kq0gk40g.jpg" srcset="/img/loading.gif" lazyload></p>
-<p>不难想到，如果想要对灰阶图像进行<u><em>水平边界检测</em></u>，那么可以使用右边的filter来遍历图像。</p>
-<p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h2tvhehnamj21d00g075b.jpg" srcset="/img/loading.gif" lazyload></p>
-<p>如果输入的图片是彩色图片，它的输入通道数为3，输出通道数也为3。</p>
-<p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h2tvhz3j9rj215o0ikdht.jpg" srcset="/img/loading.gif" lazyload></p>
+              <h1 id="从两种经典聚类算法入门聚类"><a href="#从两种经典聚类算法入门聚类" class="headerlink" title="从两种经典聚类算法入门聚类"></a>从两种经典聚类算法入门聚类</h1><h2 id="K-Means-「最著名的聚类算法」"><a href="#K-Means-「最著名的聚类算法」" class="headerlink" title="K-Means 「最著名的聚类算法」"></a>K-Means 「最著名的聚类算法」</h2><ul>
+<li>K-Means是一种迭代算法, 每轮迭代可以用两步来描述:<ul>
+<li>簇分配(cluster assignment)</li>
+<li>移动聚类中心(move centroid step)</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>以<code>2聚类</code>为例 做一个简单的步骤描述：</p>
+<h4 id="簇分配"><a href="#簇分配" class="headerlink" title="簇分配"></a>簇分配</h4><ol>
+<li>指定两个聚类中心(它们是随机初始化的, 推荐做法是随机取几个样本点本身作为聚类中心)</li>
+<li>根据<code>距离</code>将每个样本点分配给两个聚类中心的其中一个(染色)</li>
+</ol>
+<img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5zhcfmuftj21200u0my7.jpg" srcset="/img/loading.gif" lazyload style="zoom:50%;">
+
+
+
+<h4 id="移动聚类中心"><a href="#移动聚类中心" class="headerlink" title="移动聚类中心"></a>移动聚类中心</h4><p>在刚才, 我们将样本分成了两类, 现在我们分别计算两类样本的均值, 然后**<u>将聚类中心移动到样本均值所在的地方</u>**</p>
+<img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5y7mffmf3j20u40nkwf6.jpg" srcset="/img/loading.gif" lazyload style="zoom:50%;">
+
+<ul>
+<li>现在, 我们再执行簇分配, 紧接着再移动聚类中心, 一直迭代的执行下去.</li>
+<li>结束条件相当的简单,  当聚类中心在两次迭代中几乎没有发生变化时, 就可以认为算法收敛(<strong>注意: 这不意味着就已经找到了最优解, 因为K-Means的收敛位置和初始化有关)</strong>.</li>
+</ul>
+<h4 id="对于K聚类的问题-无非就是将这个问题扩展到K维-那么K-Means算法的过程可以用下图描述"><a href="#对于K聚类的问题-无非就是将这个问题扩展到K维-那么K-Means算法的过程可以用下图描述" class="headerlink" title="对于K聚类的问题, 无非就是将这个问题扩展到K维, 那么K-Means算法的过程可以用下图描述: "></a>对于K聚类的问题, 无非就是将这个问题扩展到K维, 那么K-Means算法的过程可以用下图描述: <img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5y8finuw2j219k0nsae0.jpg" srcset="/img/loading.gif" lazyload></h4><p>对于K-Means的损失函数(aka. distortion func)来说,  K-Means的两个步骤都可以被理解为最小化损失函数的过程. </p>
+<p>$对损失函数 J(c, u) 而言, 簇分配是对于c(样本与簇的距离)的最优化, 而移动聚类中心则是u(簇的位置)的最优化$</p>
+</blockquote>
+<h4 id="K聚类算法的注意事项「多次随机初始化-K值的选取」"><a href="#K聚类算法的注意事项「多次随机初始化-K值的选取」" class="headerlink" title="K聚类算法的注意事项「多次随机初始化, K值的选取」"></a>K聚类算法的注意事项「多次随机初始化, K值的选取」</h4><p>多次随机初始化</p>
+<ul>
+<li>显然, K聚类算法的初始化能够相当程度上影响收敛时的结果.  最后的结果很可能是局部最优.</li>
+<li>一个简单的解决方案就是<code>多次随机初始化</code>, 在K的值较小时(例如不超过10), 这种方案一般都能找到全局最优</li>
+</ul>
+<img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5yh67xp3yj21880nw0u3.jpg" srcset="/img/loading.gif" lazyload style="zoom:50%;">
+
+
+
+<p>K值的选取</p>
+<ul>
+<li>K-Means算法有一个隐藏的关键点, 即我们 <strong><u>事先知道将样本分为K类, 只是不知道应该如何归类</u></strong>, 那么这个K要如何确定呢? 或者说 <strong><u>有没有’’正确’’的K值呢?</u></strong> 答案是: 很难说. 但我们有两种常用的选取K的方案, 至少它能取得不错的结果. <ul>
+<li>肘部法则. <ul>
+<li>对同一组样本, 我们取不同的K值来做K-Means, 计算它们的损失函数, 并找到“肘关节”, 如下图左边所示, 这个点很可能就是最优点.</li>
+<li>然而这并不是一个常用方案, 因为实际上我们得到的曲线很可能是平滑的, 并不能找到明显的“肘部”</li>
+<li><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5yhlx53wuj21700iuwfs.jpg" srcset="/img/loading.gif" lazyload style="zoom:50%;"></li>
+</ul>
+</li>
+<li>根据需求选取K<ul>
+<li>虽然很难找到所谓正确的K, 但在实际应用时, 我们可以选取不同的K值以实现不同的目的或策略.</li>
+<li>以T-shirt生产尺码为例, K&#x3D;3 和 K&#x3D;5 都可以做聚类, 根据应用需求来选择.(选择3种以降低成本, 或是选择5种以更好适应顾客需求, 如下图所示)</li>
+<li><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5yhsba6lbj21800gs40m.jpg" srcset="/img/loading.gif" lazyload style="zoom:50%;"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="SC-Spectral-Clustering-「广泛使用」"><a href="#SC-Spectral-Clustering-「广泛使用」" class="headerlink" title="SC(Spectral Clustering) 「广泛使用」"></a>SC(Spectral Clustering) 「广泛使用」</h2><p>相比K-Means等传统算法, 谱聚类的优势: 1. 事实上**<u>它可以解决一些K-Means不擅长解决的问题</u>** 2. 计算量相对小 </p>
+<p>下图说明了K-Means和SC的契合情况, 以二维平面点的分布为例, 可以说K-Means擅长解决的是凸(convex)分布, 而不擅长解决很不规则的分布.</p>
+<img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h630hwb0gaj21b50u0q8b.jpg" srcset="/img/loading.gif" lazyload style="zoom:50%;">
+
+<h4 id="简单的描述谱聚类的思想"><a href="#简单的描述谱聚类的思想" class="headerlink" title="简单的描述谱聚类的思想:"></a>简单的描述谱聚类的思想:</h4><blockquote>
+<p>把所有的数据看做空间中的点，这些点之间可以用边连接起来。距离较远的两个点之间的边权重值较低，而距离较近的两个点之间的边权重值较高，通过对所有数据点组成的图进行<code>切图</code>，让切图后**<u>不同的子图间边权重和尽可能的低</u><strong>，而</strong><u>子图内的边权重和尽可能的高</u>**，从而达到聚类的目的。</p>
+</blockquote>
+<p>接下来简单的推导一下SC的过程</p>
+<blockquote>
+<img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h630l3xrelj20ys0u0dlf.jpg" srcset="/img/loading.gif" lazyload style="zoom:50%;">
+
+<p>假如有K个类别, 那么要做出K-1次切图(CUT)</p>
+<p>**<u>看起来</u>**整个系统的COST, 就是所有部分两两之间的COST之和, 也就是说假如有A B C三个部分, $整体COST &#x3D; W(A,B)+W(B,C)+W(A,C)$. <strong><u>但实际上这是不对的, 因为没有考虑到每个部分顶点数和边数不同, (除非最理想情况)仅仅minimize这个函数是无法得到最优解的.</u></strong></p>
+<p>在了解以下几点后, 我们就能得出普遍情况下整体COST的计算方法了</p>
+<ul>
+<li>考虑顶点和边数量不同. 解决的最好方式就是引入 <code>每个部分的所有顶点的度之和</code>作为分母来平均化 (单个顶点的度, 指的是**<u>所有与之相连的边的权重之和</u>**)</li>
+<li>注意 $A_补$是除了A之外的所有其它部分的意思,  假如有A B C三个部分$W(A, A_补) &#x3D; W(A,B)+W(A,C)$</li>
+</ul>
+<p>$COST(G) &#x3D; \sum\limits_{i&#x3D;1}^K\frac{W(A_i, A_{i补})}{\Delta} $, 其中 $\Delta &#x3D; degree(A) &#x3D; A中包含的所有顶点的度数之和$</p>
+<p>也可以写作: $COST &#x3D; \sum\limits_{i&#x3D;1}^K \frac{W(A_i, A_{i补})}{\Sigma_{j \in A_i}d_j}, d_j为这个点的度$</p>
+</blockquote>
+<p>我们已经从直观的角度了解了系统的COST构成, 但在机器学习领域, 我们还需要做的就是将整个问题<code>矩阵化</code>.</p>
+<blockquote>
+<ol>
+<li>用矩阵表示聚类的结果(其中的$y_i$被称为indicator vector)</li>
+</ol>
+<img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h630jhonolj21av0mhn2m.jpg" srcset="/img/loading.gif" lazyload style="zoom:50%;">
+
+<ol start="2">
+<li>用矩阵表示COST FUNC</li>
+</ol>
+<img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h630zjgv45j21b70r7win.jpg" srcset="/img/loading.gif" lazyload style="zoom:50%;">
+
+<p>现在我们已经明确, 只需要将 $OP^{-1}$求出来, 就能够得到COST的值, 但对于一次分类的结果, 在计算其COST时, 我们只掌握了两个矩阵的信息, 即聚类的 指示矩阵 <code>Y</code>和距离代价(邻接矩阵)矩阵 <code>W</code>, 所以现在的问题就转变成了, <strong>已知Y和W 求解O和P</strong> </p>
+<ul>
+<li>求解P的过程如下:</li>
+</ul>
+<img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h631otaimcj20r00zqdm0.jpg" srcset="/img/loading.gif" lazyload style="zoom:100%;">
+
+<ul>
+<li>求解O的过程如下:</li>
+</ul>
+<img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h63tg42fxcj20rl10bjyo.jpg" srcset="/img/loading.gif" lazyload style="zoom:100%;">
+
+
+
+
+<p>综上, 我们终于得到了矩阵化表达的COST(也就是$\hat{Y}$)<br>$$<br>COST &#x3D; \hat{Y}&#x3D;argmin{tr(Y^TLY\space (Y^TDY)^{-1}) } ; \space 其中L(Laplacian \space matrix) &#x3D; D-W<br>$$</p>
+</blockquote>
 
               
             </div>
@@ -334,15 +413,6 @@
     </div>
   
   
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Deep-Learning/">#Deep Learning</a>
-      
-        <a href="/tags/Image-Processing/">#Image Processing</a>
-      
-    </div>
-  
 </div>
 
 
@@ -353,18 +423,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/06/06/opencv%20%E8%A7%86%E8%A7%89%E7%BC%96%E7%A8%8B/" title="OpenCV 视觉编程">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">OpenCV 视觉编程</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/04/07/Deep%20Learning(Andrew%20Ng)/" title="Deep Learning(Andrew Ng)">
-                        <span class="hidden-mobile">Deep Learning(Andrew Ng)</span>
+                      <a href="/2022/06/09/2022%20GameList/" title="GameList">
+                        <span class="hidden-mobile">GameList</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
