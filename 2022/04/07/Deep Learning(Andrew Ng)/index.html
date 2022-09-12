@@ -16,12 +16,12 @@
   <meta name="author" content="Natsumi">
   <meta name="keywords" content="">
   
-    <meta name="description" content="为什么整个机器学习都有数据依赖： 维度诅咒 如果只选取1个特征，假如选取10个数据即可接近真实情况，那么选取两个特征时 两个轴都需要达到10，所以同样的数据密度就需要100个数据，同理 n个不同的特征，就需要10^n^个数据，因此特征选取的数量是几何倍数级的。   Representation Learning 表示学习 主要目标是对数据进行降维  传统机器学习方法是手工进行特征提取(hand-">
+    <meta name="description" content="为什么整个机器学习都有数据依赖：  维度诅咒 如果只选取1个特征，假如选取10个数据即可接近真实情况，那么选取两个特征时 两个轴都需要达到10，所以同样的数据密度就需要100个数据，同理 n个不同的特征，就需要10n个数据，因此特征选取的数量是几何倍数级的。  Representation Learning 表示学习  主要目标是对数据进行降维 传统机器学习方法是手工进行特征提取(hand-de">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Deep Learning(Andrew Ng)">
 <meta property="og:url" content="http://www.mementos.top/2022/04/07/Deep%20Learning(Andrew%20Ng)/index.html">
 <meta property="og:site_name" content="Natsumi&#39;s Mementos">
-<meta property="og:description" content="为什么整个机器学习都有数据依赖： 维度诅咒 如果只选取1个特征，假如选取10个数据即可接近真实情况，那么选取两个特征时 两个轴都需要达到10，所以同样的数据密度就需要100个数据，同理 n个不同的特征，就需要10^n^个数据，因此特征选取的数量是几何倍数级的。   Representation Learning 表示学习 主要目标是对数据进行降维  传统机器学习方法是手工进行特征提取(hand-">
+<meta property="og:description" content="为什么整个机器学习都有数据依赖：  维度诅咒 如果只选取1个特征，假如选取10个数据即可接近真实情况，那么选取两个特征时 两个轴都需要达到10，所以同样的数据密度就需要100个数据，同理 n个不同的特征，就需要10n个数据，因此特征选取的数量是几何倍数级的。  Representation Learning 表示学习  主要目标是对数据进行降维 传统机器学习方法是手工进行特征提取(hand-de">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24egy1h2tp47y47dj21qs0e0mzb.jpg">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24egy1h3oyn1q8g9j21780f475n.jpg">
@@ -222,7 +222,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          3.6k 字
+          3.5k 字
         
       </span>
     
@@ -234,7 +234,7 @@
         
         
           <!-- compatible with older versions-->
-          31 分钟
+          30 分钟
         
       </span>
     
@@ -286,87 +286,125 @@
             <div class="markdown-body">
               
               <ul>
-<li>为什么整个机器学习都有数据依赖：<ul>
-<li><code>维度诅咒</code> 如果只选取1个特征，假如选取10个数据即可接近真实情况，那么选取两个特征时 两个轴都需要达到10，所以同样的数据密度就需要100个数据，同理 n个不同的特征，就需要10^n^个数据，因此特征选取的数量是几何倍数级的。</li>
-</ul>
-</li>
-<li>Representation Learning 表示学习<ul>
-<li>主要目标是对数据进行降维 </li>
-<li>传统机器学习方法是手工进行特征提取(hand-designed features) 而Representation Learning 则是自动进行特征提取。</li>
+<li>为什么整个机器学习都有数据依赖：
+<ul>
+<li><code>维度诅咒</code>
+如果只选取1个特征，假如选取10个数据即可接近真实情况，那么选取两个特征时
+两个轴都需要达到10，所以同样的数据密度就需要100个数据，同理
+n个不同的特征，就需要10<sup>n</sup>个数据，因此特征选取的数量是几何倍数级的。</li>
+</ul></li>
+<li>Representation Learning 表示学习
+<ul>
+<li>主要目标是对数据进行降维</li>
+<li>传统机器学习方法是手工进行特征提取(hand-designed features)
+而Representation Learning 则是自动进行特征提取。</li>
 <li><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h2tp47y47dj21qs0e0mzb.jpg" srcset="/img/loading.gif" lazyload></li>
-</ul>
-</li>
+</ul></li>
 </ul>
 <p>以房价预测为例</p>
 <p>如果只用到一个神经元，假设输入size(x), 输出price(y)</p>
-<p>$size \rightarrow O_{neuron} \rightarrow price$</p>
-<p>if you got more feature(like walk ability or zip code), you can stack together these neurons and then you form a neuro network.</p>
-<p> 诸如房价预测等方面，我们可以直接使用一般的神经网络模型(Standard NN)，在图像领域则一般使用CNN，而序列数据(音频、语言)一般则会使用RNN,   </p>
+<p><span class="math inline">\(size \rightarrow O_{neuron} \rightarrow
+price\)</span></p>
+<p>if you got more feature(like walk ability or zip code), you can stack
+together these neurons and then you form a neuro network.</p>
+<p>诸如房价预测等方面，我们可以直接使用一般的神经网络模型(Standard
+NN)，在图像领域则一般使用CNN，而序列数据(音频、语言)一般则会使用RNN,</p>
 <hr>
-<h2 id="从逻辑回归开始-神经元在做什么"><a href="#从逻辑回归开始-神经元在做什么" class="headerlink" title="从逻辑回归开始: 神经元在做什么"></a>从逻辑回归开始: 神经元在做什么</h2><ul>
+<h2 id="从逻辑回归开始-神经元在做什么">从逻辑回归开始:
+神经元在做什么</h2>
+<ul>
 <li>神经网络如何组织数据：</li>
-<li>每张图片 $x$ 拉成一个np array, 然后作为一列, 所有的输入图片 竖排组成输入 $X$</li>
-<li>每个label $y$ 作为一列，和输入图片一一对应，所有的label 竖排组成label $Y$</li>
+<li>每张图片 <span class="math inline">\(x\)</span> 拉成一个np array,
+然后作为一列, 所有的输入图片 竖排组成输入 <span class="math inline">\(X\)</span></li>
+<li>每个label <span class="math inline">\(y\)</span>
+作为一列，和输入图片一一对应，所有的label 竖排组成label <span class="math inline">\(Y\)</span></li>
 </ul>
-<h5 id="一个简单的问题："><a href="#一个简单的问题：" class="headerlink" title="一个简单的问题："></a>一个简单的问题：</h5><p>以猫的二分类问题为例，你需要提供这张图是🐱的概率。</p>
-<p>最简单的方法就是令 <strong>$y^{(i)}<em>{pred} &#x3D;\sigma(w^Tx</em>{(i)} + b), \space(其中\sigma &#x3D; \frac{1}{1+e^{-x}})$</strong></p>
+<h5 id="一个简单的问题">一个简单的问题：</h5>
+<p>以猫的二分类问题为例，你需要提供这张图是🐱的概率。</p>
+<p>最简单的方法就是令 <strong><span class="math inline">\(y^{(i)}_{pred}
+=\sigma(w^Tx_{(i)} + b), \space(其中\sigma =
+\frac{1}{1+e^{-x}})\)</span></strong></p>
 <p>这个方法利用了sigmoid函数来对预测值进行激活，最后的结果在0～1之间，接下来的使用中，我们是把这两步分开来进行的</p>
-<p>可以考虑使用常见的平方损失：$L(y_{pred},y)&#x3D;\frac{1}{2}(y_{pred}-y)^2$</p>
+<p>可以考虑使用常见的平方损失：<span class="math inline">\(L(y_{pred},y)=\frac{1}{2}(y_{pred}-y)^2\)</span></p>
 <p>但这个方法的问题在于，在逻辑回归中可能出现多个局部最优，平方损失不能很好的让梯度下降找到全局最优。因此在逻辑回归中一般使用下面这种：</p>
-<p>$L(y_{pred},y)&#x3D;-{ylog(y_{pred})+(1-y)(log(1-y_{pred}))}$</p>
-<p>以二元分类问题为例，例如，当 y &#x3D; 1时, 那么 $L&#x3D;-log(y_{pred})$，显然$y_{pred}$的值越接近1，Loss的值就越接近0</p>
-<p>而 y &#x3D; 0时, $L &#x3D; log(1-y_{pred})$，显然 $y_{pred}$的值越接近0，Loss的值就越接近0</p>
+<p><span class="math inline">\(L(y_{pred},y)=-{ylog(y_{pred})+(1-y)(log(1-y_{pred}))}\)</span></p>
+<p>以二元分类问题为例，例如，当 y = 1时, 那么 <span class="math inline">\(L=-log(y_{pred})\)</span>，显然<span class="math inline">\(y_{pred}\)</span>的值越接近1，Loss的值就越接近0</p>
+<p>而 y = 0时, <span class="math inline">\(L =
+log(1-y_{pred})\)</span>，显然 <span class="math inline">\(y_{pred}\)</span>的值越接近0，Loss的值就越接近0</p>
 <blockquote>
 <p>Loss func 与 Cost func</p>
 <ul>
 <li>Loss是对每个sample而言的，而则是Cost是全局的Loss</li>
-<li>这也就是说Cost func可以被抽象为： $J(w,b)&#x3D;\frac{1}{m}\sum^{m}<em>{i&#x3D;1}L(y^{(i)}</em>{pred},y^{(i)})$</li>
-<li>找到作为空间曲面的$J$的全局最小值就是我们的目标</li>
+<li>这也就是说Cost func可以被抽象为： <span class="math inline">\(J(w,b)=\frac{1}{m}\sum^{m}_{i=1}L(y^{(i)}_{pred},y^{(i)})\)</span></li>
+<li>找到作为空间曲面的<span class="math inline">\(J\)</span>的全局最小值就是我们的目标</li>
 </ul>
 </blockquote>
 <blockquote>
 <p>Gradient Descent的具体工作方式：</p>
-<img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h3oyn1q8g9j21780f475n.jpg" srcset="/img/loading.gif" lazyload style="zoom:50%;">
-
-<p>在这张图中，我们暂时忽略b并把W看作一个实数(这样就变成了二维的情况)，W :&#x3D; 表示的是一次迭代</p>
-<p>当然，去掉b只是因为二维的图更加直观，实际上对于 $J(w,b)$的更新直接利用偏导完成：(学习率$\alpha$)</p>
-<p><font color="red" font size="5"> $w:&#x3D;w-\alpha\frac{\part J(w,b)}{\part w} $</font></p>
-<p> <strong><font color="red" font size="5">$b:&#x3D;b-\alpha\frac{\part J(w,b)}{\part b}$</font></strong> </p>
+<p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h3oyn1q8g9j21780f475n.jpg" srcset="/img/loading.gif" lazyload style="zoom:50%;"></p>
+<p>在这张图中，我们暂时忽略b并把W看作一个实数(这样就变成了二维的情况)，W
+:= 表示的是一次迭代</p>
+<p>当然，去掉b只是因为二维的图更加直观，实际上对于 <span class="math inline">\(J(w,b)\)</span>的更新直接利用偏导完成：(学习率<span class="math inline">\(\alpha\)</span>)</p>
+<p><font color="red" font size="5"> $w:=w- $</font></p>
+<p><strong><font color="red" font size="5"><span class="math inline">\(b:=b-\alpha\frac{\part J(w,b)}{\part
+b}\)</span></font></strong></p>
 </blockquote>
 <blockquote>
 <p>利用计算图理解Gradient Descent</p>
-<p>假设： $J &#x3D; 3(a+bc)$,我们现在将这个式子的计算分解开来，令 $u&#x3D;bc,\space v&#x3D;a+u,\space J&#x3D;3v$，得到下图</p>
-<img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h3p053zmhcj210e08g3yy.jpg" srcset="/img/loading.gif" lazyload style="zoom:60%;">
-
-<p>当你给定一组(a, b, c)的值，前向传播 &#x3D;&gt; 计算结果</p>
-<p>值得注意的是，我们关注的是: 改变(a, b, c)时, 最终的结果 J 将会改变多少，换言之，就是要研究 $\frac {\part J}{\part a}$、$\frac {\part J}{\part b}$、$\frac {\part J}{\part c}$的值，再通过梯度下降来更新参数</p>
-<p>$\frac {\part J}{\part a}$、$\frac {\part J}{\part b}$、$\frac {\part J}{\part c}$ 可以通过链式法则来计算 </p>
+<p>假设： <span class="math inline">\(J =
+3(a+bc)\)</span>,我们现在将这个式子的计算分解开来，令 <span class="math inline">\(u=bc,\space v=a+u,\space
+J=3v\)</span>，得到下图</p>
+<p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h3p053zmhcj210e08g3yy.jpg" srcset="/img/loading.gif" lazyload style="zoom:60%;"></p>
+<p>当你给定一组(a, b, c)的值，前向传播 =&gt; 计算结果</p>
+<p>值得注意的是，我们关注的是: 改变(a, b, c)时, 最终的结果 J
+将会改变多少，换言之，就是要研究 <span class="math inline">\(\frac
+{\part J}{\part a}\)</span>、<span class="math inline">\(\frac {\part
+J}{\part b}\)</span>、<span class="math inline">\(\frac {\part J}{\part
+c}\)</span>的值，再通过梯度下降来更新参数</p>
+<p><span class="math inline">\(\frac {\part J}{\part a}\)</span>、<span class="math inline">\(\frac {\part J}{\part b}\)</span>、<span class="math inline">\(\frac {\part J}{\part c}\)</span>
+可以通过链式法则来计算</p>
 </blockquote>
-<p>假如你有两个特征(它们对应了两个权重w(实数))，使用 a 来代替 $y_{pred}$，那么就可以得到下图：</p>
+<p>假如你有两个特征(它们对应了两个权重w(实数))，使用 a 来代替 <span class="math inline">\(y_{pred}\)</span>，那么就可以得到下图：</p>
 <p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h3p5czxonvj215s09y3z6.jpg" srcset="/img/loading.gif" lazyload></p>
-<p>其中$\sigma(z)&#x3D;\frac{1}{1+e^{-z}}$,  $L(a,y)&#x3D;-ylna+(1-y)ln(1-a)$</p>
-<p>我们的目标：更新 $w_1,w_2$的值，使得 $L(a,y)$尽可能小</p>
-<p>为了使用梯度下降的方法，我们需要得到这些参数的值：  $\frac{\part L}{\part w_1}$，$\frac{\part L}{\part w_2}$，$\frac{\part L}{\part b}$</p>
-<p>以$\frac{\part L}{\part w_1}$为例，根据链式法则:  $\frac{\part L}{\part w_1}&#x3D;\frac{\part L}{\part a}*\frac{da}{dz}<em>\frac{\part z}{\part w_1}&#x3D;x_1</em>(a-y)$</p>
-<p>因此， $w_1 :&#x3D; w1-\alpha \frac{\part L}{\part w_1}$，这样我们就完成了一次参数的更新</p>
-<p>⚠️ <strong>这里的 $x_1,x_2$不是两个sample，而是同一个sample的两个feature！也就是说，刚刚计算的是 一个样例的两个不同特征的损失函数(Loss)。接下来针对 m 个sample，我们来研究一下整体的代价函数 $J(w, b)$</strong></p>
+<p>其中<span class="math inline">\(\sigma(z)=\frac{1}{1+e^{-z}}\)</span>, <span class="math inline">\(L(a,y)=-ylna+(1-y)ln(1-a)\)</span></p>
+<p>我们的目标：更新 <span class="math inline">\(w_1,w_2\)</span>的值，使得 <span class="math inline">\(L(a,y)\)</span>尽可能小</p>
+<p>为了使用梯度下降的方法，我们需要得到这些参数的值： <span class="math inline">\(\frac{\part L}{\part w_1}\)</span>，<span class="math inline">\(\frac{\part L}{\part w_2}\)</span>，<span class="math inline">\(\frac{\part L}{\part b}\)</span></p>
+<p>以<span class="math inline">\(\frac{\part L}{\part
+w_1}\)</span>为例，根据链式法则: <span class="math inline">\(\frac{\part
+L}{\part w_1}=\frac{\part L}{\part a}*\frac{da}{dz}*\frac{\part z}{\part
+w_1}=x_1*(a-y)\)</span></p>
+<p>因此， <span class="math inline">\(w_1 := w1-\alpha \frac{\part
+L}{\part w_1}\)</span>，这样我们就完成了一次参数的更新</p>
+<p>⚠️ <strong>这里的 <span class="math inline">\(x_1,x_2\)</span>不是两个sample，而是同一个sample的两个feature！也就是说，刚刚计算的是
+一个样例的两个不同特征的损失函数(Loss)。接下来针对 m
+个sample，我们来研究一下整体的代价函数 <span class="math inline">\(J(w,
+b)\)</span></strong></p>
 <ul>
-<li>从这里开始 由于使用编程语言的原因，将会对偏导符号进行简记，如 $\frac{\part L}{\part w_1}$ 就记为 dw1</li>
+<li>从这里开始 由于使用编程语言的原因，将会对偏导符号进行简记，如 <span class="math inline">\(\frac{\part L}{\part w_1}\)</span> 就记为 dw1</li>
 </ul>
-<p>$J(w,b)&#x3D;\frac{1}{m}\sum^{m}_{i&#x3D;1}L(a^{(i)},y^{(i)})$ 注意此处的w和之前计算损失函数时的w就不一样了，它是所有的 w 的结合</p>
+<p><span class="math inline">\(J(w,b)=\frac{1}{m}\sum^{m}_{i=1}L(a^{(i)},y^{(i)})\)</span>
+注意此处的w和之前计算损失函数时的w就不一样了，它是所有的 w 的结合</p>
 <blockquote>
-<p>参数矩阵W：对第i个样本的第j个特征而言，其 $w^{(i)}_{j}$ 是作为一个实数存在的，它是矩阵中的一个元素</p>
-<p>每增加一个样本，W就要增加一列。 每增加一种特征，W就要增加一行 （注意计算时W取转置）</p>
+<p>参数矩阵W：对第i个样本的第j个特征而言，其 <span class="math inline">\(w^{(i)}_{j}\)</span>
+是作为一个实数存在的，它是矩阵中的一个元素</p>
+<p>每增加一个样本，W就要增加一列。 每增加一种特征，W就要增加一行
+（注意计算时W取转置）</p>
 </blockquote>
-<p>在一个sample两个feature的例子里，我们需要的是 $\frac{\part L}{\part w_1}$「dw1」$\frac{\part L}{\part w_2}$「dw2」$\frac{\part L}{\part b}$「db」 这三个参数，而现在出现了m个sample，每个sample都有2个feature，那么对于每一个sample(如第i个样例)，我们都需要求其Loss，并更新这个样例的三个参数：$dw_1^{(i)},dw_2^{(i)},db^{(i)}$, 也就是说一共出现了3*m个参数</p>
+<p>在一个sample两个feature的例子里，我们需要的是 <span class="math inline">\(\frac{\part L}{\part w_1}\)</span>「dw1」<span class="math inline">\(\frac{\part L}{\part w_2}\)</span>「dw2」<span class="math inline">\(\frac{\part L}{\part b}\)</span>「db」
+这三个参数，而现在出现了m个sample，每个sample都有2个feature，那么对于每一个sample(如第i个样例)，我们都需要求其Loss，并更新这个样例的三个参数：<span class="math inline">\(dw_1^{(i)},dw_2^{(i)},db^{(i)}\)</span>,
+也就是说一共出现了3*m个参数</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python3">J, dw1, dw2, db = 0, 0, 0, 0<br>for i in range(m):<br>  	z_i = w*x_i + b<br>    a_i = sigma(z_i)  # 计算得到预测值a_i<br>    J += -(y_i*(ln(a_i)) + (1-y_i)*ln(1-a_i))  #对每个sample的loss求和<br>    dw1 += ___  #通过链式求导，计算dw1<br>    dw2 += ___  #...............dw2<br>    db += ___   #...............db<br>J, dw1, dw2, b /= m  # 最终的值就是所有的权重求平均<br><br># 接下来就可以通过梯度下降的方法，对参数进行更新了 (学习率为lr)<br>w1 = w1 - lr*dw1<br>w2 = w2 - lr*dw2<br>b = b - lr*db<br></code></pre></td></tr></table></figure>
-
-<p>这种方法的弊端在于，对于m个参数，和n个特征，整个程序的时间复杂度将会来到O(m*n)，这样做的效率是很低的，且不适合扩展到更大的数据集上。因此我们就引入了 <code>矢量化(vectorization)</code>技术，来避免使用显式for循环</p>
-<p>让我们从宏观的角度来解释一下逻辑回归问题，对于m个参数，n个特征，其结果矩阵 $Y_{pred}$</p>
-<p>$Y_{pred} &#x3D; \sigma(W^T·X)+B$</p>
-<h4 id="x3D-x3D-从第17个视频开始-再看一遍-x3D-x3D"><a href="#x3D-x3D-从第17个视频开始-再看一遍-x3D-x3D" class="headerlink" title="&#x3D;&#x3D;从第17个视频开始 再看一遍&#x3D;&#x3D;"></a>&#x3D;&#x3D;从第17个视频开始 再看一遍&#x3D;&#x3D;</h4><h2 id="神经网络"><a href="#神经网络" class="headerlink" title="神经网络"></a>神经网络</h2><p>Input layer &#x3D;&gt; Hidden layer &#x3D;&gt; Output layer</p>
+<p>这种方法的弊端在于，对于m个参数，和n个特征，整个程序的时间复杂度将会来到O(m*n)，这样做的效率是很低的，且不适合扩展到更大的数据集上。因此我们就引入了
+<code>矢量化(vectorization)</code>技术，来避免使用显式for循环</p>
+<p>让我们从宏观的角度来解释一下逻辑回归问题，对于m个参数，n个特征，其结果矩阵
+<span class="math inline">\(Y_{pred}\)</span></p>
+<p><span class="math inline">\(Y_{pred} = \sigma(W^T·X)+B\)</span></p>
+<h4 id="从第17个视频开始-再看一遍">==从第17个视频开始 再看一遍==</h4>
+<h2 id="神经网络">神经网络</h2>
+<p>Input layer =&gt; Hidden layer =&gt; Output layer</p>
 <ul>
-<li>Hidden layer 的意思在于，训练时我们并不观察这些层的值，我们关系的是输入和输出层</li>
+<li>Hidden layer
+的意思在于，训练时我们并不观察这些层的值，我们关系的是输入和输出层</li>
 <li>Input layer是第0层(也就是说不算一层)</li>
 </ul>
 

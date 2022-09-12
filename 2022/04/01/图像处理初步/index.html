@@ -16,12 +16,12 @@
   <meta name="author" content="Natsumi">
   <meta name="keywords" content="">
   
-    <meta name="description" content="CV非常依赖图像处理的基本知识！注意学习图像的基础知识 图像的基本知识不同的色彩空间：  灰度 1byte  描述灰白图像，一个数值，单通道  RGB 3byte 描述一张彩色图像，3个数值，一般是三通道，但是可以通过压缩，让RGB三个数值总共占16bit(比如RGB 565)，即两通道  BGR 交换了色彩通道，不同的框架在显示图片时默认的色彩空间是不一样的，但图片的二进制一样，因此颜色可能会出">
+    <meta name="description" content="CV非常依赖图像处理的基本知识！注意学习图像的基础知识 图像的基本知识 不同的色彩空间：  灰度 1byte 描述灰白图像，一个数值，单通道 RGB 3byte 描述一张彩色图像，3个数值，一般是三通道，但是可以通过压缩，让RGB三个数值总共占16bit(比如RGB 565)，即两通道  BGR 交换了色彩通道，不同的框架在显示图片时默认的色彩空间是不一样的，但图片的二进制一样，因此颜色可能会出现">
 <meta property="og:type" content="article">
 <meta property="og:title" content="图像处理初步">
 <meta property="og:url" content="http://www.mementos.top/2022/04/01/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E5%88%9D%E6%AD%A5/index.html">
 <meta property="og:site_name" content="Natsumi&#39;s Mementos">
-<meta property="og:description" content="CV非常依赖图像处理的基本知识！注意学习图像的基础知识 图像的基本知识不同的色彩空间：  灰度 1byte  描述灰白图像，一个数值，单通道  RGB 3byte 描述一张彩色图像，3个数值，一般是三通道，但是可以通过压缩，让RGB三个数值总共占16bit(比如RGB 565)，即两通道  BGR 交换了色彩通道，不同的框架在显示图片时默认的色彩空间是不一样的，但图片的二进制一样，因此颜色可能会出">
+<meta property="og:description" content="CV非常依赖图像处理的基本知识！注意学习图像的基础知识 图像的基本知识 不同的色彩空间：  灰度 1byte 描述灰白图像，一个数值，单通道 RGB 3byte 描述一张彩色图像，3个数值，一般是三通道，但是可以通过压缩，让RGB三个数值总共占16bit(比如RGB 565)，即两通道  BGR 交换了色彩通道，不同的框架在显示图片时默认的色彩空间是不一样的，但图片的二进制一样，因此颜色可能会出现">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://www.mementos.top/img/imageprocess.png">
 <meta property="article:published_time" content="2022-04-01T13:46:45.246Z">
@@ -218,7 +218,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          1.8k 字
+          1.7k 字
         
       </span>
     
@@ -282,47 +282,60 @@
             <div class="markdown-body">
               
               <p><strong>CV非常依赖图像处理的基本知识！注意学习图像的基础知识</strong></p>
-<h1 id="图像的基本知识"><a href="#图像的基本知识" class="headerlink" title="图像的基本知识"></a>图像的基本知识</h1><p>不同的色彩空间：</p>
+<h1 id="图像的基本知识">图像的基本知识</h1>
+<p>不同的色彩空间：</p>
 <ul>
-<li><p>灰度 1byte  描述灰白图像，一个数值，单通道</p>
-</li>
-<li><p>RGB 3byte 描述一张彩色图像，3个数值，一般是三通道，但是可以通过压缩，让RGB三个数值总共占16bit(比如RGB 565)，即两通道</p>
+<li><p>灰度 1byte 描述灰白图像，一个数值，单通道</p></li>
+<li><p>RGB 3byte
+描述一张彩色图像，3个数值，一般是三通道，但是可以通过压缩，让RGB三个数值总共占16bit(比如RGB
+565)，即两通道</p>
 <ul>
-<li>BGR 交换了色彩通道，不同的框架在显示图片时默认的色彩空间是不一样的，但图片的二进制一样，因此颜色可能会出现问题。</li>
-</ul>
-</li>
-<li><h4 id="HSV"><a href="#HSV" class="headerlink" title="HSV"></a>HSV</h4><ul>
-<li>Hue： 色相，用角度度量的色彩 红色为0°，绿色为120°,蓝色为240°，其实吧，直接通过Hue就可以看出来颜色了啊？<ul>
+<li>BGR
+交换了色彩通道，不同的框架在显示图片时默认的色彩空间是不一样的，但图片的二进制一样，因此颜色可能会出现问题。</li>
+</ul></li>
+<li><h4 id="hsv">HSV</h4>
+<ul>
+<li>Hue： 色相，用角度度量的色彩
+红色为0°，绿色为120°,蓝色为240°，其实吧，直接通过Hue就可以看出来颜色了啊？
+<ul>
 <li><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h31z6bcrhnj20k50lu0th.jpg" srcset="/img/loading.gif" lazyload style="zoom:50%;"></li>
-</ul>
-</li>
-<li>Saturation: 饱和度, 表示颜色接近光谱色的程度。一种颜色，可以看成是某种光谱色与白色混合的结果。其中光谱色所占的比例愈大，颜色接近光谱色的程度就愈高，颜色的饱和度也就愈高。饱和度高，颜色则深而艳。光谱色的白光成分为0，饱和度达到最高。通常取值范围为0%～100%，值越大，颜色越饱和。 「人话就是：颜色的纯度。控制饱和度的方式是在颜色中加入白色，这个值越大，加入的白色越少，颜色就越纯，换句话说，圆盘的中心就是白色，外圈则是纯色」</li>
-<li>Value: 明度. 明度表示颜色明亮的程度，对于光源色，明度值与发光体的光亮度有关；对于物体色，此值和物体的透射比或反射比有关。通常取值范围为0%（黑）到100%（白） 「和饱和度相对应，就是在颜色中加入黑色的量，这个值越大，加入的黑色越少，明度就越高」</li>
-</ul>
-</li>
-<li><h4 id="HSL"><a href="#HSL" class="headerlink" title="HSL"></a>HSL</h4><ul>
+</ul></li>
+<li>Saturation: 饱和度,
+表示颜色接近光谱色的程度。一种颜色，可以看成是某种光谱色与白色混合的结果。其中光谱色所占的比例愈大，颜色接近光谱色的程度就愈高，颜色的饱和度也就愈高。饱和度高，颜色则深而艳。光谱色的白光成分为0，饱和度达到最高。通常取值范围为0%～100%，值越大，颜色越饱和。
+「人话就是：颜色的纯度。控制饱和度的方式是在颜色中加入白色，这个值越大，加入的白色越少，颜色就越纯，换句话说，圆盘的中心就是白色，外圈则是纯色」</li>
+<li>Value: 明度.
+明度表示颜色明亮的程度，对于光源色，明度值与发光体的光亮度有关；对于物体色，此值和物体的透射比或反射比有关。通常取值范围为0%（黑）到100%（白）
+「和饱和度相对应，就是在颜色中加入黑色的量，这个值越大，加入的黑色越少，明度就越高」</li>
+</ul></li>
+<li><h4 id="hsl">HSL</h4>
+<ul>
 <li>Hue 还是色相，这和HSV是完全一样的</li>
 <li>Saturation，这个和HSV的饱和度机制不同，<u>具体如何生效？</u></li>
-<li>Lightness：图像亮度 「它一项就相当于HSV中的S和V，最亮为白色，最暗为纯黑色，所以可以看到HSL最上面一圈是白的，最下面一圈是黑的」</li>
+<li>Lightness：图像亮度
+「它一项就相当于HSV中的S和V，最亮为白色，最暗为纯黑色，所以可以看到HSL最上面一圈是白的，最下面一圈是黑的」</li>
 <li>他们的具体区别如下图所示 (左为HSL，右为HSV)</li>
 <li><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h31z81dl11j20yn0j0adg.jpg" srcset="/img/loading.gif" lazyload></li>
-</ul>
-</li>
-<li><h4 id="YUV"><a href="#YUV" class="headerlink" title="YUV"></a>YUV</h4><ul>
-<li>颜色编码方法。 考虑到人类的色彩感知能力，在编码时对信息进行下采样</li>
+</ul></li>
+<li><h4 id="yuv">YUV</h4>
+<ul>
+<li>颜色编码方法。
+考虑到人类的色彩感知能力，在编码时对信息进行下采样</li>
 <li>Y：明度(灰阶值)， U&amp;V(色度，描述色彩和饱和度)</li>
 <li>出现在彩色和黑白电视的过渡时期。</li>
-</ul>
-</li>
+</ul></li>
 </ul>
 <hr>
-<h1 id="图像的变换-直接处理"><a href="#图像的变换-直接处理" class="headerlink" title="图像的变换(直接处理)"></a>图像的变换(直接处理)</h1><h3 id="反色变换"><a href="#反色变换" class="headerlink" title="反色变换"></a>反色变换</h3><p>目标：<code>增加暗色背景图像里的明亮区域</code></p>
-<p>如果图像灰度值范围为 [0, L], 则反色变换为 </p>
-<p>$输出灰度值output &#x3D; 最大灰度值L - 输入灰度值input$</p>
-<p>也就是说，输出灰度矩阵中的每个点的灰度，是原图像中最大灰度点的灰度 - 自己本身的灰度 </p>
-<p>​    (如图像最大灰度为160，这个像素点的灰度为20，那么转换后它的灰度为 160-20 &#x3D; 140)</p>
+<h1 id="图像的变换直接处理">图像的变换(直接处理)</h1>
+<h3 id="反色变换">反色变换</h3>
+<p>目标：<code>增加暗色背景图像里的明亮区域</code></p>
+<p>如果图像灰度值范围为 [0, L], 则反色变换为</p>
+<p><span class="math inline">\(输出灰度值output = 最大灰度值L -
+输入灰度值input\)</span></p>
+<p>也就是说，输出灰度矩阵中的每个点的灰度，是原图像中最大灰度点的灰度 -
+自己本身的灰度</p>
+<p>​ (如图像最大灰度为160，这个像素点的灰度为20，那么转换后它的灰度为
+160-20 = 140)</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np   <span class="hljs-comment"># matrix manipulation</span><br><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image   <span class="hljs-comment"># read image from hard disk</span><br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt   <span class="hljs-comment"># matplotlib中的绘图工具</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">image_inverse</span>(<span class="hljs-params"><span class="hljs-built_in">input</span></span>):<br>  value_max = np.<span class="hljs-built_in">max</span>(<span class="hljs-built_in">input</span>)  <span class="hljs-comment"># 求出图片的最大灰度值，注意这里是一个整型</span><br>  output = value_max - <span class="hljs-built_in">input</span>  <span class="hljs-comment"># 利用numpy的广播机制，使得value</span><br>  <br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>		<span class="hljs-comment"># asarray 将图像转变为numpy矩阵</span><br>    gray_img = np.asarray(Image.<span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;./x.jpg&#x27;</span>).convert(<span class="hljs-string">&#x27;L&#x27;</span>))<br>		inv_img = image_inverse(gray_img)<br>    <br>    fig = plt.figure()<br>    ax1 = fig.add_subplot(<span class="hljs-number">121</span>)   <span class="hljs-comment"># 指图像数量为一行两列, 第三个1为1号位置</span><br>    ax1.set_title(<span class="hljs-string">&#x27;before&#x27;</span>)<br>    <span class="hljs-comment"># cmap = &#x27;gray&#x27; 意味着图像以灰度图像的形式显示</span><br>    ax1.imshow(gray_img, cmap = <span class="hljs-string">&#x27;gray&#x27;</span>, vmin = <span class="hljs-number">0</span>, vmax = <span class="hljs-number">255</span>)<br>    <br>    ax2 = fig.add_subplot(<span class="hljs-number">122</span>)<br>    ax2.set_title(<span class="hljs-string">&#x27;after&#x27;</span>)<br>    ax2.imshow(inv_img, cmap = <span class="hljs-string">&#x27;gray&#x27;</span>, vmin = <span class="hljs-number">0</span>, vmax = <span class="hljs-number">255</span>)<br>    <br>    plt.show()<br>    <br></code></pre></td></tr></table></figure>
-
 
               
             </div>

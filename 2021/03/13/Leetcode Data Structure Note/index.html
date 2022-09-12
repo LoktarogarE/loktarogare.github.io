@@ -16,12 +16,12 @@
   <meta name="author" content="Natsumi">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Chapter1 Stack84. 柱状图中最大的矩形「Hard」给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。 求在该柱状图中，能够勾勒出来的矩形的最大面积。  以上是柱状图的示例，其中每个柱子的宽度为 1，给定的高度为 [2,1,5,6,2,3]。  图中阴影部分为所能勾勒出的最大矩形面积，其面积为 10 个单位。 示例: 12输入: [2,1,5,6">
+    <meta name="description" content="Chapter1 Stack 84. 柱状图中最大的矩形「Hard」 给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。 求在该柱状图中，能够勾勒出来的矩形的最大面积。   picture  以上是柱状图的示例，其中每个柱子的宽度为 1，给定的高度为 [2,1,5,6,2,3]。   pictture  图中阴影部分为所能勾勒出的最大矩形面积，其面积为 10">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Leetcode Data Structure Note">
 <meta property="og:url" content="http://www.mementos.top/2021/03/13/Leetcode%20Data%20Structure%20Note/index.html">
 <meta property="og:site_name" content="Natsumi&#39;s Mementos">
-<meta property="og:description" content="Chapter1 Stack84. 柱状图中最大的矩形「Hard」给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。 求在该柱状图中，能够勾勒出来的矩形的最大面积。  以上是柱状图的示例，其中每个柱子的宽度为 1，给定的高度为 [2,1,5,6,2,3]。  图中阴影部分为所能勾勒出的最大矩形面积，其面积为 10 个单位。 示例: 12输入: [2,1,5,6">
+<meta property="og:description" content="Chapter1 Stack 84. 柱状图中最大的矩形「Hard」 给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。 求在该柱状图中，能够勾勒出来的矩形的最大面积。   picture  以上是柱状图的示例，其中每个柱子的宽度为 1，给定的高度为 [2,1,5,6,2,3]。   pictture  图中阴影部分为所能勾勒出的最大矩形面积，其面积为 10">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/12/histogram.png">
 <meta property="og:image" content="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/12/histogram_area.png">
@@ -223,7 +223,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          9.6k 字
+          9.7k 字
         
       </span>
     
@@ -235,7 +235,7 @@
         
         
           <!-- compatible with older versions-->
-          80 分钟
+          81 分钟
         
       </span>
     
@@ -286,151 +286,211 @@
             
             <div class="markdown-body">
               
-              <h1 id="Chapter1-Stack"><a href="#Chapter1-Stack" class="headerlink" title="Chapter1 Stack"></a>Chapter1 Stack</h1><h3 id="84-柱状图中最大的矩形「Hard」"><a href="#84-柱状图中最大的矩形「Hard」" class="headerlink" title="84. 柱状图中最大的矩形「Hard」"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/largest-rectangle-in-histogram/">84. 柱状图中最大的矩形「Hard」</a></h3><p>给定 <code>n</code> 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 <code>1</code> 。</p>
+              <h1 id="chapter1-stack">Chapter1 Stack</h1>
+<h3 id="柱状图中最大的矩形hard"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/largest-rectangle-in-histogram/">84.
+柱状图中最大的矩形「Hard」</a></h3>
+<p>给定 <code>n</code>
+个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为
+<code>1</code> 。</p>
 <p>求在该柱状图中，能够勾勒出来的矩形的最大面积。</p>
-<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/12/histogram.png" srcset="/img/loading.gif" lazyload alt="picture"></p>
-<p>以上是柱状图的示例，其中每个柱子的宽度为 1，给定的高度为 <code>[2,1,5,6,2,3]</code>。</p>
-<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/12/histogram_area.png" srcset="/img/loading.gif" lazyload alt="pictture"></p>
-<p>图中阴影部分为所能勾勒出的最大矩形面积，其面积为 <code>10</code> 个单位。</p>
+<figure>
+<img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/12/histogram.png" srcset="/img/loading.gif" lazyload alt="picture">
+<figcaption aria-hidden="true">picture</figcaption>
+</figure>
+<p>以上是柱状图的示例，其中每个柱子的宽度为 1，给定的高度为
+<code>[2,1,5,6,2,3]</code>。</p>
+<figure>
+<img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/12/histogram_area.png" srcset="/img/loading.gif" lazyload alt="pictture">
+<figcaption aria-hidden="true">pictture</figcaption>
+</figure>
+<p>图中阴影部分为所能勾勒出的最大矩形面积，其面积为 <code>10</code>
+个单位。</p>
 <p><strong>示例:</strong></p>
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs tex">输入: [2,1,5,6,2,3]<br>输出: 10<br></code></pre></td></tr></table></figure>
-
 <blockquote>
 <p>算法分析：</p>
 <p>枚举「宽」的暴力法这里就不再过多赘述了。</p>
 <p>我们对枚举「高」来做一些分析以及优化。</p>
 <p>对枚举「高」的暴力法就是对每一条「高」进行中心扩展：</p>
 <ul>
-<li>首先我们枚举某一根柱子 $i$ 作为高 $h&#x3D;height[i]$.</li>
-<li>随后我们需要进行向左右两边扩展，使得扩展到的柱子的高度均不小于 $h$，也就是说，我们需要找到<strong>左右两侧最近的高度小于 $h$ 的柱子</strong>，这两根柱子之间的所有柱子的高度均不小于 $h$，这就是 $i$ 能扩展的最远范围.</li>
+<li>首先我们枚举某一根柱子 <span class="math inline">\(i\)</span> 作为高
+<span class="math inline">\(h=height[i]\)</span>.</li>
+<li>随后我们需要进行向左右两边扩展，使得扩展到的柱子的高度均不小于 <span class="math inline">\(h\)</span>，也就是说，我们需要找到<strong>左右两侧最近的高度小于
+<span class="math inline">\(h\)</span>
+的柱子</strong>，这两根柱子之间的所有柱子的高度均不小于 <span class="math inline">\(h\)</span>，这就是 <span class="math inline">\(i\)</span> 能扩展的最远范围.</li>
 </ul>
-<p>对于上述分析我们可知，我们可以使用<strong>单调栈</strong>来维护左边和右边的高度依赖关系。由分析可知，我们需要查找的是距离 $i$ 最近比 $h$ 低的柱子，所以我们可以维护一个单调递增的栈，每次只需要查找对比栈顶元素与当前的柱子高度，进行 $pop$ 操作和 $push$ 操作即可。</p>
+<p>对于上述分析我们可知，我们可以使用<strong>单调栈</strong>来维护左边和右边的高度依赖关系。由分析可知，我们需要查找的是距离
+<span class="math inline">\(i\)</span> 最近比 <span class="math inline">\(h\)</span>
+低的柱子，所以我们可以维护一个单调递增的栈，每次只需要查找对比栈顶元素与当前的柱子高度，进行
+<span class="math inline">\(pop\)</span> 操作和 <span class="math inline">\(push\)</span> 操作即可。</p>
 <p>单调栈的算法如下：</p>
 <ul>
-<li>当我们枚举到第 $i$ 根柱子时，我们从栈顶不断移除 $height[j]&gt;height[i]$ 的 $j$ 值。在移除完毕后，栈顶元素的 $j$ 值就一定满足 $height[j]&lt;height[i]$，此时 $j$ 就是 $i$ 左侧且最近的小于其高度的柱子。</li>
-<li>这里会有一种特殊情况。如果我们移除了栈中所有的 $j$ 值，说明 $i$ 左侧所有柱子的高度都大于 $height[i]$，那么我们可以认为 $i$ 左侧且最近的小于其高度的柱子在位置 $j&#x3D;-1$，它是一根「虚拟」的、高度无限低的柱子。这样的定义不会对我们的答案产生任何的影响，我们也称这根「虚拟」的柱子为「哨兵」。</li>
-<li>最后我们将 $i$ 这根柱子入栈。</li>
+<li>当我们枚举到第 <span class="math inline">\(i\)</span>
+根柱子时，我们从栈顶不断移除 <span class="math inline">\(height[j]&gt;height[i]\)</span> 的 <span class="math inline">\(j\)</span> 值。在移除完毕后，栈顶元素的 <span class="math inline">\(j\)</span> 值就一定满足 <span class="math inline">\(height[j]&lt;height[i]\)</span>，此时 <span class="math inline">\(j\)</span> 就是 <span class="math inline">\(i\)</span> 左侧且最近的小于其高度的柱子。</li>
+<li>这里会有一种特殊情况。如果我们移除了栈中所有的 <span class="math inline">\(j\)</span> 值，说明 <span class="math inline">\(i\)</span> 左侧所有柱子的高度都大于 <span class="math inline">\(height[i]\)</span>，那么我们可以认为 <span class="math inline">\(i\)</span> 左侧且最近的小于其高度的柱子在位置
+<span class="math inline">\(j=-1\)</span>，它是一根「虚拟」的、高度无限低的柱子。这样的定义不会对我们的答案产生任何的影响，我们也称这根「虚拟」的柱子为「哨兵」。</li>
+<li>最后我们将 <span class="math inline">\(i\)</span>
+这根柱子入栈。</li>
 </ul>
 <p>Details：</p>
 <p>我们在栈中存放的是柱子的下标而非柱子高度。</p>
-<p>最后求面积为 <code>maxArea = max(maxArea, (right[i] - left[i] - 1) * heights[i])</code>，具体下标的长度需要注意。</p>
-<p>本题还能进行常数优化 $\Rightarrow$ 一次遍历，这里就不提了</p>
+<p>最后求面积为
+<code>maxArea = max(maxArea, (right[i] - left[i] - 1) * heights[i])</code>，具体下标的长度需要注意。</p>
+<p>本题还能进行常数优化 <span class="math inline">\(\Rightarrow\)</span>
+一次遍历，这里就不提了</p>
 </blockquote>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">largestRectangleArea</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; heights)</span> </span>&#123;<br>        <span class="hljs-type">int</span> maxArea = <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> n = (<span class="hljs-type">int</span>)heights.<span class="hljs-built_in">size</span>();<br>        stack&lt;<span class="hljs-type">int</span>&gt; min_stack;<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">left</span><span class="hljs-params">(n)</span>, <span class="hljs-title">right</span><span class="hljs-params">(n)</span></span>;<br>        <br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; ++i) &#123;<br>            <span class="hljs-keyword">while</span> (!min_stack.<span class="hljs-built_in">empty</span>() <span class="hljs-keyword">and</span> heights[i] &lt;= heights[min_stack.<span class="hljs-built_in">top</span>()]) &#123;<br>                min_stack.<span class="hljs-built_in">pop</span>();<br>            &#125;<br>            left[i] = min_stack.<span class="hljs-built_in">empty</span>() ? <span class="hljs-number">-1</span> : min_stack.<span class="hljs-built_in">top</span>();<br>            min_stack.<span class="hljs-built_in">push</span>(i);<br>        &#125;<br>        <br>        min_stack = <span class="hljs-built_in">stack</span>&lt;<span class="hljs-type">int</span>&gt;();<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = n - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; --i) &#123;<br>            <span class="hljs-keyword">while</span> (!min_stack.<span class="hljs-built_in">empty</span>() <span class="hljs-keyword">and</span> heights[i] &lt;= heights[min_stack.<span class="hljs-built_in">top</span>()]) &#123;<br>                min_stack.<span class="hljs-built_in">pop</span>();<br>            &#125;<br>            right[i] = min_stack.<span class="hljs-built_in">empty</span>() ? n : min_stack.<span class="hljs-built_in">top</span>();<br>            min_stack.<span class="hljs-built_in">push</span>(i);<br>        &#125;<br>        <br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; ++i) &#123;<br>            maxArea = <span class="hljs-built_in">max</span>(maxArea, (right[i] - left[i] - <span class="hljs-number">1</span>) * heights[i]);<br>        &#125;<br>        <span class="hljs-keyword">return</span> maxArea;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-
-<h3 id="503-下一个更大元素-II「Medium」"><a href="#503-下一个更大元素-II「Medium」" class="headerlink" title="503. 下一个更大元素 II「Medium」"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/next-greater-element-ii/">503. 下一个更大元素 II「Medium」</a></h3><p>给定一个循环数组（最后一个元素的下一个元素是数组的第一个元素），输出每个元素的下一个更大元素。数字 $x$ 的下一个更大的元素是按数组遍历顺序，这个数字之后的第一个比它更大的数，这意味着你应该循环地搜索它的下一个更大的数。如果不存在，则输出 $-1$.</p>
+<h3 id="下一个更大元素-iimedium"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/next-greater-element-ii/">503.
+下一个更大元素 II「Medium」</a></h3>
+<p>给定一个循环数组（最后一个元素的下一个元素是数组的第一个元素），输出每个元素的下一个更大元素。数字
+<span class="math inline">\(x\)</span>
+的下一个更大的元素是按数组遍历顺序，这个数字之后的第一个比它更大的数，这意味着你应该循环地搜索它的下一个更大的数。如果不存在，则输出
+<span class="math inline">\(-1\)</span>.</p>
 <p><strong>示例 1:</strong></p>
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs tex">输入: [1,2,1]<br>输出: [2,-1,2]<br>解释: 第一个 1 的下一个更大的数是 2；<br>数字 2 找不到下一个更大的数； <br>第二个 1 的下一个最大的数需要循环搜索，结果也是 2。<br></code></pre></td></tr></table></figure>
-
 <blockquote>
 <p>算法分析：</p>
-<p>我们可以使用单调栈解决本题。单调栈中保存的是下标，从栈底到栈顶的下标在数组 $nums$ 中对应的值是单调不升的。</p>
-<p>每次我们移动到数组中的一个新的位置 $i$，我们就将当前单调栈中所有对应值小于 $nums[i]$ 的下标弹出单调栈，这些值的下一个更大元素即为 $nums[i]$，随后我们将位置 $i$ 入栈.</p>
-<p>但是注意到只遍历一次序列是不够的，例如序列 $[2,3,1]$，最后单调栈中将剩余 $[3,1]$，其中元素 $[1]$ 的下一个更大元素还是不知道的</p>
-<p>一个朴素的思想是，我们可以把这个循环数组「拉直」，即复制该序列的前 $n-1$ 个元素拼接在原序列的后面。这样我们就可以将这个新序列当作普通序列，用上文的方法来处理。</p>
+<p>我们可以使用单调栈解决本题。单调栈中保存的是下标，从栈底到栈顶的下标在数组
+<span class="math inline">\(nums\)</span> 中对应的值是单调不升的。</p>
+<p>每次我们移动到数组中的一个新的位置 <span class="math inline">\(i\)</span>，我们就将当前单调栈中所有对应值小于
+<span class="math inline">\(nums[i]\)</span>
+的下标弹出单调栈，这些值的下一个更大元素即为 <span class="math inline">\(nums[i]\)</span>，随后我们将位置 <span class="math inline">\(i\)</span> 入栈.</p>
+<p>但是注意到只遍历一次序列是不够的，例如序列 <span class="math inline">\([2,3,1]\)</span>，最后单调栈中将剩余 <span class="math inline">\([3,1]\)</span>，其中元素 <span class="math inline">\([1]\)</span> 的下一个更大元素还是不知道的</p>
+<p>一个朴素的思想是，我们可以把这个循环数组「拉直」，即复制该序列的前
+<span class="math inline">\(n-1\)</span>
+个元素拼接在原序列的后面。这样我们就可以将这个新序列当作普通序列，用上文的方法来处理。</p>
 <p>而在本题中，我们不需要显性地将该循环数组「拉直」，而只需要在处理时对下标取模即可。</p>
 </blockquote>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">nextGreaterElements</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> n = nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">ret</span><span class="hljs-params">(n, <span class="hljs-number">-1</span>)</span></span>;<br>        stack&lt;<span class="hljs-type">int</span>&gt; stk;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n * <span class="hljs-number">2</span> - <span class="hljs-number">1</span>; i++) &#123;<br>            <span class="hljs-keyword">while</span> (!stk.<span class="hljs-built_in">empty</span>() &amp;&amp; nums[stk.<span class="hljs-built_in">top</span>()] &lt; nums[i % n]) &#123;<br>                ret[stk.<span class="hljs-built_in">top</span>()] = nums[i % n];<br>                stk.<span class="hljs-built_in">pop</span>();<br>            &#125;<br>            stk.<span class="hljs-built_in">push</span>(i % n);<br>        &#125;<br>        <span class="hljs-keyword">return</span> ret;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-
-<h3 id="224-基本计算器"><a href="#224-基本计算器" class="headerlink" title="224. 基本计算器"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/basic-calculator/%E3%80%8CHard%E3%80%8D">224. 基本计算器</a></h3><p>实现一个基本的计算器来计算一个简单的字符串表达式 <code>s</code> 的值。</p>
+<h3 id="基本计算器"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/basic-calculator/「Hard」">224.
+基本计算器</a></h3>
+<p>实现一个基本的计算器来计算一个简单的字符串表达式 <code>s</code>
+的值。</p>
 <p><strong>示例 1：</strong></p>
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs tex">输入：s = &quot;(1+(4+5+2)-3)+(6+8)&quot;<br>输出：23<br></code></pre></td></tr></table></figure>
-
 <p><strong>提示：</strong></p>
 <ul>
 <li><code>1 &lt;= s.length &lt;= 3 * 105</code></li>
-<li><code>s</code> 由数字、<code>&#39;+&#39;</code>、<code>&#39;-&#39;</code>、<code>&#39;(&#39;</code>、<code>&#39;)&#39;</code>、和 <code>&#39; &#39;</code> 组成</li>
+<li><code>s</code>
+由数字、<code>'+'</code>、<code>'-'</code>、<code>'('</code>、<code>')'</code>、和
+<code>' '</code> 组成</li>
 <li><code>s</code> 表示一个有效的表达式</li>
 </ul>
 <blockquote>
 <p>算法分析：</p>
 <p>方法：括号展开 + 栈</p>
 <p>由于字符串除了数字与括号外，只有加号和减号两种运算符。因此，如果展开表达式中所有的括号，则得到的新表达式中，数字本身不会发生变化，只是每个数字前面的符号会发生变化。</p>
-<p>因此，我们考虑使用一个取值为 {-1, 1} 的整数 $sign$ 代表「当前」的符号。根据括号表达式的性质，它的取值：</p>
+<p>因此，我们考虑使用一个取值为 {-1, 1} 的整数 <span class="math inline">\(sign\)</span>
+代表「当前」的符号。根据括号表达式的性质，它的取值：</p>
 <ul>
 <li>与字符串中当前位置的运算符有关；</li>
-<li>如果当前位置处于一系列括号之内，则也与这些括号前面的运算符有关：每当遇到一个以 -− 号开头的括号，则意味着此后的符号都要被「翻转」。</li>
+<li>如果当前位置处于一系列括号之内，则也与这些括号前面的运算符有关：每当遇到一个以
+-− 号开头的括号，则意味着此后的符号都要被「翻转」。</li>
 </ul>
-<p>考虑到第二点，我们需要维护一个栈 $ops$，其中栈顶元素记录了当前位置所处的每个括号所「共同形成」的符号。例如，对于字符串 $1+2+(3-(4+5))$：</p>
+<p>考虑到第二点，我们需要维护一个栈 <span class="math inline">\(ops\)</span>，其中栈顶元素记录了当前位置所处的每个括号所「共同形成」的符号。例如，对于字符串
+<span class="math inline">\(1+2+(3-(4+5))\)</span>：</p>
 <ul>
-<li><p>扫描到 $1+2$ 时，由于当前位置没有被任何括号所包含，则栈顶元素为初始值 $+1$.</p>
-</li>
-<li><p>扫描到 $1+2+(3$ 时，当前位置被一个括号所包含，该括号前面的符号为 $+$ 号，因此栈顶元素依然 $+1$.</p>
-</li>
-<li><p>扫描到 $1+2+(3-(4$ 时，当前位置被两个括号所包含，分别对应着 $+$ 号和 $-$ 号，由于 $+$ 号和 $-$ 号合并的结果为 $-$ 号，因此栈顶元素变为 $-1$.</p>
-<p>  在得到栈 $ops$ 之后，$sign$ 的取值就能够确定了：如果当前遇到了 $+$ 号，则更新 $sign\leftarrow ops.top()$ ；如果遇到了遇到了 $-$ 号，则更新 $sign\leftarrow -ops.top()$.</p>
-</li>
+<li><p>扫描到 <span class="math inline">\(1+2\)</span>
+时，由于当前位置没有被任何括号所包含，则栈顶元素为初始值 <span class="math inline">\(+1\)</span>.</p></li>
+<li><p>扫描到 <span class="math inline">\(1+2+(3\)</span>
+时，当前位置被一个括号所包含，该括号前面的符号为 <span class="math inline">\(+\)</span> 号，因此栈顶元素依然 <span class="math inline">\(+1\)</span>.</p></li>
+<li><p>扫描到 <span class="math inline">\(1+2+(3-(4\)</span>
+时，当前位置被两个括号所包含，分别对应着 <span class="math inline">\(+\)</span> 号和 <span class="math inline">\(-\)</span> 号，由于 <span class="math inline">\(+\)</span> 号和 <span class="math inline">\(-\)</span> 号合并的结果为 <span class="math inline">\(-\)</span> 号，因此栈顶元素变为 <span class="math inline">\(-1\)</span>.</p>
+<p>在得到栈 <span class="math inline">\(ops\)</span> 之后，<span class="math inline">\(sign\)</span> 的取值就能够确定了：如果当前遇到了
+<span class="math inline">\(+\)</span> 号，则更新 <span class="math inline">\(sign\leftarrow ops.top()\)</span>
+；如果遇到了遇到了 <span class="math inline">\(-\)</span> 号，则更新
+<span class="math inline">\(sign\leftarrow -ops.top()\)</span>.</p></li>
 </ul>
-<p>然后，每当遇到 $($ 时，都要将当前的 $sign$ 取值压入栈中；每当遇到 $)$ 时，都从栈中弹出一个元素。这样，我们能够在扫描字符串的时候，即时地更新 $ops$ 中的元素.</p>
+<p>然后，每当遇到 <span class="math inline">\((\)</span>
+时，都要将当前的 <span class="math inline">\(sign\)</span>
+取值压入栈中；每当遇到 <span class="math inline">\()\)</span>
+时，都从栈中弹出一个元素。这样，我们能够在扫描字符串的时候，即时地更新
+<span class="math inline">\(ops\)</span> 中的元素.</p>
 </blockquote>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">calculate</span><span class="hljs-params">(s <span class="hljs-type">string</span>)</span></span> <span class="hljs-type">int</span> &#123;<br>	n := <span class="hljs-built_in">len</span>(s)<br>	ans := <span class="hljs-number">0</span><br>	ops := []<span class="hljs-type">int</span>&#123;<span class="hljs-number">1</span>&#125;<br>	sign := <span class="hljs-number">1</span><br><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n; &#123;<br>		<span class="hljs-keyword">switch</span> s[i] &#123;<br>		<span class="hljs-keyword">case</span> <span class="hljs-string">&#x27; &#x27;</span>:<br>			i++<br>		<span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;-&#x27;</span>:<br>			sign = -ops[<span class="hljs-built_in">len</span>(ops)<span class="hljs-number">-1</span>]<br>			i++<br>		<span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;+&#x27;</span>:<br>			sign = ops[<span class="hljs-built_in">len</span>(ops)<span class="hljs-number">-1</span>]<br>			i++<br>		<span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;(&#x27;</span>:<br>			ops = <span class="hljs-built_in">append</span>(ops, sign)<br>			i++<br>		<span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;)&#x27;</span>:<br>			ops = ops[:<span class="hljs-built_in">len</span>(ops)<span class="hljs-number">-1</span>]<br>			i++<br>		<span class="hljs-keyword">default</span>:<br>			num := <span class="hljs-number">0</span><br>			<span class="hljs-keyword">for</span> ; i &lt; n &amp;&amp; <span class="hljs-string">&#x27;0&#x27;</span> &lt;= s[i] &amp;&amp; s[i] &lt;= <span class="hljs-string">&#x27;9&#x27;</span>; i++ &#123;<br>				num = num*<span class="hljs-number">10</span> + (<span class="hljs-type">int</span>)(s[i]-<span class="hljs-string">&#x27;0&#x27;</span>)<br>			&#125;<br>			ans += sign * num<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> ans<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h3 id="331-验证二叉树的前序序列化「Medium」"><a href="#331-验证二叉树的前序序列化「Medium」" class="headerlink" title="331. 验证二叉树的前序序列化「Medium」"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/verify-preorder-serialization-of-a-binary-tree/">331. 验证二叉树的前序序列化「Medium」</a></h3><p>序列化二叉树的一种方法是使用前序遍历。当我们遇到一个非空节点时，我们可以记录下这个节点的值。如果它是一个空节点，我们可以使用一个标记值记录，例如 <code>#</code>。</p>
+<h3 id="验证二叉树的前序序列化medium"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/verify-preorder-serialization-of-a-binary-tree/">331.
+验证二叉树的前序序列化「Medium」</a></h3>
+<p>序列化二叉树的一种方法是使用前序遍历。当我们遇到一个非空节点时，我们可以记录下这个节点的值。如果它是一个空节点，我们可以使用一个标记值记录，例如
+<code>#</code>。</p>
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs tex">     <span class="hljs-built_in">_</span>9<span class="hljs-built_in">_</span><br>    /   <span class="hljs-keyword">\</span><br><span class="hljs-keyword"></span>   3     2<br>  / <span class="hljs-keyword">\ </span>  / <span class="hljs-keyword">\</span><br><span class="hljs-keyword"></span> 4   1  <span class="hljs-params">#</span>  6<br>/ <span class="hljs-keyword">\ </span>/ <span class="hljs-keyword">\ </span>  / <span class="hljs-keyword">\</span><br><span class="hljs-keyword"></span><span class="hljs-params">#</span> <span class="hljs-params">#</span> <span class="hljs-params">#</span> <span class="hljs-params">#</span>   <span class="hljs-params">#</span> <span class="hljs-params">#</span><br></code></pre></td></tr></table></figure>
-
-<p>例如，上面的二叉树可以被序列化为字符串 <code>&quot;9,3,4,#,#,1,#,#,2,#,6,#,#&quot;</code>，其中 <code>#</code> 代表一个空节点。</p>
+<p>例如，上面的二叉树可以被序列化为字符串
+<code>"9,3,4,#,#,1,#,#,2,#,6,#,#"</code>，其中 <code>#</code>
+代表一个空节点。</p>
 <p>给定一串以逗号分隔的序列，验证它是否是正确的二叉树的前序序列化。编写一个在不重构树的条件下的可行算法。</p>
-<p>每个以逗号分隔的字符或为一个整数或为一个表示 <code>null</code> 指针的 <code>&#39;#&#39;</code> 。</p>
-<p>你可以认为输入格式总是有效的，例如它永远不会包含两个连续的逗号，比如 <code>&quot;1,,3&quot;</code> 。</p>
+<p>每个以逗号分隔的字符或为一个整数或为一个表示 <code>null</code> 指针的
+<code>'#'</code> 。</p>
+<p>你可以认为输入格式总是有效的，例如它永远不会包含两个连续的逗号，比如
+<code>"1,,3"</code> 。</p>
 <p><strong>示例 1:</strong></p>
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs tex">输入: &quot;9,3,4,<span class="hljs-params">#</span>,<span class="hljs-params">#</span>,1,<span class="hljs-params">#</span>,<span class="hljs-params">#</span>,2,<span class="hljs-params">#</span>,6,<span class="hljs-params">#</span>,<span class="hljs-params">#</span>&quot;<br>输出: true<br></code></pre></td></tr></table></figure>
-
 <p><strong>示例 2:</strong></p>
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs tex">输入: &quot;1,<span class="hljs-params">#</span>&quot;<br>输出: false<br></code></pre></td></tr></table></figure>
-
 <blockquote>
 <p>算法分析：</p>
-<p><strong>方法一：栈</strong><br>我们可以定义一个概念，叫做槽位。一个槽位可以被看作「当前二叉树中正在等待被节点填充」的那些位置。</p>
+<p><strong>方法一：栈</strong>
+我们可以定义一个概念，叫做槽位。一个槽位可以被看作「当前二叉树中正在等待被节点填充」的那些位置。</p>
 <p>二叉树的建立也伴随着槽位数量的变化。每当遇到一个节点时：</p>
 <p>如果遇到了空节点，则要消耗一个槽位；</p>
 <p>如果遇到了非空节点，则除了消耗一个槽位外，还要再补充两个槽位。</p>
 <p>此外，还需要将根节点作为特殊情况处理。</p>
-<p><img src="https://assets.leetcode-cn.com/solution-static/331/1.png" srcset="/img/loading.gif" lazyload alt="p"></p>
-<p>我们使用栈来维护槽位的变化。栈中的每个元素，代表了对应节点处<strong>剩余槽位的数量</strong>，而栈顶元素就对应着下一步可用的槽位数量。当遇到空节点时，仅将栈顶元素减 $1$；当遇到非空节点时，将栈顶元素减 $1$ 后，再向栈中压入一个 $2$。无论何时，如果栈顶元素变为 $0$，就立刻将栈顶弹出。 </p>
+<figure>
+<img src="https://assets.leetcode-cn.com/solution-static/331/1.png" srcset="/img/loading.gif" lazyload alt="p">
+<figcaption aria-hidden="true">p</figcaption>
+</figure>
+<p>我们使用栈来维护槽位的变化。栈中的每个元素，代表了对应节点处<strong>剩余槽位的数量</strong>，而栈顶元素就对应着下一步可用的槽位数量。当遇到空节点时，仅将栈顶元素减
+<span class="math inline">\(1\)</span>；当遇到非空节点时，将栈顶元素减
+<span class="math inline">\(1\)</span> 后，再向栈中压入一个 <span class="math inline">\(2\)</span>。无论何时，如果栈顶元素变为 <span class="math inline">\(0\)</span>，就立刻将栈顶弹出。</p>
 <p>历结束后，若栈为空，说明没有待填充的槽位，因此是一个合法序列；否则若栈不为空，则序列不合法。此外，在遍历的过程中，若槽位数量不足，则序列不合法。</p>
 <ul>
-<li>时间复杂度：$O(n)$.</li>
-<li>空间复杂度：$O(n)$.</li>
+<li>时间复杂度：<span class="math inline">\(O(n)\)</span>.</li>
+<li>空间复杂度：<span class="math inline">\(O(n)\)</span>.</li>
 </ul>
 <p><strong>方法二：计数</strong></p>
 <p>回顾方法一的逻辑，如果把栈中元素看成一个整体，即所有剩余槽位的数量，也能维护槽位的变化。</p>
 <p>因此，我们可以只维护一个计数器，代表栈中所有元素之和，其余的操作逻辑均可以保持不变</p>
 <ul>
-<li>时间复杂度：$O(n)$.</li>
-<li>空间复杂度：$O(1)$.</li>
+<li>时间复杂度：<span class="math inline">\(O(n)\)</span>.</li>
+<li>空间复杂度：<span class="math inline">\(O(1)\)</span>.</li>
 </ul>
 </blockquote>
 <p>方法一：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">isValidSerialization</span><span class="hljs-params">(preorder <span class="hljs-type">string</span>)</span></span> <span class="hljs-type">bool</span> &#123;<br>    n := <span class="hljs-built_in">len</span>(preorder)<br>    stk := []<span class="hljs-type">int</span>&#123;<span class="hljs-number">1</span>&#125;<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n; &#123;<br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(stk) == <span class="hljs-number">0</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>        &#125;<br>        <span class="hljs-keyword">if</span> preorder[i] == <span class="hljs-string">&#x27;,&#x27;</span> &#123;<br>            i++<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> preorder[i] == <span class="hljs-string">&#x27;#&#x27;</span> &#123;<br>            stk[<span class="hljs-built_in">len</span>(stk)<span class="hljs-number">-1</span>]--<br>            <span class="hljs-keyword">if</span> stk[<span class="hljs-built_in">len</span>(stk)<span class="hljs-number">-1</span>] == <span class="hljs-number">0</span> &#123;<br>                stk = stk[:<span class="hljs-built_in">len</span>(stk)<span class="hljs-number">-1</span>]<br>            &#125;<br>            i++<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">// 读一个数字</span><br>            <span class="hljs-keyword">for</span> i &lt; n &amp;&amp; preorder[i] != <span class="hljs-string">&#x27;,&#x27;</span> &#123;<br>                i++<br>            &#125;<br>            stk[<span class="hljs-built_in">len</span>(stk)<span class="hljs-number">-1</span>]--<br>            <span class="hljs-keyword">if</span> stk[<span class="hljs-built_in">len</span>(stk)<span class="hljs-number">-1</span>] == <span class="hljs-number">0</span> &#123;<br>                stk = stk[:<span class="hljs-built_in">len</span>(stk)<span class="hljs-number">-1</span>]<br>            &#125;<br>            stk = <span class="hljs-built_in">append</span>(stk, <span class="hljs-number">2</span>)<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(stk) == <span class="hljs-number">0</span><br>&#125;<br></code></pre></td></tr></table></figure>
-
 <p>方法二：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">isValidSerialization</span><span class="hljs-params">(preorder <span class="hljs-type">string</span>)</span></span> <span class="hljs-type">bool</span> &#123;<br>    n := <span class="hljs-built_in">len</span>(preorder)<br>    slots := <span class="hljs-number">1</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n; &#123;<br>        <span class="hljs-keyword">if</span> slots == <span class="hljs-number">0</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>        &#125;<br>        <span class="hljs-keyword">if</span> preorder[i] == <span class="hljs-string">&#x27;,&#x27;</span> &#123;<br>            i++<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> preorder[i] == <span class="hljs-string">&#x27;#&#x27;</span> &#123;<br>            slots--<br>            i++<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">// 读一个数字</span><br>            <span class="hljs-keyword">for</span> i &lt; n &amp;&amp; preorder[i] != <span class="hljs-string">&#x27;,&#x27;</span> &#123;<br>                i++<br>            &#125;<br>            slots++ <span class="hljs-comment">// slots = slots - 1 + 2</span><br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> slots == <span class="hljs-number">0</span><br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h3 id="456-132-模式「Medium」"><a href="#456-132-模式「Medium」" class="headerlink" title="456. 132 模式「Medium」"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/132-pattern/">456. 132 模式「Medium」</a></h3><p>给你一个整数数组 <code>nums</code> ，数组中共有 <code>n</code> 个整数。</p>
-<p><strong>132 模式的子序列</strong> 由三个整数 <code>nums[i], nums[j]</code> 和 <code>nums[k]</code> 组成</p>
-<p>并同时满足：<code>i &lt; j &lt; k</code> 和 <code>nums[i] &lt; nums[k] &lt; nums[j]</code></p>
-<p>如果 <code>nums</code> 中存在 <strong>132 模式的子序列</strong> ，返回 <code>true</code> ；否则，返回 <code>false</code> </p>
+<h3 id="模式medium"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/132-pattern/">456. 132
+模式「Medium」</a></h3>
+<p>给你一个整数数组 <code>nums</code> ，数组中共有 <code>n</code>
+个整数。</p>
+<p><strong>132 模式的子序列</strong> 由三个整数
+<code>nums[i], nums[j]</code> 和 <code>nums[k]</code> 组成</p>
+<p>并同时满足：<code>i &lt; j &lt; k</code> 和
+<code>nums[i] &lt; nums[k] &lt; nums[j]</code></p>
+<p>如果 <code>nums</code> 中存在 <strong>132 模式的子序列</strong>
+，返回 <code>true</code> ；否则，返回 <code>false</code></p>
 <p><strong>示例 1：</strong></p>
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs tex">输入：nums = [1,2,3,4]<br>输出：false<br>解释：序列中不存在 132 模式的子序列。<br></code></pre></td></tr></table></figure>
-
 <p><strong>示例 2：</strong></p>
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs tex">输入：nums = [3,1,4,2]<br>输出：true<br>解释：序列中有 1 个 132 模式的子序列： [1, 4, 2] 。<br></code></pre></td></tr></table></figure>
-
 <blockquote>
 <p>算法分析：</p>
 <p>我们首先可以考虑枚举 <code>132</code> 模式中的 <code>3</code></p>
 <ul>
-<li><p>由于 <code>1</code> 是模式中的最小值，因此我们在枚举 <code>j</code> 的同时，维护数组 <code>num[0, j - 1]</code> 中的最小值，因为只有 <code>a[i] &lt; a[j]</code> 时，我们才可以选择 <code>a[i]</code> 作为 <code>1</code>.</p>
-</li>
-<li><p>由于 <code>2</code> 是模式中的次小值，因此我们可以使用一个有序集合（例如平衡树）维护数组中右侧元素</p>
-<p> <code>nums[j + 1, n - 1]</code> 中的所有值。当我们确定了 <code>a[i]</code> 和 <code>a[j]</code> 时，我们就可以在有序集合中查询严格比 <code>a[i]</code> 大的那个最小元素，即为 <code>a[k]</code>.</p>
-</li>
+<li><p>由于 <code>1</code> 是模式中的最小值，因此我们在枚举
+<code>j</code> 的同时，维护数组 <code>num[0, j - 1]</code>
+中的最小值，因为只有 <code>a[i] &lt; a[j]</code> 时，我们才可以选择
+<code>a[i]</code> 作为 <code>1</code>.</p></li>
+<li><p>由于 <code>2</code>
+是模式中的次小值，因此我们可以使用一个有序集合（例如平衡树）维护数组中右侧元素</p>
+<p><code>nums[j + 1, n - 1]</code> 中的所有值。当我们确定了
+<code>a[i]</code> 和 <code>a[j]</code>
+时，我们就可以在有序集合中查询严格比 <code>a[i]</code>
+大的那个最小元素，即为 <code>a[k]</code>.</p></li>
 </ul>
 </blockquote>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">find132pattern</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> n = nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-keyword">if</span> (n &lt; <span class="hljs-number">3</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br><br>        <span class="hljs-comment">// 左侧最小值</span><br>        <span class="hljs-type">int</span> left_min = nums[<span class="hljs-number">0</span>];<br>        <span class="hljs-comment">// 右侧所有元素</span><br>        multiset&lt;<span class="hljs-type">int</span>&gt; right_all;<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> k = <span class="hljs-number">2</span>; k &lt; n; ++k) &#123;<br>            right_all.<span class="hljs-built_in">insert</span>(nums[k]);<br>        &#125;<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">1</span>; j &lt; n - <span class="hljs-number">1</span>; ++j) &#123;<br>            <span class="hljs-keyword">if</span> (left_min &lt; nums[j]) &#123;<br>                <span class="hljs-keyword">auto</span> it = right_all.<span class="hljs-built_in">upper_bound</span>(left_min);<br>                <span class="hljs-keyword">if</span> (it != right_all.<span class="hljs-built_in">end</span>() &amp;&amp; *it &lt; nums[j]) &#123;<br>                    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>                &#125;<br>            &#125;<br>            left_min = <span class="hljs-built_in">min</span>(left_min, nums[j]);<br>            right_all.<span class="hljs-built_in">erase</span>(right_all.<span class="hljs-built_in">find</span>(nums[j + <span class="hljs-number">1</span>]));<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-
 <hr>
-<h1 id="Chapter2-Tree"><a href="#Chapter2-Tree" class="headerlink" title="Chapter2 Tree"></a>Chapter2 Tree</h1><blockquote>
+<h1 id="chapter2-tree">Chapter2 Tree</h1>
+<blockquote>
 <p>树的解决我们一般使用递归方法，递归概述如下：</p>
 <ul>
 <li>将问题转化为规模更小的子问题，直至边界情况</li>
@@ -438,72 +498,93 @@
 <li>借助于计算机的程序栈，利用函数自身调用来实现</li>
 </ul>
 </blockquote>
-<h3 id="124-二叉树中的最大路径和「Hard」"><a href="#124-二叉树中的最大路径和「Hard」" class="headerlink" title="124. 二叉树中的最大路径和「Hard」"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/">124. 二叉树中的最大路径和「Hard」</a></h3><p>路径 被定义为一条从树中任意节点出发，沿父节点-子节点连接，达到任意节点的序列。同一个节点在一条路径序列中 至多出现一次 。该路径 至少包含一个 节点，且不一定经过根节点。</p>
+<h3 id="二叉树中的最大路径和hard"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/">124.
+二叉树中的最大路径和「Hard」</a></h3>
+<p>路径
+被定义为一条从树中任意节点出发，沿父节点-子节点连接，达到任意节点的序列。同一个节点在一条路径序列中
+至多出现一次 。该路径 至少包含一个 节点，且不一定经过根节点。</p>
 <p>路径和 是路径中各节点值的总和。</p>
 <p>给你一个二叉树的根节点 <code>root</code> ，返回其 最大路径和 。</p>
 <p><strong>示例 1：</strong></p>
-<p><img src="https://assets.leetcode.com/uploads/2020/10/13/exx1.jpg" srcset="/img/loading.gif" lazyload alt="picture"></p>
+<figure>
+<img src="https://assets.leetcode.com/uploads/2020/10/13/exx1.jpg" srcset="/img/loading.gif" lazyload alt="picture">
+<figcaption aria-hidden="true">picture</figcaption>
+</figure>
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs tex">输入：root = [1,2,3]<br>输出：6<br>解释：最优路径是 2 -&gt; 1 -&gt; 3 ，路径和为 2 + 1 + 3 = 6<br></code></pre></td></tr></table></figure>
-
 <p><strong>示例 2：</strong></p>
-<p><img src="https://assets.leetcode.com/uploads/2020/10/13/exx2.jpg" srcset="/img/loading.gif" lazyload alt="picture"></p>
+<figure>
+<img src="https://assets.leetcode.com/uploads/2020/10/13/exx2.jpg" srcset="/img/loading.gif" lazyload alt="picture">
+<figcaption aria-hidden="true">picture</figcaption>
+</figure>
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs tex">输入：root = [-10,9,20,null,null,15,7]<br>输出：42<br>解释：最优路径是 15 -&gt; 20 -&gt; 7 ，路径和为 15 + 20 + 7 = 42<br></code></pre></td></tr></table></figure>
-
 <blockquote>
 <p>算法分析：</p>
-<p>首先，考虑实现一个简化的函数 <code>maxGain(node)</code>，该函数计算二叉树中的一个节点的最大贡献值，具体而言，就是在以该节点为根节点的子树中寻找以该节点为起点的一条路径，使得该路径上的节点值之和最大。</p>
+<p>首先，考虑实现一个简化的函数
+<code>maxGain(node)</code>，该函数计算二叉树中的一个节点的最大贡献值，具体而言，就是在以该节点为根节点的子树中寻找以该节点为起点的一条路径，使得该路径上的节点值之和最大。</p>
 <p>具体而言，该函数的计算如下：</p>
 <ul>
-<li>空节点的最大贡献值等于 $0$.</li>
-<li>非空节点的最大贡献值等于节点值与其子节点中的最大贡献值之和 ( 对于叶节点而言，最大贡献值等于节点值 )</li>
+<li>空节点的最大贡献值等于 <span class="math inline">\(0\)</span>.</li>
+<li>非空节点的最大贡献值等于节点值与其子节点中的最大贡献值之和 (
+对于叶节点而言，最大贡献值等于节点值 )</li>
 </ul>
 <p>例如，考虑如下二叉树。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"> <span class="hljs-number">-10</span><br> / \<br><span class="hljs-number">9</span>  <span class="hljs-number">20</span><br>  /  \<br> <span class="hljs-number">15</span>   <span class="hljs-number">7</span><br></code></pre></td></tr></table></figure>
-
-<p>叶节点 <code>9、15、7</code> 的最大贡献值分别为 <code>9、15、7</code>。</p>
+<p>叶节点 <code>9、15、7</code> 的最大贡献值分别为
+<code>9、15、7</code>。</p>
 <p>得到叶节点的最大贡献值之后，再计算非叶节点的最大贡献值。</p>
 <p>节点 20 的最大贡献值等于 <code>20 + max(15, 7) =  35</code>.</p>
 <p>节点 -10 的最大贡献值等于 <code>-10 + max(35, 9) = 25</code>.</p>
-<p>上述计算过程是递归的过程，因此，对根节点调用函数 <code>maxGain</code>，即可得到每个节点的最大贡献值。</p>
-<p>根据函数 <code>maxGain</code> 得到每个节点的最大贡献值之后，如何得到二叉树的最大路径和？对于二叉树中的一个节点，该节点的最大路径和取决于该节点的值与该节点的左右子节点的最大贡献值，如果子节点的最大贡献值为正，则计入该节点的最大路径和，否则不计入该节点的最大路径和。维护一个全局变量 <code>maxSum</code> 存储最大路径和，在递归过程中更新 <code>maxSum</code> 的值，最后得到的 <code>maxSum</code> 的值即为二叉树中的最大路径和。</p>
+<p>上述计算过程是递归的过程，因此，对根节点调用函数
+<code>maxGain</code>，即可得到每个节点的最大贡献值。</p>
+<p>根据函数 <code>maxGain</code>
+得到每个节点的最大贡献值之后，如何得到二叉树的最大路径和？对于二叉树中的一个节点，该节点的最大路径和取决于该节点的值与该节点的左右子节点的最大贡献值，如果子节点的最大贡献值为正，则计入该节点的最大路径和，否则不计入该节点的最大路径和。维护一个全局变量
+<code>maxSum</code> 存储最大路径和，在递归过程中更新 <code>maxSum</code>
+的值，最后得到的 <code>maxSum</code> 的值即为二叉树中的最大路径和。</p>
 </blockquote>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-type">int</span> maxSum = INT_MIN;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">maxGain</span><span class="hljs-params">(TreeNode* root)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (!root) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        <br>        <span class="hljs-comment">// 递归计算左右子节点的最大贡献值</span><br>        <span class="hljs-comment">// 只有在最大贡献值大于 0 时，才会选取对应子节点</span><br>        <span class="hljs-type">int</span> leftGain = <span class="hljs-built_in">max</span>(<span class="hljs-built_in">maxGain</span>(root-&gt;left), <span class="hljs-number">0</span>);<br>        <span class="hljs-type">int</span> rightGain = <span class="hljs-built_in">max</span>(<span class="hljs-built_in">maxGain</span>(root-&gt;right), <span class="hljs-number">0</span>);<br>        <br>        <span class="hljs-comment">// 节点的最大路径和取决于该节点的值与该节点的左右子节点的最大贡献值</span><br>        <span class="hljs-type">int</span> priceNewpath = root-&gt;val + leftGain + rightGain;<br>        <br>        <span class="hljs-comment">// 更新答案</span><br>        maxSum = <span class="hljs-built_in">max</span>(maxSum, priceNewpath);<br>        <br>        <span class="hljs-comment">// 返回节点的最大贡献值</span><br>        <span class="hljs-keyword">return</span> root-&gt;val + <span class="hljs-built_in">max</span>(leftGain, rightGain);<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">maxPathSum</span><span class="hljs-params">(TreeNode* root)</span> </span>&#123;<br>        <span class="hljs-built_in">maxGain</span>(root);<br>        <span class="hljs-keyword">return</span> maxSum;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-
-<h3 id="剑指-Offer-26-树的子结构「Medium」"><a href="#剑指-Offer-26-树的子结构「Medium」" class="headerlink" title="剑指 Offer 26. 树的子结构「Medium」"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/">剑指 Offer 26. 树的子结构「Medium」</a></h3><p>输入两棵二叉树<code>A</code>和<code>B</code>，判断<code>B</code>是不是<code>A</code>的子结构。(约定空树不是任意一个树的子结构)</p>
-<p><code>B</code>是<code>A</code>的子结构， 即 A中有出现和B相同的结构和节点值。</p>
-<p>例如:<br>给定的树 <code>A</code>:</p>
+<h3 id="剑指-offer-26.-树的子结构medium"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/">剑指
+Offer 26. 树的子结构「Medium」</a></h3>
+<p>输入两棵二叉树<code>A</code>和<code>B</code>，判断<code>B</code>是不是<code>A</code>的子结构。(约定空树不是任意一个树的子结构)</p>
+<p><code>B</code>是<code>A</code>的子结构， 即
+A中有出现和B相同的结构和节点值。</p>
+<p>例如: 给定的树 <code>A</code>:</p>
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs tex">    3<br>   / <span class="hljs-keyword">\</span><br><span class="hljs-keyword"></span>  4   5<br> / <span class="hljs-keyword">\</span><br><span class="hljs-keyword"></span>1   2<br></code></pre></td></tr></table></figure>
-
 <p>给定的树 <code>B</code>：</p>
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs tex">  4 <br> /<br>1<br></code></pre></td></tr></table></figure>
-
 <p>返回 true，因为 B 与 A 的一个子树拥有相同的结构和节点值。</p>
 <p><strong>示例 1：</strong></p>
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs tex">输入：A = [1,2,3], B = [3,1]<br>输出：false<br></code></pre></td></tr></table></figure>
-
 <blockquote>
 <p>算法分析：</p>
-<ol>
-<li>双重递归第一重，<code>isSubStructure</code><ul>
-<li>判断 <code>pRoot2</code> 是否为 <code>pRoot1</code> 的子结构 (约定空树,不为任何一棵树的子结构)</li>
-<li>约定空树不是任意一个树的子结构. 所以 A 不可为空树,且 B 不可为空树。</li>
-<li>B 是以 “<strong>A 为根节点</strong>“ 的子结构,或者 B 是 “<strong>A 的左子树</strong>“ 的子结构,或者B是 “<strong>A 的右子树</strong>“ 的子结构。注意三者为 <strong>或</strong> 的关系</li>
+<ol type="1">
+<li>双重递归第一重，<code>isSubStructure</code>
+<ul>
+<li>判断 <code>pRoot2</code> 是否为 <code>pRoot1</code> 的子结构
+(约定空树,不为任何一棵树的子结构)</li>
+<li>约定空树不是任意一个树的子结构. 所以 A 不可为空树,且 B
+不可为空树。</li>
+<li>B 是以 "<strong>A 为根节点</strong>" 的子结构,或者 B 是 "<strong>A
+的左子树</strong>" 的子结构,或者B是 "<strong>A 的右子树</strong>"
+的子结构。注意三者为 <strong>或</strong> 的关系</li>
 <li>相当于对 A 进行了前序遍历: 根-&gt;左-&gt;右</li>
-</ul>
-</li>
-<li>双重递归第二重，<code>isInclude</code><ul>
-<li>判断 <code>pRoot1</code> 是否包含 <code>pRoot2</code> (从集合关系分析,空集属于任何集合的子集)</li>
-<li><code>pRoot2</code> 为空,则 <code>pRoot1</code> 包含 <code>pRoot2</code></li>
-<li><code>pRoot1</code> 为空,则 <code>pRoot1</code> 不包含 <code>pRoot2</code></li>
-<li><code>pRoot1</code>，<code>pRoot2</code> 都不为空, 但节点值不同，则 <code>pRoot1</code> 不包含 <code>pRoot2</code>，即不具备包含关系</li>
+</ul></li>
+<li>双重递归第二重，<code>isInclude</code>
+<ul>
+<li>判断 <code>pRoot1</code> 是否包含 <code>pRoot2</code>
+(从集合关系分析,空集属于任何集合的子集)</li>
+<li><code>pRoot2</code> 为空,则 <code>pRoot1</code> 包含
+<code>pRoot2</code></li>
+<li><code>pRoot1</code> 为空,则 <code>pRoot1</code> 不包含
+<code>pRoot2</code></li>
+<li><code>pRoot1</code>，<code>pRoot2</code> 都不为空, 但节点值不同，则
+<code>pRoot1</code> 不包含 <code>pRoot2</code>，即不具备包含关系</li>
 <li>如果值相同，则判断他们的左右节点是否也是包含关系（必须都是包含关系才行）</li>
-<li>递归判断 A 的左节点和 B 的左节点是否相等, 递归判断 A 的右节点和 B 的右节点是否相等</li>
-</ul>
-</li>
+<li>递归判断 A 的左节点和 B 的左节点是否相等, 递归判断 A 的右节点和 B
+的右节点是否相等</li>
+</ul></li>
 </ol>
 </blockquote>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">isSubStructure</span><span class="hljs-params">(TreeNode* A, TreeNode* B)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (A == <span class="hljs-literal">nullptr</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        <span class="hljs-keyword">if</span> (B == <span class="hljs-literal">nullptr</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">isInclude</span>(A, B) <span class="hljs-keyword">or</span> <span class="hljs-built_in">isSubStructure</span>(A-&gt;left, B) <span class="hljs-keyword">or</span> <span class="hljs-built_in">isSubStructure</span>(A-&gt;right, B);<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">isInclude</span><span class="hljs-params">(TreeNode* pRoot1, TreeNode* pRoot2)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (pRoot2 == <span class="hljs-literal">nullptr</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        <span class="hljs-keyword">if</span> (pRoot1 == <span class="hljs-literal">nullptr</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        <span class="hljs-keyword">if</span> (pRoot1-&gt;val != pRoot2-&gt;val) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">isInclude</span>(pRoot1-&gt;left, pRoot2-&gt;left) <span class="hljs-keyword">and</span> <br>          		 <span class="hljs-built_in">isInclude</span>(pRoot1-&gt;right, pRoot2-&gt;right);<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-
 
               
             </div>

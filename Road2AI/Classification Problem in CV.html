@@ -16,12 +16,12 @@
   <meta name="author" content="Natsumi">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Classification Problem in CV (from CS231n)Image ClassificationCS231n 图像分类上 CS231n 图像分类下 Nearest Neighbor 分类器平常不会使用, 只是用来理解. 顾名思义, 将测试图片和训练集里的每张图片进行比较, 找到与其L1距离最小的图片, 把这张图片的标签作为输出(认为找出来的这张图片和测试图片是同一标签)">
+    <meta name="description" content="Classification Problem in CV (from CS231n) Image Classification CS231n 图像分类上 CS231n 图像分类下 Nearest Neighbor 分类器 平常不会使用, 只是用来理解. 顾名思义, 将测试图片和训练集里的每张图片进行比较, 找到与其L1距离最小的图片, 把这张图片的标签作为输出(认为找出来的这张图片和测试图片是同一">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Classification Problem in CV(from CS231n)">
 <meta property="og:url" content="http://www.mementos.top/Road2AI/Classification%20Problem%20in%20CV.html">
 <meta property="og:site_name" content="Natsumi&#39;s Mementos">
-<meta property="og:description" content="Classification Problem in CV (from CS231n)Image ClassificationCS231n 图像分类上 CS231n 图像分类下 Nearest Neighbor 分类器平常不会使用, 只是用来理解. 顾名思义, 将测试图片和训练集里的每张图片进行比较, 找到与其L1距离最小的图片, 把这张图片的标签作为输出(认为找出来的这张图片和测试图片是同一标签)">
+<meta property="og:description" content="Classification Problem in CV (from CS231n) Image Classification CS231n 图像分类上 CS231n 图像分类下 Nearest Neighbor 分类器 平常不会使用, 只是用来理解. 顾名思义, 将测试图片和训练集里的每张图片进行比较, 找到与其L1距离最小的图片, 把这张图片的标签作为输出(认为找出来的这张图片和测试图片是同一">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic3.zhimg.com/80/7c204cd1010c0af1e7b50000bfff1d8e_1440w.jpg">
 <meta property="og:image" content="https://pic2.zhimg.com/80/cfcb46408daa5353c38cb37e9bb6eb01_1440w.jpg">
@@ -231,56 +231,91 @@
                 
 
 <article class="page-content">
-  <h1 id="Classification-Problem-in-CV-from-CS231n"><a href="#Classification-Problem-in-CV-from-CS231n" class="headerlink" title="Classification Problem in CV (from CS231n)"></a>Classification Problem in CV (from CS231n)</h1><h2 id="Image-Classification"><a href="#Image-Classification" class="headerlink" title="Image Classification"></a>Image Classification</h2><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/20894041?refer=intelligentunit">CS231n 图像分类上</a></p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/20900216">CS231n 图像分类下</a></p>
-<h5 id="Nearest-Neighbor-分类器"><a href="#Nearest-Neighbor-分类器" class="headerlink" title="Nearest Neighbor 分类器"></a>Nearest Neighbor 分类器</h5><p>平常不会使用, 只是用来理解. 顾名思义, 将测试图片和训练集里的每张图片进行比较, 找到与其L1距离最小的图片, 把这张图片的标签作为输出(认为找出来的这张图片和测试图片是同一标签)</p>
-<h5 id="k-Nearest-Neighbor-分类器"><a href="#k-Nearest-Neighbor-分类器" class="headerlink" title="k-Nearest Neighbor 分类器"></a>k-Nearest Neighbor 分类器</h5><p>nearest neighbor分类器是k-Nearest Neighbor分类器的特殊情况(k&#x3D;1). 选取距离排前k的图片, 让它们进行投票.</p>
+  <h1 id="classification-problem-in-cv-from-cs231n">Classification Problem
+in CV (from CS231n)</h1>
+<h2 id="image-classification">Image Classification</h2>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/20894041?refer=intelligentunit">CS231n
+图像分类上</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/20900216">CS231n
+图像分类下</a></p>
+<h5 id="nearest-neighbor-分类器">Nearest Neighbor 分类器</h5>
+<p>平常不会使用, 只是用来理解. 顾名思义,
+将测试图片和训练集里的每张图片进行比较, 找到与其L1距离最小的图片,
+把这张图片的标签作为输出(认为找出来的这张图片和测试图片是同一标签)</p>
+<h5 id="k-nearest-neighbor-分类器">k-Nearest Neighbor 分类器</h5>
+<p>nearest neighbor分类器是k-Nearest Neighbor分类器的特殊情况(k=1).
+选取距离排前k的图片, 让它们进行投票.</p>
 <ul>
-<li>在评估图片距离时, 我们可以使用L1距离, 或者L2距离, 又或者使用点积来实现,  这些选择, 被称为<code>hyper-parameter 超参数</code></li>
-<li>除了KNN训练不花时间, 但使用时缓慢这个缺点外, 利用<code>向量间距离来评估高维数据的相似度</code>这件事本身就是不合适的. 同时, 使用这种方法时, <code>图像的相似度也是被背景主导的</code>,而不是语义.</li>
+<li>在评估图片距离时, 我们可以使用L1距离, 或者L2距离,
+又或者使用点积来实现, 这些选择,
+被称为<code>hyper-parameter 超参数</code></li>
+<li>除了KNN训练不花时间, 但使用时缓慢这个缺点外,
+利用<code>向量间距离来评估高维数据的相似度</code>这件事本身就是不合适的.
+同时, 使用这种方法时,
+<code>图像的相似度也是被背景主导的</code>,而不是语义.</li>
 </ul>
 <p>总结来说 KNN分类器</p>
 <ul>
 <li>必须记住所有训练数据并存储它们</li>
 <li>每个测试图像需要和所有的训练图像作比较, 算法计算资源耗费大</li>
 </ul>
-<h2 id="Liner-Classification"><a href="#Liner-Classification" class="headerlink" title="Liner Classification"></a>Liner Classification</h2><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/20918580?refer=intelligentunit">CS231n 线性分类1</a></p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/20945670?refer=intelligentunit">CS231n 线性分类2</a></p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/21102293?refer=intelligentunit">CS231n 线性分类3</a></p>
-<p>$f(x_i,W,b)&#x3D;Wx_i+b$  其中W是weights <code>权重</code>, b是bias vector <code>偏差向量</code></p>
-<p>$每个图像数据被拉长为一个列向量 x_i, 其shape为[D*1]$</p>
-<p>$W的shape为[K<em>D],b的shape为[K</em>1]$</p>
+<h2 id="liner-classification">Liner Classification</h2>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/20918580?refer=intelligentunit">CS231n
+线性分类1</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/20945670?refer=intelligentunit">CS231n
+线性分类2</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/21102293?refer=intelligentunit">CS231n
+线性分类3</a></p>
+<p><span class="math inline">\(f(x_i,W,b)=Wx_i+b\)</span> 其中W是weights
+<code>权重</code>, b是bias vector <code>偏差向量</code></p>
+<p><span class="math inline">\(每个图像数据被拉长为一个列向量 x_i,
+其shape为[D*1]\)</span></p>
+<p><span class="math inline">\(W的shape为[K*D],b的shape为[K*1]\)</span></p>
 <p>咱们以2*2的图像为例</p>
-<img src="https://pic3.zhimg.com/80/7c204cd1010c0af1e7b50000bfff1d8e_1440w.jpg" srcset="/img/loading.gif" lazyload alt="preview" style="zoom:80%;">
-
+<p><img src="https://pic3.zhimg.com/80/7c204cd1010c0af1e7b50000bfff1d8e_1440w.jpg" srcset="/img/loading.gif" lazyload alt="preview" style="zoom:80%;"></p>
 <p>权重W的另一种理解就是: 每一行对应一个分类的模板(原型)</p>
-<p>图像被拉长成向量之后, 就可以看作是高维空间中的一个点. 如果你把线性分类器压缩到二维中<img src="https://pic2.zhimg.com/80/cfcb46408daa5353c38cb37e9bb6eb01_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p>这个图就非常好理解了, W改变时, classifier旋转, b改变时, classifier平移.</p>
+<p>图像被拉长成向量之后, 就可以看作是高维空间中的一个点.
+如果你把线性分类器压缩到二维中<img src="https://pic2.zhimg.com/80/cfcb46408daa5353c38cb37e9bb6eb01_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>这个图就非常好理解了, W改变时, classifier旋转, b改变时,
+classifier平移.</p>
 <p>权重和偏差是可以合并的, 这也是为什么日常使用时 它们有时会混淆.</p>
-<p><img src="https://pic2.zhimg.com/80/3c69a5c87a43bfb07e2b59bfcbd2f149_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure>
+<img src="https://pic2.zhimg.com/80/3c69a5c87a43bfb07e2b59bfcbd2f149_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
 <p>在线性代数的角度上, 这个合并是显然无误的.</p>
 <blockquote>
-<p><strong>图像数据预处理</strong>：在上面的例子中，所有图像都是使用的原始像素值（从0到255）。在机器学习中，对于输入的特征做归一化（normalization）处理是常见的套路。而在图像分类的例子中，图像上的每个像素可以看做一个特征。在实践中，对每个特征减去平均值来<strong>中心化</strong>数据是非常重要的。在这些图片的例子中，该步骤意味着根据训练集中所有的图像计算出一个平均图像值，然后每个图像都减去这个平均值，这样图像的像素值就大约分布在[-127, 127]之间了。下一个常见步骤是，让所有数值分布的区间变为[-1, 1]。<strong>零均值的中心化</strong>是很重要的，等我们理解了梯度下降后再来详细解释。</p>
+<p><strong>图像数据预处理</strong>：在上面的例子中，所有图像都是使用的原始像素值（从0到255）。在机器学习中，对于输入的特征做归一化（normalization）处理是常见的套路。而在图像分类的例子中，图像上的每个像素可以看做一个特征。在实践中，对每个特征减去平均值来<strong>中心化</strong>数据是非常重要的。在这些图片的例子中，该步骤意味着根据训练集中所有的图像计算出一个平均图像值，然后每个图像都减去这个平均值，这样图像的像素值就大约分布在[-127,
+127]之间了。下一个常见步骤是，让所有数值分布的区间变为[-1,
+1]。<strong>零均值的中心化</strong>是很重要的，等我们理解了梯度下降后再来详细解释。</p>
 </blockquote>
 <hr>
-<h4 id="Loss"><a href="#Loss" class="headerlink" title="Loss"></a>Loss</h4><p>$x_i, y_i都是确定的,我们只能调整权重矩阵W$</p>
+<h4 id="loss">Loss</h4>
+<p><span class="math inline">\(x_i,
+y_i都是确定的,我们只能调整权重矩阵W\)</span></p>
 <ul>
 <li><p>多类支持向量机Loss (Multiclass Support Vector Machine Loss)</p>
 <ul>
-<li>希望SVM在正确分类上的得分始终比不正确分类上的得分高出一个∆以上. 可以去线性分类2中查看具体逻辑.</li>
+<li>希望SVM在正确分类上的得分始终比不正确分类上的得分高出一个∆以上.
+可以去线性分类2中查看具体逻辑.</li>
 <li>下图能够很清楚的描述SVMLoss的思想</li>
 </ul>
-<p><img src="https://pic1.zhimg.com/80/f254bd8d072128f1088c8cc47c3dff58_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure>
+<img src="https://pic1.zhimg.com/80/f254bd8d072128f1088c8cc47c3dff58_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
 <ul>
-<li>只要 <code>错误的分类</code>的得分达到了红色的区间 甚至更高, Loss Function就开始工作</li>
+<li>只要 <code>错误的分类</code>的得分达到了红色的区间 甚至更高, Loss
+Function就开始工作</li>
 </ul>
-<p>正则化损失(用来处理权重矩阵的等效放大问题)和SVMLoss的具体工作函数, 移步<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/20945670?refer=intelligentunit">CS231n 线性分类2</a></p>
-</li>
+<p>正则化损失(用来处理权重矩阵的等效放大问题)和SVMLoss的具体工作函数,
+移步<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/20945670?refer=intelligentunit">CS231n
+线性分类2</a></p></li>
 <li><p>Softmax分类器</p>
 <ul>
-<li>有点难, 移步<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/21102293?refer=intelligentunit">CS231n 线性分类3</a></li>
-</ul>
-</li>
+<li>有点难, 移步<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/21102293?refer=intelligentunit">CS231n
+线性分类3</a></li>
+</ul></li>
 </ul>
 <hr>
 
