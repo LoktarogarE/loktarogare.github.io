@@ -1,0 +1,705 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar1.png">
+  <link rel="icon" href="/img/avatar1.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Natsumi">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="about Search深度优先搜索「一条路走到底，不撞南墙不回头」 深度优先遍历 只要前面有可以走的路，就会一直向前走，直到无路可走才会回头； 「无路可走」有两种情况：① 遇到了墙；② 遇到了已经走过的路； 在「无路可走」的时候，沿着原路返回，直到回到了还有未走过的路的路口，尝试继续走没有走过的路径；有一些路径没有走到，这是因为找到了出口，程序就停止了；  「深度优先遍历」也叫「深度优先搜索」，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="About Search">
+<meta property="og:url" content="https://www.mementos.top/1976/04/01/about%20Search/index.html">
+<meta property="og:site_name" content="Natsumi&#39;s Mementos">
+<meta property="og:description" content="about Search深度优先搜索「一条路走到底，不撞南墙不回头」 深度优先遍历 只要前面有可以走的路，就会一直向前走，直到无路可走才会回头； 「无路可走」有两种情况：① 遇到了墙；② 遇到了已经走过的路； 在「无路可走」的时候，沿着原路返回，直到回到了还有未走过的路的路口，尝试继续走没有走过的路径；有一些路径没有走到，这是因为找到了出口，程序就停止了；  「深度优先遍历」也叫「深度优先搜索」，">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="1976-04-01T07:53:17.000Z">
+<meta property="article:modified_time" content="2022-03-18T15:19:56.000Z">
+<meta property="article:author" content="Natsumi">
+<meta property="article:tag" content="Programming">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>About Search - Natsumi&#39;s Mementos</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/scroll.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.mementos.top","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Natsumi&#39;s Mementos</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>🏠</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="About Search"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="1976-04-01 15:53" pubdate>
+          1976年4月1日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          11 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">About Search</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="about-Search"><a href="#about-Search" class="headerlink" title="about Search"></a>about Search</h1><h2 id="深度优先搜索「一条路走到底，不撞南墙不回头」"><a href="#深度优先搜索「一条路走到底，不撞南墙不回头」" class="headerlink" title="深度优先搜索「一条路走到底，不撞南墙不回头」"></a>深度优先搜索「一条路走到底，不撞南墙不回头」</h2><ul>
+<li><h5 id="深度优先遍历-只要前面有可以走的路，就会一直向前走，直到无路可走才会回头；"><a href="#深度优先遍历-只要前面有可以走的路，就会一直向前走，直到无路可走才会回头；" class="headerlink" title="深度优先遍历 只要前面有可以走的路，就会一直向前走，直到无路可走才会回头；"></a>深度优先遍历 只要前面有可以走的路，就会一直向前走，直到无路可走才会回头；</h5></li>
+<li><h4 id="「无路可走」有两种情况：①-遇到了墙；②-遇到了已经走过的路；"><a href="#「无路可走」有两种情况：①-遇到了墙；②-遇到了已经走过的路；" class="headerlink" title="「无路可走」有两种情况：① 遇到了墙；② 遇到了已经走过的路；"></a>「无路可走」有两种情况：① 遇到了墙；② 遇到了已经走过的路；</h4></li>
+<li><p>在「无路可走」的时候，沿着原路返回，直到回到了还有未走过的路的路口，尝试继续走没有走过的路径；有一些路径没有走到，这是因为找到了出口，程序就停止了；</p>
+</li>
+<li><p>「深度优先遍历」也叫「深度优先搜索」，遍历是行为的描述，搜索是目的（用途）；</p>
+</li>
+<li><p>遍历不是很深奥的事情，把 所有 可能的情况都看一遍，才能说「找到了目标元素」或者「没找到目标元素」。遍历也称为 穷举，穷举的思想在人类看来虽然很不起眼，但借助 计算机强大的计算能力，穷举可以帮助我们解决很多专业领域知识不能解决的问题。</p>
+</li>
+<li><h3 id="n皇后问题「n个皇后位于nxn的棋盘-她们不可互相攻击-横-竖-斜-都不可以在一列上-」"><a href="#n皇后问题「n个皇后位于nxn的棋盘-她们不可互相攻击-横-竖-斜-都不可以在一列上-」" class="headerlink" title="n皇后问题「n个皇后位于nxn的棋盘, 她们不可互相攻击(横 竖 斜 都不可以在一列上)」"></a>n皇后问题「n个皇后位于nxn的棋盘, 她们不可互相攻击(横 竖 斜 都不可以在一列上)」</h3></li>
+<li><h4 id="解决这个问题的思路是尝试每一种可能，然后逐个判断。只不过回溯算法按照一定的顺序进行尝试，在一定不可能得到解的时候进行剪枝，进而减少了尝试的可能。"><a href="#解决这个问题的思路是尝试每一种可能，然后逐个判断。只不过回溯算法按照一定的顺序进行尝试，在一定不可能得到解的时候进行剪枝，进而减少了尝试的可能。" class="headerlink" title="解决这个问题的思路是尝试每一种可能，然后逐个判断。只不过回溯算法按照一定的顺序进行尝试，在一定不可能得到解的时候进行剪枝，进而减少了尝试的可能。"></a>解决这个问题的思路是尝试每一种可能，然后逐个判断。只不过回溯算法按照一定的顺序进行尝试，<strong>在一定不可能得到解的时候进行剪枝</strong>，进而减少了尝试的可能。</h4></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.ArrayDeque;<br><span class="hljs-keyword">import</span> java.util.ArrayList;<br><span class="hljs-keyword">import</span> java.util.Deque;<br><span class="hljs-keyword">import</span> java.util.List;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> n;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 记录某一列是否放置了皇后</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span>[] col;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 记录主对角线上的单元格是否放置了皇后</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span>[] main;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 记录了副对角线上的单元格是否放置了皇后</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span>[] sub;<br>    <br>    <span class="hljs-keyword">private</span> List&lt;List&lt;String&gt;&gt; res;<br><br>    <span class="hljs-keyword">public</span> List&lt;List&lt;String&gt;&gt; <span class="hljs-title function_">solveNQueens</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> &#123;<br>        res = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>        <span class="hljs-keyword">if</span> (n == <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-keyword">return</span> res;<br>        &#125;<br><br>        <span class="hljs-comment">// 设置成员变量，减少参数传递，具体作为方法参数还是作为成员变量，请参考团队开发规范</span><br>        <span class="hljs-built_in">this</span>.n = n;<br>        <span class="hljs-built_in">this</span>.col = <span class="hljs-keyword">new</span> <span class="hljs-title class_">boolean</span>[n];<br>        <span class="hljs-built_in">this</span>.main = <span class="hljs-keyword">new</span> <span class="hljs-title class_">boolean</span>[<span class="hljs-number">2</span> * n - <span class="hljs-number">1</span>];<br>        <span class="hljs-built_in">this</span>.sub = <span class="hljs-keyword">new</span> <span class="hljs-title class_">boolean</span>[<span class="hljs-number">2</span> * n - <span class="hljs-number">1</span>];<br>        Deque&lt;Integer&gt; path = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayDeque</span>&lt;&gt;();<br>        dfs(<span class="hljs-number">0</span>, path);<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">dfs</span><span class="hljs-params">(<span class="hljs-type">int</span> row, Deque&lt;Integer&gt; path)</span> &#123;<br>        <span class="hljs-keyword">if</span> (row == n) &#123;<br>            <span class="hljs-comment">// 深度优先遍历到下标为 n，表示 [0.. n - 1] 已经填完，得到了一个结果</span><br>            List&lt;String&gt; board = convert2board(path);<br>            res.add(board);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br><br>        <span class="hljs-comment">// 针对下标为 row 的每一列，尝试是否可以放置</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; j &lt; n; j++) &#123;<br>            <span class="hljs-keyword">if</span> (!col[j] &amp;&amp; !main[row - j + n - <span class="hljs-number">1</span>] &amp;&amp; !sub[row + j]) &#123;<br>                path.addLast(j);<br>                col[j] = <span class="hljs-literal">true</span>;<br>                main[row - j + n - <span class="hljs-number">1</span>] = <span class="hljs-literal">true</span>;<br>                sub[row + j] = <span class="hljs-literal">true</span>;<br>                dfs(row + <span class="hljs-number">1</span>, path);<br>                sub[row + j] = <span class="hljs-literal">false</span>;<br>                main[row - j + n - <span class="hljs-number">1</span>] = <span class="hljs-literal">false</span>;<br>                col[j] = <span class="hljs-literal">false</span>;<br>                path.removeLast();<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> List&lt;String&gt; <span class="hljs-title function_">convert2board</span><span class="hljs-params">(Deque&lt;Integer&gt; path)</span> &#123;<br>        List&lt;String&gt; board = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>        <span class="hljs-keyword">for</span> (Integer num : path) &#123;<br>            <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">row</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();<br>            row.append(<span class="hljs-string">&quot;.&quot;</span>.repeat(Math.max(<span class="hljs-number">0</span>, n)));<br>            row.replace(num, num + <span class="hljs-number">1</span>, <span class="hljs-string">&quot;Q&quot;</span>);<br>            board.add(row.toString());<br>        &#125;<br>        <span class="hljs-keyword">return</span> board;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    vector&lt;vector&lt;string&gt;&gt; <span class="hljs-built_in">solveNQueens</span>(<span class="hljs-type">int</span> n) &#123;<br>        vis = <span class="hljs-built_in">vector</span>&lt;<span class="hljs-type">bool</span>&gt;(n, <span class="hljs-literal">false</span>);<br>        tmp = <span class="hljs-built_in">vector</span>&lt;<span class="hljs-type">int</span>&gt;(n);<br>        <span class="hljs-comment">//从0层递归到n层 ，这里我们无需判断某一层是否有多个皇后，因为我们</span><br>        <span class="hljs-comment">//是按照层来递归，一层只有一个皇后</span><br>        <span class="hljs-built_in">dfs</span>(<span class="hljs-number">0</span>, n);<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-type">int</span> k, <span class="hljs-type">const</span> <span class="hljs-type">int</span> n)</span></span>&#123;<br>        <span class="hljs-comment">//到达n层，存储一个可行解</span><br>        <span class="hljs-keyword">if</span>(k == n)&#123;<br>            ans.<span class="hljs-built_in">push_back</span>(<span class="hljs-built_in">vector</span>&lt;string&gt;(n, <span class="hljs-built_in">string</span>(n, <span class="hljs-string">&#x27;.&#x27;</span>)));<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i ++)<br>                ans.<span class="hljs-built_in">back</span>()[i][tmp[i]] = <span class="hljs-string">&#x27;Q&#x27;</span>;<br>            <span class="hljs-keyword">return</span> ;<br>        &#125;<br><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i ++)&#123;<br>            <span class="hljs-comment">//该列已经有皇后了，不能放置</span><br>            <span class="hljs-keyword">if</span>(vis[i])<br>                <span class="hljs-keyword">continue</span>;<br>            <span class="hljs-comment">//第k行第i个位置放皇后</span><br>            tmp[k] = i;<br>            vis[i] = <span class="hljs-literal">true</span>;<br>            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">check</span>(k))<br>                <span class="hljs-built_in">dfs</span>(k + <span class="hljs-number">1</span>, n);<br>            vis[i] = <span class="hljs-literal">false</span>;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">//和之前已经放置过的皇后判断是否在对角线、斜对角线上</span><br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">check</span><span class="hljs-params">(<span class="hljs-type">int</span> k)</span></span>&#123;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; k; i ++)&#123;<br>            <span class="hljs-keyword">if</span>(tmp[i] - i == tmp[k] - k || tmp[i] + i == tmp[k] + k)<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br><br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-comment">//判断某一列上是否有皇后</span><br>    vector&lt;<span class="hljs-type">bool</span>&gt; vis;<br>    <span class="hljs-comment">//保存答案</span><br>    vector&lt;vector&lt;string&gt;&gt; ans;<br>    <span class="hljs-comment">//存储每一层皇后的位置</span><br>    vector&lt;<span class="hljs-type">int</span>&gt; tmp;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="DFS的方向模版"><a href="#DFS的方向模版" class="headerlink" title="DFS的方向模版"></a>DFS的方向模版</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-type">const</span> <span class="hljs-type">int</span> dir[<span class="hljs-number">4</span>][<span class="hljs-number">2</span>] = &#123;&#123;<span class="hljs-number">-1</span>, <span class="hljs-number">0</span>&#125;, &#123;<span class="hljs-number">0</span>, <span class="hljs-number">1</span>&#125;, &#123;<span class="hljs-number">1</span>, <span class="hljs-number">0</span>&#125;, &#123;<span class="hljs-number">0</span>, <span class="hljs-number">-1</span>&#125;&#125;;<br>    <span class="hljs-type">int</span> row, column;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt;&amp; grid, vector&lt;vector&lt;<span class="hljs-type">bool</span>&gt;&gt;&amp; vis, <span class="hljs-type">int</span> x, <span class="hljs-type">int</span> y, <span class="hljs-type">int</span>&amp; maxn)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (x &lt; <span class="hljs-number">0</span> || x &gt;= row || y &lt; <span class="hljs-number">0</span> || y &gt;= column || vis[x][y] || grid[x][y] == <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        ++maxn;<br>        vis[x][y] = <span class="hljs-literal">true</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">4</span>; ++i) &#123;<br>            <span class="hljs-type">int</span> dx = x + dir[i][<span class="hljs-number">0</span>];<br>            <span class="hljs-type">int</span> dy = y + dir[i][<span class="hljs-number">1</span>];<br>            <span class="hljs-built_in">dfs</span>(grid, vis, dx, dy, maxn);<br>        &#125;<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Programming/" class="print-no-link">#Programming</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>About Search</div>
+      <div>https://www.mementos.top/1976/04/01/about Search/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Natsumi</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>1976年4月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/1976/04/01/about%20DP/" title="About Dynamic Programming">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">About Dynamic Programming</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/1976/04/01/linux%20&amp;%20mac%20terminal/" title="Linux &amp; Mac terminal">
+                        <span class="hidden-mobile">Linux &amp; Mac terminal</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>powered by Hexo</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/DynamicRibbon.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

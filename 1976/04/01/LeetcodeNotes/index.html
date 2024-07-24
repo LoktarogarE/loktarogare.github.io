@@ -1,0 +1,784 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar1.png">
+  <link rel="icon" href="/img/avatar1.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Natsumi">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="资料库 leetcode 1370 上下字符串index 从后往前遍历的时候 千万要注意 删除操作 对于index的位移  290. 单词规律如果我们有 两个对象 他们必须一一对应 我们最好创建两个哈希表 实现这种一一对应的关系 12345678    &#x2F;&#x2F;assume A is char and B is int | C is char too    &#x2F;&#x2F;simulate A &#x3D;&gt; B a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Leetcode Notes">
+<meta property="og:url" content="https://www.mementos.top/1976/04/01/LeetcodeNotes/index.html">
+<meta property="og:site_name" content="Natsumi&#39;s Mementos">
+<meta property="og:description" content="资料库 leetcode 1370 上下字符串index 从后往前遍历的时候 千万要注意 删除操作 对于index的位移  290. 单词规律如果我们有 两个对象 他们必须一一对应 我们最好创建两个哈希表 实现这种一一对应的关系 12345678    &#x2F;&#x2F;assume A is char and B is int | C is char too    &#x2F;&#x2F;simulate A &#x3D;&gt; B a">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="1976-04-01T07:53:17.000Z">
+<meta property="article:modified_time" content="2023-11-10T02:38:46.000Z">
+<meta property="article:author" content="Natsumi">
+<meta property="article:tag" content="Programming">
+<meta property="article:tag" content="Algorithm">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Leetcode Notes - Natsumi&#39;s Mementos</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/scroll.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.mementos.top","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Natsumi&#39;s Mementos</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>🏠</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Leetcode Notes"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="1976-04-01 15:53" pubdate>
+          1976年4月1日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          31 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Leetcode Notes</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p><a target="_blank" rel="noopener" href="https://github.com/bigbigwanglei/Algorithm/blob/master/Sort.md">资料库</a></p>
+<h1 id="leetcode-1370-上下字符串"><a href="#leetcode-1370-上下字符串" class="headerlink" title="leetcode 1370 上下字符串"></a>leetcode 1370 上下字符串</h1><p>index 从后往前遍历的时候 千万要注意 删除操作 对于index的位移</p>
+<hr>
+<h3 id="290-单词规律"><a href="#290-单词规律" class="headerlink" title="290. 单词规律"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/word-pattern/">290. 单词规律</a></h3><p><code>如果我们有 两个对象 他们必须一一对应 我们最好创建两个哈希表</code></p>
+<p>实现这种一一对应的关系</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++">    <span class="hljs-comment">//assume A is char and B is int | C is char too</span><br>    <span class="hljs-comment">//simulate A =&gt; B and C also =&gt; B</span><br>    unordered_map&lt;<span class="hljs-type">int</span>, <span class="hljs-type">char</span>&gt; dict;<br>    <span class="hljs-type">char</span> A = <span class="hljs-string">&#x27;A&#x27;</span>, C = <span class="hljs-string">&#x27;C&#x27;</span>;<br>    <span class="hljs-type">int</span> B = <span class="hljs-number">17</span>;<br>    dict[B] = A;<br>    dict[B] = C;     <span class="hljs-comment">//只有 hash key是被保护的对象 被保护对象不可以重复</span><br><span class="hljs-comment">// 如果两者都是被保护对象 那只能建立两个hash table</span><br></code></pre></td></tr></table></figure>
+
+
+
+<hr>
+<ul>
+<li><h3 id="我们将环岛划分为-n-个结点，要走过所有的结点，会漏下一段，想要求最短行进距离，只要漏下的最长即可"><a href="#我们将环岛划分为-n-个结点，要走过所有的结点，会漏下一段，想要求最短行进距离，只要漏下的最长即可" class="headerlink" title="我们将环岛划分为 n 个结点，要走过所有的结点，会漏下一段，想要求最短行进距离，只要漏下的最长即可"></a>我们将环岛划分为 n 个结点，要走过所有的结点，会漏下一段，想要求最短行进距离，只要漏下的最长即可</h3></li>
+</ul>
+<hr>
+<h2 id="leetcode-387-找到第一个唯一字符"><a href="#leetcode-387-找到第一个唯一字符" class="headerlink" title="leetcode 387 找到第一个唯一字符"></a>leetcode 387 找到第一个唯一字符</h2><p>如题 我们要在一个字符串里找到<strong>第一个</strong> 不和后面任何字符重复的唯一出现一次的字符</p>
+<ul>
+<li>队列 + 延迟删除(每次检测到出现重复字符都会触发一个循环删除操作(当然 这其实挺慢的))</li>
+</ul>
+<p>由于队列的 FIFO属性 如果想找到第一个符合要求的元素 使用队列是方便的</p>
+<hr>
+<h3 id="2021-2-7｜665-非递减序列"><a href="#2021-2-7｜665-非递减序列" class="headerlink" title="2021. 2. 7｜665 非递减序列"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/non-decreasing-array/">2021. 2. 7｜665 非递减序列</a></h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// 4 2 5</span><br><span class="hljs-comment">// 1 4 2 5</span><br><span class="hljs-comment">// 3 4 2 5  3种情况</span><br><span class="hljs-comment">// 当我们发现nums[i] &lt; nums[i-1] 时 应该优先调整num[i-1]的值 因为nums[i]变大会影响之后的判断</span><br><span class="hljs-comment">// 所以我们只需要知道 nums[i-1]最小能变到多小 显然，就是nums[i-2]的大小。</span><br><span class="hljs-comment">// 但如果nums[i]比nums[i-2]更小， 这意味着我们不得不调整nums[i]的值使得它和nums[i-1]一样。</span><br></code></pre></td></tr></table></figure>
+<h3 id="2-7｜5674-构造字典序最大的合并字符串"><a href="#2-7｜5674-构造字典序最大的合并字符串" class="headerlink" title="2.7｜5674 构造字典序最大的合并字符串"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/largest-merge-of-two-strings/">2.7｜5674 构造字典序最大的合并字符串</a></h3><blockquote>
+<h3 id="总之两边每次都拿最大的那个，问题在于-如果说两个字符串的头都一样大，应当拿的是子字符串最大的那个-「使用-substr-i-」"><a href="#总之两边每次都拿最大的那个，问题在于-如果说两个字符串的头都一样大，应当拿的是子字符串最大的那个-「使用-substr-i-」" class="headerlink" title="总之两边每次都拿最大的那个，问题在于 如果说两个字符串的头都一样大，应当拿的是子字符串最大的那个 「使用 substr(i)」"></a>总之两边每次都拿最大的那个，问题在于 如果说两个字符串的头都一样大，应当拿的是子字符串最大的那个 「使用 substr(i)」</h3></blockquote>
+<hr>
+<h3 id="2-8｜978最长湍流子数组-和交替子序列比起来，这个是要求连续最长的-需要进行互相继承-优化了dp"><a href="#2-8｜978最长湍流子数组-和交替子序列比起来，这个是要求连续最长的-需要进行互相继承-优化了dp" class="headerlink" title="2.8｜978最长湍流子数组  和交替子序列比起来，这个是要求连续最长的 需要进行互相继承 优化了dp"></a>2.8｜978最长湍流子数组  和<code>交替子序列</code>比起来，这个是要求连续最长的 需要进行互相继承 优化了dp</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">maxTurbulenceSize</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; arr)</span> </span>&#123;<br>        <span class="hljs-comment">// 摆动上升记为up，摆动下降记为down  这个其实是动态规划的优化版本</span><br>        <span class="hljs-type">int</span> up = <span class="hljs-number">1</span>, down = <span class="hljs-number">1</span>, n = arr.<span class="hljs-built_in">size</span>(), res = <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt; n; i ++) &#123;<br>            <span class="hljs-comment">// 我们应当注意的是 虽然up好像被清零了，但实际上它的值被继承到了down里，它们两个是交替继承到</span><br>            <span class="hljs-comment">// 建议先完全理解动态规划方法解决这个问题</span><br>            <span class="hljs-keyword">if</span> (arr[i] == arr[i<span class="hljs-number">-1</span>]) &#123;<br>                up = <span class="hljs-number">1</span>;<br>                down = <span class="hljs-number">1</span>;<br>            &#125;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (arr[i] &gt; arr[i<span class="hljs-number">-1</span>]) &#123;<br>                up = down + <span class="hljs-number">1</span>;<br>                down = <span class="hljs-number">1</span>;<br>            &#125;<br>            <span class="hljs-keyword">else</span> &#123;<br>                down = up + <span class="hljs-number">1</span>;<br>                up = <span class="hljs-number">1</span>;<br>            &#125;<br>            res = <span class="hljs-built_in">max</span>(res, <span class="hljs-built_in">max</span>(up, down));<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="2-11｜703-数据流中的第K大元素-「不断的添加数据到一个数组中，我们每次都要第k大的元素」"><a href="#2-11｜703-数据流中的第K大元素-「不断的添加数据到一个数组中，我们每次都要第k大的元素」" class="headerlink" title="2.11｜703 数据流中的第K大元素  「不断的添加数据到一个数组中，我们每次都要第k大的元素」"></a>2.11｜<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/kth-largest-element-in-a-stream/">703 数据流中的第K大元素  「不断的添加数据到一个数组中，我们每次都要第k大的元素」</a></h3><blockquote>
+<h3 id="只关注前K大，我们用数组中-前k大的元素组成一个最小堆，并且维持堆的大小为K-堆顶的就是目前第k大的元素-。"><a href="#只关注前K大，我们用数组中-前k大的元素组成一个最小堆，并且维持堆的大小为K-堆顶的就是目前第k大的元素-。" class="headerlink" title="只关注前K大，我们用数组中&#x3D;&#x3D;前k大的元素组成一个最小堆，并且维持堆的大小为K&#x3D;&#x3D;(堆顶的就是目前第k大的元素)。"></a>只关注前K大，我们用数组中&#x3D;&#x3D;前k大的元素组成一个最小堆，并且维持堆的大小为K&#x3D;&#x3D;(堆顶的就是目前第k大的元素)。</h3><h3 id="之后每次添加元素val，如果val比目前的堆顶小，那么它将被pop掉，如果它比堆顶要大，那么堆顶将被pop掉，第K大元素将会发生变更。"><a href="#之后每次添加元素val，如果val比目前的堆顶小，那么它将被pop掉，如果它比堆顶要大，那么堆顶将被pop掉，第K大元素将会发生变更。" class="headerlink" title="之后每次添加元素val，如果val比目前的堆顶小，那么它将被pop掉，如果它比堆顶要大，那么堆顶将被pop掉，第K大元素将会发生变更。"></a>之后每次添加元素val，如果val比目前的堆顶小，那么它将被pop掉，如果它比堆顶要大，那么堆顶将被pop掉，第K大元素将会发生变更。</h3><h5 id="初始数据-4-5-8-2-｜-第3大"><a href="#初始数据-4-5-8-2-｜-第3大" class="headerlink" title="初始数据 4 5 8 2  ｜ 第3大"></a>初始数据 4 5 8 2  ｜ 第3大</h5><h4 id="我们的堆中存有-4-5-8-，add-3的时候，3比4还小，所以它不会影响到第K大元素，-它会被放在堆顶，直接被pop掉"><a href="#我们的堆中存有-4-5-8-，add-3的时候，3比4还小，所以它不会影响到第K大元素，-它会被放在堆顶，直接被pop掉" class="headerlink" title="我们的堆中存有 4 5 8  ，add 3的时候，3比4还小，所以它不会影响到第K大元素， 它会被放在堆顶，直接被pop掉"></a>我们的堆中存有 4 5 8  ，add 3的时候，3比4还小，所以它不会影响到第K大元素， 它会被放在堆顶，直接被pop掉</h4><h4 id="如果add-的是5，-那么4会在堆顶，它现在已经不是第3大的元素了，4被pop掉。"><a href="#如果add-的是5，-那么4会在堆顶，它现在已经不是第3大的元素了，4被pop掉。" class="headerlink" title="如果add 的是5， 那么4会在堆顶，它现在已经不是第3大的元素了，4被pop掉。"></a>如果add 的是5， 那么4会在堆顶，它现在已经不是第3大的元素了，4被pop掉。</h4></blockquote>
+<hr>
+<h3 id="2-13｜448-找到1-n之中所有消失的数字"><a href="#2-13｜448-找到1-n之中所有消失的数字" class="headerlink" title="2.13｜448 找到1-n之中所有消失的数字"></a>2.13｜<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/find-all-numbers-disappeared-in-an-array/">448 找到1-n之中所有消失的数字</a></h3><h4 id="题：数组大小为n，它理应包含从1-n的连续不同的数字。"><a href="#题：数组大小为n，它理应包含从1-n的连续不同的数字。" class="headerlink" title="题：数组大小为n，它理应包含从1-n的连续不同的数字。"></a>题：数组大小为n，它理应包含从1-n的连续不同的数字。</h4><h4 id="但是有一些数字出现了多次，我们现在需要用一个数组返回数组中缺失的-范围在1-n之间的数字"><a href="#但是有一些数字出现了多次，我们现在需要用一个数组返回数组中缺失的-范围在1-n之间的数字" class="headerlink" title="但是有一些数字出现了多次，我们现在需要用一个数组返回数组中缺失的 范围在1-n之间的数字"></a>但是有一些数字出现了多次，我们现在需要用一个数组返回数组中缺失的 范围在1-n之间的数字</h4><blockquote>
+<h3 id="关键在于-数的范围和下标的范围差不多-构建的直接就是下标对应的联系"><a href="#关键在于-数的范围和下标的范围差不多-构建的直接就是下标对应的联系" class="headerlink" title="关键在于 &#x3D;&#x3D;数的范围和下标的范围差不多 构建的直接就是下标对应的联系&#x3D;&#x3D;"></a>关键在于 &#x3D;&#x3D;数的范围和下标的范围差不多 构建的直接就是下标对应的联系&#x3D;&#x3D;</h3><h4 id="nums-i-的出现-直接将-nums-nums-i-1-n-n-可以把-n去掉，可能本来就已经加上了"><a href="#nums-i-的出现-直接将-nums-nums-i-1-n-n-可以把-n去掉，可能本来就已经加上了" class="headerlink" title="nums[i] 的出现 直接将 nums[nums[i]-1] + n (%n 可以把+n去掉，可能本来就已经加上了)"></a>nums[i] 的出现 直接将 nums[nums[i]-1] + n (%n 可以把+n去掉，可能本来就已经加上了)</h4></blockquote>
+<hr>
+<h3 id="3-2-304-二维区域和检索-矩阵不可变"><a href="#3-2-304-二维区域和检索-矩阵不可变" class="headerlink" title="3.2 | 304. 二维区域和检索 - 矩阵不可变"></a>3.2 | <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/range-sum-query-2d-immutable/">304. 二维区域和检索 - 矩阵不可变</a></h3><blockquote>
+<p>多次调用了矩阵的前缀和,我们可以一开始就全给他算出来,改成前缀模式 这样比较省时间.</p>
+</blockquote>
+<h2 id="3-4-1438-绝对差不超过限制的最长连续子数组"><a href="#3-4-1438-绝对差不超过限制的最长连续子数组" class="headerlink" title="3.4 | 1438. 绝对差不超过限制的最长连续子数组"></a>3.4 | <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/">1438. 绝对差不超过限制的最长连续子数组</a></h2><h3 id="「想要每次都拿出最大值和最小值-可以使用multiset」"><a href="#「想要每次都拿出最大值和最小值-可以使用multiset」" class="headerlink" title="「想要每次都拿出最大值和最小值 可以使用multiset」"></a>「想要每次都拿出最大值和最小值 可以使用multiset」</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-comment">// ⚠️ 要求的子数组里 任意两个元素 的差 不能超过limit!! 不是相邻元素</span><br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">longestSubarray</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> limit)</span> </span>&#123;<br>        multiset&lt;<span class="hljs-type">int</span>&gt; count;   <span class="hljs-comment">// 为什么使用 multiset ? 因为我们需要保证有序 而且同时需要最大和最小元素 「这意味着堆(priority_queue 是基于队列实现的 所以不支持拿最后尾元素)的不可使用」</span><br>        <span class="hljs-type">int</span> n = nums.<span class="hljs-built_in">size</span>(), left = <span class="hljs-number">0</span>, right = <span class="hljs-number">0</span>, res = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span> (right &lt; n) &#123;<br>            count.<span class="hljs-built_in">insert</span>(nums[right]); <span class="hljs-comment">//默认是从小到大排序</span><br>            <span class="hljs-keyword">while</span> (*count.<span class="hljs-built_in">rbegin</span>() - *count.<span class="hljs-built_in">begin</span>() &gt; limit) &#123;<br>                count.<span class="hljs-built_in">erase</span>(count.<span class="hljs-built_in">find</span>(nums[left++]));    <span class="hljs-comment">// multiset -&gt; erase </span><br>            &#125;<br>            res = <span class="hljs-built_in">max</span>(right-left<span class="hljs-number">+1</span>, res);<br>            right++;<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="3-6-503-下一个更大元素-II"><a href="#3-6-503-下一个更大元素-II" class="headerlink" title="3.6 | 503. 下一个更大元素 II"></a>3.6 | <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/next-greater-element-ii/">503. 下一个更大元素 II</a></h3><h3 id="1-单调栈"><a href="#1-单调栈" class="headerlink" title="1. 单调栈"></a>1. 单调栈</h3><h4 id="对于每个数都需要找到下一个比它大的元素-栈中存储的相当于一个降序的序列-只要出现一个更大的-栈中所有元素对应的下一个更大-都是它"><a href="#对于每个数都需要找到下一个比它大的元素-栈中存储的相当于一个降序的序列-只要出现一个更大的-栈中所有元素对应的下一个更大-都是它" class="headerlink" title="对于每个数都需要找到下一个比它大的元素, 栈中存储的相当于一个降序的序列 只要出现一个更大的 栈中所有元素对应的下一个更大 都是它"></a>对于每个数都需要找到下一个比它大的元素, 栈中存储的相当于一个降序的序列 只要出现一个更大的 栈中所有元素对应的下一个更大 都是它</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">nextGreaterElements</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> n = nums.<span class="hljs-built_in">size</span>();<br>        stack&lt;<span class="hljs-type">int</span>&gt; tedious;<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">res</span><span class="hljs-params">(n, <span class="hljs-number">-1</span>)</span></span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">2</span>*n<span class="hljs-number">-1</span>; ++i) &#123;<br>            <span class="hljs-keyword">while</span> (!tedious.<span class="hljs-built_in">empty</span>() &amp;&amp; nums[i % n] &gt; nums[tedious.<span class="hljs-built_in">top</span>()]) &#123;<br>                res[tedious.<span class="hljs-built_in">top</span>()] = nums[i % n];<br>                tedious.<span class="hljs-built_in">pop</span>();<br>            &#125;<br>            tedious.<span class="hljs-built_in">push</span>(i % n);<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="⚠️-可以通过「-capacity」-来实现对于数组的逻辑拉长-「⚠️-i-2-n-1-是省了一次-不是越界」"><a href="#⚠️-可以通过「-capacity」-来实现对于数组的逻辑拉长-「⚠️-i-2-n-1-是省了一次-不是越界」" class="headerlink" title="&#x3D;&#x3D;⚠️ 可以通过「 % capacity」 来实现对于数组的逻辑拉长 「⚠️ i  &lt; 2*n-1  是省了一次 不是越界」&#x3D;&#x3D;"></a>&#x3D;&#x3D;⚠️ 可以通过「 % capacity」 来实现对于数组的逻辑拉长 「⚠️ i  &lt; 2*n-1  是省了一次 不是越界」&#x3D;&#x3D;</h3><h3 id="3-6-快速幂-本质上讲-是利用了递归的-栈逻辑-x-n-x-n-2-x-n-2-…"><a href="#3-6-快速幂-本质上讲-是利用了递归的-栈逻辑-x-n-x-n-2-x-n-2-…" class="headerlink" title="3.6 | 快速幂   本质上讲 是利用了递归的 栈逻辑  x^n &#x3D; x ^ n&#x2F;2 * x ^ n&#x2F;2 …"></a>3.6 | 快速幂   本质上讲 是利用了递归的 栈逻辑  x^n &#x3D; x ^ n&#x2F;2 * x ^ n&#x2F;2 …</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">double</span> <span class="hljs-title">myPow</span><span class="hljs-params">(<span class="hljs-type">double</span> x, <span class="hljs-type">int</span> n)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (n == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>        <span class="hljs-type">long</span> N = n;<br>        <span class="hljs-keyword">return</span> n &gt; <span class="hljs-number">0</span> ? <span class="hljs-built_in">quickMulit</span>(x, N) : <span class="hljs-number">1.0</span>/<span class="hljs-built_in">quickMulit</span>(x, -N);<br>    &#125;  <br><span class="hljs-function"><span class="hljs-type">double</span> <span class="hljs-title">quickMulit</span><span class="hljs-params">(<span class="hljs-type">double</span> x, <span class="hljs-type">long</span> n)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (n == <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> x;<br>        <span class="hljs-type">double</span> y = <span class="hljs-built_in">quickMulit</span>(x, n / <span class="hljs-number">2</span>);<br>        <span class="hljs-keyword">if</span> (n &amp; <span class="hljs-number">1</span>) &#123; <span class="hljs-comment">//为奇数</span><br>            <span class="hljs-keyword">return</span> x * y * y;<br>        &#125;<br>        <span class="hljs-keyword">return</span> y * y;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="3-9-1047-删除字符串中的所有相邻重复项"><a href="#3-9-1047-删除字符串中的所有相邻重复项" class="headerlink" title="3.9 | 1047. 删除字符串中的所有相邻重复项"></a>3.9 | <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/remove-all-adjacent-duplicates-in-string/">1047. 删除字符串中的所有相邻重复项</a></h3><blockquote>
+<h3 id="利用栈的性质解题-但注意的是-string-支持-pop-back-和-back-操作-我们可以直接将其理解为一个栈来做-「同样的道理-在a-b-hard中-我们也可以这样来用string-替代掉stack」"><a href="#利用栈的性质解题-但注意的是-string-支持-pop-back-和-back-操作-我们可以直接将其理解为一个栈来做-「同样的道理-在a-b-hard中-我们也可以这样来用string-替代掉stack」" class="headerlink" title="利用栈的性质解题 但注意的是 string 支持 pop_back() 和 back()操作  我们可以直接将其理解为一个栈来做 「同样的道理, 在a+b hard中, 我们也可以这样来用string 替代掉stack」"></a>利用栈的性质解题 但注意的是 string 支持 pop_back() 和 back()操作  我们可以直接将其理解为一个栈来做 「同样的道理, 在a+b hard中, 我们也可以这样来用string 替代掉stack」</h3></blockquote>
+<h3 id="3-9-283-移动零-「把数组中某一特定值-此处是0-的元素-全部拿到队伍的末尾去」"><a href="#3-9-283-移动零-「把数组中某一特定值-此处是0-的元素-全部拿到队伍的末尾去」" class="headerlink" title="3.9 | 283 移动零 「把数组中某一特定值(此处是0)的元素 全部拿到队伍的末尾去」"></a>3.9 | 283 移动零 「把数组中某一特定值(此处是0)的元素 全部拿到队伍的末尾去」</h3><h2 id="「快慢指针」right指针一直前进-而left指针则停留在最后一个一定需要交换来解决问题的元素上-⚠️-在left-和right-都满足的时候-两者就都自加"><a href="#「快慢指针」right指针一直前进-而left指针则停留在最后一个一定需要交换来解决问题的元素上-⚠️-在left-和right-都满足的时候-两者就都自加" class="headerlink" title="「快慢指针」right指针一直前进,而left指针则停留在最后一个一定需要交换来解决问题的元素上 (⚠️ 在left 和right 都满足的时候, 两者就都自加)"></a>「快慢指针」right指针一直前进,而left指针则停留在最后一个一定需要交换来解决问题的元素上 (⚠️ 在left 和right 都满足的时候, 两者就都自加)</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">moveZero</span> <span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums )</span> </span>&#123;<br>  	<span class="hljs-type">int</span> left = <span class="hljs-number">0</span>, right = <span class="hljs-number">0</span>;<br>  	<span class="hljs-keyword">while</span> (right &lt; nums.<span class="hljs-built_in">size</span>()) &#123;<br>      	<span class="hljs-keyword">if</span> (nums[right]) <span class="hljs-built_in">swap</span>(nums[right], nums[left ++]);<br>      	++ right;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="3-15-54-螺旋矩阵-螺旋输出一个矩阵"><a href="#3-15-54-螺旋矩阵-螺旋输出一个矩阵" class="headerlink" title="3.15 54. 螺旋矩阵 螺旋输出一个矩阵"></a>3.15 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/spiral-matrix/">54. 螺旋矩阵</a> 螺旋输出一个矩阵</h3><h3 id="考虑矩阵的四个角-「top-right-left-bottom-」-用这四个变量标记它们"><a href="#考虑矩阵的四个角-「top-right-left-bottom-」-用这四个变量标记它们" class="headerlink" title="考虑矩阵的四个角 「top right left bottom 」 用这四个变量标记它们"></a>考虑矩阵的四个角 「top right left bottom 」 用这四个变量标记它们</h3><ul>
+<li><h3 id="此题由于输出的总数已经知道-我们应该设置一个恒定的标记-让它减少到0来判断是否应该结束循环-而不是加入超多的判断语句"><a href="#此题由于输出的总数已经知道-我们应该设置一个恒定的标记-让它减少到0来判断是否应该结束循环-而不是加入超多的判断语句" class="headerlink" title="此题由于输出的总数已经知道,我们应该设置一个恒定的标记 让它减少到0来判断是否应该结束循环,而不是加入超多的判断语句."></a>此题由于输出的总数已经知道,我们应该设置一个恒定的标记 让它减少到0来判断是否应该结束循环,而不是加入超多的判断语句.</h3></li>
+</ul>
+<hr>
+<h3 id="3-14-检查5张牌是否为顺子-「排序后-看最大和最小-差距大于等于5-就不行啦」"><a href="#3-14-检查5张牌是否为顺子-「排序后-看最大和最小-差距大于等于5-就不行啦」" class="headerlink" title="3.14  检查5张牌是否为顺子 「排序后,看最大和最小 差距大于等于5 就不行啦」"></a>3.14  检查5张牌是否为顺子 「排序后,看最大和最小 差距大于等于5 就不行啦」</h3><h4 id="3-17-层序遍历-分层输出"><a href="#3-17-层序遍历-分层输出" class="headerlink" title="3.17  层序遍历,分层输出"></a>3.17  层序遍历,分层输出</h4><h4 id="分层的要点在于-我们在原有的while循环里加入一个for循环-对于原本就在队列中的n个结点-这个循环的目标就是把它们的孩子都加入队列-同时把它们都pop出去"><a href="#分层的要点在于-我们在原有的while循环里加入一个for循环-对于原本就在队列中的n个结点-这个循环的目标就是把它们的孩子都加入队列-同时把它们都pop出去" class="headerlink" title="分层的要点在于, 我们在原有的while循环里加入一个for循环, 对于原本就在队列中的n个结点,这个循环的目标就是把它们的孩子都加入队列, 同时把它们都pop出去."></a>分层的要点在于, 我们在原有的while循环里加入一个for循环, 对于原本就在队列中的n个结点,这个循环的目标就是把它们的孩子都加入队列, 同时把它们都pop出去.</h4><h4 id="3-17-股票的最大利润-「只可以买卖一次」「实际上就是求数组最大的元素差-其中大的元素一定要在小的后面」"><a href="#3-17-股票的最大利润-「只可以买卖一次」「实际上就是求数组最大的元素差-其中大的元素一定要在小的后面」" class="headerlink" title="3.17 股票的最大利润 「只可以买卖一次」「实际上就是求数组最大的元素差,其中大的元素一定要在小的后面」"></a>3.17 股票的最大利润 「只可以买卖一次」「实际上就是求数组最大的元素差,其中大的元素一定要在小的后面」</h4><p><code>minprice 保证了在位于 price处 时候, minprice一定是当前最小的那个值了.  而maxprice 则利用了这一点</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> price: nums) &#123;<br>      maxprofit = <span class="hljs-built_in">max</span>(maxprofit, price - minprice);<br>      minprice = <span class="hljs-built_in">min</span>(price, minprice);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="3-20-150-逆波兰表达式求值"><a href="#3-20-150-逆波兰表达式求值" class="headerlink" title="3.20 | 150. 逆波兰表达式求值"></a>3.20 | <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/evaluate-reverse-polish-notation/">150. 逆波兰表达式求值</a></h3><h4 id="逆波兰表达式的解法很简单-数字直接入栈-见运算符就把两个拿出来计算之后push回去-⚠️-isdigit-是对字符生效的函数-以及-stoi-字符串转int-函数-值的注意的是-没有itos-哦"><a href="#逆波兰表达式的解法很简单-数字直接入栈-见运算符就把两个拿出来计算之后push回去-⚠️-isdigit-是对字符生效的函数-以及-stoi-字符串转int-函数-值的注意的是-没有itos-哦" class="headerlink" title="逆波兰表达式的解法很简单, 数字直接入栈, 见运算符就把两个拿出来计算之后push回去.  ⚠️ isdigit 是对字符生效的函数, 以及 stoi  字符串转int 函数.  值的注意的是 没有itos 哦!"></a>逆波兰表达式的解法很简单, 数字直接入栈, 见运算符就把两个拿出来计算之后push回去.  ⚠️ isdigit 是对字符生效的函数, 以及 stoi  字符串转int 函数.  值的注意的是 没有itos 哦!</h4><hr>
+<h4 id="3-22-爬楼梯"><a href="#3-22-爬楼梯" class="headerlink" title="3.22 | 爬楼梯"></a>3.22 | 爬楼梯</h4><h4 id="456-132-模式-「看数组里-是否有这样的三个元素-i-j-k-它们满足-i-j-k-同时-nums-i-nums-k-nums-j-」"><a href="#456-132-模式-「看数组里-是否有这样的三个元素-i-j-k-它们满足-i-j-k-同时-nums-i-nums-k-nums-j-」" class="headerlink" title="456. 132 模式  「看数组里 是否有这样的三个元素 i j k 它们满足 i &lt; j &lt; k, 同时 nums[i] &lt; nums[k] &lt; nums[j]」"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/132-pattern/">456. 132 模式</a>  「看数组里 是否有这样的三个元素 i j k 它们满足 i &lt; j &lt; k, 同时 nums[i] &lt; nums[k] &lt; nums[j]」</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-comment">// i &lt; j &lt; k || nums[i] &lt; nums[k] &lt; nums[j]</span><br>    <span class="hljs-comment">// 这个题的问题在于 我们只需要知道有没有即可, 我们是不需要提供下标的!</span><br>    <span class="hljs-comment">// 不可以使用priorityqueue来存储k的所有可能性 想想为什么</span><br>   <br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">find132pattern</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> left_min = nums[<span class="hljs-number">0</span>], j = <span class="hljs-number">1</span>, n = nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-keyword">if</span> (n &lt; <span class="hljs-number">3</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        multiset&lt;<span class="hljs-type">int</span>&gt; s;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">2</span>; i &lt; n; ++i) s.<span class="hljs-built_in">insert</span>(nums[i]);<br>        <span class="hljs-keyword">while</span> (!s.<span class="hljs-built_in">empty</span>()) &#123;<br>            <span class="hljs-keyword">if</span> (left_min &lt; nums[j]) &#123;<br>                <span class="hljs-keyword">auto</span> it = s.<span class="hljs-built_in">begin</span>();<br>                <span class="hljs-keyword">while</span> (it != s.<span class="hljs-built_in">end</span>()) &#123;<br>                    <span class="hljs-keyword">if</span> (*it &lt; nums[j] &amp;&amp; *it &gt; left_min) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>                    ++it;<br>                &#125;<br>            &#125;<br>            s.<span class="hljs-built_in">erase</span>(s.<span class="hljs-built_in">find</span>(nums[j<span class="hljs-number">+1</span>])); <span class="hljs-comment">//这里使用erase 会一次删除掉所有值为val的元素,</span><br>            <span class="hljs-comment">// for (auto it = s.begin(); it != s.end(); ++it) &#123;</span><br>            <span class="hljs-comment">//     if (*it == nums[j+1]) &#123;</span><br>            <span class="hljs-comment">//         *it = 1e9+1;    </span><br>            <span class="hljs-comment">//     &#125;</span><br>            <span class="hljs-comment">// &#125;</span><br>            left_min = <span class="hljs-built_in">min</span>(left_min, nums[j++]);<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h4 id="⚠️-1-erase-如果里面直接给出元素-会直接删除所有的该元素-也可以使用find-这样只会删除第一个遇见的-2-迭代器只是遍历工具-我们是不能通过迭代器来修改容器内的值的"><a href="#⚠️-1-erase-如果里面直接给出元素-会直接删除所有的该元素-也可以使用find-这样只会删除第一个遇见的-2-迭代器只是遍历工具-我们是不能通过迭代器来修改容器内的值的" class="headerlink" title="&#x3D;&#x3D;⚠️ 1. erase 如果里面直接给出元素, 会直接删除所有的该元素,  也可以使用find 这样只会删除第一个遇见的. 2.迭代器只是遍历工具, 我们是不能通过迭代器来修改容器内的值的!&#x3D;&#x3D;"></a>&#x3D;&#x3D;⚠️ 1. erase 如果里面直接给出元素, 会直接删除所有的该元素,  也可以使用find 这样只会删除第一个遇见的. 2.迭代器只是遍历工具, 我们是不能通过迭代器来修改容器内的值的!&#x3D;&#x3D;</h4><h3 id="4-12-179-最大数-「一个数组-把里面的数字拼成一个-字典序最大的字符串」"><a href="#4-12-179-最大数-「一个数组-把里面的数字拼成一个-字典序最大的字符串」" class="headerlink" title="4.12 179. 最大数 「一个数组 把里面的数字拼成一个 字典序最大的字符串」"></a>4.12 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/largest-number/">179. 最大数</a> 「一个数组 把里面的数字拼成一个 字典序最大的字符串」</h3><blockquote>
+<p>很容易想到在匿名函数里转字符串比较字典序. </p>
+<h4 id="但我们可以直接利用整数来尝试拼接"><a href="#但我们可以直接利用整数来尝试拼接" class="headerlink" title="但我们可以直接利用整数来尝试拼接."></a>但我们可以直接利用整数来尝试拼接.</h4></blockquote>
+<hr>
+<h3 id="1738-找出第K大的异或坐标值「要注意前缀和从0开始」-https-leetcode-cn-com-problems-find-kth-largest-xor-coordinate-value"><a href="#1738-找出第K大的异或坐标值「要注意前缀和从0开始」-https-leetcode-cn-com-problems-find-kth-largest-xor-coordinate-value" class="headerlink" title="[1738. 找出第K大的异或坐标值「要注意前缀和从0开始」][https://leetcode- cn.com&#x2F;problems&#x2F;find-kth-largest-xor-coordinate-value&#x2F;]"></a>[1738. 找出第K大的异或坐标值「要注意前缀和从0开始」][<a target="_blank" rel="noopener" href="https://leetcode-/">https://leetcode-</a> cn.com&#x2F;problems&#x2F;find-kth-largest-xor-coordinate-value&#x2F;]</h3><p>关于二维前缀和的解释如下: </p>
+<p>所以 <code>prefix[i][j] = prefix[i][j-1]^prefix[i-1][j]^prefix[i-1][j-1]^matrix[i-1][j-1]</code></p>
+<hr>
+<h3 id="在342-4的幂"><a href="#在342-4的幂" class="headerlink" title="在342. 4的幂"></a>在<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/power-of-four/">342. 4的幂</a></h3><h5 id="1-偶数位上是1的32位整形-0xaaaaaaaa"><a href="#1-偶数位上是1的32位整形-0xaaaaaaaa" class="headerlink" title="1. 偶数位上是1的32位整形, 0xaaaaaaaa"></a>1. 偶数位上是1的32位整形, 0xaaaaaaaa</h5><hr>
+<h1 id="杂项"><a href="#杂项" class="headerlink" title="杂项"></a>杂项</h1><ul>
+<li><h4 id="accumulate-函数，到nums-begin-k，是不包括下标k的！并且-accmulate-所需要的时间是很短的-使用accumulate来检测数组中是否只有0是一个可行的选择。"><a href="#accumulate-函数，到nums-begin-k，是不包括下标k的！并且-accmulate-所需要的时间是很短的-使用accumulate来检测数组中是否只有0是一个可行的选择。" class="headerlink" title="accumulate 函数，到nums.begin()+k，是不包括下标k的！并且 accmulate 所需要的时间是很短的  使用accumulate来检测数组中是否只有0是一个可行的选择。"></a>accumulate 函数，到nums.begin()+k，是不包括下标k的！并且 accmulate 所需要的时间是很短的  使用accumulate来检测数组中是否只有0是一个可行的选择。</h4></li>
+<li><p>index 从后往前遍历的时候 千万要注意 删除操作 对于index的位移</p>
+</li>
+<li><h3 id="如何用队列实现栈-「一个队列-每次push-都把队列转个圈」-如何用栈实现队列-「两个栈-in-out-push全部进入输入栈-每次执行pop或者top操作时如果输出栈为空就把输入栈的元素全部push进输出栈」"><a href="#如何用队列实现栈-「一个队列-每次push-都把队列转个圈」-如何用栈实现队列-「两个栈-in-out-push全部进入输入栈-每次执行pop或者top操作时如果输出栈为空就把输入栈的元素全部push进输出栈」" class="headerlink" title="如何用队列实现栈?  「一个队列 每次push 都把队列转个圈」 如何用栈实现队列? 「两个栈(in &#x2F; out) push全部进入输入栈, 每次执行pop或者top操作时如果输出栈为空就把输入栈的元素全部push进输出栈」"></a>如何用队列实现栈?  「一个队列 每次push 都把队列转个圈」 如何用栈实现队列? 「两个栈(in &#x2F; out) push全部进入输入栈, 每次执行pop或者top操作时如果输出栈为空就把输入栈的元素全部push进输出栈」</h3></li>
+<li><h3 id="c-17-添加了新的特性-对于一个hashtable-dist-「for-auto-y-x-dist」-顺序和原来相同"><a href="#c-17-添加了新的特性-对于一个hashtable-dist-「for-auto-y-x-dist」-顺序和原来相同" class="headerlink" title="c++ 17 添加了新的特性 对于一个hashtable dist  「for (auto &amp;[y, x] : dist」&#x2F;&#x2F; 顺序和原来相同"></a>c++ 17 添加了新的特性 对于一个hashtable dist  「for (auto &amp;[y, x] : dist」&#x2F;&#x2F; 顺序和原来相同</h3></li>
+<li><h2 id="两个变量交换"><a href="#两个变量交换" class="headerlink" title="两个变量交换"></a>两个变量交换</h2><blockquote>
+<p>a &#x3D; a - b; b &#x3D; b - a; a &#x3D; a + b; &#x2F;&#x2F;法1</p>
+<h3 id="a-a-b-b-a-b-a-a-b-法2"><a href="#a-a-b-b-a-b-a-a-b-法2" class="headerlink" title="a &#x3D; a ^ b ; b &#x3D; a ^ b; a &#x3D; a ^ b;  &#x2F;&#x2F; 法2"></a>a &#x3D; a ^ b ; b &#x3D; a ^ b; a &#x3D; a ^ b;  &#x2F;&#x2F; 法2</h3></blockquote>
+</li>
+</ul>
+<h4 id="·想要返回正确的double值，把被除数转成double型，而不是把结果转为double"><a href="#·想要返回正确的double值，把被除数转成double型，而不是把结果转为double" class="headerlink" title="·想要返回正确的double值，把被除数转成double型，而不是把结果转为double"></a>·想要返回正确的double值，把被除数转成double型，而不是把结果转为double</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">return</span> <span class="hljs-built_in">double</span>(<span class="hljs-number">3</span>/<span class="hljs-number">2</span>) =&gt; <span class="hljs-number">1</span>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">double</span>(<span class="hljs-number">3</span>)/<span class="hljs-number">2</span> =&gt; <span class="hljs-number">1.5</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>字符与int之间的转化是简单的,  只需要加减<code>&#39;0&#39; </code> 就可以了,   字符串则可以通过 stoi 和 to_string 函数来实现! </p>
+</li>
+<li><p>斐波那契数列 在n特别大时 采取矩阵快速幂的方法 能够求解 (滚动都太慢了)</p>
+</li>
+<li><h2 id="操作符-和-操作符的区别-「-左边是指针-左边是实体」-p-a-p是指针-p-a-p是实体"><a href="#操作符-和-操作符的区别-「-左边是指针-左边是实体」-p-a-p是指针-p-a-p是实体" class="headerlink" title="-&gt; 操作符 和 . 操作符的区别 「-&gt; 左边是指针  . 左边是实体」 (p -&gt; a()  p是指针,  p.a()  p是实体)"></a><code>-&gt;</code> 操作符 和 <code>.</code> 操作符的区别 「-&gt; 左边是指针  . 左边是实体」 <code>(p -&gt; a()  p是指针,  p.a()  p是实体)</code></h2></li>
+<li></li>
+<li><p><code>nth_element(res.begin(), res.begin() + k, res.end(), greater&lt;int&gt;()). </code> 寻找res中第k大的元素, 并将它放在第k个位置(默认是第k小)  「处理完之后,  K之前的全都比他大, K之后的全部比它小(比排序快上一点)」</p>
+</li>
+<li><p>STL copy </p>
+<p>std::copy(start, end, container.begin());    &#x2F;&#x2F; container 是复制到的那个容器的第一个元素， 因为复制到这个已有元素后更加高效</p>
+</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Programming/" class="print-no-link">#Programming</a>
+      
+        <a href="/tags/Algorithm/" class="print-no-link">#Algorithm</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Leetcode Notes</div>
+      <div>https://www.mementos.top/1976/04/01/LeetcodeNotes/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Natsumi</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>1976年4月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/1976/04/01/Introduction%20to%20Machine%20Learning/" title="Introduction to Machine Learning">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Introduction to Machine Learning</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/1976/04/01/Leetcode%20Algorithm%20Notes/" title="Leetcode Algorithm Notes">
+                        <span class="hidden-mobile">Leetcode Algorithm Notes</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>powered by Hexo</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/DynamicRibbon.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

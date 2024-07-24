@@ -1,0 +1,928 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar1.png">
+  <link rel="icon" href="/img/avatar1.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Natsumi">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="about 位运算 (运算符)uint32_t   32位二进制整数  一般情况下 左移就是除二x &amp; x-1 可以检测是否是2的整数次幂  (x&amp;x-1 可以清除最右边的1,如果这个1是第一位的1, 那这个数就变为0)n &amp; 1 (在32位下 1是 00000····001 而不是111···1)   用来检测奇偶性(最后一位是否为1)   偶数结果为0对于x , 取其第">
+<meta property="og:type" content="article">
+<meta property="og:title" content="About Bit Manipulation (Bit-Twiddling)">
+<meta property="og:url" content="https://www.mementos.top/1976/04/01/about%20Bit%20Manipulation/index.html">
+<meta property="og:site_name" content="Natsumi&#39;s Mementos">
+<meta property="og:description" content="about 位运算 (运算符)uint32_t   32位二进制整数  一般情况下 左移就是除二x &amp; x-1 可以检测是否是2的整数次幂  (x&amp;x-1 可以清除最右边的1,如果这个1是第一位的1, 那这个数就变为0)n &amp; 1 (在32位下 1是 00000····001 而不是111···1)   用来检测奇偶性(最后一位是否为1)   偶数结果为0对于x , 取其第">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="1976-04-01T07:53:17.000Z">
+<meta property="article:modified_time" content="2024-06-17T08:40:07.685Z">
+<meta property="article:author" content="Natsumi">
+<meta property="article:tag" content="Programming">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>About Bit Manipulation (Bit-Twiddling) - Natsumi&#39;s Mementos</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/scroll.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.mementos.top","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Natsumi&#39;s Mementos</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>🏠</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="About Bit Manipulation (Bit-Twiddling)"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="1976-04-01 15:53" pubdate>
+          1976年4月1日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          15 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">About Bit Manipulation (Bit-Twiddling)</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="about-位运算-运算符"><a href="#about-位运算-运算符" class="headerlink" title="about 位运算 (运算符)"></a>about 位运算 (运算符)</h1><h3 id="uint32-t-32位二进制整数-一般情况下-左移就是除二"><a href="#uint32-t-32位二进制整数-一般情况下-左移就是除二" class="headerlink" title="uint32_t   32位二进制整数  一般情况下 左移就是除二"></a>uint32_t   32位二进制整数  一般情况下 左移就是除二</h3><h5 id="x-x-1-可以检测是否是2的整数次幂-x-x-1-可以清除最右边的1-如果这个1是第一位的1-那这个数就变为0"><a href="#x-x-1-可以检测是否是2的整数次幂-x-x-1-可以清除最右边的1-如果这个1是第一位的1-那这个数就变为0" class="headerlink" title="x &amp; x-1 可以检测是否是2的整数次幂  (x&amp;x-1 可以清除最右边的1,如果这个1是第一位的1, 那这个数就变为0)"></a>x &amp; x-1 可以检测是否是2的整数次幂  (x&amp;x-1 可以清除最右边的1,如果这个1是第一位的1, 那这个数就变为0)</h5><h4 id="n-1-在32位下-1是-00000····001-而不是111···1-用来检测奇偶性-最后一位是否为1-偶数结果为0"><a href="#n-1-在32位下-1是-00000····001-而不是111···1-用来检测奇偶性-最后一位是否为1-偶数结果为0" class="headerlink" title="n &amp; 1 (在32位下 1是 00000····001 而不是111···1)   用来检测奇偶性(最后一位是否为1)   偶数结果为0"></a>n &amp; 1 (在32位下 1是 00000····001 而不是111···1)   用来检测奇偶性(最后一位是否为1)   偶数结果为0</h4><h4 id="对于x-取其第i位的二进制-rightarrow-x-i-1-比如在477-汉明距离总和-我们有时候可以将每一个二进制位分开来看"><a href="#对于x-取其第i位的二进制-rightarrow-x-i-1-比如在477-汉明距离总和-我们有时候可以将每一个二进制位分开来看" class="headerlink" title="对于x , 取其第i位的二进制 $\rightarrow$ (x &gt;&gt; i) &amp; 1,  比如在477. 汉明距离总和 我们有时候可以将每一个二进制位分开来看"></a>对于x , 取其第i位的二进制 $\rightarrow$ (x &gt;&gt; i) &amp; 1,  比如在<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/total-hamming-distance/">477. 汉明距离总和</a> 我们有时候可以将每一个二进制位分开来看</h4><h3 id="builtin-popcount-i-计算32位整型里-1的个数"><a href="#builtin-popcount-i-计算32位整型里-1的个数" class="headerlink" title="__builtin_popcount(i) 计算32位整型里 1的个数"></a>__builtin_popcount(i) 计算32位整型里 1的个数</h3><p>编程对于&amp; | ~的运算是基于二进制结果的记忆，但实际上还是逻辑问题</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+<th>实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&amp;</td>
+<td>按位与操作，按二进制位进行”与”运算。                                                             运算规则：<code>0&amp;0=0;    0&amp;1=0;     1&amp;0=0;      1&amp;1=1;</code></td>
+<td>(A &amp; B) 将得到 12，即为 0000 1100</td>
+</tr>
+<tr>
+<td>|</td>
+<td>按位或运算符，按二进制位进行”或”运算。                                                         运算规则：&#96;0</td>
+<td>0&#x3D;0;    0</td>
+</tr>
+<tr>
+<td>^</td>
+<td>异或运算符，按二进制位进行”异或”运算。                                                         运算规则：<code>0^0=0;    0^1=1;    1^0=1;   1^1=0;</code></td>
+<td>(A ^ B) 将得到 49，即为 0011 0001</td>
+</tr>
+<tr>
+<td>~</td>
+<td>取反运算符，按二进制位进行”取反”运算。                                                         运算规则：<code>~1=-2;    ~0=1;</code></td>
+<td>(~A ) 将得到 -61，即为 1100 0011，一个有符号二进制数的补码形式。</td>
+</tr>
+<tr>
+<td>&lt;&lt;</td>
+<td>二进制左移运算符。将一个运算对象的各二进制位全部左移若干位（左边的二进制位丢弃，右边补0）</td>
+<td>A &lt;&lt; 2 将得到 240，即为 1111 0000</td>
+</tr>
+<tr>
+<td>&gt;&gt;</td>
+<td>二进制右移运算符。将一个数的各二进制位全部右移若干位，正数左补0，负数左补1，右边丢弃。</td>
+<td>A &gt;&gt; 2 将得到 15，即为 0000 1111</td>
+</tr>
+</tbody></table>
+<h3 id="位运算也有赋值运算符"><a href="#位运算也有赋值运算符" class="headerlink" title="位运算也有赋值运算符"></a>位运算也有赋值运算符</h3><table>
+<thead>
+<tr>
+<th>&lt;&lt;&#x3D;</th>
+<th>左移且赋值运算符</th>
+<th>C &lt;&lt;&#x3D; 2 等同于 C &#x3D; C &lt;&lt; 2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&gt;&gt;&#x3D;</td>
+<td>右移且赋值运算符</td>
+<td>C &gt;&gt;&#x3D; 2 等同于 C &#x3D; C &gt;&gt; 2</td>
+</tr>
+<tr>
+<td>&amp;&#x3D;</td>
+<td>按位与且赋值运算符</td>
+<td>C &amp;&#x3D; 2 等同于 C &#x3D; C &amp; 2</td>
+</tr>
+<tr>
+<td>^&#x3D;</td>
+<td>按位异或且赋值运算符</td>
+<td>C ^&#x3D; 2 等同于 C &#x3D; C ^ 2</td>
+</tr>
+<tr>
+<td>|&#x3D;</td>
+<td>按位或且赋值运算符</td>
+<td>C |&#x3D; 2 等同于 C &#x3D; C | 2</td>
+</tr>
+</tbody></table>
+<h3 id="杂项运算符"><a href="#杂项运算符" class="headerlink" title="杂项运算符"></a>杂项运算符</h3><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>sizeof</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/cplusplus/cpp-sizeof-operator.html">sizeof 运算符</a>返回变量的大小。例如，sizeof(a) 将返回 4，其中 a 是整数。</td>
+</tr>
+<tr>
+<td>Condition ? X : Y</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/cplusplus/cpp-conditional-operator.html">条件运算符</a>。如果 Condition 为真 ? 则值为 X : 否则值为 Y。</td>
+</tr>
+<tr>
+<td>,</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/cplusplus/cpp-comma-operator.html">逗号运算符</a>会顺序执行一系列运算。整个逗号表达式的值是以逗号分隔的列表中的最后一个表达式的值。</td>
+</tr>
+<tr>
+<td>.（点）和 -&gt;（箭头）</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/cplusplus/cpp-member-operators.html">成员运算符</a>用于引用类、结构和共用体的成员。</td>
+</tr>
+<tr>
+<td>Cast</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/cplusplus/cpp-casting-operators.html">强制转换运算符</a>把一种数据类型转换为另一种数据类型。例如，int(2.2000) 将返回 2。</td>
+</tr>
+<tr>
+<td>&amp;</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/cplusplus/cpp-pointer-operators.html">指针运算符 &amp;</a> 返回变量的地址。例如 &a; 将给出变量的实际地址。</td>
+</tr>
+<tr>
+<td>*</td>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/cplusplus/cpp-pointer-operators.html">指针运算符 *</a> 指向一个变量。例如，*var; 将指向变量 var。</td>
+</tr>
+</tbody></table>
+<h3 id="运算符优先级-「由高到低」"><a href="#运算符优先级-「由高到低」" class="headerlink" title="运算符优先级 「由高到低」"></a>运算符优先级 「由高到低」</h3><table>
+<thead>
+<tr>
+<th>类别</th>
+<th>运算符</th>
+<th>结合性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>后缀</td>
+<td>() [] -&gt; . ++ - -</td>
+<td>从左到右</td>
+</tr>
+<tr>
+<td>一元</td>
+<td>+ - ! ~ ++ - - (type)* &amp; sizeof</td>
+<td>从右到左</td>
+</tr>
+<tr>
+<td>乘除</td>
+<td>* &#x2F; %</td>
+<td>从左到右</td>
+</tr>
+<tr>
+<td>加减</td>
+<td>+ -</td>
+<td>从左到右</td>
+</tr>
+<tr>
+<td>移位</td>
+<td>&lt;&lt; &gt;&gt;</td>
+<td>从左到右</td>
+</tr>
+<tr>
+<td>关系</td>
+<td>&lt; &lt;&#x3D; &gt; &gt;&#x3D;</td>
+<td>从左到右</td>
+</tr>
+<tr>
+<td>相等</td>
+<td>&#x3D;&#x3D; !&#x3D;</td>
+<td>从左到右</td>
+</tr>
+<tr>
+<td>位与 AND</td>
+<td>&amp;</td>
+<td>从左到右</td>
+</tr>
+<tr>
+<td>位异或 XOR</td>
+<td>^</td>
+<td>从左到右</td>
+</tr>
+<tr>
+<td>位或 OR</td>
+<td>|</td>
+<td>从左到右</td>
+</tr>
+<tr>
+<td>逻辑与 AND</td>
+<td>&amp;&amp;</td>
+<td>从左到右</td>
+</tr>
+<tr>
+<td>逻辑或 OR</td>
+<td>||</td>
+<td>从左到右</td>
+</tr>
+<tr>
+<td>条件</td>
+<td>?:</td>
+<td>从右到左</td>
+</tr>
+<tr>
+<td>赋值</td>
+<td>&#x3D; +&#x3D; -&#x3D; *&#x3D; &#x2F;&#x3D; %&#x3D;&gt;&gt;&#x3D; &lt;&lt;&#x3D; &amp;&#x3D; ^&#x3D; |&#x3D;</td>
+<td>从右到左</td>
+</tr>
+<tr>
+<td>逗号</td>
+<td>,</td>
+<td>从左到右</td>
+</tr>
+</tbody></table>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">0xaaaaaaaa</span> = <span class="hljs-number">10101010101010101010101010101010</span> (偶数位为<span class="hljs-number">1</span>，奇数位为<span class="hljs-number">0</span>）<br><span class="hljs-attribute">0x55555555</span> = <span class="hljs-number">1010101010101010101010101010101</span> (偶数位为<span class="hljs-number">0</span>，奇数位为<span class="hljs-number">1</span>）<br><span class="hljs-attribute">0x33333333</span> = <span class="hljs-number">110011001100110011001100110011</span> (<span class="hljs-number">1</span>和<span class="hljs-number">0</span>每隔两位交替出现)<br><span class="hljs-attribute">0xcccccccc</span> = <span class="hljs-number">11001100110011001100110011001100</span> (<span class="hljs-number">0</span>和<span class="hljs-number">1</span>每隔两位交替出现)<br><span class="hljs-attribute">0x0f0f0f0f</span> = <span class="hljs-number">00001111000011110000111100001111</span> (<span class="hljs-number">1</span>和<span class="hljs-number">0</span>每隔四位交替出现)<br><span class="hljs-attribute">0xf0f0f0f0</span> = <span class="hljs-number">11110000111100001111000011110000</span> (<span class="hljs-number">0</span>和<span class="hljs-number">1</span>每隔四位交替出现)<br></code></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h3 id="190-颠倒二进制位-「-和-的区别」"><a href="#190-颠倒二进制位-「-和-的区别」" class="headerlink" title="190. 颠倒二进制位  「&gt;&gt;&#x3D; 和 &gt;&gt; 的区别」"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-bits/">190. 颠倒二进制位</a>  「&gt;&gt;&#x3D; 和 &gt;&gt; 的区别」</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// res 一开始为0, 每次我们都将 res左移, 将n右移</span><br><span class="hljs-function"><span class="hljs-type">uint32_t</span> <span class="hljs-title">reverseBits</span><span class="hljs-params">(<span class="hljs-type">uint32_t</span> n)</span> </span>&#123;<br>        <span class="hljs-type">uint32_t</span> res = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">32</span>; ++i) &#123;<br>            res = (res &lt;&lt; <span class="hljs-number">1</span>) | (n &amp; <span class="hljs-number">1</span>);   <br>            n &gt;&gt;= <span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="XOR-异或运算的性质"><a href="#XOR-异或运算的性质" class="headerlink" title="XOR 异或运算的性质:"></a>XOR 异或运算的性质:</h3><ol>
+<li><p>x⊕x&#x3D;0 ,  x⊕0 &#x3D; x</p>
+</li>
+<li><h4 id="x⊕y-y⊕x-交换律"><a href="#x⊕y-y⊕x-交换律" class="headerlink" title="x⊕y&#x3D;y⊕x (交换律)"></a>x⊕y&#x3D;y⊕x (交换律)</h4></li>
+<li><p>(x⊕y)⊕z&#x3D;x⊕(y⊕z) (结合律)    「不支持分配律」</p>
+</li>
+<li><p>x⊕y⊕y&#x3D;x (自反性)</p>
+</li>
+<li><p>∀i∈Z，有 4i⊕(4i+1)⊕(4i+2)⊕(4i+3)&#x3D;0</p>
+</li>
+</ol>
+<hr>
+<h4 id="在342-4的幂-偶数位上是1的32位整形-0xaaaaaaaa"><a href="#在342-4的幂-偶数位上是1的32位整形-0xaaaaaaaa" class="headerlink" title="在342. 4的幂  偶数位上是1的32位整形, 0xaaaaaaaa"></a>在<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/power-of-four/">342. 4的幂</a>  偶数位上是1的32位整形, 0xaaaaaaaa</h4><hr>
+<h3 id="如何取按照要求-取一个整型中的某些二进制位？"><a href="#如何取按照要求-取一个整型中的某些二进制位？" class="headerlink" title="如何取按照要求 取一个整型中的某些二进制位？"></a>如何取按照要求 取一个整型中的某些二进制位？</h3><ul>
+<li><h4 id="对于x-取其第i位的二进制-rightarrow-x-i-1-从0开始"><a href="#对于x-取其第i位的二进制-rightarrow-x-i-1-从0开始" class="headerlink" title="对于x , 取其第i位的二进制 $\rightarrow$ (x &gt;&gt; i) &amp; 1 (从0开始)"></a>对于x , 取其第i位的二进制 $\rightarrow$ (x &gt;&gt; i) &amp; 1 (从0开始)</h4></li>
+<li><p>如果我们框定了x的范围，比如我们确认x &lt;&#x3D; 1024 那么32位中必然只需要使用其中最右边的10位</p>
+<ul>
+<li>想取 高4位(即10位中左边的4位) 那显然 res &#x3D; x &gt;&gt; 6</li>
+<li>想取 低6位 则不需要移位，可以通过&#x3D;&#x3D;与运算(和全1与)&#x3D;&#x3D;直接取 比如这里 2^6 -1   res &#x3D; x &amp; 63;</li>
+</ul>
+</li>
+</ul>
+<h4 id="关于进制转换问题"><a href="#关于进制转换问题" class="headerlink" title="关于进制转换问题"></a>关于进制转换问题</h4><ul>
+<li>我们使用的进制转换是<strong>短除法</strong>的进制转换，因此最后有一个 reverse 操作，不要忘记</li>
+</ul>
+<h4 id="交换x-y"><a href="#交换x-y" class="headerlink" title="交换x y"></a>交换x y</h4><ul>
+<li>直接交换法:  a &#x3D; a - b , b &#x3D; a + b, a &#x3D; b - a;</li>
+<li>异或法 : x &#x3D; x ^ y, y &#x3D; x ^ y, x &#x3D; x ^ y</li>
+</ul>
+<ul>
+<li>一句话逻辑运算<ul>
+<li>or &#x3D;&gt; 只要有 1 结果为 1</li>
+<li>and &#x3D;&gt; 只有 1 &amp; 1 &#x3D; 1,其他为 0   <ul>
+<li>取奇偶(配合移位取二进制)</li>
+<li>分组(见<code>找出 2 个只出现 1 次的数</code>， 核心思想：按照某一位是否为 1 来把数组分成两个部分)</li>
+</ul>
+</li>
+<li>xor &#x3D;&gt; 两个二进制不同, 结果为 1 &#x2F; 二进制不进位加法<ul>
+<li>抵消 &#x2F; 二进制交换</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Programming/" class="print-no-link">#Programming</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>About Bit Manipulation (Bit-Twiddling)</div>
+      <div>https://www.mementos.top/1976/04/01/about Bit Manipulation/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Natsumi</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>1976年4月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/1976/04/01/about%20Binary%20Search%20%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" title="About Binary Search">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">About Binary Search</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/1976/04/01/about%20C++%20STL/" title="About C++ STL">
+                        <span class="hidden-mobile">About C++ STL</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>powered by Hexo</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/DynamicRibbon.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

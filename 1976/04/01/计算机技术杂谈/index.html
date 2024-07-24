@@ -1,0 +1,951 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar1.png">
+  <link rel="icon" href="/img/avatar1.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Natsumi">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="计算机技术杂谈大数据与云计算大数据不是数据存储技术，而是和海量数据相关的抽取、集成、管理、分析、解释方法，是一个庞大的框架系统。宏观上讲，对数据进行映射和提炼，发现其数据特征并加以利用。从技术上说，是通过获取、存储、分析，从大容量数据里挖掘价值的技术架构。 大数据的量级在 PB(1024TB)或者EB级，其关键特点有 Volume(量)、Variety、**Velocity(时效性短)**、Val">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机技术杂谈">
+<meta property="og:url" content="https://www.mementos.top/1976/04/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/index.html">
+<meta property="og:site_name" content="Natsumi&#39;s Mementos">
+<meta property="og:description" content="计算机技术杂谈大数据与云计算大数据不是数据存储技术，而是和海量数据相关的抽取、集成、管理、分析、解释方法，是一个庞大的框架系统。宏观上讲，对数据进行映射和提炼，发现其数据特征并加以利用。从技术上说，是通过获取、存储、分析，从大容量数据里挖掘价值的技术架构。 大数据的量级在 PB(1024TB)或者EB级，其关键特点有 Volume(量)、Variety、**Velocity(时效性短)**、Val">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="1976-04-01T07:53:17.000Z">
+<meta property="article:modified_time" content="2022-05-22T02:43:34.000Z">
+<meta property="article:author" content="Natsumi">
+<meta property="article:tag" content="Computation tech">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>计算机技术杂谈 - Natsumi&#39;s Mementos</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/scroll.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.mementos.top","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Natsumi&#39;s Mementos</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>🏠</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="计算机技术杂谈"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="1976-04-01 15:53" pubdate>
+          1976年4月1日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          40 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">计算机技术杂谈</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="计算机技术杂谈"><a href="#计算机技术杂谈" class="headerlink" title="计算机技术杂谈"></a>计算机技术杂谈</h1><h3 id="大数据与云计算"><a href="#大数据与云计算" class="headerlink" title="大数据与云计算"></a>大数据与云计算</h3><p>大数据不是数据存储技术，而是和海量数据相关的抽取、集成、管理、分析、解释方法，是一个庞大的框架系统。宏观上讲，对数据进行映射和提炼，发现其数据特征并加以利用。从技术上说，是通过<strong>获取、存储、分析，从大容量数据里挖掘价值的</strong>技术架构。</p>
+<p>大数据的量级在 PB(1024TB)或者EB级，其关键特点有 Volume(量)、Variety、**Velocity(时效性短)**、Value(价值密度低)</p>
+<p>云计算：这种基于互联网的计算方式，可以更好的对软硬计算资源进行整合，在我看来，这个概念有些类似操作系统中提供虚拟化资源的概念，相当于是面向互联网计算的虚拟计算环境，使用户能够方便、有效地共享和利用网络上的资源</p>
+<hr>
+<h3 id="前端-后端"><a href="#前端-后端" class="headerlink" title="前端 &amp; 后端"></a>前端 &amp; 后端</h3><ul>
+<li>广义上说，任何和UI直接相关的工作，都属于前端，狭义上讲，前端就是网页端</li>
+<li>后端 是具体实现功能的地方，<strong>并且负责关键的 状态维护 和 控制权限</strong>，这些控制机制不能被放在前端</li>
+</ul>
+<h3 id="JavaScript，CSS与HTML的关系"><a href="#JavaScript，CSS与HTML的关系" class="headerlink" title="JavaScript，CSS与HTML的关系"></a>JavaScript，CSS与HTML的关系</h3><ul>
+<li><strong>HTML定义页面结构和核心内容，CSS则为这些内容加上样式，JS则可以同时做到这两件事。</strong><ul>
+<li>抽象的说，html是骨，负责将信息结构化，CSS则是肉，负责添加装饰性内容</li>
+<li>CSS可以更简单的完成一些html完成很麻烦的工作，比如将所有的标题居中。</li>
+</ul>
+</li>
+<li>JS可以完成html和css的工作，但复杂一些，其主要功能是 <strong>指导浏览器如何动态建立结构和作用样式，也就是负责控制逻辑</strong></li>
+</ul>
+<hr>
+<h4 id="SSL-SSH"><a href="#SSL-SSH" class="headerlink" title="SSL &amp; SSH"></a>SSL &amp; SSH</h4><p>在原本的HTTP协议中，内容是明文形式传输，而HTTPS &#x3D;&gt; <strong>SSL&#x2F;TLS</strong>(Secure Sockets Layer &#x2F; Transport Layer Security) 协议，默认为443端口，本身可以看作是传输层的附加层。有三个好处</p>
+<ul>
+<li>加密。防窃听</li>
+<li>校验。防篡改</li>
+<li>证书。防冒充</li>
+</ul>
+<p>其基本思路在于 **使用<code>公钥加密</code>加密<code>会话密钥</code>**，注意：会话密钥本身是对称加密的密钥，实际上https客户端和服务器的通信是使用对称加密的，这样更快。</p>
+<h4 id="SSL和SSH-Secure-Shell"><a href="#SSL和SSH-Secure-Shell" class="headerlink" title="SSL和SSH Secure Shell"></a>SSL和SSH Secure Shell</h4><p>两者间建立一条加密通道，将数据加密并且压缩传输。  SSL并非协议，而SSH则是建立在SSL基础上的协议。 SSH可以代替telnet 和 ftp</p>
+<hr>
+<h2 id="成为后端工程师"><a href="#成为后端工程师" class="headerlink" title="成为后端工程师"></a>成为后端工程师</h2><p>语言： Java(Spring)、<strong>Golang</strong>、C++， 和语言对应的Web框架</p>
+<ul>
+<li>计算机网络 TCP&#x2F;IP详解「卷一」，HTTP相关</li>
+<li>算法导论</li>
+<li>OS   OS黑皮</li>
+<li>数据库 <ul>
+<li>MySQL， 高性能MySQL 面之前要看前半段</li>
+<li>非关系数据库 redis</li>
+</ul>
+</li>
+<li>linux  鸟叔私房菜，30天入门linux</li>
+</ul>
+<p>Web项目： 开源项目</p>
+<hr>
+<h2 id="AI"><a href="#AI" class="headerlink" title="AI"></a>AI</h2><blockquote>
+<p>深度学习是基于 DBN(Brief) 深度置信网络来设计的，<br>DeepLearning 和 神经网络的关系， 深度学习 ≈ 神经网络， 算是传统神经网络的升级版本，**<u>深度学习的特征是自己提取的， 而不是人工提取的</u>**</p>
+<p>DL 学习能力更强，也能解决更复杂的问题，但是需要更大量的数据和更高的硬件要求，容易出现偏见的情况。<br>DL的应用：计算机视觉、NLP</p>
+<p>4个典型的DL算法</p>
+<p>CNN，RNN(循环) ， GANS(生成对抗网络)， RL </p>
+<p>后续会专门介绍CNN， 这里简要介绍一下RNN、GANS和RL</p>
+<ul>
+<li>RNN  用来处理 <strong><u>序列数据</u></strong> 如文章、语音、股票，一般就用来翻译、语音识别等等。</li>
+<li><a target="_blank" rel="noopener" href="https://easyai.tech/ai-definition/gan/">GANS</a> </li>
+<li>RL  其实RL和监督&#x2F;无监督学习的区别就在于，它不需要数据喂养，而是自己尝试, 注意强化学习是一种深度学习算法</li>
+</ul>
+</blockquote>
+<blockquote>
+<h4 id="CNN-convolution-neutral-network"><a href="#CNN-convolution-neutral-network" class="headerlink" title="CNN  convolution neutral network"></a>CNN  convolution neutral network</h4><p>CNN是受到人类视觉神经系统启发。 实际应用在图片分类、检索，目标分割、人脸识别等等。 说白了，&#x3D;&#x3D;主要就是处理图像用的&#x3D;&#x3D;，其关键就在于可以对图像进行降维(1000 pix -&gt; 200 pix 其实不会影响识别)</p>
+<p>典型CNN由  **<u>卷积层、池化层、全连接层</u>**来组成</p>
+<ul>
+<li>卷积层 负责<strong>提取图像特征</strong></li>
+<li>池化层 <strong>降维 防止过拟合现象</strong></li>
+<li>全连接层  输出结果</li>
+</ul>
+<p>卷积层干了啥：</p>
+<ul>
+<li>&#x3D;&#x3D;卷积是什么：将一个函数翻转，然后 滑动叠加 (求积分、加权求和)&#x3D;&#x3D;</li>
+<li>可以有很多个卷积核，每个代表了一种图像模式，用卷积核去遍历图像，某个图像块如果和这个卷积核卷积出的值大, 就认为这个图像块比较类似此卷积核。  通过这个方法提取出整个小区域的特征。注意边界需要进行padding，填充一下</li>
+<li>卷积层的输出是一张特征图, 需要通过全连接转化成特征向量.</li>
+</ul>
+<p>池化层(简单来说就是 下采样，降低数据维度)</p>
+<ul>
+<li>Convolved feature &#x3D;&gt; Pooled feature ， 其实卷积也是降低数据维度，但是池化的降低非常有效，并且可以有效的避免过拟合</li>
+</ul>
+<p>全连接层</p>
+<ul>
+<li><p>首先要注意的是，典型的CNN并不一定是，3层结构，而是多层结构</p>
+</li>
+<li><p>全连接本质上 是一个classification,  在FCN中, 就用1x1的卷积代替了全连接的功能(先把特征图平铺, 然后用1x1卷积核遍历)</p>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>NLP 是什么，我的理解是， 让计算机可以理解文字的意义，并做出回答。实际上，人类的语言比较随便，不确定性很大，像单词边界界定、单词的多义、句法的模糊性、不正确的输入，都是NLP需要解决的问题。</li>
+<li>贝叶斯分类：  <strong>一种分类算法</strong>，以贝叶斯定理为基础， 朴素贝叶斯又是里面最基础的？</li>
+<li>SVM 支持向量机  完成分类</li>
+<li>什么是梯度下降<ul>
+<li>寻找极小值的方法，沿着梯度反方向迭代搜索</li>
+</ul>
+</li>
+<li>什么是反向传播<ul>
+<li>对所有权重计算损失函数的梯度</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="区块链"><a href="#区块链" class="headerlink" title="区块链:"></a>区块链:</h3><ul>
+<li>分布式数据存储、点对点传输、共识机制、加密算法等计算机技术的 新型应用模式，狭义来讲，区块链是一种按照时间顺序将数据区块以顺序相连 的方式组合成的一种链式数据结构， 并以密码学方式保证的不可篡改和不可伪造的分布式账本</li>
+</ul>
+<h4 id="P问题、NP问题、NP难、NP完全问题"><a href="#P问题、NP问题、NP难、NP完全问题" class="headerlink" title="P问题、NP问题、NP难、NP完全问题"></a>P问题、NP问题、NP难、NP完全问题</h4><ul>
+<li>P &#x3D;&gt; Polynomial 可以在多项式时间内解决的问题(计算机在有限时间可以解决)</li>
+<li>NP  &#x3D;&gt; nonderministic polynomial   可以在多项式时间内验证的问题 ，但不能确定是否能在多项式时间内解决(典型：是否存在哈密顿回路)</li>
+<li>NP难， 未必可以在多项式时间内验证解的正确性，比如每个广播站有个圆形范围，我们要用最少的广播站覆盖全美，我们无法在有限时间里验证答案的正确性.</li>
+<li>NPC &#x3D;&gt; NP complete， NP里面难解的问题，如果NPC有解，那么说明P &#x3D; NP(因为NPC问题可以转化成NP问题)</li>
+</ul>
+<h4 id="计算机安全学"><a href="#计算机安全学" class="headerlink" title="计算机安全学"></a>计算机安全学</h4><ul>
+<li>古典密码基本模块：Substitution 代换、置换 permutation</li>
+<li>对称和公钥的区别：公钥匙俩密钥，其实对称加密，对密钥的使用、加密解密算法都可以不同</li>
+<li>AES在做什么： 是一种分组密码 基本上思想是 扩散和混淆<ul>
+<li>分组长度128， 密钥 128 等三种，N轮加密，10、12、14 由密钥决定</li>
+<li>128位例 输入的密钥被扩展成44个数组，每一轮用4个作为轮密钥</li>
+<li>每一轮进行4个操作，(加解密时最后一轮少一个)  字节代换(查表SBOX)，行移位、列混淆然后轮密钥加(分组和扩展密钥中的4行进行按位XOR)</li>
+</ul>
+</li>
+<li>RSA  公钥加密，私钥解密<ul>
+<li>找两个大素数、 n &#x3D; p*q， <strong>phi(n) &#x3D; (p-1)*(q-1)</strong></li>
+<li><strong>选一个和phi(n)互素的e</strong>， <strong><u>d 是 e 在 phi(n)下的 的逆元</u></strong></li>
+<li>可以公开e 和 n，  但必须保密 p和q以及d</li>
+<li>P^e^ &#x3D; C (mod n),   C^d^ &#x3D; P (mod n)</li>
+</ul>
+</li>
+<li>数字签名： 私钥只有你能掌握，你用私钥加密报文就可以了</li>
+<li>密码学的HASH： 完整性认证(防篡改、数字签名、生成随机数 就记这么几个)<ul>
+<li>HASH函数： 分块、填充、迭代压缩</li>
+<li>报文认证码 可以用hash实现，也可以不用 懂了吧</li>
+</ul>
+</li>
+<li>什么是XSS攻击，在动态网页里植入恶意链接</li>
+<li>SQL注入： 将恶意的SQL查询&#x2F;添加语句插入到输入参数里，然后进行解释执行</li>
+</ul>
+<h3 id="计组"><a href="#计组" class="headerlink" title="计组"></a>计组</h3><ul>
+<li>DRAM  主存， SRAM Cache</li>
+<li>哈夫曼树原理，  指令拓展(一地址 二地址 三地址) 和 计网里IP地址分配， 都有一定的哈夫曼树思想</li>
+<li>CPU里包含： ALU、PC、IR、寄存器组，CU(ID),  一般MAR和MDR也集成在CPU中</li>
+</ul>
+<h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><ul>
+<li><p>Tree</p>
+<ul>
+<li><p>BST 注意中序有序的性质， AVL 最小不平衡子树的概念 是BST的特殊形式</p>
+</li>
+<li><p>RBT 如果问到这个 建议是展开聊一下 unordered_map和map(RBT 因为需要有序)的不同实现</p>
+</li>
+<li><p>Huffman Tree  给叶子的权值，想要建一颗WPL最小的树</p>
+<ul>
+<li>每次在优先队列里挑出俩最小的合并</li>
+</ul>
+</li>
+<li><p>字典树 Tire ，利用 共同前缀设计的，一路走下去就是一个字符串，可以快速查找和插入</p>
+</li>
+<li><p>线段树 ，用<strong>来维护区间信息</strong></p>
+</li>
+</ul>
+</li>
+<li><p>查找</p>
+<ul>
+<li>B树    用在磁盘，BST的进化，其插入和删除都比较复杂</li>
+<li>B+   用在关系型数据库，叶子连着，中无信息，可以顺序查找，启动磁盘的次数更少！</li>
+<li>散列： 我感觉散列的核心就是： hash函数、冲突处理、物理结构</li>
+</ul>
+</li>
+<li><p>图算法， 我们看待图问题，应该从图算法需要解决的问题来考虑</p>
+<ul>
+<li>十字链表 邻接多重表，图算法的复杂度和存储结构的关系很大</li>
+<li>统计连通分量： BFS、 并查集</li>
+<li>最小生成树： Prim(点优先)  Kruskal 边优先</li>
+<li>最短路径：BFS(无权图)、Dij(带权, 贪心思想)、Floyd(动态规划)<ul>
+<li>Diji  final, dist, path, 三个数组, 在dist里找最小，更新final，找相连 再更新dist</li>
+</ul>
+</li>
+<li><strong>拓扑排序</strong>：找到做事的先后顺序，使用优先队列，可以完成特殊的拓扑排序(可以stack)<ul>
+<li>DFS在退栈时输出，可以直接完成逆拓扑排序 毕竟是统计出度的</li>
+</ul>
+</li>
+<li>关键路径 我不管了</li>
+<li>并查集：判环(拓扑排序)、求联通分量 、kruskal算法利用了USF</li>
+</ul>
+</li>
+<li><p>排序</p>
+<ul>
+<li>冒、选、插、堆、归、快速、希尔、桶排序、基数排序<ul>
+<li>希尔：按照间隔进行插入排序</li>
+<li>快排：什么时候最快，什么时候最慢，如果你的基准元素选第一个元素，那么已经有序是最慢的。 两个指针轮流走(其中一个指针指的是空的)，走到不符合的地方，把自己的元素拿过去，然后另一个走，两指针相遇算结束，两指针相遇的地方就是**<u>枢轴</u>**元素正确的位置，然后对两边递归的再次快排。</li>
+<li>归并排序：有的时候想给磁盘里的东西排序，但是内存不够大，于是通过归并来完成</li>
+<li>桶排序就是 利用某种规则，比如&#x2F;10， 把元素们分别放到若干个桶里，然后每个桶内部再排</li>
+<li>Radix Sort 是特例，设置10个桶，从个位开始，放入，收集，放入收集。和桶排序都一样是空间换时间，不是基于比较的排序, 不受到nlogn的下限影响</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><ul>
+<li><p>动态规划</p>
+<ul>
+<li><p>LCS 子串必须连续，子序列则是去掉几个元素后形成的序列</p>
+<p>LCS作为典型的动态规划问题，二维动态规划， <u>可以画表来解决</u>，</p>
+</li>
+</ul>
+</li>
+<li><p>贪心和动态规划如何选？</p>
+<ul>
+<li>两个人其实都是求最优解，而且都是划成小问题吧，贪心的小问题 没有后效性(换句话说就是每个小问题的结果对后面的问题没有影响)</li>
+</ul>
+</li>
+<li><p>分治 Divide and Conquer</p>
+<ul>
+<li>树的算法 其实经常就是分治法(一个大问题 分成好几个问题)， 值得注意的是， 斐波那契数列是有分治思想的</li>
+</ul>
+</li>
+<li><p>是否存在一条合理的路径， 是否存在一个合理的解， 深度优先搜索</p>
+</li>
+<li><p>回溯算法的思想：一条路走到黑，走不通就退回来，典型问题 八皇后，我觉得回溯的效率是比较低的，不喜欢使用</p>
+</li>
+</ul>
+<h3 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h3><ul>
+<li><p>大内核和小内核： 大内核复杂但效率高，小内核方便维护但需频繁切换目态和管态</p>
+</li>
+<li><p>&#x3D;&#x3D;操作系统做什么： 管理资源，向上层提供接口，扩充机器，保护系统？，直接去利用硬件资源是困难的&#x3D;&#x3D;</p>
+</li>
+<li><p>一个C++ 文件如何运行： 编译 -&gt; 链接 -&gt; 装入 -&gt; 运行</p>
+</li>
+<li><p>是不是连续分配(有无分页？)，有没有虚拟化？    只要不是按需分配 就一定会存在内部碎片！</p>
+</li>
+<li><p>逻辑地址A      我们要知道逻辑地址和物理地址 是解读方式不一样</p>
+<ul>
+<li>页号 + 页内偏移量     这个页号拿去跟TLB比一下，不行就拿去跟页表比一下</li>
+</ul>
+</li>
+<li><p>内存管理时 &#x3D;&#x3D;<strong>stack用来函数调用，  堆则用来存动态分配的变量</strong>&#x3D;&#x3D;</p>
+</li>
+<li><h4 id="死锁：-满足4个条件，互斥、不可剥夺、请求和保持、循环等待"><a href="#死锁：-满足4个条件，互斥、不可剥夺、请求和保持、循环等待" class="headerlink" title="死锁： 满足4个条件，互斥、不可剥夺、请求和保持、循环等待"></a>死锁： 满足4个条件，互斥、不可剥夺、请求和保持、循环等待</h4><ul>
+<li>预防死锁(破坏这4个条件)，避免死锁(银行家)，检测死锁 要提到并发度的影响</li>
+</ul>
+</li>
+<li><h4 id="锁-只用来实现互斥-与条件变量-只用来实现同步-因为没有值-就是等待队列-讲一下和信号量的"><a href="#锁-只用来实现互斥-与条件变量-只用来实现同步-因为没有值-就是等待队列-讲一下和信号量的" class="headerlink" title="锁(只用来实现互斥)与条件变量(只用来实现同步 因为没有值 就是等待队列)   讲一下和信号量的"></a>锁(只用来实现互斥)与条件变量(只用来实现同步 因为没有值 就是等待队列)   讲一下和信号量的</h4><ul>
+<li>为什么有锁呢，因为有些资源必须要互斥访问，进入临界区时获得锁，出去时释放锁</li>
+<li>自旋锁  就是说 忙等，在多核系统上好使</li>
+</ul>
+</li>
+</ul>
+<h4 id="计网"><a href="#计网" class="headerlink" title="计网"></a>计网</h4><ul>
+<li>SDN是什么<ul>
+<li>软件来控制整个网络，包括路由器的转发表和路由表，在传统网络里这都是需要路由器自己计算的</li>
+</ul>
+</li>
+<li>数据链路是什么 点对点信道</li>
+<li>IP  A 10开始  B 172. C. 192. ,<ul>
+<li>ARP： 发广播回单波，不知道人家的MAC地址， RARP是不知道自己的IP地址</li>
+</ul>
+</li>
+<li>TCP<ul>
+<li>为什么三次握手：两次 服务器不知道自己接受连接的消息有没有送到客户端，会浪费资源。 第三次握手 可以传数据，但是一般不传</li>
+<li>为什么四次挥手：  CSSC的顺序，等待2MSL是看服务器是否还有消息(信道)</li>
+</ul>
+</li>
+<li>应用层<ul>
+<li>FTP： 两条连接，是C&#x2F;S模式，只有两种格式</li>
+<li>发SMTP 收 POP3，IMAP，HTTP</li>
+<li>HTTP： 传输层是TCP，但HTTP本身不依赖连接。 浏览器向Web服务器发HTTP请求报文(在这之前先要向域名解析服务器要到IP)，Web服务器发送HTTP响应，然后释放TCP连接。  短连接、无状态是描述HTTP最好的方式，但在HTTP1.1 之后支持KEEP ALIVE</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="科普"><a href="#科普" class="headerlink" title="科普"></a>科普</h2><ul>
+<li>UTF-8 是什么：可变长的Unicode编码，因为正常的Unicode要2个字节，用哈夫曼编码的思想改组一下。 注意，ASCII编码可以看作是Unicode(UTF-8)编码的一部分。<ul>
+<li>UTF-8是存储和传输时的编码，在运行时是Unicode编码！！</li>
+</ul>
+</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Computation-tech/" class="print-no-link">#Computation tech</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>计算机技术杂谈</div>
+      <div>https://www.mementos.top/1976/04/01/计算机技术杂谈/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Natsumi</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>1976年4月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/1976/04/01/%E6%96%8C%E5%A4%B4%E4%B9%8B%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AE%89%E5%85%A8%E5%AD%A6/" title="斌头之计算机安全学">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">斌头之计算机安全学</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/1976/04/01/%E4%BA%92%E8%81%94%E7%BD%91%E5%8E%9F%E7%90%86/" title="互联网原理">
+                        <span class="hidden-mobile">互联网原理</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>powered by Hexo</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/DynamicRibbon.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

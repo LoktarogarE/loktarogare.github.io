@@ -1,0 +1,798 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar1.png">
+  <link rel="icon" href="/img/avatar1.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Natsumi">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="CV非常依赖图像处理的基本知识！注意学习图像的基础知识 图像的基本知识不同的色彩空间：  灰度 1byte  描述灰白图像，一个数值，单通道  RGB 3byte 描述一张彩色图像，3个数值，一般是三通道，但是可以通过压缩，让RGB三个数值总共占16bit(比如RGB 565)，即两通道  BGR 交换了色彩通道，不同的框架在显示图片时默认的色彩空间是不一样的，但图片的二进制一样，因此颜色可能会出">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图像处理初步">
+<meta property="og:url" content="https://www.mementos.top/1976/04/01/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E5%88%9D%E6%AD%A5/index.html">
+<meta property="og:site_name" content="Natsumi&#39;s Mementos">
+<meta property="og:description" content="CV非常依赖图像处理的基本知识！注意学习图像的基础知识 图像的基本知识不同的色彩空间：  灰度 1byte  描述灰白图像，一个数值，单通道  RGB 3byte 描述一张彩色图像，3个数值，一般是三通道，但是可以通过压缩，让RGB三个数值总共占16bit(比如RGB 565)，即两通道  BGR 交换了色彩通道，不同的框架在显示图片时默认的色彩空间是不一样的，但图片的二进制一样，因此颜色可能会出">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.mementos.top/img/imageprocess.png">
+<meta property="article:published_time" content="1976-04-01T07:53:17.000Z">
+<meta property="article:modified_time" content="2022-06-10T06:48:27.000Z">
+<meta property="article:author" content="Natsumi">
+<meta property="article:tag" content="Image Processing">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.mementos.top/img/imageprocess.png">
+  
+  
+  
+  <title>图像处理初步 - Natsumi&#39;s Mementos</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/scroll.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.mementos.top","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Natsumi&#39;s Mementos</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>🏠</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="图像处理初步"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="1976-04-01 15:53" pubdate>
+          1976年4月1日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          928 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          10 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Computer Graphic Processing"
+        id="heading-474d57d1e78a8d90334fba04e8cc6e2e" role="tab" data-toggle="collapse" href="#collapse-474d57d1e78a8d90334fba04e8cc6e2e"
+        aria-expanded="true"
+      >
+        Computer Graphic Processing
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-474d57d1e78a8d90334fba04e8cc6e2e"
+           role="tabpanel" aria-labelledby="heading-474d57d1e78a8d90334fba04e8cc6e2e">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/1976/04/01/opencv%20%E8%A7%86%E8%A7%89%E7%BC%96%E7%A8%8B/" title="OpenCV 视觉编程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">OpenCV 视觉编程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/1976/04/01/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E5%88%9D%E6%AD%A5/" title="图像处理初步"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">图像处理初步</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">图像处理初步</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p><strong>CV非常依赖图像处理的基本知识！注意学习图像的基础知识</strong></p>
+<h1 id="图像的基本知识"><a href="#图像的基本知识" class="headerlink" title="图像的基本知识"></a>图像的基本知识</h1><p>不同的色彩空间：</p>
+<ul>
+<li><p>灰度 1byte  描述灰白图像，一个数值，单通道</p>
+</li>
+<li><p>RGB 3byte 描述一张彩色图像，3个数值，一般是三通道，但是可以通过压缩，让RGB三个数值总共占16bit(比如RGB 565)，即两通道</p>
+<ul>
+<li>BGR 交换了色彩通道，不同的框架在显示图片时默认的色彩空间是不一样的，但图片的二进制一样，因此颜色可能会出现问题。</li>
+</ul>
+</li>
+<li><h4 id="HSV"><a href="#HSV" class="headerlink" title="HSV"></a>HSV</h4><ul>
+<li>Hue： 色相，用角度度量的色彩 红色为0°，绿色为120°,蓝色为240°，其实吧，直接通过Hue就可以看出来颜色了啊？<ul>
+<li><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h31z6bcrhnj20k50lu0th.jpg" srcset="/img/loading.gif" lazyload style="zoom:50%;" /></li>
+</ul>
+</li>
+<li>Saturation: 饱和度, 表示颜色接近光谱色的程度。一种颜色，可以看成是某种光谱色与白色混合的结果。其中光谱色所占的比例愈大，颜色接近光谱色的程度就愈高，颜色的饱和度也就愈高。饱和度高，颜色则深而艳。光谱色的白光成分为0，饱和度达到最高。通常取值范围为0%～100%，值越大，颜色越饱和。 「人话就是：颜色的纯度。控制饱和度的方式是在颜色中加入白色，这个值越大，加入的白色越少，颜色就越纯，换句话说，圆盘的中心就是白色，外圈则是纯色」</li>
+<li>Value: 明度. 明度表示颜色明亮的程度，对于光源色，明度值与发光体的光亮度有关；对于物体色，此值和物体的透射比或反射比有关。通常取值范围为0%（黑）到100%（白） 「和饱和度相对应，就是在颜色中加入黑色的量，这个值越大，加入的黑色越少，明度就越高」</li>
+</ul>
+</li>
+<li><h4 id="HSL"><a href="#HSL" class="headerlink" title="HSL"></a>HSL</h4><ul>
+<li>Hue 还是色相，这和HSV是完全一样的</li>
+<li>Saturation，这个和HSV的饱和度机制不同，<u>具体如何生效？</u></li>
+<li>Lightness：图像亮度 「它一项就相当于HSV中的S和V，最亮为白色，最暗为纯黑色，所以可以看到HSL最上面一圈是白的，最下面一圈是黑的」</li>
+<li>他们的具体区别如下图所示 (左为HSL，右为HSV)</li>
+<li><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h31z81dl11j20yn0j0adg.jpg" srcset="/img/loading.gif" lazyload></li>
+</ul>
+</li>
+<li><h4 id="YUV"><a href="#YUV" class="headerlink" title="YUV"></a>YUV</h4><ul>
+<li>颜色编码方法。 考虑到人类的色彩感知能力，在编码时对信息进行下采样</li>
+<li>Y：明度(灰阶值)， U&amp;V(色度，描述色彩和饱和度)</li>
+<li>出现在彩色和黑白电视的过渡时期。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="图像的变换-直接处理"><a href="#图像的变换-直接处理" class="headerlink" title="图像的变换(直接处理)"></a>图像的变换(直接处理)</h1><h3 id="反色变换"><a href="#反色变换" class="headerlink" title="反色变换"></a>反色变换</h3><p>目标：<code>增加暗色背景图像里的明亮区域</code></p>
+<p>如果图像灰度值范围为 [0, L], 则反色变换为 </p>
+<p>$输出灰度值output &#x3D; 最大灰度值L - 输入灰度值input$</p>
+<p>也就是说，输出灰度矩阵中的每个点的灰度，是原图像中最大灰度点的灰度 - 自己本身的灰度 </p>
+<p>​	(如图像最大灰度为160，这个像素点的灰度为20，那么转换后它的灰度为 160-20 &#x3D; 140)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np   <span class="hljs-comment"># matrix manipulation</span><br><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image   <span class="hljs-comment"># read image from hard disk</span><br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt   <span class="hljs-comment"># matplotlib中的绘图工具</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">image_inverse</span>(<span class="hljs-params"><span class="hljs-built_in">input</span></span>):<br>  value_max = np.<span class="hljs-built_in">max</span>(<span class="hljs-built_in">input</span>)  <span class="hljs-comment"># 求出图片的最大灰度值，注意这里是一个整型</span><br>  output = value_max - <span class="hljs-built_in">input</span>  <span class="hljs-comment"># 利用numpy的广播机制，使得value</span><br>  <br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>		<span class="hljs-comment"># asarray 将图像转变为numpy矩阵</span><br>    gray_img = np.asarray(Image.<span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;./x.jpg&#x27;</span>).convert(<span class="hljs-string">&#x27;L&#x27;</span>))<br>		inv_img = image_inverse(gray_img)<br>    <br>    fig = plt.figure()<br>    ax1 = fig.add_subplot(<span class="hljs-number">121</span>)   <span class="hljs-comment"># 指图像数量为一行两列, 第三个1为1号位置</span><br>    ax1.set_title(<span class="hljs-string">&#x27;before&#x27;</span>)<br>    <span class="hljs-comment"># cmap = &#x27;gray&#x27; 意味着图像以灰度图像的形式显示</span><br>    ax1.imshow(gray_img, cmap = <span class="hljs-string">&#x27;gray&#x27;</span>, vmin = <span class="hljs-number">0</span>, vmax = <span class="hljs-number">255</span>)<br>    <br>    ax2 = fig.add_subplot(<span class="hljs-number">122</span>)<br>    ax2.set_title(<span class="hljs-string">&#x27;after&#x27;</span>)<br>    ax2.imshow(inv_img, cmap = <span class="hljs-string">&#x27;gray&#x27;</span>, vmin = <span class="hljs-number">0</span>, vmax = <span class="hljs-number">255</span>)<br>    <br>    plt.show()<br>    <br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Computer-Graphic-Processing/" class="category-chain-item">Computer Graphic Processing</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Image-Processing/" class="print-no-link">#Image Processing</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>图像处理初步</div>
+      <div>https://www.mementos.top/1976/04/01/图像处理初步/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Natsumi</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>1976年4月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/1976/04/01/opencv%20%E8%A7%86%E8%A7%89%E7%BC%96%E7%A8%8B/" title="OpenCV 视觉编程">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">OpenCV 视觉编程</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/1976/04/01/%E6%96%8C%E5%A4%B4%E4%B9%8B%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AE%89%E5%85%A8%E5%AD%A6/" title="斌头之计算机安全学">
+                        <span class="hidden-mobile">斌头之计算机安全学</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>powered by Hexo</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/DynamicRibbon.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

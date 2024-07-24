@@ -1,0 +1,735 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar1.png">
+  <link rel="icon" href="/img/avatar1.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Natsumi">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="about Sort稳定排序&#x2F;不稳定排序 「相同的元素 在排序前后 仍然处于相同顺序 $\rightarrow$ 稳定排序」  快速排序  Pivot 算法 「每次选择一个参考数 小于这个参考数的放在左边 大于它的放在右边 &#x2F;&#x2F; 这个参考数当然也在合适的位置」找出参考数之后 向左右部分递归调用Pivot算法 每次调用算法 会产生一个参考数 它一定会在最后正确的位置">
+<meta property="og:type" content="article">
+<meta property="og:title" content="About Sort">
+<meta property="og:url" content="https://www.mementos.top/1976/04/01/about%20Sort/index.html">
+<meta property="og:site_name" content="Natsumi&#39;s Mementos">
+<meta property="og:description" content="about Sort稳定排序&#x2F;不稳定排序 「相同的元素 在排序前后 仍然处于相同顺序 $\rightarrow$ 稳定排序」  快速排序  Pivot 算法 「每次选择一个参考数 小于这个参考数的放在左边 大于它的放在右边 &#x2F;&#x2F; 这个参考数当然也在合适的位置」找出参考数之后 向左右部分递归调用Pivot算法 每次调用算法 会产生一个参考数 它一定会在最后正确的位置">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.mementos.top/Users/edelweiss/Library/Application%20Support/typora-user-images/image-20210308201415058.png">
+<meta property="article:published_time" content="1976-04-01T07:53:17.000Z">
+<meta property="article:modified_time" content="2022-03-18T15:19:58.000Z">
+<meta property="article:author" content="Natsumi">
+<meta property="article:tag" content="Programming">
+<meta property="article:tag" content="Algorithm">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.mementos.top/Users/edelweiss/Library/Application%20Support/typora-user-images/image-20210308201415058.png">
+  
+  
+  
+  <title>About Sort - Natsumi&#39;s Mementos</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/scroll.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.mementos.top","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Natsumi&#39;s Mementos</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>🏠</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="About Sort"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="1976-04-01 15:53" pubdate>
+          1976年4月1日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          17 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">About Sort</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="about-Sort"><a href="#about-Sort" class="headerlink" title="about Sort"></a>about Sort</h1><h2 id="稳定排序-不稳定排序-「相同的元素-在排序前后-仍然处于相同顺序-rightarrow-稳定排序」"><a href="#稳定排序-不稳定排序-「相同的元素-在排序前后-仍然处于相同顺序-rightarrow-稳定排序」" class="headerlink" title="稳定排序&#x2F;不稳定排序 「相同的元素 在排序前后 仍然处于相同顺序 $\rightarrow$ 稳定排序」"></a>稳定排序&#x2F;不稳定排序 「相同的元素 在排序前后 仍然处于相同顺序 $\rightarrow$ 稳定排序」</h2><hr>
+<ul>
+<li><h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2></li>
+</ul>
+<h5 id="Pivot-算法-「每次选择一个参考数-小于这个参考数的放在左边-大于它的放在右边-这个参考数当然也在合适的位置」"><a href="#Pivot-算法-「每次选择一个参考数-小于这个参考数的放在左边-大于它的放在右边-这个参考数当然也在合适的位置」" class="headerlink" title="Pivot 算法 「每次选择一个参考数 小于这个参考数的放在左边 大于它的放在右边 &#x2F;&#x2F; 这个参考数当然也在合适的位置」"></a>Pivot 算法 「每次选择一个参考数 小于这个参考数的放在左边 大于它的放在右边 &#x2F;&#x2F; 这个参考数当然也在合适的位置」</h5><h4 id="找出参考数之后-向左右部分递归调用Pivot算法-每次调用算法-会产生一个参考数-它一定会在最后正确的位置-如果参考数每次都处在中间位置-那么为O-nlogn-级别-但在最差情况下会退化到n-2"><a href="#找出参考数之后-向左右部分递归调用Pivot算法-每次调用算法-会产生一个参考数-它一定会在最后正确的位置-如果参考数每次都处在中间位置-那么为O-nlogn-级别-但在最差情况下会退化到n-2" class="headerlink" title="找出参考数之后 向左右部分递归调用Pivot算法 每次调用算法 会产生一个参考数 它一定会在最后正确的位置      如果参考数每次都处在中间位置 那么为O((nlogn))级别 但在最差情况下会退化到n^2"></a>找出参考数之后 向左右部分递归调用Pivot算法 每次调用算法 会产生一个参考数 它一定会在<em><strong>最后正确</strong></em>的位置      如果参考数每次都处在中间位置 那么为O((nlogn))级别 但在最差情况下会退化到n^2</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 定义 pivot 函数，他会以数组第一个数作为参考数，并会按上述规则调整数组，并返回参考数的下标</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">pivot</span>(<span class="hljs-params">a</span>):<br>    <span class="hljs-comment"># 首先我们分析一下边界情况，首先如果只有一个数，这种情况下数组已经是有序的了，我们返回 -1 代表不需要再继续后面的过程。那如果是两个数的话，我们可以直接比较大小然后给出正确排序，也不需要 pivot 过程了。我们仍然返回 -1。</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(a) == <span class="hljs-number">1</span>:<span class="hljs-keyword">return</span> -<span class="hljs-number">1</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(a) == <span class="hljs-number">2</span>:<br>        <span class="hljs-keyword">if</span> a[<span class="hljs-number">0</span>] &gt; a[<span class="hljs-number">1</span>]:<br>            a[<span class="hljs-number">0</span>],a[<span class="hljs-number">1</span>] = a[<span class="hljs-number">1</span>],a[<span class="hljs-number">0</span>]<br>        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span><br>    <span class="hljs-comment"># 那么接下来我们就得进行我们的算法了，首先按我们刚才说的，我们假设参考数是第一个值。同时我们定义两个指针，i 指向 1，j 指向末尾。</span><br>    pivot = a[<span class="hljs-number">0</span>]<br>    i = <span class="hljs-number">1</span>; j = <span class="hljs-built_in">len</span>(a)-<span class="hljs-number">1</span><br>    <span class="hljs-comment"># 如果 i 和 j 还没重叠的话</span><br>    <span class="hljs-keyword">while</span> i &lt; j:<br>        <span class="hljs-comment"># 我们比较 a[i] 和 pivot 的大小关系，直到碰到第一个 a[i] 大于 pivot，或者 i 等于 j 就退出</span><br>        <span class="hljs-keyword">while</span> a[i] &lt; pivot <span class="hljs-keyword">and</span> i &lt; j:<br>            i += <span class="hljs-number">1</span><br>        <span class="hljs-comment"># 对 a[j] 进行类似操作</span><br>        <span class="hljs-keyword">while</span> a[j] &gt; pivot <span class="hljs-keyword">and</span> i &lt; j:<br>            j -= <span class="hljs-number">1</span><br>        <span class="hljs-comment"># 如果 i, j 重合，就可以退出了</span><br>        <span class="hljs-keyword">if</span> i == j:<span class="hljs-keyword">break</span><br>        <span class="hljs-comment"># 交换 a[i], a[j] 继续算法</span><br>        a[i],a[j] = a[j],a[i]<br>    <span class="hljs-comment"># 最后交换 pivot</span><br>    <span class="hljs-keyword">if</span> a[i] &gt; a[<span class="hljs-number">0</span>]:<br>        a[<span class="hljs-number">0</span>],a[i-<span class="hljs-number">1</span>] = a[i-<span class="hljs-number">1</span>],a[<span class="hljs-number">0</span>]; i -=<span class="hljs-number">1</span><br>    <span class="hljs-keyword">else</span>:<br>        a[<span class="hljs-number">0</span>],a[i] = a[i],a[<span class="hljs-number">0</span>]<br>    <span class="hljs-keyword">return</span> i<br><br>// 完整的快排算法 就是对其进行左右递归.  下面的是严蔚敏的快速排序算法<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">Partition</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> low, <span class="hljs-type">int</span> high)</span> </span>&#123;<br>    <span class="hljs-type">int</span> pivot = nums[low];<br>    <span class="hljs-keyword">while</span> (low &lt; high) &#123;<br>        <span class="hljs-keyword">while</span> (low &lt; high <span class="hljs-keyword">and</span> nums[high] &gt;= pivot) --high;<br>        nums[low] = nums[high];<br>        <span class="hljs-keyword">while</span> (low &lt; high <span class="hljs-keyword">and</span> nums[low] &lt;= pivot) ++low;<br>        nums[high] = nums[low];<br>    &#125;<br>    nums[low] = pivot;<br>    <span class="hljs-keyword">return</span> low;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">QuickSort</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> low, <span class="hljs-type">int</span> high)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (low &lt; high) &#123;<br>        <span class="hljs-type">int</span> pivot = <span class="hljs-built_in">Partition</span>(nums, low, high);<br>        <span class="hljs-built_in">QuickSort</span>(nums, low, pivot - <span class="hljs-number">1</span>);<br>        <span class="hljs-built_in">QuickSort</span>(nums, pivot + <span class="hljs-number">1</span>, high);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<hr>
+<ul>
+<li><h2 id="基数排序-桶排序-桶排序是基数排序的特例"><a href="#基数排序-桶排序-桶排序是基数排序的特例" class="headerlink" title="基数排序(桶排序) 桶排序是基数排序的特例"></a>基数排序(桶排序) 桶排序是基数排序的特例</h2></li>
+</ul>
+<h3 id="桶排序-在序列里值的范围-且这个范围不算太大时使用"><a href="#桶排序-在序列里值的范围-且这个范围不算太大时使用" class="headerlink" title="桶排序  在序列里值的范围 且这个范围不算太大时使用"></a>桶排序  在序列里值的范围 且这个范围不算太大时使用</h3><p>是一种非常特殊的排序算法。在前面的课程中，我们有一道题目是要找数据流的中位数，限制是所有的数都在 1 到 100 以内。我们当时提到在这种限制下，可以将数字放到 1-100 的桶里，每个桶只记录当前数字的数量，从而将插入的复杂度从 O(n) 降低为<br>O(1)，这就是一个桶排序的思想。同样的，如果我们碰到这样的题目：</p>
+<blockquote>
+<h4 id="例题：有-10-万个整数，每个数范围在-0-99-之间。有若干查询，每个查询给定一个数-x，问比-x-小的数有多少。"><a href="#例题：有-10-万个整数，每个数范围在-0-99-之间。有若干查询，每个查询给定一个数-x，问比-x-小的数有多少。" class="headerlink" title="例题：有 10 万个整数，每个数范围在 [0,99] 之间。有若干查询，每个查询给定一个数 x，问比 x 小的数有多少。"></a>例题：有 10 万个整数，每个数范围在 [0,99] 之间。有若干查询，每个查询给定一个数 x，问比 x 小的数有多少。</h4><p>对于这道题目，我们可以直接把数都拿过来排序，然后对每个 x 做一个二分查找，可以解决问题。但是通过桶排序我们可以有更优的解。</p>
+<p>我们开一个数组，大小为 100，分别代表 0 到 99 每个数有多少个。然后我们遍历所有数据，记录每个数字的数量。最后统计的时候，我们只需要计算数组中下标小于 x 的数的总和就可以了。</p>
+<p>后面统计的部分只有 0 到 100 的循环，所以查询的时间非常短。整体复杂度的瓶颈就在于开始时预处理数据，也就是 O(n) </p>
+</blockquote>
+<h3 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h3><h4 id="我们开一个长度为10的桶-把数据按照-最后一位-放到对应的桶里-形成一个序列"><a href="#我们开一个长度为10的桶-把数据按照-最后一位-放到对应的桶里-形成一个序列" class="headerlink" title="我们开一个长度为10的桶  把数据按照&#x3D;&#x3D;最后一位&#x3D;&#x3D;放到对应的桶里 形成一个序列"></a>我们开一个长度为10的桶  把数据按照&#x3D;&#x3D;最后一位&#x3D;&#x3D;放到对应的桶里 形成一个序列</h4><h4 id="我们开一个长度为10的桶-把数据按照-倒数第二位-放到对应的桶里-⚠️-同一个桶里的元素要按照上个序列的顺序放"><a href="#我们开一个长度为10的桶-把数据按照-倒数第二位-放到对应的桶里-⚠️-同一个桶里的元素要按照上个序列的顺序放" class="headerlink" title="我们开一个长度为10的桶  把数据按照 &#x3D;&#x3D;倒数第二位&#x3D;&#x3D; 放到对应的桶里 ⚠️ 同一个桶里的元素要按照上个序列的顺序放"></a>我们开一个长度为10的桶  把数据按照 &#x3D;&#x3D;倒数第二位&#x3D;&#x3D; 放到对应的桶里 ⚠️ 同一个桶里的元素要按照上个序列的顺序放</h4><h4 id="我们开始一个长度为10的桶-把数据按照-倒数第三位-放到对应的桶里-同理"><a href="#我们开始一个长度为10的桶-把数据按照-倒数第三位-放到对应的桶里-同理" class="headerlink" title="我们开始一个长度为10的桶 把数据按照 &#x3D;&#x3D;倒数第三位&#x3D;&#x3D; 放到对应的桶里 同理"></a>我们开始一个长度为10的桶 把数据按照 &#x3D;&#x3D;倒数第三位&#x3D;&#x3D; 放到对应的桶里 同理</h4><img src="/Users/edelweiss/Library/Application Support/typora-user-images/image-20210308201415058.png" srcset="/img/loading.gif" lazyload alt="image-20210308201415058" style="zoom:50%;" />
+
+<hr>
+<ul>
+<li><h2 id="冒泡排序-「优化-如果一轮里没有元素被交换-说明排序结束」"><a href="#冒泡排序-「优化-如果一轮里没有元素被交换-说明排序结束」" class="headerlink" title="冒泡排序 「优化 : 如果一轮里没有元素被交换 说明排序结束」"></a>冒泡排序 「优化 : 如果一轮里没有元素被交换 说明排序结束」</h2></li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; arr.length - <span class="hljs-number">1</span>; i++) &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; arr.length - <span class="hljs-number">1</span> - i; j++) &#123;<br>        <span class="hljs-keyword">if</span> (arr[j] &gt; arr[j + <span class="hljs-number">1</span>]) &#123;<br>            <span class="hljs-comment">// 如果左边的数大于右边的数，则交换，保证右边的数字最大</span><br>            arr[j + <span class="hljs-number">1</span>] = arr[j + <span class="hljs-number">1</span>] + arr[j];<br>            arr[j] = arr[j + <span class="hljs-number">1</span>] - arr[j];<br>            arr[j + <span class="hljs-number">1</span>] = arr[j + <span class="hljs-number">1</span>] - arr[j];<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<ul>
+<li><h2 id="选择排序-「不受输入状态影响-交换次数少-最多n次交换-」「选择排序的优化版本就是堆排序」"><a href="#选择排序-「不受输入状态影响-交换次数少-最多n次交换-」「选择排序的优化版本就是堆排序」" class="headerlink" title="选择排序 「不受输入状态影响 &amp; 交换次数少(最多n次交换)」「选择排序的优化版本就是堆排序」"></a>选择排序 「不受输入状态影响 &amp; 交换次数少(最多n次交换)」「选择排序的优化版本就是堆排序」</h2></li>
+</ul>
+<p>维护一个长度逐渐变长的窗口 这个窗口中的元素是已经排好序的了 每一次都把序列搜索一遍.  搜索n-1遍</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">sortArray</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> n = nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n<span class="hljs-number">-1</span>; ++i) &#123;<br>            <span class="hljs-type">int</span> index = i;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = i<span class="hljs-number">+1</span>; j &lt; n; ++j) &#123;<br>                index = nums[j] &lt; nums[index] ? j : index;<br>            &#125;<br>            <span class="hljs-built_in">swap</span> (nums[i], nums[index]);<br>        &#125;<br>        <span class="hljs-keyword">return</span> nums;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<ul>
+<li><h3 id="插入排序-「分为-向后腾挪和交换-两种方式」"><a href="#插入排序-「分为-向后腾挪和交换-两种方式」" class="headerlink" title="插入排序 「分为 向后腾挪和交换 两种方式」"></a>插入排序 「分为 向后腾挪和交换 两种方式」</h3></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">insertSort</span><span class="hljs-params">(<span class="hljs-type">int</span>[] arr)</span> &#123;<br>    <span class="hljs-comment">// 从第二个数开始，往前插入数字</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt; arr.length; i++) &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">currentNumber</span> <span class="hljs-operator">=</span> arr[i];<br>        <span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> i - <span class="hljs-number">1</span>;<br>        <span class="hljs-comment">// 寻找插入位置的过程中，不断地将比 currentNumber 大的数字向后挪</span><br>        <span class="hljs-keyword">while</span> (j &gt;= <span class="hljs-number">0</span> &amp;&amp; currentNumber &lt; arr[j]) &#123;<br>            arr[j + <span class="hljs-number">1</span>] = arr[j];<br>            j--;<br>        &#125;<br>        <span class="hljs-comment">// 两种情况会跳出循环：1. 遇到一个小于或等于 currentNumber 的数字，跳出循环，currentNumber 就坐到它后面。</span><br>        <span class="hljs-comment">// 2. 已经走到数列头部，仍然没有遇到小于或等于 currentNumber 的数字，也会跳出循环，此时 j 等于 -1，currentNumber 就坐到数列头部。</span><br>        arr[j + <span class="hljs-number">1</span>] = currentNumber;<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">// 这种采取了交换的方式</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">insertSort</span><span class="hljs-params">(<span class="hljs-type">int</span>[] arr)</span> &#123;<br>    <span class="hljs-comment">// 从第二个数开始，往前插入数字</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt; arr.length; i++) &#123;<br>        <span class="hljs-comment">// j 记录当前数字下标</span><br>        <span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> i;<br>        <span class="hljs-comment">// 当前数字比前一个数字小，则将当前数字与前一个数字交换</span><br>        <span class="hljs-keyword">while</span> (j &gt;= <span class="hljs-number">1</span> &amp;&amp; arr[j] &lt; arr[j - <span class="hljs-number">1</span>]) &#123;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">temp</span> <span class="hljs-operator">=</span> arr[j];<br>            arr[j] = arr[j - <span class="hljs-number">1</span>];<br>            arr[j - <span class="hljs-number">1</span>] = temp;<br>            <span class="hljs-comment">// 更新当前数字下标</span><br>            j--;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Programming/" class="print-no-link">#Programming</a>
+      
+        <a href="/tags/Algorithm/" class="print-no-link">#Algorithm</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>About Sort</div>
+      <div>https://www.mementos.top/1976/04/01/about Sort/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Natsumi</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>1976年4月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/1976/04/01/linux%20&amp;%20mac%20terminal/" title="Linux &amp; Mac terminal">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Linux &amp; Mac terminal</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/1976/04/01/opencv%20%E8%A7%86%E8%A7%89%E7%BC%96%E7%A8%8B/" title="OpenCV 视觉编程">
+                        <span class="hidden-mobile">OpenCV 视觉编程</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>powered by Hexo</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/DynamicRibbon.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,812 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar1.png">
+  <link rel="icon" href="/img/avatar1.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Natsumi">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Chapter1 数据库系统概论 什么是数据：计算机能够处理的信息  DBS &#x3D; DB + DBMS + 计算机系统  数据库的三级模式&amp;两级映像 Internal Scheme：物理模式。描述数据的物理结构&#x2F;存储方式。 由DBMS提供，每个数据库只有一种，通常不需要客户来关心如何实现。 Scheme：逻辑模式。所有用户的公共数据视图，描述数据的逻辑结构。 这里需要了解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Introduction to database">
+<meta property="og:url" content="https://www.mementos.top/1976/04/01/Introduction%20to%20Database/index.html">
+<meta property="og:site_name" content="Natsumi&#39;s Mementos">
+<meta property="og:description" content="Chapter1 数据库系统概论 什么是数据：计算机能够处理的信息  DBS &#x3D; DB + DBMS + 计算机系统  数据库的三级模式&amp;两级映像 Internal Scheme：物理模式。描述数据的物理结构&#x2F;存储方式。 由DBMS提供，每个数据库只有一种，通常不需要客户来关心如何实现。 Scheme：逻辑模式。所有用户的公共数据视图，描述数据的逻辑结构。 这里需要了解">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="1976-04-01T07:53:17.000Z">
+<meta property="article:modified_time" content="2022-06-02T06:21:52.000Z">
+<meta property="article:author" content="Natsumi">
+<meta property="article:tag" content="Computation tech">
+<meta property="article:tag" content="Database">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Introduction to database - Natsumi&#39;s Mementos</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/scroll.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.mementos.top","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Natsumi&#39;s Mementos</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>🏠</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Introduction to database"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="1976-04-01 15:53" pubdate>
+          1976年4月1日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          43 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Introduction to database</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="Chapter1-数据库系统概论"><a href="#Chapter1-数据库系统概论" class="headerlink" title="Chapter1 数据库系统概论"></a>Chapter1 数据库系统概论</h3><ul>
+<li><p>什么是数据：计算机能够处理的信息</p>
+</li>
+<li><p>DBS &#x3D; DB + DBMS + 计算机系统</p>
+</li>
+<li><h4 id="数据库的三级模式-两级映像"><a href="#数据库的三级模式-两级映像" class="headerlink" title="数据库的三级模式&amp;两级映像"></a>数据库的三级模式&amp;两级映像</h4><ul>
+<li>Internal Scheme：物理模式。描述数据的物理结构&#x2F;存储方式。 由DBMS提供，每个数据库只有一种，通常不需要客户来关心如何实现。</li>
+<li>Scheme：逻辑模式。所有用户的公共数据视图，描述数据的逻辑结构。<ul>
+<li>这里需要了解DBMS中的三种语言：DD^Definition^L, DM^Manipulation^L, DC^Control^L</li>
+<li>其中DML 控制增删查改， DCL负责数据完整性和安全性</li>
+<li>DDL描述逻辑模式，定义数据的各类label</li>
+<li>是<strong>全体数据</strong>的逻辑结构，一个数据库只有一个模式。</li>
+</ul>
+</li>
+<li>External Scheme：是<strong>模式的子集或者某种变形</strong>,依用户&#x2F;应用的要求而定。<ul>
+<li>每个数据库可以有很多个外模式</li>
+</ul>
+</li>
+<li><strong>两级映像</strong> 实现了三种模式的转换，保证数据库系统的逻辑独立和物理独立性<ul>
+<li>以外模式&#x2F;模式映像为例，简单来说，当<code>模式</code>改变时，只需要改变<code>映像</code>即可, 而不需要改变外模式， 从而保证了数据的逻辑独立性。</li>
+<li>同理，如果内模式改变(比如用了更先进的数据结构)，只需要修改模式&#x2F;内模式映像，就可以让模式适应新的内模式。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h4><ul>
+<li>UML Unified Modeling Language:  分为功能模型，对象模型和动态模型。<ul>
+<li>UML定义一个 面向对象的软件密集型系统的方法</li>
+</ul>
+</li>
+<li>数据模型 &#x3D; 数据结构 + 数据操作 + 数据完整性约束<ul>
+<li><strong>关系模型</strong>  是关系数据库采用的模型，很多其他模型是用图解来说明的，而关系模型则是使用 <strong>二维表格</strong>来表达实体和它们间的关系，也是我们接下来主要研究的模型，其应用是最广泛的。</li>
+</ul>
+</li>
+<li>概念模型的几大概念：  概念模型用来描述概念和它们之间的关系<ul>
+<li>属性 &#x3D;&gt; 实体的某一特性； 域 &#x3D;&gt; 属性的取值范围；码(key) &#x3D;&gt; 可以<strong>唯一</strong>标识一个实体的属性</li>
+<li>E-R图表示概念模型 其中矩形为实体，椭圆为属性，菱形为联系，用无向边+菱形联系起两个实体，并在无向边上标识 1:1 或是1:n 或是m:n。 在每个实体的码下面划一条横线</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="Chapter2-关系运算理论"><a href="#Chapter2-关系运算理论" class="headerlink" title="Chapter2 关系运算理论"></a>Chapter2 关系运算理论</h3><ul>
+<li>不同域之间的笛卡尔积<ul>
+<li>比如D1 {计算机系，日语系}； D2 {1班，2班}； D3 {张三，李四，王五}</li>
+<li>三者相互组合，形如 <code>(计算机系，1班，张三)</code> 被我们看作一个<code>元组</code>(在实际的表格里，这就是一行), 3个域的笛卡尔积能形成 2 * 2 * 3共 12个元组，整个笛卡尔积则是 3(3个域) * 12(12个元组) 的表格。 <strong>应当注意的是，实际上的关系，则是取整个笛卡尔积中有效的部分</strong></li>
+</ul>
+</li>
+<li>关系的性质<ul>
+<li>一行为一个元组，一列称为一个属性 </li>
+<li><strong>码</strong>「唯一标识一个元组」 ： <ul>
+<li>Candidate Key  候选码 : 可以唯一标识一个元组的属性 (比如 学号属性可以唯一标识出学生)</li>
+<li>All Key   如果说所有的属性才可以唯一的标识一个元组(极端情况)，那么这些属性组 合起来称为全码</li>
+<li>Primary Key 主码：和全码的意义差不多相反，如果有很多个属性都可以唯一的标识一个元组(也就是有多个候选码)，那么选定其中的一个属性作为主码。</li>
+<li>外码:  如果F是R中的一个属性,但不是R的码,  但在另外一种关系中确是其码</li>
+</ul>
+</li>
+<li>在关系数据库中，行(列)的次序是可以任意更换的， 并且每个分量都是不可分的数据项</li>
+<li>关系完整性 「实体完整性、用户定义完整性、参照完整性」<ul>
+<li>实际上就是对关系的某种约束</li>
+<li>实体完整性&#x3D;&gt; 不可以出现主键相同或者空值</li>
+<li>用户完整性&#x3D;&gt; 我们自己给关系设置约束，比如学生成绩在0～100之间</li>
+<li>参照完整性&#x3D;&gt; 两个表互为参照的话，对一个表的修改要反映到另一张表里，你也不能在主表之外的值里取值</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>关系的五种基本操作 「选择 投影 并 差 笛卡尔积」</li>
+</ul>
+<hr>
+<h3 id="Chapter3-结构化查询语言SQL-关系数据库标准语言"><a href="#Chapter3-结构化查询语言SQL-关系数据库标准语言" class="headerlink" title="Chapter3  结构化查询语言SQL(关系数据库标准语言)"></a>Chapter3  结构化查询语言SQL(关系数据库标准语言)</h3><p>其特性包括以下几条</p>
+<ul>
+<li>综合统一 「定义、操纵、查询、控制」 一种语言就可以完成数据库生命周期中的全部活动</li>
+<li>高度非过程化   用户指出要做什么,但不必指出如何做.</li>
+<li>面向集合操作   <ul>
+<li>非关系数据模型是面向记录的操作方式, 而SQL语言可以一次操作很多个元组</li>
+</ul>
+</li>
+<li>同一种语法结构提供两种使用方式     SQL是一种嵌入式语言, 可以嵌入其他高级语言中用</li>
+<li></li>
+</ul>
+<hr>
+<h4 id="几个概念："><a href="#几个概念：" class="headerlink" title="几个概念："></a>几个概念：</h4><ul>
+<li><p>设计关系数据库时, 遵从不同规范要求以设计出合理的数据库, 这些要求被称为<code>范式</code>, 范式越高,数据库的冗余越小, 但可能提升计算的复杂度因此范式并不是越高越好  后续的范式必须先满足前面的范式.  去除冗余数据的过程, 就可称为规范化</p>
+</li>
+<li><h5 id="三个范式-：-属性唯一-记录唯一-表唯一"><a href="#三个范式-：-属性唯一-记录唯一-表唯一" class="headerlink" title="三个范式 	： 属性唯一, 记录唯一, 表唯一"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/zymx14/article/details/69789326">三个范式</a> 	： 属性唯一, 记录唯一, 表唯一</h5><ul>
+<li>1NF: 确保每一列的原子性</li>
+<li>2NF: 非键字段必须依赖于键字段, 相当于每个表只描述了一件事, 任何属性都最多只能和主键相关</li>
+<li>3NF: 非主键之间也要消除依赖.   比如说学号和姓名 想满足3NF时 只能保留一个 (任何属性之间要无关)</li>
+</ul>
+</li>
+<li><p>完整性约束</p>
+<ul>
+<li>完整性 &#x3D; 正确性 + 相容性(同一对象在不同关系表中的数据是符合逻辑的)</li>
+</ul>
+</li>
+<li><p>索引查询是不是一定提高查询性能 ? </p>
+<ul>
+<li>通常来说 利用索引更快, 不过索引需要额外的空间,并且进行修改后 也有额外的维护成本</li>
+</ul>
+</li>
+<li><p>什么是事物: 用户定义的一系列数据库操作, 它们要不全做, 要么全不做 有原子性</p>
+</li>
+<li><p>封锁协议(用来维护数据完整性)</p>
+<ul>
+<li>一级封锁 : 先🔒 后修改</li>
+<li>二级封锁: 读时也🔒, 这样可以避免 读脏数据或者丢失修改</li>
+<li>三级封锁: 读也不可并行, 不能重复读</li>
+<li>两段锁协议: 任何数据进行读&#x2F;写前, 先获得锁, 在释放一个锁后, 事务不再申请和获得任何其他锁</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="数据库面试大纲"><a href="#数据库面试大纲" class="headerlink" title="数据库面试大纲"></a>数据库面试大纲</h4><p>第一章  数据库系统概述<br>1、四个概念：什么是数据?  什么是数据库? 什么是数据库管理系统（DBMS）？什么是数据库系统(DBS)？<br>2、熟记数据库系统的组成。<br>3、理解DBA是对数据库进行集中控制和管理的最重要人员。<br>4、实例和模式的对比（内容&#x2F;状态 vs 结构，变化 vs 稳定）<br>5、三级模式：物理模式（又称内模式、存储模式），逻辑模式（又称模式），和子模式（又称外模式）的含义是什么？一个数据库有几个物理模式，逻辑模式和子模式？ 三级模式间的两极映射，以及是由谁（DMBS）完成这种映射功能的？两级映射的作用（好处）是带来以下两种数据独立性——<br>6、两种数据独立性：什么是逻辑数据独立性？什么是物理数据独立性？用户或者应用程序面向的到底是哪一级数据库模式？<br>7、概念数据模型用于数据库设计，是对客观世界的第一层抽象。常见例子是E-R模型。</p>
+<p>第二章 关系模型与关系运算<br>1、数据模型的三要素？关系模型的三要素？<br>2、关系的组成：什么是属性？什么是元组？什么是分量？ 度和基数。<br>3、理解关系有哪些性质？<br>4、理解关系的四种键及定义？数量（上限下限）？外部键的属性名可以和所对应的主键不同。外部键可以指向同一个关系的主键。例如：学生（学号，姓名，班长学号…）。外部键从E-R图的什么概念转化而来？<br>5、关系模式和关系实例的对比。<br>6、过程化和非过程化语言的区分和理解——看课件。<br>7、关系操作分为查询和更新操作。表示关系操作用某种查询语言：关系代数，关系演算（又分为元组关系演算和域关系演算）。关系代数是过程化的，关系演算是非过程化的。后面讲到的SQL是非过程化的。<br>8、掌握关系代数的各种运算（包括符号）。其中最基本的运算（不可替代）是哪些？<br>9、应用题型：用关系代数表达查询问题</p>
+<p>第三章 关系数据库语言SQL<br>1、SQL的全名（中英文）。SQL是非过程化的语言。理解SQL的特点（基本功能特征）。<br>2、熟记SQL的四种功能。这些功能分别由哪些语句（动词）实现？<br>3、SQL对数据库三级模式的规定：每级模式由什么组成？<br>4、理解SQL中的系统数据类型，char&#x2F;varchar&#x2F;numeric等。<br>5、掌握SQL的各个数据定义语句（特别是新建表，建视图，修改表，删除表的语句）。<br>6、掌握SQL的Select数据查询语句。<br>7、掌握SQL的各个数据修改语句： Insert, Update, Delete。<br>8、空值的意义；掌握空值的运算规则（包括聚集函数忽略空值等），例如给出一个包含空值的式子，能计算最终结果。<br>9、理解视图的本质：命名的查询语句，只有这个才是真正存储在数据库里的；表象：虚拟表，与真正的表基本表相比有相同也有不同；动态变化）。<br>10、熟记视图的优点。<br>11、掌握定义视图的语句。理解对视图的查询以及对视图的更新系统在后台是怎样执行的（视图的查询：展开视图——替换视图为它所对应的查询。视图的修改：转化为对基本表的修改，这种转化可能因为缺少主键等原因失败，从而无法修改）。<br>12、嵌入式SQL不要求。<br>13、应用题型：用SQL表达数据查询(Select)和数据修改(Insert, Update, Delete)问题。用SQL建表(Create Table)，建视图(Create View)等数据定义操作。</p>
+<p>第四章  关系数据库模式设计<br>1、熟记关系模式设计不当可能产生的四种问题：数据冗余和三种异常。<br>2、理解函数依赖的概念。三对特殊类型的函数依赖：平凡&#x2F;非平凡，部分&#x2F;完全，传递&#x2F;非传递。根据定义去理解和判定它们。<br>3、用函数依赖判断一个属性集是否超键，或者是否候选键的方法。<br>4、掌握计算属性集闭包的算法。以及由此判定一个函数依赖是否成立的方法。<br>5、掌握1NF、2NF、3NF、BCNF。并能够进行判定。<br>6、掌握规范化到1NF，3NF，BCNF的相关方法。关系模式应该至少规范化到3NF。规范化到3NF和规范化到BCNF相比，后者得到的关系模式属于更高级别，但是可能会丢失函数依赖。<br>7、应用题型：给出关系和函数依赖<br>a)寻找全部（可能不只一个）候选键，并给出判定证明。<br>b)判断某个函数依赖是否成立？<br>c)判断关系所属的最高范式，并给出证明。<br>d)将关系规范化到3NF，或者BCNF<br>e)判定一个分解（比如规范化后的结果）是否无损连接分解。</p>
+<p>第五章 数据库设计<br>1、理解E-R模型的三要素：实体、属性和联系。以及在E-R图中的表示。<br>2、能判断二元联系的类型：一对一，一对多，多对多。以及在E-R图中的表示。<br>3、能将E-R图转化为关系模型。注意：多值属性的处理；1对1，1对多，多对1，多对多，三元以上联系各自的转化方式——不要张冠李戴。<br>4、熟记数据库设计的基本过程，包括在各个阶段分别要做的工作？<br>5、应用题型1：画E-R图（概念设计）。<br>6、应用题型2：将E-R图转化为关系模型（逻辑设计）。</p>
+<p>第六章  数据库安全性与完整性<br>1、安全性是防止非法用户进入数据库，以及合法用户进入数据库后做了（未授权的）非法操作。完整性是防止非法数据进入数据库，即使是合法用户使用合法操作产生的。<br>2、掌握用SQL授予权限和回收、禁止权限的语句(grant, revoke, deny)。with grant option子句的作用。<br>3、理解常见权限的含义。（例如 insert on table S, update on view A等)<br>4、理解完整性的含义：正确、有效、相容。完整性约束（规则）是数据为保证完整性所必须满足的条件。<br>5、熟记关系模型中的三类完整性规则。各有什么要求？理解哪些（修改）操作会破坏这些规则？<br>6、掌握用SQL定义主键约束、外键约束、非空(not null)约束、唯一(unique)约束、域约束、检查(check)约束的语句？以及这些约束的含义、作用。<br>7、在定义外部键约束时，有哪几种参照动作？代表什么意义？<br>8、触发器是一种ECA规则，构成：Event事件，Condition条件，Action动作。触发器的事件主要有三类：INSERT,UPDATE,DELETE。</p>
+<p>第七章 数据库事务管理。<br>1、深刻理解事务的概念。熟记事务的ACID性质（包括英文单词、解释、实现机制）。<br>2、掌握事务控制的多个SQL语句。两种结束方式（提交或回滚）的含义及区别。<br>3、熟记并发引起的三类数据不一致问题，它们是如何发生的（过程？）。产生不一致问题的根本原因是事务在并发执行（调度）时，没有保证隔离性。<br>4、并发执行（调度）的正确性准则：可串行化——效果等价于一个串行调度。<br>5、并发控制的任务：保证事务的并发执行（调度）是（尽量）正确的，避免不一致问题的产生。常见的一种实现方法是封锁。<br>6、封锁的基本类型：排他锁（写锁、X锁）、共享锁（读锁、S锁）。它们的相容关系？<br>7、有哪几种封锁协议？规则是什么？可分别解决哪些数据不一致性问题？两段封锁协议是可串行化调度的充分非必要条件。<br>8、数据库恢复技术的基本原理：冗余。建立冗余的两种方法：数据备份和登记日志文件。<br>9、静态备份 vs 动态备份（有否一致性；数据库是否可用，即是否允许用户运行事务来操作数据库）。完全备份 vs 增量备份（优缺点对比）。<br>10、日志文件：是用来记录事务对数据库进行修改操作的文件<br>11、日志文件的基本内容（事务开始一条；事务结束一条；事务若干次更新若干条）。在登记修改操作的日志记录时，修改前后的旧值与新值都要保存到日志记录中。<br>12、什么是运行记录优先（先写日志）原则？<br>13、熟记不同类型的数据库故障，包括它们的定义，故障的起因（例如死锁引起事务故障，停电引起系统故障，硬盘坏道引起介质故障等等…），影响范围（事务本身？DBMS系统？内存中的数据？磁盘上的数据？）、恢复策略（方法过程），每种故障类型的恢复过程，及由谁完成（系统自动 or 用户干预？）<br>14、理解检查点机制的原理（写检查点做了什么工作？按相对检查点的位置，把事务分成几类，哪些需要REDO&#x2F;UNDO，哪些不需要？）。检查点的作用（在恢复系统故障时，大大缩短需要扫描的日志文件的范围，这个范围是从哪里到哪里…）<br>15、熟记引入检查点后，系统故障的恢复过程，并与之前没有检查点时的恢复过程作对比</p>
+<hr>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Computation-tech/" class="print-no-link">#Computation tech</a>
+      
+        <a href="/tags/Database/" class="print-no-link">#Database</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Introduction to database</div>
+      <div>https://www.mementos.top/1976/04/01/Introduction to Database/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Natsumi</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>1976年4月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/1976/04/01/Deep%20Learning(Andrew%20Ng)/" title="Deep Learning(Andrew Ng)">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Deep Learning(Andrew Ng)</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/1976/04/01/Leetcode%20Data%20Structure%20Note/" title="Leetcode Data Structure Note">
+                        <span class="hidden-mobile">Leetcode Data Structure Note</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>powered by Hexo</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/DynamicRibbon.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
