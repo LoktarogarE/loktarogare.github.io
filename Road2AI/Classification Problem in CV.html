@@ -7,8 +7,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar1.png">
-  <link rel="icon" href="/img/avatar1.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/banner&amp;index_img/avatar1.png">
+  <link rel="icon" href="/banner&amp;index_img/avatar1.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
@@ -29,11 +29,10 @@
 <meta property="og:image" content="https://pic2.zhimg.com/80/cfcb46408daa5353c38cb37e9bb6eb01_1440w.jpg">
 <meta property="og:image" content="https://pic2.zhimg.com/80/3c69a5c87a43bfb07e2b59bfcbd2f149_1440w.jpg">
 <meta property="og:image" content="https://pic1.zhimg.com/80/f254bd8d072128f1088c8cc47c3dff58_1440w.jpg">
-<meta property="article:published_time" content="2024-05-23T13:17:11.206Z">
-<meta property="article:modified_time" content="2022-06-19T03:59:32.000Z">
+<meta property="article:published_time" content="2024-07-25T07:40:41.179Z">
+<meta property="article:modified_time" content="2024-07-25T07:40:41.167Z">
 <meta property="article:author" content="Natsumi">
-<meta property="article:tag" content="Deep Learning">
-<meta property="article:tag" content="AI">
+<meta property="article:tag" content="Computer vision">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://pic3.zhimg.com/80/7c204cd1010c0af1e7b50000bfff1d8e_1440w.jpg">
   
@@ -76,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"www.mementos.top","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"www.mementos.top","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/banner&index_img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -122,7 +121,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
-                <span>🏠</span>
+                <span>HOME</span>
               </a>
             </li>
           
@@ -163,6 +162,30 @@
             </li>
           
         
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Road2AI/" target="_self">
+                <i class="iconfont icon-codepen-fill"></i>
+                <span>Road2AI</span>
+              </a>
+            </li>
+          
+        
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
@@ -186,7 +209,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/p1.png') no-repeat center center; background-size: cover;">
+     style="background: url('/banner&index_img/p1.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -244,13 +267,13 @@
 <p>$每个图像数据被拉长为一个列向量 x_i, 其shape为[D*1]$</p>
 <p>$W的shape为[K<em>D],b的shape为[K</em>1]$</p>
 <p>咱们以2*2的图像为例</p>
-<img src="https://pic3.zhimg.com/80/7c204cd1010c0af1e7b50000bfff1d8e_1440w.jpg" srcset="/img/loading.gif" lazyload alt="preview" style="zoom:80%;" />
+<img src="https://pic3.zhimg.com/80/7c204cd1010c0af1e7b50000bfff1d8e_1440w.jpg" srcset="/banner&index_img/loading.gif" lazyload alt="preview" style="zoom:80%;" />
 
 <p>权重W的另一种理解就是: 每一行对应一个分类的模板(原型)</p>
-<p>图像被拉长成向量之后, 就可以看作是高维空间中的一个点. 如果你把线性分类器压缩到二维中<img src="https://pic2.zhimg.com/80/cfcb46408daa5353c38cb37e9bb6eb01_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>图像被拉长成向量之后, 就可以看作是高维空间中的一个点. 如果你把线性分类器压缩到二维中<img src="https://pic2.zhimg.com/80/cfcb46408daa5353c38cb37e9bb6eb01_1440w.jpg" srcset="/banner&index_img/loading.gif" lazyload alt="img"></p>
 <p>这个图就非常好理解了, W改变时, classifier旋转, b改变时, classifier平移.</p>
 <p>权重和偏差是可以合并的, 这也是为什么日常使用时 它们有时会混淆.</p>
-<p><img src="https://pic2.zhimg.com/80/3c69a5c87a43bfb07e2b59bfcbd2f149_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://pic2.zhimg.com/80/3c69a5c87a43bfb07e2b59bfcbd2f149_1440w.jpg" srcset="/banner&index_img/loading.gif" lazyload alt="img"></p>
 <p>在线性代数的角度上, 这个合并是显然无误的.</p>
 <blockquote>
 <p><strong>图像数据预处理</strong>：在上面的例子中，所有图像都是使用的原始像素值（从0到255）。在机器学习中，对于输入的特征做归一化（normalization）处理是常见的套路。而在图像分类的例子中，图像上的每个像素可以看做一个特征。在实践中，对每个特征减去平均值来<strong>中心化</strong>数据是非常重要的。在这些图片的例子中，该步骤意味着根据训练集中所有的图像计算出一个平均图像值，然后每个图像都减去这个平均值，这样图像的像素值就大约分布在[-127, 127]之间了。下一个常见步骤是，让所有数值分布的区间变为[-1, 1]。<strong>零均值的中心化</strong>是很重要的，等我们理解了梯度下降后再来详细解释。</p>
@@ -263,7 +286,7 @@
 <li>希望SVM在正确分类上的得分始终比不正确分类上的得分高出一个∆以上. 可以去线性分类2中查看具体逻辑.</li>
 <li>下图能够很清楚的描述SVMLoss的思想</li>
 </ul>
-<p><img src="https://pic1.zhimg.com/80/f254bd8d072128f1088c8cc47c3dff58_1440w.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://pic1.zhimg.com/80/f254bd8d072128f1088c8cc47c3dff58_1440w.jpg" srcset="/banner&index_img/loading.gif" lazyload alt="img"></p>
 <ul>
 <li>只要 <code>错误的分类</code>的得分达到了红色的区间 甚至更高, Loss Function就开始工作</li>
 </ul>
