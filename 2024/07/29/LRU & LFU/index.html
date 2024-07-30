@@ -27,7 +27,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.mementos.top/gifs/daftpunktocat-guy.gif">
 <meta property="article:published_time" content="2024-07-29T13:24:00.000Z">
-<meta property="article:modified_time" content="2024-07-30T01:32:25.536Z">
+<meta property="article:modified_time" content="2024-07-30T05:32:10.164Z">
 <meta property="article:author" content="Natsumi">
 <meta property="article:tag" content="Operating system">
 <meta name="twitter:card" content="summary_large_image">
@@ -357,7 +357,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.8k 字
+          1.9k 字
         
       </span>
     
@@ -466,17 +466,22 @@
 <h2 id="FIFO-LFU-LRU-算法简介"><a href="#FIFO-LFU-LRU-算法简介" class="headerlink" title="FIFO&#x2F;LFU&#x2F;LRU 算法简介"></a>FIFO&#x2F;LFU&#x2F;LRU 算法简介</h2><h3 id="FIFO-First-In-First-Out"><a href="#FIFO-First-In-First-Out" class="headerlink" title="FIFO(First In First Out)"></a>FIFO(First In First Out)</h3><p>先进先出，也就是淘汰缓存中最老(最早添加)的记录。FIFO 认为，最早添加的记录，其不再被使用的可能性比刚添加的可能性大。这种算法的实现也非常简单，创建一个队列，新增记录添加到队尾，每次内存不够时，淘汰队首。但是很多场景下，部分记录虽然是最早添加但也最常被访问，而不得不因为呆的时间太长而被淘汰。这类数据会被频繁地添加进缓存，又被淘汰出去，导致缓存命中率降低。</p>
 <h3 id="LFU-Least-Frequently-Used"><a href="#LFU-Least-Frequently-Used" class="headerlink" title="LFU(Least Frequently Used)"></a>LFU(Least Frequently Used)</h3><p>最少使用，也就是淘汰缓存中访问频率最低的记录。LFU 认为，如果数据过去被访问多次，那么将来被访问的频率也更高。LFU 的实现需要维护一个按照访问次数排序的队列，每次访问，访问次数加1，队列重新排序，淘汰时选择访问次数最少的即可。LFU 算法的命中率是比较高的，但缺点也非常明显，维护每个记录的访问次数，对内存的消耗是很高的；另外，如果数据的访问模式发生变化，LFU 需要较长的时间去适应，也就是说 LFU 算法受历史数据的影响比较大。例如某个数据历史上访问次数奇高，但在某个时间点之后几乎不再被访问，但因为历史访问次数过高，而迟迟不能被淘汰。</p>
 <h3 id="LRU-Least-Recently-Used"><a href="#LRU-Least-Recently-Used" class="headerlink" title="LRU(Least Recently Used)"></a>LRU(Least Recently Used)</h3><p>最近最少使用，相对于仅考虑时间因素的 FIFO 和仅考虑访问频率的 LFU，LRU 算法可以认为是相对平衡的一种淘汰算法。<strong>LRU 认为，如果数据最近被访问过，那么将来被访问的概率也会更高</strong>。LRU 算法的实现非常简单，维护一个队列，如果某条记录被访问了，则移动到队尾，那么队首则是最近最少访问的数据，淘汰该条记录即可。</p>
-<p><img src="/./f9b38e437926afcdb1fc527bc475b6fc.jpeg" srcset="/gifs/loading.gif" lazyload></p>
+<img src="/source_img/LRU & LFU/f9b38e437926afcdb1fc527bc475b6fc.jpeg" srcset="/gifs/loading.gif" lazyload alt="f9b38e437926afcdb1fc527bc475b6fc" style="zoom:50%;" />
+
 <p>实现一个 LRU 需要用到一个哈希表和一个双向链表。</p>
 <ul>
-<li><p>双向链表按照被使用的顺序存储了这些键值对，靠近头部的键值对是最近使用的，而靠近尾部的键值对是最久未使用的。</p>
+<li>双向链表按照被使用的顺序存储了这些键值对，靠近头部的键值对是最近使用的，而靠近尾部的键值对是最久未使用的。</li>
+<li>哈希表即为普通的哈希映射（HashMap），通过缓存数据的键映射到其在双向链表中的位置。 </li>
+<li>LRU 要点：删除都在表尾，添加都在表头，维护 dummy_head 和 dummy_tail ，<ul>
+<li>成员变量： cache, size, capacity; 头尾指针｜如果用list，自带head和tail</li>
+<li>方法：<ul>
+<li><ol>
+<li>创建节点(到头); 删除一个节点 </li>
+<li>访问一个节点(原来位置的node 删除，把node移动到头) ; 删除尾部 (optional)</li>
+</ol>
 </li>
-<li><p>哈希表即为普通的哈希映射（HashMap），通过缓存数据的键映射到其在双向链表中的位置。 </p>
+</ul>
 </li>
-<li><p>LRU 要点：删除都在表尾，添加都在表头，维护 dummy_head 和 dummy_tail ，</p>
-<ul>
-<li>基础方法：1. 创建节点(到头); 2. 删除一个节点 </li>
-<li>复合方法：1. 访问一个节点(原来位置的node 删除，把node移动到头) 2. 删除尾部 (optional)</li>
 </ul>
 </li>
 </ul>
@@ -488,8 +493,10 @@
 
 <h2 id="深入理解-LRU"><a href="#深入理解-LRU" class="headerlink" title="深入理解 LRU"></a>深入理解 LRU</h2><h3 id="LRU-K-2Q"><a href="#LRU-K-2Q" class="headerlink" title="LRU-K &amp; 2Q"></a>LRU-K &amp; 2Q</h3><p>LRU算法实现虽然简单，并且在大量频繁访问热点页面时十分高效，但同样也有一个缺点，就是如果该热点页面在偶然一个时间节点被其他大量仅访问了一次的页面所取代，那自然造成了浪费。</p>
 <p>LRU-K中的K代表最近使用的次数，因此LRU可以认为是LRU-1。</p>
-<p>LRU-K的主要目的是为了解决LRU算法<code>缓存污染</code>的问题，其核心思想是将“最近使用过1次”的判断标准扩展为“最近使用过K次”。</p>
-<p><img src="/./x76gwup6dn.png" srcset="/gifs/loading.gif" lazyload></p>
+<p>LRU-K的主要目的是为了解决LRU算法<code>缓存污染</code>的问题，其核心思想是将“最近使用过1次”的判断标准扩展为“最近使</p>
+<p>用过K次”。</p>
+<img src="/source_img/LRU & LFU/x76gwup6dn.png" srcset="/gifs/loading.gif" lazyload alt="x76gwup6dn" style="zoom:50%;" />
+
 <p>LRU 需要维护两个队列：<code>历史队列</code>和<code>缓存队列</code>。</p>
 <ul>
 <li><p><code>历史队列</code>保存着每次访问的页面，当页面访问次数达到了k次，该页面出栈，并保存至<code>缓存队列</code>；若尚未达到k次则继续保存，直至<code>历史队列</code>也满了，那就根据一定的缓存策略(FIFO、LRU、LFU)进行淘汰。</p>
