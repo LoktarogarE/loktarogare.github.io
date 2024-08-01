@@ -27,7 +27,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.mementos.top/gifs/daftpunktocat-guy.gif">
 <meta property="article:published_time" content="2024-07-29T13:24:00.000Z">
-<meta property="article:modified_time" content="2024-07-30T06:04:30.009Z">
+<meta property="article:modified_time" content="2024-08-01T07:11:21.420Z">
 <meta property="article:author" content="Natsumi">
 <meta property="article:tag" content="Operating system">
 <meta name="twitter:card" content="summary_large_image">
@@ -357,7 +357,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.4k 字
+          2.9k 字
         
       </span>
     
@@ -368,7 +368,7 @@
         
         
         
-          24 分钟
+          29 分钟
         
       </span>
     
@@ -492,7 +492,7 @@
 
 <p>LRU 实现注意：</p>
 <ul>
-<li>不要忘记及时更新map</li>
+<li>不要忘记及时更新map，map这里最好用emplace, 不要用<code>[]</code>来添加元素</li>
 <li>双向链表把节点添加到head需要4步</li>
 <li>put时元素若存在，也需要更新它的value</li>
 <li>我的写法：两种成员方法， add2head（非新节点要把老位置的删掉） 和 evict(删除节点） 就够了</li>
@@ -531,8 +531,15 @@
 <p>所以 Redis 对该算法做了简化，Redis LRU 算法并不是真正的 LRU，Redis 通过<strong>对少量的 key 采样</strong>，并淘汰采样的数据中最久没被访问过的 key。</p>
 <p>这就意味着 Redis 无法淘汰数据库最久前访问的数据</p>
 <p>Redis LRU 算法 可以更改样本数量来调整算法的精度，使其近似接近真实的 LRU 算法，同时又避免了内存的消耗，因为每次只需要采样少量样本，而不是全部数据。</p>
-<p>LFU 还没学会，过两天学</p>
-<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/lfu-cache/">https://leetcode.cn/problems/lfu-cache/</a></p>
+<h2 id="LFU-Least-Frequently-Used-1"><a href="#LFU-Least-Frequently-Used-1" class="headerlink" title="LFU, Least Frequently Used"></a>LFU, Least Frequently Used</h2><p>本质上就是访问次数最少的滚蛋，访问次数一样少的就按照时间来淘汰。所以每个node都需要一个<code>时间戳</code>和一个<code>访问计数器</code>。</p>
+<p>法一（慢的很）：<br>用std::set 来充当AVL tree，每个节点创建 freq 和 时间戳，重载一下operator，这时 set 就会默认按照 1.访问次数 2. 访问时间 排序了</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">node</span><br>&#123;<br>    <span class="hljs-type">int</span> key, value, freq = <span class="hljs-number">1</span>, t;<br>    <span class="hljs-built_in">node</span>(<span class="hljs-type">int</span> k, <span class="hljs-type">int</span> v, <span class="hljs-type">int</span> f, <span class="hljs-type">int</span> t): <span class="hljs-built_in">key</span>(k), <span class="hljs-built_in">value</span>(v), <span class="hljs-built_in">freq</span>(f), <span class="hljs-built_in">t</span>(t) &#123;&#125;<br>    <span class="hljs-comment">// rhs =&gt; right hand side, 表示等式右边。类似的可定义lhs</span><br>    <span class="hljs-type">bool</span> <span class="hljs-keyword">operator</span> &lt; (<span class="hljs-type">const</span> node&amp; rhs) <span class="hljs-type">const</span> &#123;<br>        <span class="hljs-keyword">return</span> freq == rhs.freq ? t &lt; rhs.t : freq &lt; rhs.freq;<br>    &#125;<br>&#125;;<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">LFUCache</span> &#123;<br><span class="hljs-keyword">private</span>:<br>    set&lt;node&gt; s; <span class="hljs-comment">// 前面写好了 operator，s里是有默认排序的</span><br>    unordered_map&lt;<span class="hljs-type">int</span>, node&gt; cache; <span class="hljs-comment">// key -&gt; node&#123;..info..&#125;</span><br>    <span class="hljs-type">int</span> capacity, time; <span class="hljs-comment">// time 是以单次操作作为单位</span><br><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">LFUCache</span>(<span class="hljs-type">int</span> capacity) : <span class="hljs-built_in">capacity</span>(capacity), <span class="hljs-built_in">time</span>(<span class="hljs-number">0</span>) &#123;<br>        s.<span class="hljs-built_in">clear</span>();<br>        cache.<span class="hljs-built_in">clear</span>();    <br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">get</span><span class="hljs-params">(<span class="hljs-type">int</span> key)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (capacity == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>        time++;<br>        <span class="hljs-keyword">auto</span> it = cache.<span class="hljs-built_in">find</span>(key); <span class="hljs-comment">// hash map的索引是需要时间的</span><br>        <span class="hljs-keyword">if</span> (it == cache.<span class="hljs-built_in">end</span>()) &#123;<span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;&#125;<br>        <span class="hljs-comment">// key 存在</span><br>        <span class="hljs-keyword">auto</span> cur_node = it-&gt;second;<br>        <span class="hljs-comment">// 更新 avl tree set</span><br>        s.<span class="hljs-built_in">erase</span>(cur_node);<br>        <span class="hljs-comment">// key, value, freq = 1, t;</span><br>        cur_node.freq++;<br>        cur_node.t = time;<br>        s.<span class="hljs-built_in">insert</span>(cur_node);<br>        it-&gt;second = cur_node;<br>        <span class="hljs-keyword">return</span> cur_node.value;<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">put</span><span class="hljs-params">(<span class="hljs-type">int</span> key, <span class="hljs-type">int</span> value)</span> </span>&#123;<br>        time++;<br>        <span class="hljs-keyword">if</span> (capacity == <span class="hljs-number">0</span>) &#123;<span class="hljs-keyword">return</span>;&#125;<br>        <span class="hljs-keyword">auto</span> it = cache.<span class="hljs-built_in">find</span>(key);<br>        <span class="hljs-keyword">if</span> (it == cache.<span class="hljs-built_in">end</span>()) &#123;<br>            <span class="hljs-comment">// 必须先删除再创建，不然你创建的这个会马上被踢出去！</span><br>            <span class="hljs-keyword">if</span> (s.<span class="hljs-built_in">size</span>() == capacity) &#123;<br>                cache.<span class="hljs-built_in">erase</span>(s.<span class="hljs-built_in">begin</span>()-&gt;key);<br>                s.<span class="hljs-built_in">erase</span>(s.<span class="hljs-built_in">begin</span>());<br>            &#125;<br>            <span class="hljs-comment">// key 不存在，创建</span><br>            node cur_node = <span class="hljs-built_in">node</span>(key, value, <span class="hljs-number">1</span>, time);<br>            s.<span class="hljs-built_in">insert</span>(cur_node);<br>            cache[key] = cur_node; <br>            <span class="hljs-comment">// cache.insert(make_pair(key, cur_node));</span><br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">// key 存在, 更新</span><br>            <span class="hljs-keyword">auto</span> cur_node = it-&gt;second;<br>            s.<span class="hljs-built_in">erase</span>(cur_node);<br>            cur_node.freq++;<br>            cur_node.t = time;<br>            cur_node.value = value;<br>            s.<span class="hljs-built_in">insert</span>(cur_node);<br>            it-&gt;second = cur_node;<br>        &#125;<br>    &#125;<br>&#125;;<br><br></code></pre></td></tr></table></figure>
+<p>LFU实现注意：</p>
+<ul>
+<li>注意同时更新hash map，尽量用insert或者emplace来添加元素</li>
+<li>用set来存node，在node的结构体里定义operator，这时set就是有序的</li>
+<li>在添加node之前，先检查满了没，不要先插入再删除，这样会把刚刚添加的node踢掉</li>
+</ul>
 <p>其他资料：</p>
 <ul>
 <li>面试中的 LRU &#x2F; LFU 的青铜与王者 <a target="_blank" rel="noopener" href="https://halfrost.com/lru_lfu_interview/">https://halfrost.com/lru_lfu_interview/</a></li>
