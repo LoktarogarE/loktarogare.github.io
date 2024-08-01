@@ -1,0 +1,35 @@
+/*  */
+
+/*修改文章页页边距*/
+.post-content {
+    box-sizing: border-box;
+    padding-left: 8%;
+    padding-right: 8%;
+}
+
+/* 修改页面宽度 */
+.col-lg-8.nopadding-x-md .container.nopadding-x-md #board {
+    width: 120%;
+    left: -18%;
+}
+
+@media (max-width: 993px) {
+    .col-lg-8.nopadding-x-md .container.nopadding-x-md #board {
+        width: 100%;
+        left: 0%;
+    }
+}
+
+/* 解决高分屏下元素过宽的问题 */
+.post .row.nomargin-x {
+    max-width: 100rem;
+    margin-right: auto !important;
+    margin-left: auto !important;
+}
+
+/*设置图片居中*/
+img.img-center {
+    display: block;
+    margin: auto;
+    text-align: center;
+}
