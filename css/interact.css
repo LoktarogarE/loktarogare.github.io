@@ -1,0 +1,96 @@
+/* 手机端主页进入动画 */
+@media (max-width:424px) {
+    .container.nopadding-x-md .container {
+        animation: getnote-home 1s ease, getsolid-home 0.4s ease-in;
+        animation-fill-mode: both;
+    }
+}
+
+/* 文字上移动画 */
+@keyframes getnote-home {
+    from {
+        transform: translate(0rem, 3rem);
+    }
+
+    to {
+        transform: translate(0, 0);
+    }
+}
+
+/* 渐入动画 */
+@keyframes getsolid-home {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 100;
+    }
+}
+
+
+/* 主页鼠标悬浮动画 */
+@media (min-width:424px) {
+    .row.mx-auto.index-card {
+        transition: 0.5s ease;
+    }
+
+    .row.mx-auto.index-card:hover {
+        transform: scale(1.05);
+    }
+}
+
+/* 手机端入场动画 */
+@media (max-width:424px) {
+
+    .archive .container.nopadding-x-md .container,
+    .tag .container.nopadding-x-md .container,
+    .category .container.nopadding-x-md .container,
+    .thesisReading .container.nopadding-x-md .container,
+    .civilEngineeringBody .container.nopadding-x-md .container {
+        animation: getnote-archive 1s ease, getsolid-archive 0.4s ease-in;
+        animation-fill-mode: both;
+    }
+}
+
+/* 文字上移动画 */
+@keyframes getnote-archive {
+    from {
+        transform: translate(0rem, 3rem);
+    }
+
+    to {
+        transform: translate(0, 0);
+    }
+}
+
+/* 渐入动画 */
+@keyframes getsolid-archive {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 100;
+    }
+}
+
+/* 归档页悬停动画 */
+.archive .list-group .list-group-item,
+.tag .list-group .list-group-item,
+.category .list-group .list-group-item,
+.thesisReading .list-group .list-group-item,
+.civilEngineeringBody .list-group .list-group-item {
+    transition: 0.3s ease-out;
+}
+
+@media (min-width:424px) {
+
+    .archive .list-group .list-group-item:hover,
+    .tag .list-group .list-group-item:hover,
+    .category .list-group .list-group-item:hover,
+    .thesisReading .list-group .list-group-item:hover,
+    .civilEngineeringBody .list-group .list-group-item:hover {
+        transform: scale(1.02);
+    }
+}

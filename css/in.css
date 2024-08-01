@@ -1,0 +1,29 @@
+/* 页面进入动画 */
+@media (min-width:424px) {
+    .container #board {
+        animation: getup-all 1s ease, getsolid-all 0.4s ease-in-out;
+        animation-fill-mode: both;
+    }
+}
+
+/* 上移动画 */
+@keyframes getup-all {
+    from {
+        transform: translate(0, 4rem);
+    }
+
+    to {
+        transform: translate(0, 0);
+    }
+}
+
+/* 渐入动画 */
+@keyframes getsolid-all {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 100;
+    }
+}
