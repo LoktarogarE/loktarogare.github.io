@@ -1,0 +1,1304 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><link href="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/css/index.css" rel="stylesheet"/><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/bimg/avatar1.png">
+  <link rel="icon" href="/bimg/avatar1.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Natsumi">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="概述  聊聊子图同构算法 VF3。  （子）图同构&#x2F;匹配：    图同构问题 问题描述： 若$G_1 &#x3D;(V_1,E_1)$和 $G_2&#x3D;(V_2,E_2)$ 间存在一个双射 $f:V1\rightarrow V_2 $使得$(u,v)\in E_1$iff $(f(u), f(v)) \in E_2$，则$G_1$和 $G_2$同构。 $f$被称为同构映射。它既是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VF3图同构算法">
+<meta property="og:url" content="https://www.mementos.top/2024/07/26/VF3%20%E5%9B%BE%E5%90%8C%E6%9E%84%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:site_name" content="Natsumi&#39;s Mementos">
+<meta property="og:description" content="概述  聊聊子图同构算法 VF3。  （子）图同构&#x2F;匹配：    图同构问题 问题描述： 若$G_1 &#x3D;(V_1,E_1)$和 $G_2&#x3D;(V_2,E_2)$ 间存在一个双射 $f:V1\rightarrow V_2 $使得$(u,v)\in E_1$iff $(f(u), f(v)) \in E_2$，则$G_1$和 $G_2$同构。 $f$被称为同构映射。它既是">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.mementos.top/gifs/loading.gif">
+<meta property="article:published_time" content="2024-07-26T06:40:00.441Z">
+<meta property="article:modified_time" content="2024-07-26T07:30:07.504Z">
+<meta property="article:author" content="Natsumi">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.mementos.top/gifs/loading.gif">
+  
+  
+  
+  <title>VF3图同构算法 - Natsumi&#39;s Mementos</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/interact_anime.css">
+<link rel="stylesheet" href="/css/format.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/scroll.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.mementos.top","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/gifs/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+</head>
+
+
+<body>
+  
+  
+    
+
+<style type="text/css">
+    @keyframes spin3D {
+        from {
+            transform: rotate3d(0.5, 0.5, 0.5, 360deg);
+        }
+
+        to {
+            transform: rotate3d(0deg);
+        }
+    }
+
+    #loading {
+        height: 100%;
+        background-color: #172d4781;
+        backdrop-filter: saturate(100%) blur(10px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+        z-index: 99999999;
+    }
+
+    .spinner-box {
+        width: 300px;
+        height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: transparent;
+    }
+
+    .leo {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+    }
+
+    .blue-orbit {
+        width: 175px;
+        height: 175px;
+        border: 2px solid #1a91fa;
+        animation: spin3D 3s linear .2s infinite;
+    }
+
+    .green-orbit {
+        width: 135px;
+        height: 135px;
+        border: 2px solid #00ffdd;
+        animation: spin3D 2s linear 0s infinite;
+    }
+
+    .red-orbit {
+        width: 100px;
+        height: 100px;
+        border: 2px solid #d75151;
+        animation: spin3D 1s linear 0s infinite;
+    }
+
+    .white-orbit-a {
+        width: 70px;
+        height: 70px;
+        border: 1px solid #faf5f5;
+        animation: spin3D 3s linear 0s infinite;
+    }
+
+    .white-orbit-b {
+        width: 70px;
+        height: 70px;
+        border: 1px solid #faf5f5;
+        animation: spin3D 1.5s linear 0s infinite;
+    }
+
+    .nucleus {
+        width: 1px;
+        height: 1px;
+        border: 1px solid #ffffff;
+        animation: spin3D 1s linear 0s infinite;
+    }
+</style>
+
+<div id="loading">
+    <div class="spinner-box">
+        <div class="blue-orbit leo"></div>
+        <div class="green-orbit leo"></div>
+        <div class="red-orbit leo"></div>
+        <div class="white-orbit-a leo"></div>
+        <div class="white-orbit-b leo"></div>
+        <div class="nucleus leo"></div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        const loaded = function () {
+            window.onload = function () {
+                const loader = document.getElementById("loading");
+                loader.className = "fadeout";
+                setTimeout(function () {
+                    loader.style.display = "none";
+                }, 
+                100
+                );
+            }
+        };
+        loaded();
+    })();
+</script>
+  
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Natsumi&#39;s Mementos</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>HOME</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>author</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Road2AI/" target="_self">
+                <i class="iconfont icon-codepen-fill"></i>
+                <span>dev</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/gifs/loading.gif') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="VF3图同构算法"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-07-26 14:40" pubdate>
+          2024年7月26日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          75 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">VF3图同构算法</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <ol>
+<li><h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1></li>
+</ol>
+<p>聊聊子图同构算法 VF3。</p>
+<ol>
+<li><h2 id="（子）图同构-匹配："><a href="#（子）图同构-匹配：" class="headerlink" title="（子）图同构&#x2F;匹配："></a>（子）图同构&#x2F;匹配：</h2></li>
+</ol>
+<p><img src="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=ZTYwODRjMTEyZjYwMTU1YmRlMDAyMmVjOWMyYzA1MjhfZkRFanNHZkVsWXYzVkpuSFk5MzljZ2FsQzlWeUtCSTFfVG9rZW46UnVSbGIyeUtPb09JVk14ZFNCb2NISzNjbmZlXzE3MjE5NzU4Nzg6MTcyMTk3OTQ3OF9WNA" srcset="/gifs/loading.gif" lazyload alt="img"></p>
+<ol>
+<li><h3 id="图同构问题"><a href="#图同构问题" class="headerlink" title="图同构问题"></a>图同构问题</h3><ul>
+<li>问题描述： 若$G_1 &#x3D;(V_1,E_1)$和 $G_2&#x3D;(V_2,E_2)$ 间存在一个双射 $f:V1\rightarrow V_2 $使得$(u,v)\in E_1$iff $(f(u), f(v)) \in E_2$，则$G_1$和 $G_2$同构。<ul>
+<li>$f$被称为同构映射。它既是注射（不同元素有不同映射）也是满射（每个元素都包含在可行域中）。</li>
+<li>*(iff 表示当且仅当)</li>
+</ul>
+</li>
+<li>问题难度：不确定图同构问题是否为 NP 问题， 但已证明图同构问题在 quasi-polynomial 时间内可解， 即时间复杂度为 $O(e^{({log~n})^c})$。</li>
+</ul>
+</li>
+<li><h3 id="子图同构问题"><a href="#子图同构问题" class="headerlink" title="子图同构问题"></a>子图同构问题</h3><p><img src="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=ZDA1OGMyZWQzZTM4ODdiOTUyN2NiNmQ1MmZhNDRmODZfcGdsZ2RIRmxiam5iUk1jWmRYWHlQU2ttU2syM21GamRfVG9rZW46T1kyVWIwdFRmb3RKRG94TjNWRmNtS0ZrbmNiXzE3MjE5NzU4Nzg6MTcyMTk3OTQ3OF9WNA" srcset="/gifs/loading.gif" lazyload alt="img"></p>
+<ul>
+<li>问题描述：在一个较大的目标图（Target Graph）中找出与较小的查询&#x2F;模式图（Query&#x2F;Pattern Graph）同构的（所有）子图。</li>
+<li>问题性质：已证明为 NP-Complete 问题（比图同构更难）。</li>
+</ul>
+<p> 理解子图同构与图同构的思路：</p>
+<ol>
+<li>目标图和模式图大小相同时，子图同构问题坍缩为图同构问题。</li>
+<li>子图同构是允许执行删除（且cost &#x3D; 0）的图同构算法。</li>
+</ol>
+</li>
+<li><h3 id="图匹配问题"><a href="#图匹配问题" class="headerlink" title="图匹配问题"></a>图匹配问题</h3></li>
+</ol>
+<p>同构与匹配问题的关系：</p>
+<ul>
+<li>图同构： 只需判断两个图是否同构， 但不需要找出同构映射。</li>
+<li>图匹配： 判断是否同构， <strong>并找出一组满足同构条件的映射。</strong></li>
+<li>由于几乎所有算法都需要找出这个映射才能确认同构，因此后续将不做区分。</li>
+</ul>
+<p>(近似求解)错误容忍的图匹配：</p>
+<ul>
+<li><p>在一些应用中，人们愿意接受存在一定差异的两张图为问题的近似解，因此产生了错误容忍的图匹配问题</p>
+</li>
+<li><p>可以通过 图编辑距离&#x2F;相似度算法进行错误容忍的graph matching </p>
+<ul>
+<li>编辑距离：不同的编辑操作对应不同的 Cost Func</li>
+<li>图相似度算法： 一个例子就是 $\sigma(G_1, G_2)&#x3D;1-\frac{|mcs(G_1, G_2|}{max(|G_1|,|G_2|)}$ <ul>
+<li>mcs &#x3D;&gt; 最大公共子图；|G| 表示图 G 的结点个数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>从错误容忍的角度理解图同构和子图同构的关系：子图同构是允许执行删除（且cost &#x3D; 0）的图同构算法</p>
+</li>
+</ul>
+<ol>
+<li><h2 id="（子）图同构典型思路"><a href="#（子）图同构典型思路" class="headerlink" title="（子）图同构典型思路"></a>（子）图同构典型思路</h2></li>
+</ol>
+<p>比较流行的处理（子）图同构问题的思路有 3 种：</p>
+<ul>
+<li><strong>树搜索（Tree Search）</strong>：在树形的搜索空间深度优先搜索，配合启发式规则剪枝<strong>。</strong>这种方法通过构造一个搜索树来表示状态空间，每个状态代表一个部分解。搜索通常以深度优先的顺序进行，使用启发式方法来避免探索无用的部分。<ul>
+<li>典型算法：Ullmann, VF series, RI&#x2F;RI-DS</li>
+</ul>
+</li>
+<li><strong>约束传播（Constraint Propagation）</strong>：这种方法将子图同构问题视为一个约束满足问题 (CSP)，目标是找到满足所有互相制约的变量赋值。这些变量是模式图的节点，而约束是这些节点之间的关系需要与目标图中的对应节点匹配。这类算法维护每个模式节点的兼容节点域，并通过传播局部约束（如节点或边的一致性）来缩小域，最终缩减候选匹配。<ul>
+<li>典型算法：McGregor, BVCR</li>
+</ul>
+</li>
+<li><strong>图索引（Graph Indexing）</strong>：这种方法源于图数据库应用，目标是从大量图中检索出包含特定模式的图。这类算法通过建立索引结构来快速检查目标图中是否存在模式，通常不需要加载整个目标图，从而过滤掉不可能的目标。<ul>
+<li>典型算法：GADDI, TurboISO</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li><h1 id="子图同构算法-VF3"><a href="#子图同构算法-VF3" class="headerlink" title="子图同构算法 VF3"></a>子图同构算法 VF3</h1></li>
+<li><h2 id="VF3-概述"><a href="#VF3-概述" class="headerlink" title="VF3 概述"></a>VF3 概述</h2></li>
+</ol>
+<ul>
+<li>VF3 是典型的树搜索算法，其在 VF2Plus 的基础上进行了一系列的改进，擅长处理大型（指 10000+个节点）和密集图。</li>
+<li>算法需要解决的核心问题是: 1. 如何将所有搜索情况组织成树以避免重复访问；2. 在回溯算法中如何最大程度剪枝。</li>
+</ul>
+<p><strong>VF3 关键特性和改进点：</strong></p>
+<ol>
+<li><p><strong>状态空间表示（State Space Representation）</strong></p>
+<ol>
+<li>VF3 继承了 VF2 的状态空间表示方法，其中每个状态代表一个部分的顶点映射。VF3 使用深度优先搜索策略来遍历这个状态空间。</li>
+</ol>
+</li>
+<li><p><strong>启发式搜索 + 剪枝（Heuristic Search and Pruning）</strong></p>
+<ol>
+<li>VF3 算法引入了更精细的启发式方法来选择下一个匹配的顶点对，这有助于减少搜索空间并提高算法效率。能够显著减少在大型和密集图中的计算复杂度。</li>
+</ol>
+</li>
+<li><p><strong>图预处理和候选选择（Graph Preprocessing and Candidate Selection）</strong></p>
+<ol>
+<li>VF3 在搜索开始前进行图的预处理，计算可能的候选顶点集合，以便在搜索过程中快速决定候选顶点。</li>
+<li>算法还改进了候选节点的选择过程，通过对图中顶点的动态分类和快速筛选来优化匹配步骤。</li>
+</ol>
+</li>
+<li><h2 id="VF-算法基础"><a href="#VF-算法基础" class="headerlink" title="VF 算法基础"></a>VF 算法基础</h2></li>
+</ol>
+<p>我们的任务是在图 $G_1&#x3D;(V_1,E_1)<del>和</del>G_2&#x3D;(V_2,E_2)$间寻找一个<strong>同构映射</strong> $M:V_1\rightarrow V_2$<strong>。</strong></p>
+<ol>
+<li><h3 id="State-Space-Representation-SSR"><a href="#State-Space-Representation-SSR" class="headerlink" title="State Space Representation (SSR)"></a>State Space Representation (SSR)</h3></li>
+</ol>
+<p>SSR （状态空间表示） 是一种在图匹配算法中用来<strong>表示所有可能的节点匹配状态的结构。</strong></p>
+<ul>
+<li>SSR 中的每个状态 s 代表同构映射 M 的部分映射 $\widetilde M(s) $，满足 $\widetilde M(s)⊆ M$。</li>
+</ul>
+<p>为了表示映射 $\widetilde M(s) $，VF3 算法根据<strong>节点是否已经在映射中，</strong>将节点分为 3 个不同的集合。</p>
+<p>暂时无法在飞书文档外展示此内容</p>
+<ul>
+<li>$\color{red}{\widetilde M_1(s)}$： 核心集。存放$G_1$中已经匹配好的节点，保证集合中的节点满足同构映射</li>
+<li>$\color{blue}{\widetilde{\mathcal{T_1}}(s)}$：可行（候选）集。保存与${\tilde M_1(s)}$直接相连的节点，它们是当前有可能加入核心集的节点</li>
+<li>$\widetilde{V_1}(s)$：存放$G_1 $中的不在前两个集合中的其他节点</li>
+<li>$G_2$也存在对应的三个集合</li>
+</ul>
+<ol>
+<li><h3 id="树状结构搜索-SSR"><a href="#树状结构搜索-SSR" class="headerlink" title="树状结构搜索 SSR"></a>树状结构搜索 SSR</h3></li>
+</ol>
+<p>前面提到，状态 s 代表一种特定的顶点映射情况。不同状态间可以通过增减节点得到，因此状态的空间表示（SSR）天然为图结构。</p>
+<p>在 VF3 算法中，为了不重复访问相同的状态，作者把 SSR 组织成一棵树，其中每个节点代表一个状态，每条边则代表一个可能的状态转换。</p>
+<ul>
+<li>根节点代表一个空的匹配（即没有任何顶点映射），每个叶子节点代表一种完整的匹配方案。</li>
+<li>每个状态可以通过添加<strong>一组</strong>新的节点对来扩展到下一个状态，或者通过去掉上一次加入匹配的节点对来回溯到上一个状态并重新探索。</li>
+</ul>
+<p><img src="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=MzkzMGU1MTA2ZjgyNjkxZjRjNzE0Mzk1NTJmNjhmY2NfQmZHVXEwOHRLTG1lZEhXU1Z1WElJSnFpaDBKRzZ0Y3pfVG9rZW46TTd5SWJZdXFIb3NxbWV4cElrbWNWNFhWbnJnXzE3MjE5NzU4Nzg6MTcyMTk3OTQ3OF9WNA" srcset="/gifs/loading.gif" lazyload alt="img"></p>
+<p>为了将 SSR 组织成树，我们需要对 $G_1$的节点集 $V_1$排序，组成一个节点探索序列 $N_{G_1}$。</p>
+<ul>
+<li>$N_{G_1}$的核心思想是<strong>优先探索受到更多约束和稀有的节点</strong>（以减少搜索空间大小）。<ul>
+<li>$G_1$中节点的<strong>稀有程度</strong>，对应在$G_2$中找到一个满足同构映射的节点的难度，节点 u 的稀有程度定义为（图同构情况下，子图同构则为 $d’≥d(u)$）：<ul>
+<li>$P_f(u)&#x3D;P_l(\lambda_{V_1}(u)) \cdot \Sigma_{d’&#x3D;d(u)}P_d(d’)$.</li>
+<li>稀有程度$P_f$由 $P_l$（找到标签为 $l$的节点的难度）和 $P_d$（找到度为 d 的节点的难度）决定。</li>
+<li>$\lambda_V(u)$是标签分配函数，输出节点 u 的标签。</li>
+</ul>
+</li>
+<li>节点 u 的<strong>约束程度</strong>，取决于它与多少个已经处于$N_{G_1}$中的节点间有边，用映射度$d_M(u)$表示 （就是度，但只考虑与$N_{G_1}$中的节点的连接）。</li>
+</ul>
+</li>
+<li>因此，计算$N_{G_1}$的方式为对节点多级排序，排序优先级分别是：<ul>
+<li>节点的$d_M(u)$</li>
+<li>稀有程度$P_f$</li>
+<li>度</li>
+</ul>
+</li>
+</ul>
+<p>（若这三项均一样，则会随机选一个节点放入序列中）</p>
+<p><strong>在当前条件下，我们可以这样简单的描述 VF3 算法的流程：</strong></p>
+<ol>
+<li><p>每次向状态$s_c$中添加一组节点$(u_n,v_n)$，形成一个新的状态$s_n&#x3D;s_c\cup(u_n,v_n)$，其中来自模式图$G_1$的节点$u_n$由 $N_{G_1}$决定，$v_n$则是由算法动态选择。</p>
+</li>
+<li><p>重复第一步，直到找到包含所有节点的理想状态或者证实匹配不存在。</p>
+</li>
+<li><h3 id="可行性检查"><a href="#可行性检查" class="headerlink" title="可行性检查"></a>可行性检查</h3></li>
+</ol>
+<p>事实上，我们不会直接将候选节点对 $(u_n,v_n)$加入状态 s 中，而是先对它们进行可行性检查。</p>
+<p>可行性检查由两个部分组成：</p>
+<ul>
+<li>$F_s$ <strong>（Semantic Feasibility）</strong>: 语义可行性，检查两个节点（以及它们之间的边）的标签是否一致。如果节点或边的标签不匹配，这对节点就不能被考虑作为当前搜索状态的一部分</li>
+<li>$F_t$ <strong>（Structural Feasibility）</strong>: 结构可行性，检查两个节点的邻居节点是否能够满足同构的要求<ul>
+<li>$F_t$ 由核心规则$F_c$（core rule） 和两级前瞻规则$F_{la1}$， $F_{la2}$（1-level and 2-level lookahead rules） 构成</li>
+</ul>
+</li>
+</ul>
+<p>$F_s$ 简单来说就是只让标签相同的节点通过，$F_t$ 则较为复杂，是确保映射保持结构一致性和提升算法效率的关键部分。</p>
+<h4 id="结构可行性-Ft"><a href="#结构可行性-Ft" class="headerlink" title="结构可行性 Ft"></a>结构可行性 Ft</h4><p>$F_t$ 的核心目标是：确保<strong>所建立的节点对不仅在当前步骤中结构上可行，而且不会在将来的几个步骤中导致映射失败。</strong></p>
+<h4 id="通过分类函数-ψ-划分等价类"><a href="#通过分类函数-ψ-划分等价类" class="headerlink" title="通过分类函数 ψ 划分等价类"></a>通过分类函数 ψ 划分等价类</h4><p>设置一个分类函数 $\psi:V_1<del>∪</del>V_2\rightarrow C&#x3D;c_1,…,c_q; $  （等价类的数量 q 和分类函数可以自己设置）</p>
+<ul>
+<li>分类函数会将节点划分成 q 个等价类，它只需要满足：<ul>
+<li><strong>若节点 u 和 v 在同构映射中是一组匹配的节点对， 则 u 和 v 必须在同个等价类中。</strong></li>
+</ul>
+</li>
+<li>作者并未给出端到端的划分方案， 但可以利用这些信息指导划分：<ul>
+<li>节点的标签（可以直接拿来当分类函数，也 f 可以完全不使用）</li>
+<li>节点的度或其他的邻接信息</li>
+<li>上下文或领域知识</li>
+</ul>
+</li>
+<li>进一步的，将${\widetilde{\mathcal{T_1}}(s)}$根据等价类进一步分成 q 个：$\widetilde T_1^{c_i}(s)$ （表示既在可行集中，又属于第 i 个等价类的节点），类似的也可以定义$\tilde V_1^{c_i}(s)$。划分等价类是为了计算结构可行性$F_t$ 。</li>
+</ul>
+<h4 id="结构可行性-Ft-1"><a href="#结构可行性-Ft-1" class="headerlink" title="结构可行性 Ft"></a>结构可行性 Ft</h4><p>结构可行性函数 $F_t$ 由三个部分组成，分别是 $F_c$，$F_{la1}$，$F_{la2}$，表示为：</p>
+<p>$F_t(s_c,u_n,v_n)&#x3D;F_c(s_c,u_n,v_n)\wedge F_{la1}(s_c,u_n,v_n)\wedge F_{la2}(s_c,u_n,v_n)$</p>
+<ol>
+<li><strong>核心规则</strong> $F_c$： <ol>
+<li>$F_c(s_c,u_n,v_n)\Leftrightarrow\forall u^{\prime}\in adj_1(u_n)\cap\widetilde{M}_1(s_c)\quad\exists v^{\prime}&#x3D;\widetilde{\mu}(s_c,u^{\prime})\in adj_2(v_n)\\wedge\forall v^{\prime}\in adj_2(v_n)\cap\widetilde{M}_2(s_c)\quad\exists u^{\prime}&#x3D;\widetilde{\mu}^{-1}(s_c,v^{\prime})\in adj_1(u_n)$</li>
+<li>核心目标：<strong>确保当前这组节点的加入不会马上导致结果错误。</strong></li>
+<li>假设当前考虑的节点组 $(u_n,v_n)$， 核心规则 $F_c$对所有与$u_n$相邻且已经在映射中的节点$u’$，检查$u’$对应的匹配节点$v’$是否与$v_n$相邻。</li>
+<li></li>
+</ol>
+</li>
+<li><strong>前瞻性规则 （Lookahead Rules</strong> $F_{la1}$ <strong>and</strong> $F_{la2}$<strong>）</strong>:</li>
+</ol>
+<p>回顾基础概念中的介绍，SSR 中的每个状态 s 对应映射 $\widetilde M(s) $，VF3 算法根据<strong>节点是否已经在映射中，</strong>将节点分为 3 个不同的集合，分别是 $\widetilde M(s),\widetilde{\mathcal{T}}(s),\widetilde V(s)$，对于当前考虑的节点组 $(u_n,v_n)$（它们在可行集${\widetilde{\mathcal{T}}(s)}$中），在创建新状态 $s_n&#x3D;s_c\cup(u_n,v_n)$之前，$(u_n,v_n)$需要满足两级前瞻性规则：</p>
+<p> <strong>一级前瞻规则</strong> $F_{la1}$</p>
+<p> $F_{la1}(s_c,u_n,v_n)\iff F_{la1}^1(s_c,u_n,v_n)\wedge\ldots\wedge F_{la1}^q(s_c,u_n,v_n)$</p>
+<p> 对于第 i 个等价类，一级前瞻规则 $F^i_{la1}$定义为<strong>：</strong></p>
+<p> $F_{la1}^i(s_c,u_n,v_n)\iff|adj_1(u_n)\cap\widetilde{\mathcal{T}}_1^{c_i}(s_c)|\leq|adj_2(v_n)\cap\widetilde{\mathcal{T}}_2^{c_i}(s_c)|$</p>
+<ul>
+<li>核心目标：<strong>提前识别和排除可能会未来几步中违反同构条件的节点</strong>。</li>
+<li>查看可行集${\tilde{\mathcal{T_1}}(s)}&#x2F;{\tilde{\mathcal{T_2}}(s)}$，对于$u_n$（模式图）的<code>在当前可行集内且属于第 i 个等价类的邻居数量</code>不能多于$v_n$（目标图）的（同属于 i 且在可行集内的邻居）数量</li>
+<li>对于图同构问题，满足条件的邻居数量应该相同</li>
+</ul>
+<p><strong>二级前瞻规则</strong> $F_{la2}$<strong>：</strong></p>
+<p>$F_{la2}(s_c,u_n,v_n)\iff F_{la2}^1(s_c,u_n,v_n)\wedge\ldots\wedge F_{la2}^q(s_c,u_n,v_n)$</p>
+<p>对于第 i 个等价类，二级前瞻规则 $F^i_{la2}$定义为<strong>：</strong></p>
+<p>$F_{la2}^i(s_c,u_n,v_n)\iff|adj_1(u_n)\cap\widetilde{V_1}^{c_i}(s_c)|\leq|adj_2(v_n)\cap\widetilde{V_2}^{c_i}(s_c)|$</p>
+<ul>
+<li>核心目标：在一级规则的基础上，<strong>加入更远一级的节点关系，进一步剪枝。</strong></li>
+<li>类似一级前瞻规则 $F_{la1}$<strong>，查看</strong>$u_n$<strong>既不在映射</strong>$\widetilde M_1(s) $<strong>中也不在可行集</strong>$\widetilde{\mathcal{T_1}}(s)$中的邻居节点，其数量不能多于$v_n$对应的此类邻居节点 （图同构问题则也为相等）。</li>
+</ul>
+<p>注意：对于有向图，需要分别考虑入边和出边。</p>
+<ol>
+<li><h2 id="VF3-算法的改进"><a href="#VF3-算法的改进" class="headerlink" title="VF3 算法的改进"></a>VF3 算法的改进</h2></li>
+</ol>
+<p>VF3 算法在 VF2Plus 算法的基础上主要有两点改进：</p>
+<ol>
+<li><p>改进模式图的预处理 (State Space Precalculation)</p>
+</li>
+<li><p>改进候选节点对的选择方式 (Candidate Selection)</p>
+</li>
+<li><h3 id="状态空间预计算（State-Space-Precalculation-）"><a href="#状态空间预计算（State-Space-Precalculation-）" class="headerlink" title="状态空间预计算（State Space Precalculation ）"></a>状态空间预计算（State Space Precalculation ）</h3></li>
+</ol>
+<p>预处理的对象均是对模式图$G_1$。</p>
+<h4 id="根据-N-G-1-预计算-widetilde-M-1-s-与-widetilde-mathcal-T-1-s"><a href="#根据-N-G-1-预计算-widetilde-M-1-s-与-widetilde-mathcal-T-1-s" class="headerlink" title="根据$N_{G_1}$预计算${\widetilde M_1(s)}$与${\widetilde{\mathcal{T_1}}(s)}$"></a>根据$N_{G_1}$预计算${\widetilde M_1(s)}$与${\widetilde{\mathcal{T_1}}(s)}$</h4><p>2.2.1 中提到，为了按照树状结构搜索SSR，我们定义了节点探索序列$N_{G_1}$，它是$G_1$中所有节点的一个排列。在算法迭代过程中，$u_n$总会按照$N_{G_1}$的顺序被匹配，因此我们可以提前计算每一层 SSR 的${\widetilde M_1(s)}$与${\widetilde{\mathcal{T_1}}(s)}$。</p>
+<ul>
+<li>$\widetilde{\mathcal{T}}_1^{c_i}(s)$<strong>的存储优化：</strong><ul>
+<li><strong>若按照定义实现</strong>$\widetilde{\mathcal{T}}_1^{c_i}(s)$<strong>，则其需要</strong>$O(N_1^{2})$的空间来存储。<ul>
+<li>假设$G_1$有$N_1$个节点，由于我们每次往状态中添加一个节点，因此 SSR 组成的树总共有 $N_1$层，每一层都需要维护$\widetilde{\mathcal{T}}_1^{c_i}(s)$<strong>。</strong></li>
+</ul>
+</li>
+<li>结合可行集$\widetilde{\mathcal{T}}_1^{c_i}(s)$的定义<strong>，</strong>由于 SSR 每一层对应的$u_n$是确定的，因此$G_1$中的每个节点总会在一个固定的 SSR 层加入可行集中(它的第一个邻居加入同构映射时)，并在一个确定的时间离开可行集(它自己加入同构映射或算法退出)，在此过程中，它将持续被视为候选节点。</li>
+<li>由此，算法对于每个节点，只记录其加入$\widetilde{\mathcal{T}}_1^{c_i}(s)$和退出$\widetilde{\mathcal{T}}_1^{c_i}(s)$的 SSR 层级，这样总体$\widetilde{\mathcal{T}}_1(s)$的空间开销变为$O(N_1)$。</li>
+</ul>
+</li>
+</ul>
+<p>近一步的，由于可行性检查都是在比集合大小，因此实现时，作者也不会真的维护可行集，而是采用对不同层，不同等价类，仅维护其大小的方式。</p>
+<h4 id="维护父节点树-parent-tree"><a href="#维护父节点树-parent-tree" class="headerlink" title="维护父节点树 (parent tree)"></a>维护父节点树 (parent tree)</h4><p>维护父节点树是预处理的另一个关键部分，算法会为每一个节点指定一个”父节点”。</p>
+<p><img src="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=M2QzZTBjZDZmOGQ1YWIwOGU3YjY4MzAwNTMyZjg1MzdfTTg2TUVZYldUNGNwbzRPcWRLYlVFdVV3V29DcnVkbXVfVG9rZW46WEVNMWJJaEFzb3FKcmp4aWhwcmNPM2RDbjRiXzE3MjE5NzU4Nzg6MTcyMTk3OTQ3OF9WNA" srcset="/gifs/loading.gif" lazyload alt="img"></p>
+<ul>
+<li>核心目标：辅助后续的<strong>候选节点选择</strong>和<strong>状态回溯。</strong></li>
+<li>父节点树根据 $N_{G_1}$生成，对于$N_{G_1}$中的每个节点，算法检查其所有邻接节点，并基于它们在$N_{G_1}$的<strong>前后顺序</strong>来设置父子关系：<ul>
+<li>一个节点的父节点是在$N_{G_1}$<strong>中排在它前面且与它直接相连的第一个节点。</strong></li>
+<li>第一个匹配节点或孤立节点没有父节点。</li>
+</ul>
+</li>
+<li>显然，父节点树只是一个决策支持工具，我们不用真的创建一颗树，只需要保存每个节点的父节点，因此使用 KV 逻辑存储（节点作为 key，其父节点为 value）。</li>
+</ul>
+<p>在需要回溯时，可以通过父节点信息迅速找到上一合法状态，撤销当前的选择，尝试其他可能的节点匹配。</p>
+<ol>
+<li><h3 id="候选节点选择（Candidate-Selection）"><a href="#候选节点选择（Candidate-Selection）" class="headerlink" title="候选节点选择（Candidate Selection）"></a>候选节点选择（Candidate Selection）</h3></li>
+</ol>
+<p>在每一层 SSR 中，算法都会选取一组候选节点$(u_n,v_n)$，并对这组节点进行可行性检查。</p>
+<ul>
+<li>其中模式图$G_1$的候选节点$u_n$已经由 $N_{G_1}$给出，因此Candidate Selection 的核心目标是<strong>确定目标图</strong>$G_2$<strong>的候选节点</strong>$v_n$<strong>。</strong></li>
+<li>主要原理是通过分析$G_1$候选节点$u_n$的父节点来缩小候选节点$v_n$的选择范围：<ul>
+<li>如果在父节点树上存在一个父亲节点 $\text{Parent}(u_n)$，则找到上一轮匹配中的$G_2$节点 $\tilde v$，在 $\tilde v$的邻居中选择第一个没有匹配且和 $u_n$为同一等价类的节点。表示为：</li>
+</ul>
+</li>
+</ul>
+<p>$R_2^{adj}(s_c,\psi(u_n),\widetilde{v})&#x3D;{v_n\in V_2:v_n\in adj_2(\widetilde{v})\cap R_2(s_c,u_n)}.$</p>
+<ul>
+<li>如果不存在父节点(第一个节点或者孤立节点），则去掉邻居的条件， 在$G_2$中随机选择一个与$u_n$为同一等价类的节点。表示为：</li>
+</ul>
+<p>$R_2(s_c,\psi(u_n))&#x3D;{v_n\in V_2:v_n\notin\widetilde{M}_2(s_c)\wedge \psi(v_n)&#x3D;\psi(u_n)}.$</p>
+<p>算法流程概括为：</p>
+<p><img src="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=ZDMxNjFiYTE0NzNjNjFhNGUxNzI2N2NmZDhlOGNjOWVfVmw5T3JHUmxPTnJSUWt3N1gzcUhRQ09pT251aWZLdkJfVG9rZW46VTRuRGJJMEdXb1ZlcVB4d3NyeGNsTmxCblNiXzE3MjE5NzU4Nzg6MTcyMTk3OTQ3OF9WNA" srcset="/gifs/loading.gif" lazyload alt="img"></p>
+<ol>
+<li><h2 id="VF3-算法总结"><a href="#VF3-算法总结" class="headerlink" title="VF3 算法总结"></a>VF3 算法总结</h2></li>
+</ol>
+<p>VF3 算法总共由 3 个模块(阶段)组成：</p>
+<ol>
+<li><strong>预处理阶段</strong>：<ol>
+<li><strong>节点排序</strong>：基于节点的稀有性和约束程度(连接度)，为模式图$G_1$中的节点确定探索序列 $NG_1$</li>
+<li><strong>状态空间预计算</strong>：为$G_1$中的每个节点预计算可能的候选节点集合，基于节点的属性和结构特征，确定$G_2$中哪些节点可能与之匹配。</li>
+</ol>
+</li>
+<li><strong>匹配阶段</strong>：<ol>
+<li><strong>递归搜索</strong>：从$G_1$的第一个节点开始，递归地尝试匹配$G_2$中的候选节点。</li>
+<li><strong>候选选择</strong>：根据是否存在父节点，为当前$G_1$候选节点 u 选择$G_2$中的候选节点 v。</li>
+<li><strong>可行性检查</strong>：对每组候选节点，检查结构和语义的可行性，确保新增的节点匹配不违反已有的匹配结构，且在有继续探索的潜力。</li>
+<li><strong>回溯</strong>：如果当前节点没有找到合适的匹配或后续匹配失败，则回溯到上一节点，尝试其他候选节点。</li>
+</ol>
+</li>
+<li><strong>终止条件</strong>：所有节点都匹配上，或无法继续探索且无法回溯</li>
+</ol>
+<h3 id="（待补充）并发-多线程"><a href="#（待补充）并发-多线程" class="headerlink" title="（待补充）并发 &amp; 多线程"></a>（待补充）并发 &amp; 多线程</h3><p>VF3 的作者在后续更新了详细的性能分析和支持并发的 VF3 算法：</p>
+<ul>
+<li>Challenging the time complexity of exact subgraph isomorphism for huge and dense graphs with VF3 </li>
+<li>Comparing performance of graph matching algorithms on huge graphs </li>
+<li>A Parallel Algorithm for Subgraph Isomorphism</li>
+</ul>
+<h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><p>.grf test case的布局：</p>
+<blockquote>
+<p>暂时无法在飞书文档外展示此内容</p>
+</blockquote>
+<blockquote>
+<ol>
+<li>si2_rnd_eta04_m1000_00.grf</li>
+</ol>
+<p>Case info: 1000 个节点，399,770 条边，节点属性全部设置为 1 </p>
+<p>结果 (处理时间&#x2F;s)：</p>
+<ul>
+<li>正确同构：0.0513868 </li>
+<li>子图同构：363.737 (第一个解)；3826.8 (全部解)</li>
+</ul>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">Benchmark</th>
+<th align="left">Samples</th>
+<th align="left">Edges</th>
+<th align="left">Attributes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">rand4</td>
+<td align="left">1000</td>
+<td align="left">99,904</td>
+<td align="left">1 (等权)</td>
+</tr>
+<tr>
+<td align="left">si2_rnd_eta04</td>
+<td align="left">1000</td>
+<td align="left">399,770</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">rnd_ldg1</td>
+<td align="left">2500</td>
+<td align="left">1,248,179</td>
+<td align="left">1</td>
+</tr>
+</tbody></table>
+<p>汇总了直接匹配、修改属性、修改边的数量之后的图同构算法结束时间(second)</p>
+<table>
+<thead>
+<tr>
+<th align="left">Benchmark</th>
+<th align="left">同构(无修改)</th>
+<th align="left">修改属性</th>
+<th align="left">修改边</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">rand4</td>
+<td align="left">1.20e-02</td>
+<td align="left">3.68e-03</td>
+<td align="left">1.27e-02</td>
+</tr>
+<tr>
+<td align="left">si2_rnd_eta04</td>
+<td align="left">5.51e-02</td>
+<td align="left">9.39e−03</td>
+<td align="left">2.11e-08</td>
+</tr>
+<tr>
+<td align="left">rnd_ldg1</td>
+<td align="left">1.91e-01</td>
+<td align="left">3.32e-02</td>
+<td align="left">2.08e-08</td>
+</tr>
+</tbody></table>
+<h3 id="Q-A"><a href="#Q-A" class="headerlink" title="Q &amp; A:"></a>Q &amp; A:</h3><blockquote>
+<p>Q1：VF3 算法的评价？</p>
+</blockquote>
+<p>A：VF3 算法和所有其他的 Tree Seach 方法一样，属于一种特别版本的 A* 搜索，即在树形结构上 dfs + 回溯，同时结合启发式策略剪枝。VF3 算法的设计精巧，因此展现了较强的表现，尤其擅长子图同构任务。虽然用 VF3 无法直接处理 LVS 规模的问题，但其可行性规则的设计值得参考。</p>
+<blockquote>
+<p>Q2: 在处理图同构时，VF3 总能找到正确的解吗？算法退出时是不是代表两张图不同构？</p>
+</blockquote>
+<p>A：是的，总能找到正确的解，退出则表示两张图不同构。虽然进行了大量剪枝，但是算法实际上还是能覆盖 G1 和 G2能匹配的所有情况，不过最坏情况下有可能需要从最后一步回溯到第一步。</p>
+<blockquote>
+<p>Q3：可行集$\widetilde{\mathcal{T}}^{c_i}(s)$的理解</p>
+</blockquote>
+<p>A:  在匹配过程中，G1 的候选节点总是根据$N_{G_1}$确定的，而 G2 的候选节点总是由候选选择确定的。</p>
+<p>$\widetilde{\mathcal{T}}_1^{c_i}(s)$和$\widetilde{\mathcal{T}}_2^{c_i}(s)$的唯一作用就是进行可行性检查，无关节点选择。</p>
+<blockquote>
+<p>Q4: VF3 的复杂度？</p>
+</blockquote>
+<p>A:  最好情况下为线性，最坏情况下为指数级。VF3 算法的时间和空间复杂度与图的大小、密度、图的结构以及图中顶点和边的分布均有关。</p>
+<ul>
+<li>作者没有给出官方时间复杂度，考虑最坏情况，即所有启发式规则均失效或为完全图，时间复杂度应当为$O(N^2)$~$O(N!N) $。通常在实际应用中，通过各种启发式优化和剪枝策略，其平均性能会比最坏情况表现得更好，但</li>
+<li>考虑到网表比较的问题规模，一个较快的算法应当对网表进行拆分，采用分布式 + 并发执行。</li>
+</ul>
+<ol>
+<li><h1 id="（待补充）Implementation"><a href="#（待补充）Implementation" class="headerlink" title="（待补充）Implementation"></a>（待补充）Implementation</h1></li>
+</ol>
+<p>VF3 算法的实现有很多现实考虑，因此代码和论文并不会严格对应。本段简要介绍官方实现中需要使用的数据结构和算法流程。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/MiviaLab/vf3lib">GitHub - MiviaLab&#x2F;vf3lib: VF3 Algorithm</a>  </p>
+<p>*(代码仓库是最新的版本，因此支持后续的并行优化等特性)</p>
+<p>另外，NetworkX 封装了 VF2++算法，可以实现即插即用的图同构检测：<a target="_blank" rel="noopener" href="https://networkx.org/documentation/stable/reference/algorithms/isomorphism.html">https://networkx.org/documentation/stable/reference/algorithms/isomorphism.html</a></p>
+<ol>
+<li><h2 id="必要数据结构"><a href="#必要数据结构" class="headerlink" title="必要数据结构"></a>必要数据结构</h2></li>
+<li><h3 id="Graph-的表示"><a href="#Graph-的表示" class="headerlink" title="Graph 的表示"></a>Graph 的表示</h3></li>
+</ol>
+<p>VF3 使用 <code>ARGraph</code> 表示属性关系图（Attributed Relational Graph）</p>
+<figure class="highlight c++"><i class="iconfont icon-bookmark" type="button" data-toggle="collapse" data-target="#collapse-wm8m9elzcz9o31"></i><div class="collapse show" id="collapse-wm8m9elzcz9o31"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">typedef</span> std::vector&lt;nodeID_t&gt; NodeVec;<br><span class="hljs-keyword">typedef</span> std::vector&lt;Edge&gt; EdgeAttrVector;   <br><span class="hljs-keyword">typedef</span> std::vector&lt;Node&gt; NodeAttrVector;<br><br><span class="hljs-comment">// 基本属性</span><br><span class="hljs-type">uint32_t</span> n;                   <span class="hljs-comment">/**&lt; 节点数量 */</span><br><span class="hljs-type">uint32_t</span> n_attr_count;        <span class="hljs-comment">/**&lt; 不同节点属性的数量 */</span><br><span class="hljs-type">uint32_t</span> e_attr_count;        <span class="hljs-comment">/**&lt; 不同边属性的数量 */</span><br><span class="hljs-type">uint32_t</span> e_count;             <span class="hljs-comment">/**&lt; 边的总数 */</span><br><span class="hljs-type">uint32_t</span> e_out_count;         <span class="hljs-comment">/**&lt; 出边的总数 */</span><br><span class="hljs-type">uint32_t</span> e_in_count;          <span class="hljs-comment">/**&lt; 入边的总数 */</span><br><span class="hljs-type">uint32_t</span> node_label_count;    <span class="hljs-comment">/**&lt; 节点标签的数量 */</span><br><span class="hljs-type">uint32_t</span> max_deg_in;          <span class="hljs-comment">/**&lt; 最大入度 */</span><br><span class="hljs-type">uint32_t</span> max_deg_out;         <span class="hljs-comment">/**&lt; 最大出度 */</span><br><span class="hljs-type">uint32_t</span> max_degree;          <span class="hljs-comment">/**&lt; 最大度数 */</span><br><br><span class="hljs-comment">// 节点 &amp; 边的属性</span><br>std::vector&lt;Node&gt; attr;                        <span class="hljs-comment">/**&lt; 节点属性 */</span><br>std::vector&lt;EdgeAttrVector&gt; in_attr;           <span class="hljs-comment">/**&lt; 入边属性 */</span><br>std::vector&lt;EdgeAttrVector&gt; out_attr;          <span class="hljs-comment">/**&lt; 出边属性 */</span><br><br><span class="hljs-comment">// 邻接信息</span><br>std::vector&lt;NodeVec&gt; in;                       <span class="hljs-comment">/**&lt; 入边相连的节点 */</span><br>std::vector&lt;NodeVec&gt; out;                      <span class="hljs-comment">/**&lt; 出边相连的节点 */</span><br><br><span class="hljs-comment">// 功能：边的检查和获取；检查两节点之间是否存在边，并获取特定节点的入边和出边</span><br><span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">HasEdge</span><span class="hljs-params">(nodeID_t n1, nodeID_t n2)</span> <span class="hljs-type">const</span></span>;<br><span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">HasEdge</span><span class="hljs-params">(nodeID_t n1, nodeID_t n2, Edge &amp;pattr)</span> <span class="hljs-type">const</span></span>;<br><span class="hljs-function">nodeID_t <span class="hljs-title">GetInEdge</span><span class="hljs-params">(nodeID_t node, <span class="hljs-type">uint32_t</span> i)</span> <span class="hljs-type">const</span></span>;<br><span class="hljs-function">nodeID_t <span class="hljs-title">GetInEdge</span><span class="hljs-params">(nodeID_t node, <span class="hljs-type">uint32_t</span> i, Edge&amp; pattr)</span> <span class="hljs-type">const</span></span>;<br><span class="hljs-function">nodeID_t <span class="hljs-title">GetOutEdge</span><span class="hljs-params">(nodeID_t node, <span class="hljs-type">uint32_t</span> i)</span> <span class="hljs-type">const</span></span>;<br><span class="hljs-function">nodeID_t <span class="hljs-title">GetOutEdge</span><span class="hljs-params">(nodeID_t node, <span class="hljs-type">uint32_t</span> i, Edge&amp; pattr)</span> <span class="hljs-type">const</span></span>;<br><br><span class="hljs-comment">// 功能：边遍历；遍 历特定节点的所有入边、出边或所有边，并对每条边应用访问者模式进行处理。</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">VisitInEdges</span><span class="hljs-params">(nodeID_t node, edge_visitor vis, param_type param)</span></span>;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">VisitOutEdges</span><span class="hljs-params">(nodeID_t node, edge_visitor vis, param_type param)</span></span>;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">VisitEdges</span><span class="hljs-params">(nodeID_t node, edge_visitor vis, param_type param)</span></span>;<br></code></pre></td></tr></table></div></figure>
+
+<p>VF3 使用 <code>ARGLoader</code> 加载图数据，从而将图的构建过程与具体的数据格式解耦。<code>ARGLoader</code> 提供了一组标准接口，任何实现了这些接口的加载器都可以用于构建 <code>ARGraph</code>。这促进了代码复用，不同的图加载器可以共享相同的图构建逻辑。</p>
+<p><code>ARGLoader</code>的主要功能包括：</p>
+<ul>
+<li><code>virtual uint32_t NodeCount() const</code> 节点计数。</li>
+<li><code>virtual Node GetNodeAttr(nodeID_t node)</code> 获取节点属性。</li>
+<li><code>virtual uint32_t OutEdgeCount(nodeID_t node) const</code> 出边计数。</li>
+<li><code>virtual nodeID_t GetOutEdge(nodeID_t node, uint32_t i, Edge *pattr)</code> 获取出边信息。返回指定节点的第 <code>i</code> 条出边的目标节点，并获取该边的属性。</li>
+</ul>
+<ol>
+<li><h3 id="State-的表示"><a href="#State-的表示" class="headerlink" title="State 的表示"></a>State 的表示</h3></li>
+</ol>
+<figure class="highlight c++"><i class="iconfont icon-bookmark" type="button" data-toggle="collapse" data-target="#collapse-roljvglzcz9o31"></i><div class="collapse show" id="collapse-roljvglzcz9o31"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">typedef</span> <span class="hljs-type">uint32_t</span> nodeID_t<br><span class="hljs-keyword">typedef</span> <span class="hljs-type">uint8_t</span> nodeDir_t;<br><span class="hljs-keyword">typedef</span> vflib::VF3LightSubState&lt;<span class="hljs-type">data_t</span>, <span class="hljs-type">data_t</span>, vflib::Empty, vflib::Empty&gt; <span class="hljs-type">state_t</span>;<br><span class="hljs-type">const</span> nodeDir_t NODE_DIR_NONE = <span class="hljs-number">0</span>;<br><span class="hljs-type">const</span> nodeDir_t NODE_DIR_IN  = <span class="hljs-number">1</span>;<br><span class="hljs-type">const</span> nodeDir_t NODE_DIR_OUT = <span class="hljs-number">2</span>;<br><span class="hljs-type">const</span> nodeDir_t NODE_DIR_BOTH = <span class="hljs-number">3</span>;<br><br><span class="hljs-comment">// 图的引用和比较函数</span><br>ARGraph&lt;Node1, Edge1&gt; *g1;<br>ARGraph&lt;Node2, Edge2&gt; *g2;<br><br><span class="hljs-comment">// 重载，用来比较节点和边</span><br>NodeComparisonFunctor nf;  <br>EdgeComparisonFunctor ef;<br><br><span class="hljs-comment">// 方向性标识</span><br>nodeDir_t* dir;    <span class="hljs-comment">// 表示节点的方向（无、入、出、双向）</span><br>nodeID_t* predecessors;    <span class="hljs-comment">// 每个节点在有序序列中的前驱节点。</span><br><br><span class="hljs-comment">// 核心集</span><br><span class="hljs-type">uint32_t</span> *core_len_c;<br>nodeID_t *core_1;<br>nodeID_t *core_2;<br><br><span class="hljs-comment">// 终端集大小（Terminal Set Sizes）</span><br><span class="hljs-type">uint32_t</span> t2in_len, t2both_len, t2out_len;     <span class="hljs-comment">// 第二个图的终端集大小</span><br><span class="hljs-type">uint32_t</span> *t1in_len, *t1both_len, *t1out_len;     <span class="hljs-comment">// 第一个图在每个深度级别的终端集大小</span><br><span class="hljs-type">uint32_t</span> *t2both_len_c, *t2in_len_c, *t2out_len_c;     <span class="hljs-comment">// 第二个图每个类的终端集大小</span><br><span class="hljs-type">uint32_t</span> **t1both_len_c, **t1in_len_c, **t1out_len_c;     <span class="hljs-comment">// 第一个图每个深度级别和每个类的终端集大小</span><br><br><span class="hljs-comment">// 终端集更新</span><br><span class="hljs-type">uint32_t</span> *termout2_c, *termin2_c, *new2_c;     <span class="hljs-comment">// 用于更新第二个图的终端集大小</span><br><span class="hljs-type">uint32_t</span> **termout1_c, **termin1_c, **new1_c;     <span class="hljs-comment">// 用于更新第一个图的终端集大小</span><br><span class="hljs-type">uint32_t</span> *termin1, *termout1, *new1;     <span class="hljs-comment">// 第一个图的终端集计数</span><br><br><span class="hljs-comment">// 节点集合</span><br>nodeID_t *in_2, *out_2;<br><span class="hljs-type">int64_t</span> last_candidate_index;<br><br><span class="hljs-comment">// 类和类别相关</span><br><span class="hljs-type">uint32_t</span> *class_1, *class_2;<br><span class="hljs-type">uint32_t</span> classes_count;<br></code></pre></td></tr></table></div></figure>
+
+<ul>
+<li><strong>核心集（Core Set）</strong>就是论文中的核心集${\widetilde M(s)}$，它负责记录匹配进展和指导后续匹配。</li>
+<li><strong>终端集（Terminal Set）</strong>是文中可行集${\widetilde{\mathcal{T}}(s)}$ 的实现，但逻辑有变化。<ul>
+<li><strong>状态跟踪</strong>：终端集帮助算法在匹配过程中跟踪每个节点的当前状态（如是否在核心集中，是否有入边或出边等），终端集在每个深度级别上动态更新。</li>
+<li>核心：在状态转换时，只需更新大小，而不需要重新计算整个集合。<ul>
+<li><strong>维护集合长度一致性而非内容一致性：</strong> 在匹配过程中，只需要知道某个节点集合是否为空（长度是否为零）或者其大小相对于另一个集合的大小来决定下一步的操作。通过跟踪集合的长度，可以简化状态管理和更新的逻辑。</li>
+</ul>
+</li>
+<li>终端集有三种类型：<ul>
+<li><strong>入边终端集（In-terminal set）</strong>：跟踪每个节点的入边集合。</li>
+<li><strong>出边终端集（Out-terminal set）</strong>：跟踪每个节点的出边集合。</li>
+<li><strong>双向终端集（Both-terminal set）</strong>：跟踪同时存在入边和出边的节点集合。</li>
+</ul>
+</li>
+<li>一维数组 &amp; 二维数组：<ul>
+<li>一维数组的项目是维护了不同等价类的大小，<ul>
+<li>如<code>t2out_len_c[class]</code>，表示第二个图类别 <code>class</code> 的节点的出边终端集大小。</li>
+</ul>
+</li>
+<li>二维数组的项是既维护了不同等价类，也维护不同层的集合大小：<ul>
+<li>如<code>t1out_len_c[level][class]</code>，表示在第一个图的深度级别 <code>level</code> 下，类别 <code>class</code> 的节点的出边终端集大小。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li><h3 id="对State的操作"><a href="#对State的操作" class="headerlink" title="对State的操作"></a>对State的操作</h3></li>
+</ol>
+<figure class="highlight c++"><i class="iconfont icon-bookmark" type="button" data-toggle="collapse" data-target="#collapse-jcynawlzcz9o31"></i><div class="collapse show" id="collapse-jcynawlzcz9o31"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">// public </span><br><span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">NextPair</span><span class="hljs-params">(nodeID_t *pn1, nodeID_t *pn2,</span></span><br><span class="hljs-params"><span class="hljs-function">    nodeID_t prev_n1 = NULL_NODE, nodeID_t prev_n2 = NULL_NODE)</span></span>;<br><span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">IsFeasiblePair</span><span class="hljs-params">(nodeID_t n1, nodeID_t n2)</span></span>;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">AddPair</span><span class="hljs-params">(nodeID_t n1, nodeID_t n2)</span></span>;<br><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">bool</span> <span class="hljs-title">IsGoal</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>&#123; <span class="hljs-keyword">return</span> core_len == n1; &#125;;<br><span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">IsDead</span><span class="hljs-params">()</span> <span class="hljs-type">const</span></span>;<br><span class="hljs-comment">// private</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">BackTrack</span><span class="hljs-params">()</span></span>;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">ComputeFirstGraphTraversing</span><span class="hljs-params">()</span></span>;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">UpdateTerminalSetSize</span><span class="hljs-params">(nodeID_t node,  <span class="hljs-comment">// 换行</span></span></span><br><span class="hljs-params"><span class="hljs-function">nodeID_t level, <span class="hljs-type">bool</span>* in_1, <span class="hljs-type">bool</span>* out_1, <span class="hljs-type">bool</span>* inserted)</span></span>;<br></code></pre></td></tr></table></div></figure>
+
+<ul>
+<li><code>NextPair</code>：查找下一个可行的节点对，基于当前状态更新候选节点。</li>
+<li><code>IsFeasiblePair</code>：检查节点对是否可以加入到当前状态中。</li>
+<li><code>AddPair</code>：将节点对添加到核心集 M 中，并更新状态。</li>
+<li><code>IsDead</code>：检查当前状态是否死节点，即是否不再可能找到匹配。</li>
+<li><code>BackTrack</code>：回溯操作，撤销上一次添加的节点对。</li>
+<li><code>ComputeFirstGraphTraversing</code>：初始化第一个图的遍历顺序和终端集大小，确保算法从最优的起点开始，并设置每个节点的初始状态。</li>
+<li><code>UpdateTerminalSetSize</code>：在匹配过程中动态更新终端集的大小和状态，确保终端集的计数器和节点状态在每一步都保持最新。这两个方法共同作用，支持VF3算法的高效执行。</li>
+</ul>
+<ol>
+<li><h2 id="VF3-算法-workflow"><a href="#VF3-算法-workflow" class="headerlink" title="VF3 算法 workflow"></a>VF3 算法 workflow</h2></li>
+<li><h3 id="初始化-（命令参数解析-配置，信号处理，-读取图数据，初始化匹配引擎）"><a href="#初始化-（命令参数解析-配置，信号处理，-读取图数据，初始化匹配引擎）" class="headerlink" title="初始化 （命令参数解析&amp;配置，信号处理， 读取图数据，初始化匹配引擎）"></a><strong>初始化 （命令参数解析&amp;配置，信号处理， 读取图数据，初始化匹配引擎）</strong></h3></li>
+</ol>
+<ul>
+<li><p>命令参数解析，参数实例 opt 包含了初始化需要的几乎所有参数 </p>
+<ul>
+<li><pre><code class="C++">Options opt;
+if(!GetOptions(opt, argc, argv)) &#123;exit(-1);&#125;
+<figure class="highlight cpp"><i class="iconfont icon-bookmark" type="button" data-toggle="collapse" data-target="#collapse-grjfuulzcz9o31"></i><div class="collapse show" id="collapse-grjfuulzcz9o31"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><br>- 加载图数据（读取文件，通过 ARGLoader 构造为 ARGraph）<br><br>  - ```C++<br>    <span class="hljs-comment">// Pattern &amp; Target </span><br>    <span class="hljs-function"><span class="hljs-keyword">typedef</span> <span class="hljs-type">int32_t</span> <span class="hljs-type">data_t</span></span><br><span class="hljs-function">    std::ifstream <span class="hljs-title">graphInPat</span><span class="hljs-params">(opt.pattern)</span></span>;<br>    <span class="hljs-function">std::ifstream <span class="hljs-title">graphInTarg</span><span class="hljs-params">(opt.target)</span></span>;<br>    ARGLoader&lt;<span class="hljs-type">data_t</span>, Empty&gt;* pattloader = <span class="hljs-built_in">CreateLoader</span>&lt;<span class="hljs-type">data_t</span>, Empty&gt;(opt, graphInPat);<br>    ARGLoader&lt;<span class="hljs-type">data_t</span>, Empty&gt;* targloader = <span class="hljs-built_in">CreateLoader</span>&lt;<span class="hljs-type">data_t</span>, Empty&gt;(opt, graphInTarg);<br>    <span class="hljs-function">ARGraph&lt;<span class="hljs-type">data_t</span>, Empty&gt; <span class="hljs-title">patt_graph</span><span class="hljs-params">(pattloader)</span></span>;<br>    <span class="hljs-function">ARGraph&lt;<span class="hljs-type">data_t</span>, Empty&gt; <span class="hljs-title">targ_graph</span><span class="hljs-params">(targloader)</span></span><br></code></pre></td></tr></table></div></figure>
+</code></pre>
+</li>
+<li><p>属性关系图（Attributed Relational Graph，ARG）是一种图形化表示方法，用于描述对象之间的属性和关系。其将对象表示为节点，对象之间的属性和关系表示为边。节点上通常带有属性信息，而边则表示对象之间的关联或依赖关系。</p>
+</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li><h3 id="预处理（匹配引擎初始化，快速检查，节点分类，构造节点序列-NG-1-）"><a href="#预处理（匹配引擎初始化，快速检查，节点分类，构造节点序列-NG-1-）" class="headerlink" title="预处理（匹配引擎初始化，快速检查，节点分类，构造节点序列$NG_1$）"></a>预处理（匹配引擎初始化，快速检查，节点分类，构造节点序列$NG_1$）</h3><ul>
+<li>初始化匹配引擎 &amp; FastCheck</li>
+</ul>
+<figure class="highlight c++"><i class="iconfont icon-bookmark" type="button" data-toggle="collapse" data-target="#collapse-43ozgslzcz9o31"></i><div class="collapse show" id="collapse-43ozgslzcz9o31"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">typedef</span> <span class="hljs-type">int32_t</span> <span class="hljs-type">data_t</span><br><span class="hljs-keyword">typedef</span> vflib::VF3LightSubState&lt;<span class="hljs-type">data_t</span>, <span class="hljs-type">data_t</span>, vflib::Empty, vflib::Empty&gt; <span class="hljs-type">state_t</span><br>MatchingEngine&lt;<span class="hljs-type">state_t</span>&gt;* me = <span class="hljs-built_in">CreateMatchingEngine</span>(opt);<br><span class="hljs-function">FastCheck&lt;<span class="hljs-type">data_t</span>, <span class="hljs-type">data_t</span>, Empty, Empty&gt; <span class="hljs-title">check</span><span class="hljs-params">(&amp;patt_graph, &amp;targ_graph)</span></span>;<br></code></pre></td></tr></table></div></figure>
+
+<ul>
+<li>FastCheck 能够排除显然不同构的 Case，对于图同构问题，FastCheck能够排除这些情况：<ul>
+<li>节点&#x2F;边的数量不同；入边&#x2F;出边的数量不同（有向图）</li>
+<li>最大度不同；最大入度&#x2F;出度不同（有向图）</li>
+<li>节点属性明显不同</li>
+</ul>
+</li>
+<li>节点分类</li>
+</ul>
+<figure class="highlight c++"><i class="iconfont icon-bookmark" type="button" data-toggle="collapse" data-target="#collapse-q8r4xplzcz9o31"></i><div class="collapse show" id="collapse-q8r4xplzcz9o31"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs C++">std::vector&lt;<span class="hljs-type">uint32_t</span>&gt; class_patt;<br>std::vector&lt;<span class="hljs-type">uint32_t</span>&gt; class_targ;<br><br><span class="hljs-function">NodeClassifier&lt;<span class="hljs-type">data_t</span>, Empty&gt; <span class="hljs-title">classifier</span><span class="hljs-params">(&amp;targ_graph)</span></span>;<br><span class="hljs-function">NodeClassifier&lt;<span class="hljs-type">data_t</span>, Empty&gt; <span class="hljs-title">classifier2</span><span class="hljs-params">(&amp;patt_graph, classifier)</span></span>;<br>class_patt = classifier<span class="hljs-number">2.</span><span class="hljs-built_in">GetClasses</span>();<br>class_targ = classifier.<span class="hljs-built_in">GetClasses</span>();<br></code></pre></td></tr></table></div></figure>
+
+<ul>
+<li>构造模式图的节点序列$NG_1$，这一步的逻辑和论文一样，作者用优先队列 (堆)实现</li>
+</ul>
+<figure class="highlight c++"><i class="iconfont icon-bookmark" type="button" data-toggle="collapse" data-target="#collapse-ggvjzllzcz9o31"></i><div class="collapse show" id="collapse-ggvjzllzcz9o31"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs C++">VF3NodeSorter&lt;<span class="hljs-type">data_t</span>, Empty, SubIsoNodeProbability&lt;<span class="hljs-type">data_t</span>, Empty&gt; &gt; <span class="hljs-built_in">sorter</span>(&amp;targ_graph);<br>std::vector&lt;nodeID_t&gt; sorted = sorter.<span class="hljs-built_in">SortNodes</span>(&amp;patt_graph);<br><br><span class="hljs-function">std::vector&lt;nodeID_t&gt; <span class="hljs-title">SortNodes</span><span class="hljs-params">(ARGraph&lt;Node, Edge&gt;* pattern)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">uint32_t</span> nodeCount;<br>    <span class="hljs-type">uint32_t</span> i;<br>    nodeCount = pattern-&gt;<span class="hljs-built_in">NodeCount</span>();<br>    std::vector&lt;nodeID_t&gt; nodes_order; <span class="hljs-comment">//Output vector with sorted nodes</span><br><span class="hljs-comment">//We use two structures the first used to quickly edit the deg_m of a node by its index</span><br><span class="hljs-comment">//The second to perform a priority queue by means a max heap</span><br>    <span class="hljs-function">std::vector&lt;VF3SortingNode*&gt; <span class="hljs-title">nodes</span><span class="hljs-params">(nodeCount)</span></span>;<br>    std::vector&lt;VF3SortingNode*&gt; candidates; <span class="hljs-comment">//Node candidate for the addition</span><br>    std::vector&lt;VF3SortingNode*&gt;::iterator candidate_it;<br>    std::vector&lt;VF3SortingNode*&gt;::iterator max_node;<br>    <span class="hljs-comment">//Initializing the node vector for sorting</span><br><br>    <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; nodeCount; i++) &#123;<br>        nodes[i] = <span class="hljs-keyword">new</span> <span class="hljs-built_in">VF3SortingNode</span>(i, pattern-&gt;<span class="hljs-built_in">EdgeCount</span>(i), probability-&gt;<span class="hljs-built_in">GetProbability</span>(pattern, i));<br>    &#125;<br><br>    <span class="hljs-type">uint32_t</span> n = <span class="hljs-number">0</span>;<br>    candidate_it = std::<span class="hljs-built_in">min_element</span>(nodes.<span class="hljs-built_in">begin</span>(), nodes.<span class="hljs-built_in">end</span>(), <span class="hljs-built_in">CompareSortingNodeProbability</span>());<br>    nodeID_t top = (*candidate_it)-&gt;<span class="hljs-built_in">GetID</span>();<br>    <span class="hljs-built_in">AddNodeToSortedSet</span>(pattern, top, n, nodes, candidates, nodes_order);<br><br>    <span class="hljs-comment">//Getting the first node of the heap</span><br>    <span class="hljs-keyword">for</span> (; n &lt; nodeCount - <span class="hljs-number">1</span>; n++) &#123;<br>        candidate_it = std::<span class="hljs-built_in">min_element</span>(candidates.<span class="hljs-built_in">begin</span>(), candidates.<span class="hljs-built_in">end</span>(), <span class="hljs-built_in">CompareCandidates</span>&lt;VF3SortingNode&gt;());<br><br>        <span class="hljs-comment">//Searching for remaining user</span><br>        <span class="hljs-keyword">if</span> ((*candidate_it)-&gt;<span class="hljs-built_in">IsUsed</span>())<br>        &#123;<br>            candidate_it = std::<span class="hljs-built_in">find_if</span>(nodes.<span class="hljs-built_in">begin</span>(), nodes.<span class="hljs-built_in">end</span>(), <span class="hljs-built_in">FindUnused</span>());<br>            <span class="hljs-built_in">AddNodeToSortedSet</span>(pattern, (*candidate_it)-&gt;<span class="hljs-built_in">GetID</span>(), n, nodes, candidates, nodes_order);<br>        &#125;<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (candidate_it != candidates.<span class="hljs-built_in">end</span>())<br>        &#123;<br>            <span class="hljs-built_in">AddNodeToSortedSet</span>(pattern, (*candidate_it)-&gt;<span class="hljs-built_in">GetID</span>(), n, nodes, candidates, nodes_order);<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> nodes_order;<br>&#125;<br></code></pre></td></tr></table></div></figure>
+</li>
+<li><h3 id="匹配过程（从初始状态-s0-开始搜索）"><a href="#匹配过程（从初始状态-s0-开始搜索）" class="headerlink" title="匹配过程（从初始状态 s0 开始搜索）"></a>匹配过程（从初始状态 s0 开始搜索）</h3><figure class="highlight c++"><i class="iconfont icon-bookmark" type="button" data-toggle="collapse" data-target="#collapse-vmfiihlzcz9o31"></i><div class="collapse show" id="collapse-vmfiihlzcz9o31"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-type">state_t</span> <span class="hljs-title">s0</span><span class="hljs-params">(&amp;patt_graph, &amp;targ_graph, class_patt.data(), class_targ.data(), classes_count, sorted.data())</span></span>;<br>me-&gt;<span class="hljs-built_in">FindAllMatchings</span>(s0);    <span class="hljs-comment">//MatchingEngine&lt;state_t&gt;* me </span><br></code></pre></td></tr></table></div></figure></li>
+</ol>
+<p><code>FindAllMatchings</code>的逻辑和论文一样：</p>
+<figure class="highlight c++"><i class="iconfont icon-bookmark" type="button" data-toggle="collapse" data-target="#collapse-fgy3i3lzcz9o31"></i><div class="collapse show" id="collapse-fgy3i3lzcz9o31"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">typedef</span> std::vector&lt;std::pair&lt;nodeID_t, nodeID_t&gt; &gt; MatchingSolution;<br>MatchingVisitor&lt;VFState&gt; *visit;<br>std::vector&lt;MatchingSolution&gt; solutions;<br><span class="hljs-type">bool</span> storeSolutions;<br><br><span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">bool</span> <span class="hljs-title">FindAllMatchings</span><span class="hljs-params">(VFState &amp;s)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">if</span> (s.<span class="hljs-built_in">IsGoal</span>()) &#123;<br>        <span class="hljs-keyword">if</span> (storeSolutions) &#123;<br>            MatchingSolution sol;<br>            s.<span class="hljs-built_in">GetCoreSet</span>(sol);<br>            solutions.<span class="hljs-built_in">push_back</span>(sol);<br>        &#125;<br>        <span class="hljs-keyword">if</span> (visit) &#123;<br>            <span class="hljs-keyword">return</span> (*visit)(s);<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">if</span> (s.<span class="hljs-built_in">IsDead</span>()) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br><br>    nodeID_t n1 = NULL_NODE, n2 = NULL_NODE;<br>    <span class="hljs-keyword">while</span> (s.<span class="hljs-built_in">NextPair</span>(&amp;n1, &amp;n2, n1, n2)) &#123;<br>        <span class="hljs-keyword">if</span> (s.<span class="hljs-built_in">IsFeasiblePair</span>(n1, n2)) &#123;<br>            <span class="hljs-function">VFState <span class="hljs-title">s1</span><span class="hljs-params">(s)</span></span>;<br>            s<span class="hljs-number">1.</span><span class="hljs-built_in">AddPair</span>(n1, n2);<br>            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">FindAllMatchings</span>(s1)) <br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>&#125;<br></code></pre></td></tr></table></div></figure>
+
+<ol>
+<li><h3 id="后处理-资源回收（释放-engine-和-loader-等）"><a href="#后处理-资源回收（释放-engine-和-loader-等）" class="headerlink" title="后处理 &amp; 资源回收（释放 engine 和 loader 等）"></a>后处理 &amp; 资源回收（释放 engine 和 loader 等）</h3><figure class="highlight c++"><i class="iconfont icon-bookmark" type="button" data-toggle="collapse" data-target="#collapse-hqlifzlzcz9o31"></i><div class="collapse show" id="collapse-hqlifzlzcz9o31"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">delete</span> me;<br><span class="hljs-keyword">delete</span> pattloader;<br><span class="hljs-keyword">delete</span> targloader;<br></code></pre></td></tr></table></div></figure></li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>VF3图同构算法</div>
+      <div>https://www.mementos.top/2024/07/26/VF3 图同构算法/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Natsumi</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年7月26日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/07/29/LRU%20&amp;%20LFU/" title="LRU &amp; LFU">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">LRU &amp; LFU</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/07/26/Hypergraph%20&amp;%20semi-supervised%20paper%20review/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/DynamicRibbon.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script src="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/js/index.js"></script><!-- hexo injector body_end end --></body>
+</html>

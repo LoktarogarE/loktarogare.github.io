@@ -1,0 +1,963 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><link href="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/css/index.css" rel="stylesheet"/><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/bimg/avatar1.png">
+  <link rel="icon" href="/bimg/avatar1.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Natsumi">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="百度智能云飞桨平台 机器学习的常见算法 supervised learning &amp; unsupervised learning 「main」 Reinforcement learning，recommender systems  机器学习的三大问题regression problem 回归问题 样本由离散的点构成，我们需要利用模型来拟合它，从而对连续的每个值都给出预测 常见情况下 模型分为">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Introduction to Machine Learning">
+<meta property="og:url" content="https://www.mementos.top/1976/04/01/Introduction%20to%20Machine%20Learning/index.html">
+<meta property="og:site_name" content="Natsumi&#39;s Mementos">
+<meta property="og:description" content="百度智能云飞桨平台 机器学习的常见算法 supervised learning &amp; unsupervised learning 「main」 Reinforcement learning，recommender systems  机器学习的三大问题regression problem 回归问题 样本由离散的点构成，我们需要利用模型来拟合它，从而对连续的每个值都给出预测 常见情况下 模型分为">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24egy1h2tvo59jrfj215c0eggmi.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24egy1h2tvp1ne2yj214a0863zg.jpg">
+<meta property="article:published_time" content="1976-04-01T07:53:17.000Z">
+<meta property="article:modified_time" content="2022-06-02T06:54:24.000Z">
+<meta property="article:author" content="Natsumi">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="Computation tech">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/e6c9d24egy1h2tvo59jrfj215c0eggmi.jpg">
+  
+  
+  
+  <title>Introduction to Machine Learning - Natsumi&#39;s Mementos</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/interact_anime.css">
+<link rel="stylesheet" href="/css/format.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/scroll.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.mementos.top","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/gifs/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+</head>
+
+
+<body>
+  
+  
+    
+
+<style type="text/css">
+    @keyframes spin3D {
+        from {
+            transform: rotate3d(0.5, 0.5, 0.5, 360deg);
+        }
+
+        to {
+            transform: rotate3d(0deg);
+        }
+    }
+
+    #loading {
+        height: 100%;
+        background-color: #172d4781;
+        backdrop-filter: saturate(100%) blur(10px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+        z-index: 99999999;
+    }
+
+    .spinner-box {
+        width: 300px;
+        height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: transparent;
+    }
+
+    .leo {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+    }
+
+    .blue-orbit {
+        width: 175px;
+        height: 175px;
+        border: 2px solid #1a91fa;
+        animation: spin3D 3s linear .2s infinite;
+    }
+
+    .green-orbit {
+        width: 135px;
+        height: 135px;
+        border: 2px solid #00ffdd;
+        animation: spin3D 2s linear 0s infinite;
+    }
+
+    .red-orbit {
+        width: 100px;
+        height: 100px;
+        border: 2px solid #d75151;
+        animation: spin3D 1s linear 0s infinite;
+    }
+
+    .white-orbit-a {
+        width: 70px;
+        height: 70px;
+        border: 1px solid #faf5f5;
+        animation: spin3D 3s linear 0s infinite;
+    }
+
+    .white-orbit-b {
+        width: 70px;
+        height: 70px;
+        border: 1px solid #faf5f5;
+        animation: spin3D 1.5s linear 0s infinite;
+    }
+
+    .nucleus {
+        width: 1px;
+        height: 1px;
+        border: 1px solid #ffffff;
+        animation: spin3D 1s linear 0s infinite;
+    }
+</style>
+
+<div id="loading">
+    <div class="spinner-box">
+        <div class="blue-orbit leo"></div>
+        <div class="green-orbit leo"></div>
+        <div class="red-orbit leo"></div>
+        <div class="white-orbit-a leo"></div>
+        <div class="white-orbit-b leo"></div>
+        <div class="nucleus leo"></div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        const loaded = function () {
+            window.onload = function () {
+                const loader = document.getElementById("loading");
+                loader.className = "fadeout";
+                setTimeout(function () {
+                    loader.style.display = "none";
+                }, 
+                100
+                );
+            }
+        };
+        loaded();
+    })();
+</script>
+  
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Natsumi&#39;s Mementos</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>HOME</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>author</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Road2AI/" target="_self">
+                <i class="iconfont icon-codepen-fill"></i>
+                <span>dev</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/bimg/p1.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Introduction to Machine Learning"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="1976-04-01 15:53" pubdate>
+          1976年4月1日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          21 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Introduction to Machine Learning</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p><a target="_blank" rel="noopener" href="https://cloud.baidu.com/">百度智能云</a><br><a target="_blank" rel="noopener" href="https://www.paddlepaddle.org.cn/tutorials/projectdetail/2496128">飞桨平台</a></p>
+<h3 id="机器学习的常见算法"><a href="#机器学习的常见算法" class="headerlink" title="机器学习的常见算法"></a>机器学习的常见算法</h3><ul>
+<li>supervised learning &amp; unsupervised learning 「main」</li>
+<li>Reinforcement learning，recommender systems</li>
+</ul>
+<h3 id="机器学习的三大问题"><a href="#机器学习的三大问题" class="headerlink" title="机器学习的三大问题"></a>机器学习的三大问题</h3><h4 id="regression-problem-回归问题"><a href="#regression-problem-回归问题" class="headerlink" title="regression problem 回归问题"></a>regression problem 回归问题</h4><ul>
+<li>样本由离散的点构成，我们需要利用模型来拟合它，从而对连续的每个值都给出预测</li>
+<li>常见情况下 模型分为：linear model 和 polynomial model 两种</li>
+<li><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h2tvo59jrfj215c0eggmi.jpg" srcset="/gifs/loading.gif" lazyload></li>
+</ul>
+<h4 id="classification-problem-分类问题"><a href="#classification-problem-分类问题" class="headerlink" title="classification problem 分类问题"></a>classification problem 分类问题</h4><ul>
+<li>和回归问题不同的地方在于 其产出是离散的 常见情况是 下判断</li>
+</ul>
+<h4 id="Clustering-problem-聚类问题"><a href="#Clustering-problem-聚类问题" class="headerlink" title="Clustering problem 聚类问题"></a>Clustering problem 聚类问题</h4><h3 id="Three-Basic-Mechine-Learning-method"><a href="#Three-Basic-Mechine-Learning-method" class="headerlink" title="Three Basic Mechine Learning method"></a>Three Basic Mechine Learning method</h3><p>Supervised Learning 「给出正确的答案，算法的目的是产生更多正确答案」</p>
+<ul>
+<li><p>a data set with right answers given,  the task of the algorithm is to <strong>produce more of these right answers.</strong> </p>
+</li>
+<li><p>由监督学习引出的两种问题是 <strong>分类问题和回归问题</strong>(两者的区别在连续和离散)</p>
+</li>
+<li><p>监督学习的集中算法</p>
+<ul>
+<li>线性回归、逻辑回归、决策树、神经网络、卷积神经网络、循环神经网络</li>
+</ul>
+</li>
+<li><p>强监督和弱监督  如果你对每组数据都给出完整、正确的标签，那么就是强监督学习 </p>
+<ul>
+<li>弱监督学习分为三类： 「周志华老师  A brief Introduction to Weakly Supervised Learning」   这三类并非我们人为选择，而是在实际操作中可能会同时发生的。<ul>
+<li><p>Incomplete su 不完全监督： 只对一部分数据给出label</p>
+<ul>
+<li>解决方案： <ul>
+<li>Active L 主动学习 &#x3D;&gt; 先训练标注过的数据，剩下的自动查询。 有人工干预</li>
+<li>Semi-su L半监督学习 &#x3D;&gt; 观察未被标注的数据分布，比如说在一个positive和一个negative中间的，如果他附近的样本点很多为正，那么可以认为它大概率为正</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Inexact su 不确切监督：给出的标签是粗粒度的，一个包里的示例只给了一个标签</p>
+<ul>
+<li>解决方案：<ul>
+<li>Multi-instance L 多实例学习 &#x3D;&gt; 实际上几乎所有机器学习算法都有其多实例对等体，这个的应用非常广泛</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Inaccurate su不精确监督： 给出的标签可能有错误</p>
+<ul>
+<li>解决方案：<ul>
+<li>L with label noise 带噪学习 &#x3D;&gt; 基本思想是 识别潜在的误分类样本然后修正。在系统中建立相邻关系表，如果某个点和其相邻的点不同，它就可能被判定为可疑点，系统可能会将其删除或重新标记</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Unsupervised Learning 「数据不含标签，算法的目的是找到数据中的结构 我们不知道正确答案」</p>
+<ul>
+<li>a data set with no labels, the task of the algorithm is to find some structure in the data, the key is we don’t know how to divide the data in advance.<ul>
+<li>cluster algorithm (organize computing clusters or social network analysis)</li>
+<li>cocktail party problem</li>
+</ul>
+</li>
+<li>由非监督学习引出的问题则是 聚类问题，将训练数据分成几个类，自己去寻找结构</li>
+</ul>
+<p>Reinforcement learning  RL</p>
+<p>强调探索和利用的平衡，通过某种奖惩机制刺激，逐步产生获得最大利益的习惯性行为。</p>
+<hr>
+<h2 id="AI必知必会基础"><a href="#AI必知必会基础" class="headerlink" title="AI必知必会基础"></a>AI必知必会基础</h2><h3 id="人工智能概论"><a href="#人工智能概论" class="headerlink" title="人工智能概论"></a>人工智能概论</h3><h4 id="人工智能的描述"><a href="#人工智能的描述" class="headerlink" title="人工智能的描述"></a>人工智能的描述</h4><ul>
+<li><p>可以感知“环境”，并且根据环境变化做出决策或者行动，从而达成目标的程序。(AI 的所谓学习，可以被解释成一种 优化)</p>
+<ul>
+<li>机器学习 指的就是 特征提取构建模型 + 大量数据进行训练，从而达到对新样本的预测、识别</li>
+</ul>
+</li>
+<li><p><code>为什么不能用编程解决机器学习问题？</code>：比如在猫狗识别中，改变拍摄角度或者动物形态，可能就改变了我们用编程判断时的关键特征。</p>
+</li>
+<li><p><code>为什么GPU为机器学习提供了支撑？</code>： GPU一开始被设计成方便图形开发，在渲染图形时候需要大量浮点运算，并且GPU可以大量并行的进行浮点运算</p>
+</li>
+</ul>
+<h4 id="弱、强、超人工智能的含义"><a href="#弱、强、超人工智能的含义" class="headerlink" title="弱、强、超人工智能的含义"></a>弱、强、超人工智能的含义</h4><ul>
+<li>弱人工智能 指的是专注于且只能解决特定问题的AI， AlphaGo、Siri这种也只能叫弱人工智能</li>
+<li>强人工智能 又叫完全人工智能，可以胜任人类所有工作的人工智能，目前还无法实现。<ul>
+<li>在我看来，一方面是由于人工智能的<strong>复杂决策和对不确定因素的推理能力</strong>还不成熟，另一方面，人工智能伦理问题也难以解决。</li>
+</ul>
+</li>
+<li>超人工智能 比人类社会最聪明的人还要更逆天的存在</li>
+<li>人工智能与岗位的关系：不可避免的替代掉一部分人的工作，但在历史上也有先例，会产生更好的工作 解放人类生产力。  决策信息量小，过程简单的重复性工作，可能会被替代。</li>
+</ul>
+<h4 id="人工智能几个基本概念"><a href="#人工智能几个基本概念" class="headerlink" title="人工智能几个基本概念"></a>人工智能几个基本概念</h4><ul>
+<li><p>向量 &#x3D;&gt; 二维    平面 &#x3D;&gt; 矩阵   多维 &#x3D;&gt; 张量(tensor)</p>
+</li>
+<li><h5 id="训练集、验证集-训练好之后用来调整参数-、测试集-用来评估"><a href="#训练集、验证集-训练好之后用来调整参数-、测试集-用来评估" class="headerlink" title="训练集、验证集(训练好之后用来调整参数)、测试集(用来评估)"></a>训练集、验证集(训练好之后用来调整参数)、测试集(用来评估)</h5><ul>
+<li>验证集是什么：在跑测试之前，防止自己的模型过拟合，想要获得更好的泛化能力来进行的小测试</li>
+<li>注意，三者其实都是数据集的划分而已，并不是独立的，一般的分配比例是 6 2 2(小型系统)<ul>
+<li>每一个数据看作一个 包， 每个包里可以有多个instance.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>随机梯度下降法 Stochastic Gradient Descent</p>
+</li>
+</ul>
+<h3 id="机器学习"><a href="#机器学习" class="headerlink" title="机器学习"></a>机器学习</h3><p>机器学习7大步骤</p>
+<p>收集数据 $\rightarrow$ 数据准备 $\rightarrow$ 选择模型 $\rightarrow$ 训练 $\rightarrow$ 评估 $\rightarrow$ 参数调整 $\rightarrow$ 预估</p>
+<p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h2tvp1ne2yj214a0863zg.jpg" srcset="/gifs/loading.gif" lazyload></p>
+<p><strong>宏观上说，还是将现实问题抽象为数学问题，并利用计算机建立模型解决，最后评估模型的合理性。从过程上说，通过训练集，不断识别和提取特征，不断完善模型，最终形成有效模型的过程，就可以称为机器学习。</strong></p>
+<h4 id="机器学习的评估指标-以男女预测为例"><a href="#机器学习的评估指标-以男女预测为例" class="headerlink" title="机器学习的评估指标 (以男女预测为例)"></a>机器学习的评估指标 (以男女预测为例)</h4><ul>
+<li>Accuracy<ul>
+<li>正确数&#x2F;总预测数    问题在于样本不平衡时(比如9成样本结果一样，那么即使全预测一样的结果仍然可能取得9成的准确率)</li>
+</ul>
+</li>
+<li>Precision<ul>
+<li>以男女预测为例，这个指的是，比如预测为男的结果里，实际上确实为男的比率，而Accuracy 指的是，所有的预测结果里，预测正确的比率。</li>
+</ul>
+</li>
+<li>Recall  召回率&#x2F;查全率<ul>
+<li>实际为男的样本，确实被预测为男的概率</li>
+<li>为什么需要这个指标：有些系统必须找出全部含有某种特征的点, 比如必须找到所有欠债的人，至于有的人没欠债却被认为欠了，没关系。</li>
+</ul>
+</li>
+<li>PR曲线 &#x2F; F1分数  「将精准率和召回率做出二维曲线」<ul>
+<li>P和R 并不能都同时达到高位，因此综合两者的表现，出现了F1分数 &#x3D; (2 x p x r) &#x2F; (p + r)</li>
+</ul>
+</li>
+<li>ROC 曲线 「TP率 和 FP率 真正率 &#x2F; 假正率」<ul>
+<li>我觉得这个不是很好懂，姑且记住 <strong>ROC曲线越陡说明模型的性能越好</strong></li>
+</ul>
+</li>
+<li>AUC 曲线下面积</li>
+</ul>
+<h4 id="假设函数-损失函数和它们的优化"><a href="#假设函数-损失函数和它们的优化" class="headerlink" title="假设函数&amp;损失函数和它们的优化"></a>假设函数&amp;损失函数和它们的优化</h4><ul>
+<li>Hypothesis Function: 也就是模型本身。 </li>
+<li>Loss Function: L(x) 其中x是假设函数的预测结果，L(x)越小，与实际值的偏差越小 </li>
+<li>优化方法：本质上，就是优化假设函数以使损失函数最小的过程。 优化方法 就是我们常听说的，如 梯度下降法、共轭梯度法 等等。<ul>
+<li>经验误差(训练集数据的误差) </li>
+<li>泛化误差(测试集数据的误差)</li>
+</ul>
+</li>
+</ul>
+<h4 id="拟合-fitting"><a href="#拟合-fitting" class="headerlink" title="拟合 fitting"></a>拟合 fitting</h4><p>拟合就是把平面坐标系中散落的点，用光滑的曲线连接起来，利用模型对数据进行拟合，就是机器学习的基本问题。 对训练集以外样本的预测能力，就是机器学习的泛化能力。</p>
+<ul>
+<li>过拟合，模型在训练样本中表现优越(从几何上看，模型曲线几乎包含了所有的样本点)，但泛化能力差。 产生的原因是 特征太多和训练样本过少</li>
+<li>欠拟合(underfitting)， 模型曲线不能很好的拟合数据，在训练和测试的时候表现都不好。 比如尝试用直线去拟合符合对数特征的样本点</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/AI/" class="print-no-link">#AI</a>
+      
+        <a href="/tags/Computation-tech/" class="print-no-link">#Computation tech</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Introduction to Machine Learning</div>
+      <div>https://www.mementos.top/1976/04/01/Introduction to Machine Learning/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Natsumi</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>1976年4月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/1976/04/01/Introduction%20to%20Database/" title="Introduction to database">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Introduction to database</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/1976/04/01/Leetcode%20Data%20Structure%20Note/" title="Leetcode Data Structure Note">
+                        <span class="hidden-mobile">Leetcode Data Structure Note</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/DynamicRibbon.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script src="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/js/index.js"></script><!-- hexo injector body_end end --></body>
+</html>

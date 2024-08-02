@@ -1,0 +1,1188 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><link href="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/css/index.css" rel="stylesheet"/><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/bimg/avatar1.png">
+  <link rel="icon" href="/bimg/avatar1.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Natsumi">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="斌头之计算机安全学1. 概论「要在一条不安全的信道中传递信息，这是计算机安全存在的原因。」CIA三元组： integrity 完整性 系统完整+数据完整  availability  可用性  confidentiality 机密性   真实性；可追溯性 不被算在这之中 6种安全服务 认证：  1.在连接的初始化阶段，认证服务要保证两个实体是可信的 2. 保证连接不受第三方的干扰(在交互中，不能有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="斌头之计算机安全学">
+<meta property="og:url" content="https://www.mementos.top/2021/12/12/%E6%96%8C%E5%A4%B4%E4%B9%8B%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AE%89%E5%85%A8%E5%AD%A6/index.html">
+<meta property="og:site_name" content="Natsumi&#39;s Mementos">
+<meta property="og:description" content="斌头之计算机安全学1. 概论「要在一条不安全的信道中传递信息，这是计算机安全存在的原因。」CIA三元组： integrity 完整性 系统完整+数据完整  availability  可用性  confidentiality 机密性   真实性；可追溯性 不被算在这之中 6种安全服务 认证：  1.在连接的初始化阶段，认证服务要保证两个实体是可信的 2. 保证连接不受第三方的干扰(在交互中，不能有">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.mementos.top/bimg/computer_security.jpg">
+<meta property="article:published_time" content="2021-12-11T20:46:25.000Z">
+<meta property="article:modified_time" content="2024-07-26T07:54:04.210Z">
+<meta property="article:author" content="Natsumi">
+<meta property="article:tag" content="Computer security">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.mementos.top/bimg/computer_security.jpg">
+  
+  
+  
+  <title>斌头之计算机安全学 - Natsumi&#39;s Mementos</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/interact_anime.css">
+<link rel="stylesheet" href="/css/format.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/scroll.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.mementos.top","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/gifs/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+</head>
+
+
+<body>
+  
+  
+    
+
+<style type="text/css">
+    @keyframes spin3D {
+        from {
+            transform: rotate3d(0.5, 0.5, 0.5, 360deg);
+        }
+
+        to {
+            transform: rotate3d(0deg);
+        }
+    }
+
+    #loading {
+        height: 100%;
+        background-color: #172d4781;
+        backdrop-filter: saturate(100%) blur(10px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+        z-index: 99999999;
+    }
+
+    .spinner-box {
+        width: 300px;
+        height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: transparent;
+    }
+
+    .leo {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+    }
+
+    .blue-orbit {
+        width: 175px;
+        height: 175px;
+        border: 2px solid #1a91fa;
+        animation: spin3D 3s linear .2s infinite;
+    }
+
+    .green-orbit {
+        width: 135px;
+        height: 135px;
+        border: 2px solid #00ffdd;
+        animation: spin3D 2s linear 0s infinite;
+    }
+
+    .red-orbit {
+        width: 100px;
+        height: 100px;
+        border: 2px solid #d75151;
+        animation: spin3D 1s linear 0s infinite;
+    }
+
+    .white-orbit-a {
+        width: 70px;
+        height: 70px;
+        border: 1px solid #faf5f5;
+        animation: spin3D 3s linear 0s infinite;
+    }
+
+    .white-orbit-b {
+        width: 70px;
+        height: 70px;
+        border: 1px solid #faf5f5;
+        animation: spin3D 1.5s linear 0s infinite;
+    }
+
+    .nucleus {
+        width: 1px;
+        height: 1px;
+        border: 1px solid #ffffff;
+        animation: spin3D 1s linear 0s infinite;
+    }
+</style>
+
+<div id="loading">
+    <div class="spinner-box">
+        <div class="blue-orbit leo"></div>
+        <div class="green-orbit leo"></div>
+        <div class="red-orbit leo"></div>
+        <div class="white-orbit-a leo"></div>
+        <div class="white-orbit-b leo"></div>
+        <div class="nucleus leo"></div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        const loaded = function () {
+            window.onload = function () {
+                const loader = document.getElementById("loading");
+                loader.className = "fadeout";
+                setTimeout(function () {
+                    loader.style.display = "none";
+                }, 
+                100
+                );
+            }
+        };
+        loaded();
+    })();
+</script>
+  
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Natsumi&#39;s Mementos</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>HOME</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>author</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Road2AI/" target="_self">
+                <i class="iconfont icon-codepen-fill"></i>
+                <span>dev</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/bimg/computer_security.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="斌头之计算机安全学"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-12-12 04:46" pubdate>
+          2021年12月12日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          65 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">斌头之计算机安全学</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="斌头之计算机安全学"><a href="#斌头之计算机安全学" class="headerlink" title="斌头之计算机安全学"></a>斌头之计算机安全学</h1><h1 id="1-概论"><a href="#1-概论" class="headerlink" title="1. 概论"></a>1. 概论</h1><h2 id="「要在一条不安全的信道中传递信息，这是计算机安全存在的原因。」"><a href="#「要在一条不安全的信道中传递信息，这是计算机安全存在的原因。」" class="headerlink" title="「要在一条不安全的信道中传递信息，这是计算机安全存在的原因。」"></a>「要在一条不安全的信道中传递信息，这是计算机安全存在的原因。」</h2><h3 id="CIA三元组："><a href="#CIA三元组：" class="headerlink" title="CIA三元组："></a>CIA三元组：</h3><ul>
+<li><p>integrity 完整性 系统完整+数据完整</p>
+</li>
+<li><p>availability  可用性</p>
+</li>
+<li><p>confidentiality 机密性</p>
+</li>
+</ul>
+<p>真实性；可追溯性 不被算在这之中</p>
+<h3 id="6种安全服务"><a href="#6种安全服务" class="headerlink" title="6种安全服务"></a>6种安全服务</h3><ul>
+<li><p>认证：</p>
+<ul>
+<li>1.在连接的初始化阶段，认证服务要保证两个实体是可信的 2. 保证连接不受第三方的干扰(在交互中，不能有第三方能伪装成合法的实体传输或接受信息)</li>
+<li>包括对等实体认证(有连接) 和 数据源认证(通信实体在通信前没有预先交互(无连接))</li>
+</ul>
+</li>
+<li><p>访问控制：限制和控制通过通信连接对主机与应用进行访问的能力。每个试图获得访问控制的实体在获取权限之前必须被识别&#x2F;认证</p>
+</li>
+<li><p>数据保密性(防止被动攻击)</p>
+</li>
+<li><p>数据完整性(防止主动攻击) 确保收到的消息 和 发送出的消息是一致的。(同时也保护数据被破坏)</p>
+</li>
+<li><p>不可否认性：防止发送或者接收方 否认传输&#x2F;收到过某条信息。 「也就是 接收方能证明发送方确实发送了消息，而发送方能证明接收方肯定收到了这条消息」</p>
+</li>
+<li><p>可用性服务：系统资源可以被授权实体访问或使用时 称系统是可用的。</p>
+</li>
+</ul>
+<h3 id="安全攻击"><a href="#安全攻击" class="headerlink" title="安全攻击"></a>安全攻击</h3><h3 id="security-attack-分为被动攻击和主动攻击-OSI-ITU-T-X-800"><a href="#security-attack-分为被动攻击和主动攻击-OSI-ITU-T-X-800" class="headerlink" title="security attack 分为被动攻击和主动攻击 (OSI ITU-T X.800)"></a>security attack 分为被动攻击和主动攻击 (OSI ITU-T X.800)</h3><ul>
+<li>被动攻击：试图了解或利用系统信息 但不影响系统资源 <ul>
+<li>截获、监听都是被动攻击    除了利用信息还可以  流量分析「判断通信性质、判断主机身份和位置」</li>
+<li>使用VPN(虚拟专用网)  加密网络来预防</li>
+</ul>
+</li>
+<li>主动攻击：试图改变系统资源或者影响系统运作 篡改数据流 或制造虚假流 可以被检测<ul>
+<li>假冒、重放、篡改、拒绝服务</li>
+<li>不容易被有效防止</li>
+</ul>
+</li>
+</ul>
+<h3 id="security-mechanisms-安全机制-「加密、数字签名、访问控制、认证交换」"><a href="#security-mechanisms-安全机制-「加密、数字签名、访问控制、认证交换」" class="headerlink" title="security mechanisms 安全机制 「加密、数字签名、访问控制、认证交换」"></a>security mechanisms 安全机制 「加密、数字签名、访问控制、认证交换」</h3><h1 id="2-密码系统与古典密码"><a href="#2-密码系统与古典密码" class="headerlink" title="2. 密码系统与古典密码"></a>2. 密码系统与古典密码</h1><h3 id="5个部分-M-明文空间-｜-C-密文空间-｜-K密钥空间-｜-E-encryption-｜-D-decryption"><a href="#5个部分-M-明文空间-｜-C-密文空间-｜-K密钥空间-｜-E-encryption-｜-D-decryption" class="headerlink" title="5个部分: M 明文空间 ｜ C 密文空间 ｜ K密钥空间 ｜ E(encryption)｜ D(decryption)"></a>5个部分: M 明文空间 ｜ C 密文空间 ｜ K密钥空间 ｜ E(encryption)｜ D(decryption)</h3><ul>
+<li><p>加密： E(M, K1) &#x3D; C</p>
+</li>
+<li><p>解密： D(C, K2) &#x3D; M        而D(E(M, K1), K2) &#x3D; M    对称加密时 K1 &#x3D; K2 公钥加密 K1 !&#x3D; K2</p>
+</li>
+</ul>
+<p>(古典密码系统是不存在认证概念的)</p>
+<blockquote>
+<p>公钥加密：M &#x3D; D(E(M, pubkey), privatekey)</p>
+<p>认证：M &#x3D; E(D(M, privatekey), pubkey)</p>
+</blockquote>
+<h3 id="密码分析-攻击难度由高至低-："><a href="#密码分析-攻击难度由高至低-：" class="headerlink" title="密码分析(攻击难度由高至低)："></a>密码分析(攻击难度由高至低)：</h3><ul>
+<li>唯密文攻击 </li>
+<li>已知明文攻击 (掌握一段密文以及其对应的明文)</li>
+<li>选择明文攻击 (掌握加密机，可以对任意明文加密得到密文)</li>
+<li>选择密文攻击(掌握解密机，可以对任意密文解密得到明文)</li>
+<li>选择文本攻击</li>
+</ul>
+<h3 id="密码的安全性"><a href="#密码的安全性" class="headerlink" title="密码的安全性"></a>密码的安全性</h3><ul>
+<li><p>无条件安全</p>
+</li>
+<li><p>计算上安全</p>
+<ul>
+<li>破译代价超过密文价值</li>
+<li>破译时间超过生命周期</li>
+</ul>
+</li>
+</ul>
+<h4 id="古典密码的基本模块"><a href="#古典密码的基本模块" class="headerlink" title="古典密码的基本模块"></a>古典密码的基本模块</h4><ul>
+<li>Substitution 代换(用其他符号代替) </li>
+<li>Permutation 置换(得到类型不同的映射)</li>
+</ul>
+<h1 id="3-分组密码、AES、分组密码的工作模式"><a href="#3-分组密码、AES、分组密码的工作模式" class="headerlink" title="3. 分组密码、AES、分组密码的工作模式"></a>3. 分组密码、AES、分组密码的工作模式</h1><h4 id="分组密码的设计思想：-「扩散与混淆」"><a href="#分组密码的设计思想：-「扩散与混淆」" class="headerlink" title="分组密码的设计思想： 「扩散与混淆」"></a>分组密码的设计思想： 「扩散与混淆」</h4><ul>
+<li>diffusion 扩散  「将明文冗余的分散到密文中，要实现这种思想 可以采用 <em>置换 permutation</em>」 (增加方程次数)</li>
+<li>confusion 混淆 「防止统计分析攻击的方法。 通常使用 <em>代换 substitution</em>」(增加)</li>
+</ul>
+<blockquote>
+<p>应当注意的是， 我认为分组密码和对称&#x2F;非对称密码是不同的分类，<strong>分组密码对应的是流密码</strong>。</p>
+</blockquote>
+<h2 id="AES"><a href="#AES" class="headerlink" title="AES"></a>AES</h2><ul>
+<li>分组长度必须 128 bit  密钥长度可为 128 196 256 bit 三种</li>
+<li>密码需要加密N轮 轮数由密钥长度决定 16字节 $\rightarrow$ 10轮   24字节 $\rightarrow$ 12轮  32字节 $\rightarrow$ 14轮</li>
+<li>加密时 前N-1轮是相同的4个步骤。而最后一轮只包含3个步骤(没有列混淆)，第一轮之前有一次轮密钥加</li>
+<li>解密时 先进行一次轮密钥加  然后 逆向行移位、逆向字节代替、轮密钥加、逆向列混淆,最后一轮不进行列混淆</li>
+<li>(以128为例)在最开始需要输入一个16字节密钥。输入的密钥被扩展成由 44个32位字(4bit) 组成的数组 w[i]。 10轮之中，每一轮搞4个w[i]数组作为这一轮的轮密钥。  扩展密钥 $\rightarrow$ 44个w[i]数组</li>
+</ul>
+<h4 id="AES的步骤"><a href="#AES的步骤" class="headerlink" title="AES的步骤"></a>AES的步骤</h4><ol>
+<li><p>字节代换 ByteSubstitution  查表操作 4x4字节矩阵 Sbox则是 16x16的字节矩阵</p>
+</li>
+<li><p>行移位Shift Rows  第0行不动 第一行左移1字节，第二行左移2字节，第三行左移3字节</p>
+</li>
+<li><p>列混淆Mix Columns  给定一个特殊的可逆矩阵，每一列分别和矩阵相乘 得到的列替换掉原来的列 </p>
+</li>
+<li><p>轮密钥加  这个分组和扩展密钥中的4行   按位XOR</p>
+</li>
+</ol>
+<p>(密钥扩展函数将产生N+1轮密钥，它们是互不相同的4x4矩阵，作为轮密钥加的输入)</p>
+<h4 id="关于AES"><a href="#关于AES" class="headerlink" title="关于AES"></a>关于AES</h4><h4 id="AES可以构造-消息验证码-这时只使用了加密过程。-任何其他的分组密码也可以"><a href="#AES可以构造-消息验证码-这时只使用了加密过程。-任何其他的分组密码也可以" class="headerlink" title="AES可以构造 消息验证码 这时只使用了加密过程。(任何其他的分组密码也可以)"></a>AES可以构造 消息验证码 这时只使用了加密过程。(任何其他的分组密码也可以)</h4><hr>
+<h3 id="分组密码工作模式-讨论-多组明文需要发送时如何选择密钥"><a href="#分组密码工作模式-讨论-多组明文需要发送时如何选择密钥" class="headerlink" title="分组密码工作模式    讨论 多组明文需要发送时如何选择密钥"></a>分组密码工作模式    讨论 多组明文需要发送时如何选择密钥</h3><ol>
+<li><h4 id="电码本-ECB-相同的密钥分别对明文分组独立加密"><a href="#电码本-ECB-相同的密钥分别对明文分组独立加密" class="headerlink" title="电码本 ECB     相同的密钥分别对明文分组独立加密"></a>电码本 ECB     相同的密钥分别对明文分组独立加密</h4></li>
+</ol>
+<blockquote>
+<p>因为每次用一样的，所以一样的明文自然对应一样的输出。</p>
+</blockquote>
+<ol start="2">
+<li><h4 id="密文分组链接-CBC-加密算法的输入是上一个密文组和自己这个明文组的异或"><a href="#密文分组链接-CBC-加密算法的输入是上一个密文组和自己这个明文组的异或" class="headerlink" title="密文分组链接 CBC  加密算法的输入是上一个密文组和自己这个明文组的异或"></a>密文分组链接 CBC  加密算法的输入是上一个密文组和自己这个明文组的异或</h4><blockquote>
+<p> 面向分组的通用传输, 认证    意思就是 实际上加密的是上一个密文组和这个明文组的异或</p>
+</blockquote>
+</li>
+</ol>
+<blockquote>
+<p>解密时 分别解密 然后和上一块密文异或就行了</p>
+</blockquote>
+<ol start="3">
+<li><h4 id="密文反馈-CFB-一次处理s位，上一块密文作为加密算法的输入，产生的伪随机数输出和明文异或作为下一单元的密文"><a href="#密文反馈-CFB-一次处理s位，上一块密文作为加密算法的输入，产生的伪随机数输出和明文异或作为下一单元的密文" class="headerlink" title="密文反馈 CFB 一次处理s位，上一块密文作为加密算法的输入，产生的伪随机数输出和明文异或作为下一单元的密文"></a>密文反馈 CFB 一次处理s位，上一块密文作为加密算法的输入，产生的伪随机数输出和明文异或作为下一单元的密文</h4><blockquote>
+<p>面向数据流的通用传输 、 认证  </p>
+<p>搞一个移位寄存器(因为加密每次需要128位，我们每次只要s位)  </p>
+<p>拿128位加密，加密完成后只拿前s位 然后和明文异或 异或的结果再加入移位寄存器。</p>
+</blockquote>
+</li>
+<li><h4 id="输出反馈-OFB"><a href="#输出反馈-OFB" class="headerlink" title="输出反馈 OFB"></a>输出反馈 OFB</h4><blockquote>
+<p> 和CFB类似，加密算法的输入是上一次加密的输出，且使用整个分组</p>
+</blockquote>
+</li>
+<li><h4 id="计数器-CTR"><a href="#计数器-CTR" class="headerlink" title="计数器 CTR"></a>计数器 CTR</h4><blockquote>
+<p> 每个明文分组都与一个经过加密的计数器相异或。对每个后续分组计数器递增。 </p>
+<p>明文还是和加密后的异或直接得到密文。但不链接各个明文！</p>
+</blockquote>
+</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Terry-Wu/p/10314070.html">不同加密模式之间如何选择</a></p>
+<p>《实用密码学》[Schneier,2003]一书中指出，不应使用ECB模式，而推荐使用CBC模式和CTR模式。</p>
+<hr>
+<h1 id="4-公钥密码学RSA-ECC-Ellptic-Curve-DSS"><a href="#4-公钥密码学RSA-ECC-Ellptic-Curve-DSS" class="headerlink" title="4. 公钥密码学RSA   ECC(Ellptic Curve) DSS"></a>4. 公钥密码学RSA   ECC(Ellptic Curve) DSS</h1><h3 id="提问：-与公私钥加密相比-对称加密又是建立在什么概念上的？"><a href="#提问：-与公私钥加密相比-对称加密又是建立在什么概念上的？" class="headerlink" title="提问： 与公私钥加密相比 对称加密又是建立在什么概念上的？"></a>提问： 与公私钥加密相比 对称加密又是建立在什么概念上的？</h3><blockquote>
+<p>对一个对称加密来说  $E_k(M) &#x3D; C; D_k(C) &#x3D; M$</p>
+<ul>
+<li>加密与解密算法可以不同</li>
+<li>对密钥K的使用方法可以不同</li>
+</ul>
+<p>对称密码<code>算法</code> 包括 </p>
+<ul>
+<li>分组加密 DES, AES, TEA, SM4</li>
+<li>流密码 RC4, ZUC(中国4G国标)</li>
+<li>哈希函数 SHA , SM3</li>
+<li>消息认证码  CBC-MAC. AES-GCM. HMAC&#x2F;NMAC</li>
+</ul>
+</blockquote>
+<h3 id="公钥密码学解决的问题-「加解密-密钥交换-和-数字签名」"><a href="#公钥密码学解决的问题-「加解密-密钥交换-和-数字签名」" class="headerlink" title="公钥密码学解决的问题 「加解密 密钥交换 和 数字签名」"></a>公钥密码学解决的问题 「加解密 密钥交换 和 数字签名」</h3><ul>
+<li><p>加&#x2F;解密：发送方用接收方的公钥来加密 接收方用其私钥来解密</p>
+</li>
+<li><p>密钥交换：通信的双方交换会话密钥 「将使用一方或者双方的私钥」</p>
+</li>
+<li><p>数字签名：发送方用私钥对消息签名。(可以加密整个信息，也可以加密消息的一个小数据块，这个数据块是整条消息的函数(Hash))   注意数字签名因为用私钥加密, 会丧失保密性</p>
+</li>
+<li><p>但也可以先PR加密，再PU加密。 接收方就先用自己的私钥解密，再用发送方的公钥获取数字签名</p>
+</li>
+</ul>
+<h3 id="其中RSA和ECC可以实现3种功能-Diffie-Hellman只能进行密钥交换-DSS只能进行数字签名"><a href="#其中RSA和ECC可以实现3种功能-Diffie-Hellman只能进行密钥交换-DSS只能进行数字签名" class="headerlink" title="其中RSA和ECC可以实现3种功能 Diffie-Hellman只能进行密钥交换   DSS只能进行数字签名"></a><em>其中RSA和ECC可以实现3种功能 Diffie-Hellman只能进行密钥交换   DSS只能进行数字签名</em></h3><h3 id="对公钥密码体制的要求"><a href="#对公钥密码体制的要求" class="headerlink" title="对公钥密码体制的要求"></a>对公钥密码体制的要求</h3><p> 产生一对密钥(公+私)是容易的。 发送方加密和接收方解密是容易的。 已知公钥PUb 不能确定私钥。  已知公钥PUb和密文C 不能恢复出明文M。 加解密函数可以互换顺序。</p>
+<p> <em><strong>总结起来就是：加解密容易。公钥 $\rightarrow$ 私钥不可行。公钥+密文 $\rightarrow$ 明文不可行。  并且加密函数和解密函数最好可以交换(支持公钥加密 私钥解密)这条不是必须的</strong></em></p>
+<h3 id="RSA-Rivest-Shamir-Adleman"><a href="#RSA-Rivest-Shamir-Adleman" class="headerlink" title="RSA Rivest-Shamir-Adleman"></a>RSA Rivest-Shamir-Adleman</h3><blockquote>
+<p>明文和密文是 0-n-1之间的整数</p>
+<p>n一般为 1024位二进制(309位10进制) </p>
+</blockquote>
+<h4 id="RSA的步骤"><a href="#RSA的步骤" class="headerlink" title="RSA的步骤"></a>RSA的步骤</h4><ol>
+<li>两个大素数 p q   ，n &#x3D; p * q</li>
+<li>phi(n) &#x3D; (p-1) * (q-1)</li>
+<li>选一个和 phi(n) 互素的 e 作为公钥，d 则是 e mod phi(n)的逆元</li>
+<li>e和n可以公开， d和p q 必须保密</li>
+</ol>
+<p>公钥{E, K}. 私钥{D, N};</p>
+<h5 id="RSA的加解密"><a href="#RSA的加解密" class="headerlink" title="RSA的加解密"></a>RSA的加解密</h5><p>明文^e^ &#x3D; 密文 (mod n)</p>
+<p>密文^d^ &#x3D; 明文 (mod n)</p>
+<p><strong><u>大数因式分解的困难造就了RSA的安全性</u></strong></p>
+<h3 id="我们为什么使用混合加密："><a href="#我们为什么使用混合加密：" class="headerlink" title="我们为什么使用混合加密："></a>我们为什么使用混合加密：</h3><blockquote>
+<p>公钥密码的加解密比较慢，我们可以用公钥加密来加密密钥，对称加密来加密消息，接收方先用私钥解密出密钥然后再进行对称解密 (这里其实也一定程度上揭示了TLS和SSL的原理)</p>
+</blockquote>
+<hr>
+<h1 id="Diffie-Hellman-密钥交换"><a href="#Diffie-Hellman-密钥交换" class="headerlink" title="Diffie-Hellman 密钥交换"></a>Diffie-Hellman 密钥交换</h1><ul>
+<li><p>离散对数的计算困难造就了Diffie-Hellman的可行性</p>
+</li>
+<li><p>产生一个密钥，所以一般用在对称加密里</p>
+</li>
+</ul>
+<h4 id="Diffie-Hellman预备知识："><a href="#Diffie-Hellman预备知识：" class="headerlink" title="Diffie-Hellman预备知识："></a>Diffie-Hellman预备知识：</h4><p>定义<em><strong>素数p的原根</strong></em>：一个整数，其幂可以产生1-p-1之间的所有整数</p>
+<p>产生整数的原则是模运算   一共模p-1次</p>
+<p>$a \space mod \space p\space |  \space \space a^2 \space mod  \space p  \space| \space a^3\space mod\space p\space …a^{p-1} \space mod\space p$</p>
+<p>⚠️它们的顺序可以不是1-p-1，但是一定不能重复  </p>
+<p>计算<code>离散对数</code>: 对于素数p和其原根a, 任意的  $b \equiv a^i \mod{m}$</p>
+<p>计算出指数i 就是离散对数。</p>
+<h3 id="在Diffie-Hellman中-素数q和原根a-是公开的这时A和B想要交换密钥，他们俩要分别选择一个小于素数q的数"><a href="#在Diffie-Hellman中-素数q和原根a-是公开的这时A和B想要交换密钥，他们俩要分别选择一个小于素数q的数" class="headerlink" title="在Diffie-Hellman中 素数q和原根a 是公开的这时A和B想要交换密钥，他们俩要分别选择一个小于素数q的数"></a>在Diffie-Hellman中 素数q和原根a 是公开的这时A和B想要交换密钥，他们俩要分别选择一个<strong>小于素数q的数</strong></h3><p>令它们分别为 XA 、XB(这两个是保持私有的)  利用原根a 算出YA和YB（这两个对另一方可见）</p>
+<p>$用户A计算出：Y_A &#x3D; a^{X_A}\mod q$</p>
+<p>$用户B计算出：Y_B &#x3D; a^{X_B}\mod q$</p>
+<p>$用户A计算密钥K&#x3D;Y_B^{X_A}\mod q$</p>
+<p>$用户B计算密钥K &#x3D; Y_A^{X_B}\mod q$</p>
+<p>这两种计算的结果是一样的 这也就算是完成了密钥交换（两边的密钥是一样的）</p>
+<p>几个例子：</p>
+<ol>
+<li><p>在知道q和a的情况下：用户A产生一个一次密钥XA，把自己算出的YA发给B，用户B则一样，并把自己算出的YB发给A，这样两边就都可以算出密钥K。并且在接下来的一段时间进行信息交互了。</p>
+</li>
+<li><p>LAN上的一组用户共用q和a，他们每个人都产生一个永久的X，并把自己的Y公开。任何一个用户就都可以发送消息给对方了。不能抗重播攻击。</p>
+</li>
+</ol>
+<h3 id="攻击Diffie-Hellman"><a href="#攻击Diffie-Hellman" class="headerlink" title="攻击Diffie-Hellman"></a>攻击Diffie-Hellman</h3><ol>
+<li><p>直接穷举</p>
+<p>比如 q &#x3D; 353；a &#x3D; 3。XA &#x3D; 97, XB &#x3D; 233</p>
+<p>这时 YA &#x3D; 3^97 mod 353 &#x3D; 40,  YB &#x3D; 3^233 mod 353 &#x3D; 248</p>
+<p>K &#x3D; 248^97 mod 353 &#x3D; 40^233 mod 353 &#x3D; 160</p>
+<p>攻击者知道：q &#x3D; 353， a &#x3D; 3， YA &#x3D; 40， YB &#x3D; 248</p>
+<p>那么 解方程 3^a mod 353 &#x3D; 40, 或者 3^b mod 353 &#x3D; 248  就能找到XA或者XB，那么就相当于确定了密钥K</p>
+<p>一个个试就完了</p>
+</li>
+<li><p>中间人攻击</p>
+<p>A和B想交换密钥， q 和 a 已知。 <strong>现在C同时拦截了YA和YB，他生成XC1和XC2两个私钥，然后求出YC1和YC2，现在他将YC1和YC2分别给A和B，这样他和A就共享密钥K1，和B共享密钥K2，</strong>到这一步，攻击就已经奏效了。</p>
+<p>接下来，C可以只窃听，也可以修改，并且A和B是无法解密对方的消息的，因为密钥K不对。</p>
+<p><strong>Diffie- Hellman无法抵抗中间人攻击，因为没有认证机制。 <code>数字签名</code> <code> 公钥证书</code>可以克服这个问题</strong></p>
+</li>
+</ol>
+<hr>
+<h3 id="ECC-可以使用比RSA短的多的密钥得到相同的安全性-具体见Ellptic-Curve-pdf"><a href="#ECC-可以使用比RSA短的多的密钥得到相同的安全性-具体见Ellptic-Curve-pdf" class="headerlink" title="ECC 可以使用比RSA短的多的密钥得到相同的安全性  具体见Ellptic Curve.pdf"></a>ECC 可以使用比RSA短的多的密钥得到相同的安全性  具体见Ellptic Curve.pdf</h3><hr>
+<h1 id="Hash-MAC"><a href="#Hash-MAC" class="headerlink" title="Hash&amp;MAC"></a>Hash&amp;MAC</h1><ul>
+<li>Hash不是用来加密或解密的而是用来产生数字指纹或者进行消息认证</li>
+<li>Hash的应用：消息认证「消息没有被修改等」｜数字签名｜单向口令文件｜入侵检测｜随机函数(PRF)&#x2F;伪随机数发生器(PRNG)</li>
+<li>哈希函数的构造： 1. 分块 2. 填充 3. 迭代压缩</li>
+</ul>
+<h3 id="Hash提供消息认证时的几种情况：-由MAC来完成"><a href="#Hash提供消息认证时的几种情况：-由MAC来完成" class="headerlink" title="Hash提供消息认证时的几种情况：(由MAC来完成)"></a>Hash提供消息认证时的几种情况：(由MAC来完成)</h3><ol>
+<li>使用对称密码加密消息和Hash码。 或者对无需保密性，<em><strong>只需要认证性的，可以只加密Hash码</strong></em></li>
+<li>如果通信的双方已经共享了一个秘密值S，发送方可以将明文和S串联后计算Hash，接收方重新计算Hash。 这样可以不使用加密算法。当然 也可以再将整个消息和Hash值加密提供保密性。</li>
+</ol>
+<h4 id="Hash提供数字签名：-「知道公钥的人都可以通过数字签名验证消息完整性」"><a href="#Hash提供数字签名：-「知道公钥的人都可以通过数字签名验证消息完整性」" class="headerlink" title="Hash提供数字签名： 「知道公钥的人都可以通过数字签名验证消息完整性」"></a>Hash提供数字签名： 「知道公钥的人都可以通过数字签名验证消息完整性」</h4><ol>
+<li>使用发送方PrivateKey 只对Hash码加密(又可签名又可认证) 。当然 也可以再用对称密码中的密钥加密。</li>
+</ol>
+<h3 id="Hash的安全要求"><a href="#Hash的安全要求" class="headerlink" title="Hash的安全要求"></a>Hash的安全要求</h3><ol>
+<li>单向 「抗原像攻击」</li>
+<li>弱抗碰撞性 给你一个x(是任意给的) 找到另一个x2 使得H(x) &#x3D; H(x2) 是不可行的 「抗第二原像攻击」</li>
+<li>强抗碰撞性 寻找任意的 (x, x2)对 使得他们的H(x)相等不可行。   「参考生日悖论」</li>
+<li>伪随机</li>
+<li>高效</li>
+</ol>
+<h3 id="安全Hash算法-SHA系列"><a href="#安全Hash算法-SHA系列" class="headerlink" title="安全Hash算法   SHA系列"></a>安全Hash算法   SHA系列</h3><h3 id="SHA-512-输入小于-2-128位的消息，输出512位的消息摘要，输入的消息以1024bit-的分组进行处理。"><a href="#SHA-512-输入小于-2-128位的消息，输出512位的消息摘要，输入的消息以1024bit-的分组进行处理。" class="headerlink" title="SHA-512  输入小于 2^128位的消息，输出512位的消息摘要，输入的消息以1024bit 的分组进行处理。"></a>SHA-512  输入小于 2^128位的消息，输出512位的消息摘要，输入的消息以1024bit 的分组进行处理。</h3><ol>
+<li>附加填充位</li>
+<li>附加长度</li>
+<li>初始化Hash缓冲区</li>
+<li>处理消息并且输出</li>
+</ol>
+<h2 id="SHA-3-「Keccak」⚠️和SHA-512区分"><a href="#SHA-3-「Keccak」⚠️和SHA-512区分" class="headerlink" title="SHA-3 「Keccak」⚠️和SHA-512区分"></a>SHA-3 「Keccak」⚠️和SHA-512区分</h2><ul>
+<li><p>海绵结构是Keccak使用的基本迭代结构。<strong>输入的消息 仍然是被分成固定长度的分组，每个分组逐次作为每轮迭代的输入，同时上一轮迭代的输出也会反馈至下一轮的迭代中，最终产生一组输出块。</strong></p>
+</li>
+<li><p>可以被看作轻量级密码(因为海绵函数允许输入和输出的长度都可变)，有着新的压缩函数(XOR AND NOT，没有查表和算术运算)</p>
+</li>
+<li><h4 id="海绵函数由-f-内部函数，每轮迭代中执行一次-包括置换和代替-r-输入分组的位长度，称其为位速率-pad-填充算法-为了保持格式一致，哪怕刚好整除，也会直接填充一个块"><a href="#海绵函数由-f-内部函数，每轮迭代中执行一次-包括置换和代替-r-输入分组的位长度，称其为位速率-pad-填充算法-为了保持格式一致，哪怕刚好整除，也会直接填充一个块" class="headerlink" title="海绵函数由 ƒ(内部函数，每轮迭代中执行一次 包括置换和代替)   r(输入分组的位长度，称其为位速率)   pad 填充算法(为了保持格式一致，哪怕刚好整除，也会直接填充一个块)"></a>海绵函数由 ƒ(内部函数，每轮迭代中执行一次 包括置换和代替)   r(输入分组的位长度，称其为位速率)   pad 填充算法(为了保持格式一致，哪怕刚好整除，也会直接填充一个块)</h4></li>
+</ul>
+<h4 id="Keccak的-Sponge-Structure-分为Absorbing和Squeezing-挤压"><a href="#Keccak的-Sponge-Structure-分为Absorbing和Squeezing-挤压" class="headerlink" title="Keccak的 Sponge Structure 分为Absorbing和Squeezing(挤压)"></a>Keccak的 Sponge Structure 分为Absorbing和Squeezing(挤压)</h4><ul>
+<li>吸水：initialize state $\rightarrow$ XOR some of the message to the state $\rightarrow$ Apply compression function「调用压缩函数压缩」 （然后在XOR和压缩函数中不断往复）</li>
+<li>状态变量s的长度为 b ，b &#x3D; r + c(r为每个分组的长度，c是容量)。 默认情况下，c &#x3D; 1024bit， r &#x3D; 576bit， 所以b &#x3D; 1600bit</li>
+<li>状态变量的初始长度为0。吸水时：通过填充0，将分组的长度从r 扩展到b位 (加入c位的0) $\rightarrow$ 扩展后的消息分组，和s进行XOR得到b位，并且作为ƒ的输入。(ƒ的输出则作为下一轮迭代时s的取值)</li>
+<li><strong>不是每个SHA-3都需要挤压。如果需要的输出长度 L 比 b(一个分组的长度)还要小，那么就不需要挤压了。直接返回前L位。</strong></li>
+<li>挤压：Apply compression function  $\rightarrow$ Extract some output「提取部分输出」  （在这两个部分不断往复）</li>
+<li>先在s中拿出前r位作为Z0，之后将s加入ƒ中进行运算，结果再取前r位。直到输出长度 &#x3D; L。</li>
+<li>现在来讨论压缩函数ƒ  每次输入s的都是1600bit，我们把这1600bit分成5x5x64的矩阵，5x5作为面，64的称为纵。形成一个纵深64格的长方体。函数对矩阵执行24圈操作，每圈5个步骤，除了最后一步之外完全一样的</li>
+<li>$R&#x3D;\theta<del>\rho</del>\pi<del>\chi</del>\iota$<ul>
+<li><strong>theta：代替。每个字中都每一位的新值取决于当前值、其前一列的每个字的同一位、后一列的每个字的邻接位</strong></li>
+<li><strong>rho ：置换。每个字的内部使用循环移位进行置换 向后移位。W[0, 0]不变。</strong></li>
+<li><strong>pi：置换。字之间进行5x5矩阵的置换。W[0, 0]不变</strong></li>
+<li><strong>chi：代替。每个字中的每一位的新值取决于当前值、相同行下一个字的对应位的值、相同行的下下一个字的对应位的值。</strong></li>
+<li><strong>iota：代替。W[0, 0]和圈常数进行XOR运算。</strong></li>
+<li><strong>其中： theta步实现的扩散非常明显</strong></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="报文认证码-消息认证码-："><a href="#报文认证码-消息认证码-：" class="headerlink" title="报文认证码(消息认证码) ："></a>报文认证码(消息认证码) ：</h2><blockquote>
+<p>验证收到的消息确实来自真实的发送方，且没有被修改，并且顺序和时间正确。MAC是多对一函数</p>
+<p>在网络通信中的攻击 这里的认证码不阻止被动攻击</p>
+</blockquote>
+<ul>
+<li><p>消息认证防止：1. 伪装 2. 内容修改、顺序修改、时间修改(延时、重播)</p>
+</li>
+<li><p>在设计消息认证函数时 一般需要分层。底层负责产生认证符，而上层则指导验证消息真实性。 我们把消息认证符分为三类： Hash函数｜消息加密函数(整个消息加密后的密文作为认证符)｜消息认证码(消息和密钥的函数。产生定长的值作为认证符)</p>
+</li>
+<li><p>消息认证码(消息和密钥的函数 产生定长的值作为认证符 MAC &#x3D; C(K, M) 「C$\rightarrow$MAC函数」</p>
+</li>
+</ul>
+<p>发送方把消息认证码和消息一起发送出去，接收方根据收到的消息以及密钥K<strong>再计算一次MAC(不是解密，是再加密然后比对)。</strong></p>
+<h4 id="值得注意的是-双方共享密钥K，这使得MAC无法进行数字签名，MAC也不能防止顺序修改。而且，虽然与加密函数类似，但是MAC是不需要可逆的。-接收方和发送方实际上都是进行了加密操作-MAC也可以做PRNG"><a href="#值得注意的是-双方共享密钥K，这使得MAC无法进行数字签名，MAC也不能防止顺序修改。而且，虽然与加密函数类似，但是MAC是不需要可逆的。-接收方和发送方实际上都是进行了加密操作-MAC也可以做PRNG" class="headerlink" title="值得注意的是 双方共享密钥K，这使得MAC无法进行数字签名，MAC也不能防止顺序修改。而且，虽然与加密函数类似，但是MAC是不需要可逆的。(接收方和发送方实际上都是进行了加密操作) MAC也可以做PRNG"></a>值得注意的是 双方共享密钥K，这使得MAC无法进行数字签名，MAC也不能防止顺序修改。而且，虽然与加密函数类似，但是MAC是不需要可逆的。(接收方和发送方实际上都是进行了加密操作) MAC也可以做PRNG</h4><h4 id="对称加密其实是可以实现认证的-因为只有收发的双方持有密钥K-，但是它无法处理广播、明文认证和快速认证。并且消息在被解密之后就失去了认证性，而MAC则将认证和加密分离，并且可以维持认证性"><a href="#对称加密其实是可以实现认证的-因为只有收发的双方持有密钥K-，但是它无法处理广播、明文认证和快速认证。并且消息在被解密之后就失去了认证性，而MAC则将认证和加密分离，并且可以维持认证性" class="headerlink" title="对称加密其实是可以实现认证的(因为只有收发的双方持有密钥K)，但是它无法处理广播、明文认证和快速认证。并且消息在被解密之后就失去了认证性，而MAC则将认证和加密分离，并且可以维持认证性"></a>对称加密其实是可以实现认证的(因为只有收发的双方持有密钥K)，但是它无法处理广播、明文认证和快速认证。并且消息在被解密之后就失去了认证性，而MAC则将认证和加密分离，并且可以维持认证性</h4><p><strong>一般情况下 先认证 后加密更好一些，为什么更好一些？ 我也不知道。我觉得先加密后认证更好</strong></p>
+<h4 id="MAC需要具有抗计算性：给定多对-message-MAC-对于新的message-计算出其MAC是不可行的"><a href="#MAC需要具有抗计算性：给定多对-message-MAC-对于新的message-计算出其MAC是不可行的" class="headerlink" title="MAC需要具有抗计算性：给定多对[message-&gt;MAC],对于新的message, 计算出其MAC是不可行的"></a>MAC需要具有抗计算性：给定多对[message-&gt;MAC],对于新的message, 计算出其MAC是不可行的</h4><h4 id="基于Hash的HMAC，但是SHA这样的Hash不需要密钥K，我们需要把密钥加入到现有的Hash方案里。HMAC在IP安全和其他Internet协议中-SSL-中使用"><a href="#基于Hash的HMAC，但是SHA这样的Hash不需要密钥K，我们需要把密钥加入到现有的Hash方案里。HMAC在IP安全和其他Internet协议中-SSL-中使用" class="headerlink" title="基于Hash的HMAC，但是SHA这样的Hash不需要密钥K，我们需要把密钥加入到现有的Hash方案里。HMAC在IP安全和其他Internet协议中(SSL)中使用"></a>基于Hash的HMAC，但是SHA这样的Hash不需要密钥K，我们需要把密钥加入到现有的Hash方案里。HMAC在IP安全和其他Internet协议中(SSL)中使用</h4><p>HMAC的描述如下：</p>
+<ol>
+<li>在密钥K左边填充0至b位，令其为K+。</li>
+<li>K+和ipad进行位XOR，产生b位的分组Si。  「K的一半的信息位发生变化」</li>
+<li>将M加在Si的后面(也是分组)，然后对它们进行Hash，得到一个Hash码。  「⚠️ 密钥放在了最前面」</li>
+<li>K+和opad进行位XOR，产生b位的分组S0。 「K的另一半的信息位发生变化」</li>
+<li>将步骤3中的Hash码加在S0的后面，然后再Hash一次就得到结果了。</li>
+</ol>
+<h3 id="基于分组密码的DAA和CMAC-AES、3DES适用"><a href="#基于分组密码的DAA和CMAC-AES、3DES适用" class="headerlink" title="基于分组密码的DAA和CMAC(AES、3DES适用)"></a>基于分组密码的DAA和CMAC(AES、3DES适用)</h3><p>DAA 数据认证算法：建立在DES之上，采用CBC。已经被证明不安全</p>
+<h4 id="CMAC使用3个密钥，一个长度为k的K，用在密文分组链接的每一步，两个"><a href="#CMAC使用3个密钥，一个长度为k的K，用在密文分组链接的每一步，两个" class="headerlink" title="CMAC使用3个密钥，一个长度为k的K，用在密文分组链接的每一步，两个"></a>CMAC使用3个密钥，一个长度为k的K，用在密文分组链接的每一步，两个</h4><p>首先，消息长度是分组长度b(每个分组称为Mi)的整数倍时，对AES，b &#x3D; 128，有一个b位的常数K1。按照如下方式计算：</p>
+<p>如果不是整数倍，则在最后一个分组的右边填充一个1和若干0使得它也是b长度。</p>
+<p>C1 &#x3D; E(K, M1);</p>
+<p>C2 &#x3D; E(K, [M2 xor C1]);</p>
+<p>C3 &#x3D; E(K, [M3 xor C2]);</p>
+<p>Cn &#x3D; E(K, [Mn xor Cn-1 xor K1])</p>
+<p> $T &#x3D; MSB_{Tlen}(C_n)~~~~~~~T为消息认证码(tag)，MSB_s(X)-&gt;X最左边的s位$ </p>
+<p>两个密钥K1，K2的长度都是b位，并且由密钥K(k位)导出 </p>
+<p>$L &#x3D; E(K,~0^b); <del>K1 &#x3D; L·x;</del>K2 &#x3D; L·x^2&#x3D; L·x·x$</p>
+<p>$乘法”·”在GF(2^b)内进行，所以说x对应b-2个0跟上10，x^2则是b-3个0跟上100$</p>
+<hr>
+<h4 id="认证加密-CCM-GCM"><a href="#认证加密-CCM-GCM" class="headerlink" title="认证加密 CCM &amp;GCM"></a>认证加密 CCM &amp;GCM</h4><p>认证加密AE指的是通信中实现保密性+认证性的加密系统。</p>
+<ul>
+<li>先Hash再加密：无线加密协议WEP中用来保护WIFI网络</li>
+<li>先认证再加密 ：先计算MAC，T &#x3D; MAC(K1, M), 然后再把消息和MAC一起加密。(比如SSL)</li>
+<li>先加密再认证： IP安全使用的就是这种。</li>
+<li>独立进行加密和认证</li>
+</ul>
+<hr>
+<h1 id="6-数字签名"><a href="#6-数字签名" class="headerlink" title="6. 数字签名"></a>6. 数字签名</h1><h2 id="提问：我们应该先加密后签名还是先签名后加密？"><a href="#提问：我们应该先加密后签名还是先签名后加密？" class="headerlink" title="提问：我们应该先加密后签名还是先签名后加密？"></a>提问：我们应该先加密后签名还是先签名后加密？</h2><p>A和B发送消息的过程中，假设B不使用其他安全措施的情况下，应该先签名后加密。(的确，先验签再解密更加方便，但这也给中间人攻击带来了可能。)</p>
+<blockquote>
+<p>具体的攻击方式非常简单：Oscar拦截A发给B的消息，然后对消息签名，并且把Alice的换掉就行了。 就这么简单。 所以先签名后加密更好</p>
+</blockquote>
+<h4 id="数字签名可以防止-发送方否认。-但是接收方否认不行，需要用到协议。"><a href="#数字签名可以防止-发送方否认。-但是接收方否认不行，需要用到协议。" class="headerlink" title="数字签名可以防止 发送方否认。   但是接收方否认不行，需要用到协议。"></a>数字签名可以防止 发送方否认。   但是接收方否认不行，需要用到协议。</h4><h4 id="在MAC中-或者任何对称加密-，双方共享一个密钥，这也意味着接收方可以直接伪造出一条来自发送方的消息。而如果接收方可以伪造发送发发出的消息，那么发送方自然也可以就任何消息否认是自己发出的。｜数字签名就是为了解决发送双方不互信时的情况"><a href="#在MAC中-或者任何对称加密-，双方共享一个密钥，这也意味着接收方可以直接伪造出一条来自发送方的消息。而如果接收方可以伪造发送发发出的消息，那么发送方自然也可以就任何消息否认是自己发出的。｜数字签名就是为了解决发送双方不互信时的情况" class="headerlink" title="在MAC中(或者任何对称加密)，双方共享一个密钥，这也意味着接收方可以直接伪造出一条来自发送方的消息。而如果接收方可以伪造发送发发出的消息，那么发送方自然也可以就任何消息否认是自己发出的。｜数字签名就是为了解决发送双方不互信时的情况"></a>在MAC中(或者任何对称加密)，双方共享一个密钥，这也意味着接收方可以直接伪造出一条来自发送方的消息。而如果接收方可以伪造发送发发出的消息，那么发送方自然也可以就任何消息否认是自己发出的。｜数字签名就是为了解决发送双方不互信时的情况</h4><h4 id="数字签名的特征：-「它一般也同时有认证性，必须得是-确认发送方身份的同时确认消息未被修改」-相当于覆盖了消息认证码的内容"><a href="#数字签名的特征：-「它一般也同时有认证性，必须得是-确认发送方身份的同时确认消息未被修改」-相当于覆盖了消息认证码的内容" class="headerlink" title="数字签名的特征： 「它一般也同时有认证性，必须得是 确认发送方身份的同时确认消息未被修改」(相当于覆盖了消息认证码的内容&#x3D; &#x3D;)"></a>数字签名的特征： 「它一般也同时有认证性，必须得是 确认发送方身份的同时确认消息未被修改」(相当于覆盖了消息认证码的内容&#x3D; &#x3D;)</h4><ol>
+<li><h4 id="能验证签名者、签名日期-时间"><a href="#能验证签名者、签名日期-时间" class="headerlink" title="能验证签名者、签名日期+时间"></a>能验证签名者、签名日期+时间</h4></li>
+<li><h4 id="能认证被签名的消息内容"><a href="#能认证被签名的消息内容" class="headerlink" title="能认证被签名的消息内容"></a>能认证被签名的消息内容</h4></li>
+<li><h4 id="能被第三方仲裁。"><a href="#能被第三方仲裁。" class="headerlink" title="能被第三方仲裁。"></a>能被第三方仲裁。</h4></li>
+</ol>
+<h3 id="针对数字签名的攻击："><a href="#针对数字签名的攻击：" class="headerlink" title="针对数字签名的攻击："></a>针对数字签名的攻击：</h3><ol>
+<li><h5 id="唯密钥攻击：C知道A的公钥"><a href="#唯密钥攻击：C知道A的公钥" class="headerlink" title="唯密钥攻击：C知道A的公钥"></a>唯密钥攻击：C知道A的公钥</h5></li>
+<li><h5 id="已知消息攻击：C掌握一些消息对应的合法签名。"><a href="#已知消息攻击：C掌握一些消息对应的合法签名。" class="headerlink" title="已知消息攻击：C掌握一些消息对应的合法签名。"></a>已知消息攻击：C掌握一些消息对应的合法签名。</h5></li>
+<li><h4 id="一般选择-定向选择消息攻击：C对选定的消息在A处获取合法签名，并攻击A的签名方案。-前面那种是先选择消息获得签名，再获得公钥。后面的则是先获得公钥，再选择消息生成签名"><a href="#一般选择-定向选择消息攻击：C对选定的消息在A处获取合法签名，并攻击A的签名方案。-前面那种是先选择消息获得签名，再获得公钥。后面的则是先获得公钥，再选择消息生成签名" class="headerlink" title="一般选择&#x2F;定向选择消息攻击：C对选定的消息在A处获取合法签名，并攻击A的签名方案。(前面那种是先选择消息获得签名，再获得公钥。后面的则是先获得公钥，再选择消息生成签名)"></a>一般选择&#x2F;定向选择消息攻击：C对选定的消息在A处获取合法签名，并攻击A的签名方案。(前面那种是先选择消息获得签名，再获得公钥。后面的则是先获得公钥，再选择消息生成签名)</h4></li>
+<li><h4 id="适应性选择消息攻击：允许C将A作为“oracle”轮询，A需要给出对于特定消息的签名，而它们可能和C之前已经获得-消息-rightarrow-签名-对有关。"><a href="#适应性选择消息攻击：允许C将A作为“oracle”轮询，A需要给出对于特定消息的签名，而它们可能和C之前已经获得-消息-rightarrow-签名-对有关。" class="headerlink" title="适应性选择消息攻击：允许C将A作为“oracle”轮询，A需要给出对于特定消息的签名，而它们可能和C之前已经获得[消息$\rightarrow$签名]对有关。"></a>适应性选择消息攻击：允许C将A作为“oracle”轮询，A需要给出对于特定消息的签名，而它们可能和C之前已经获得[消息$\rightarrow$签名]对有关。</h4></li>
+<li><h4 id="同时C也有一定概率完成以下的攻击：1-完全破译-判断出私钥-2-通用伪造-掌握某种签名算法，任意消息都能造出一样的签名-3-选择伪造：对于特定消息能伪造合法签名-4-存在性伪造：至少能伪造出一个消息的合法签名，但不能控制该消息的选择。"><a href="#同时C也有一定概率完成以下的攻击：1-完全破译-判断出私钥-2-通用伪造-掌握某种签名算法，任意消息都能造出一样的签名-3-选择伪造：对于特定消息能伪造合法签名-4-存在性伪造：至少能伪造出一个消息的合法签名，但不能控制该消息的选择。" class="headerlink" title="同时C也有一定概率完成以下的攻击：1. 完全破译(判断出私钥) 2. 通用伪造(掌握某种签名算法，任意消息都能造出一样的签名)  3. 选择伪造：对于特定消息能伪造合法签名  4. 存在性伪造：至少能伪造出一个消息的合法签名，但不能控制该消息的选择。"></a>同时C也有一定概率完成以下的攻击：1. 完全破译(判断出私钥) 2. 通用伪造(掌握某种签名算法，任意消息都能造出一样的签名)  3. 选择伪造：对于特定消息能伪造合法签名  4. 存在性伪造：至少能伪造出一个消息的合法签名，但不能控制该消息的选择。</h4></li>
+</ol>
+<h4 id="对数字签名的要求："><a href="#对数字签名的要求：" class="headerlink" title="对数字签名的要求："></a>对数字签名的要求：</h4><ol>
+<li>必须是和消息相关的二进制串</li>
+<li>必须使用发送方独有的信息。 防止伪造和否认</li>
+<li>产生签名、识别和验证签名都比较容易。 并且可以保存数字签名的副本。</li>
+<li>伪造数字签名 「从数字签名伪造消息，从消息伪造数字签名  都不可行」</li>
+</ol>
+<h3 id="ElGamal数字签名方案"><a href="#ElGamal数字签名方案" class="headerlink" title="ElGamal数字签名方案"></a>ElGamal数字签名方案</h3><p>同样用到原根。 p 和 a</p>
+<h5 id="ElGamal的加密方案和Diffie很像。同样生产随机整数XA-其范围是1～q-1-不取q-1"><a href="#ElGamal的加密方案和Diffie很像。同样生产随机整数XA-其范围是1～q-1-不取q-1" class="headerlink" title="ElGamal的加密方案和Diffie很像。同样生产随机整数XA,  其范围是1～q-1 (不取q-1)"></a>ElGamal的加密方案和Diffie很像。同样生产随机整数XA,  其范围是1～q-1 (不取q-1)</h5><h5 id="XA作为A的PriKey，计算Y-A-a-XA-mod-q-A的PubKey-q，a，YA-，"><a href="#XA作为A的PriKey，计算Y-A-a-XA-mod-q-A的PubKey-q，a，YA-，" class="headerlink" title="XA作为A的PriKey，计算Y A &#x3D; a ^ XA  mod q  , A的PubKey {q，a，YA}，"></a>XA作为A的PriKey，计算Y A &#x3D; a ^ XA  mod q  , A的PubKey {q，a，YA}，</h5><h4 id="为了对消息签名，-A首先计算-m-H-M-同时要求m是小于等于q-1的整数。-然后A通过如下步骤产生数字签名："><a href="#为了对消息签名，-A首先计算-m-H-M-同时要求m是小于等于q-1的整数。-然后A通过如下步骤产生数字签名：" class="headerlink" title="为了对消息签名， A首先计算 m &#x3D; H(M) 同时要求m是小于等于q-1的整数。 然后A通过如下步骤产生数字签名："></a>为了对消息签名， A首先计算 m &#x3D; H(M) 同时要求m是小于等于q-1的整数。 然后A通过如下步骤产生数字签名：</h4><ol>
+<li><h4 id="随机选择整数K，1"><a href="#随机选择整数K，1" class="headerlink" title="随机选择整数K，1&lt;&#x3D; K &lt;&#x3D; q-1 并且gcd(K, q-1) &#x3D; 1"></a>随机选择整数K，1&lt;&#x3D; K &lt;&#x3D; q-1 并且gcd(K, q-1) &#x3D; 1</h4></li>
+<li><h4 id="计算-S1-a-K-mod-q-然后计算K-1-mod-q-1-K模q-1的逆元-）"><a href="#计算-S1-a-K-mod-q-然后计算K-1-mod-q-1-K模q-1的逆元-）" class="headerlink" title="计算$S1 &#x3D; a^K\mod q~~然后计算K^{-1}\mod {q-1}(K模q-1的逆元)）$"></a>计算$S1 &#x3D; a^K\mod q~~然后计算K^{-1}\mod {q-1}(K模q-1的逆元)）$</h4></li>
+<li><h4 id="计算出-S2-K-1-m-X-AS1-mod-q-1"><a href="#计算出-S2-K-1-m-X-AS1-mod-q-1" class="headerlink" title="计算出$S2 &#x3D; K^{-1}(m - X_AS1)\mod (q-1)$"></a>计算出$S2 &#x3D; K^{-1}(m - X_AS1)\mod (q-1)$</h4></li>
+<li><p>签名就是 (S1,  S2) 组成的</p>
+</li>
+</ol>
+<h4 id="对于任何一个用户B来说，他可以这样验证签名："><a href="#对于任何一个用户B来说，他可以这样验证签名：" class="headerlink" title="对于任何一个用户B来说，他可以这样验证签名："></a>对于任何一个用户B来说，他可以这样验证签名：</h4><ol>
+<li><h4 id="计算-V1-a1-m-mod-q，-V2-Y-A-S1-·S1-S2-mod-q-如果说V1-V2，则签名合法。"><a href="#计算-V1-a1-m-mod-q，-V2-Y-A-S1-·S1-S2-mod-q-如果说V1-V2，则签名合法。" class="headerlink" title="计算$V1&#x3D;a1^m \mod q，~V2 &#x3D; (Y_A^{S1}·S1^{S2} \mod 	q)$   如果说V1 &#x3D; V2，则签名合法。"></a>计算$V1&#x3D;a1^m \mod q，~V2 &#x3D; (Y_A^{S1}·S1^{S2} \mod 	q)$   如果说V1 &#x3D; V2，则签名合法。</h4></li>
+</ol>
+<h3 id="Schnorr-数字签名方案"><a href="#Schnorr-数字签名方案" class="headerlink" title="Schnorr 数字签名方案"></a>Schnorr 数字签名方案</h3><p>同样也是基于离散对数</p>
+<h3 id="DSA-数字签名算法-同样是基于离散对数"><a href="#DSA-数字签名算法-同样是基于离散对数" class="headerlink" title="DSA 数字签名算法  同样是基于离散对数"></a>DSA 数字签名算法  同样是基于离散对数</h3><p>使用安全Hash (SHA) 最新版本还包括基于RSA和椭圆曲线密码的数字签名算法</p>
+<h4 id="DSA使用的是-只提供数字签名功能的算法。虽然是一种公钥密码方案，但不能用来加密或者密钥交换"><a href="#DSA使用的是-只提供数字签名功能的算法。虽然是一种公钥密码方案，但不能用来加密或者密钥交换" class="headerlink" title="DSA使用的是 只提供数字签名功能的算法。虽然是一种公钥密码方案，但不能用来加密或者密钥交换"></a>DSA使用的是 只提供数字签名功能的算法。虽然是一种公钥密码方案，但不能用来加密或者密钥交换</h4><h6 id="RSA和DSA在实现数字签名时的不同结构"><a href="#RSA和DSA在实现数字签名时的不同结构" class="headerlink" title="RSA和DSA在实现数字签名时的不同结构"></a><em><strong>RSA和DSA在实现数字签名时的不同结构</strong></em></h6><h4 id="在DSA中，k是随机数，签名函数-Sig-依赖于-发送方的私钥PRa-和通信伙伴们一起构建的参数，我们称其为全局公钥PUG。"><a href="#在DSA中，k是随机数，签名函数-Sig-依赖于-发送方的私钥PRa-和通信伙伴们一起构建的参数，我们称其为全局公钥PUG。" class="headerlink" title="在DSA中，k是随机数，签名函数(Sig)依赖于 发送方的私钥PRa 和通信伙伴们一起构建的参数，我们称其为全局公钥PUG。"></a>在DSA中，k是随机数，签名函数(Sig)依赖于 发送方的私钥PRa 和通信伙伴们一起构建的参数，我们称其为全局公钥PUG。</h4><h4 id="签名由两部分组成，标记为s和r。"><a href="#签名由两部分组成，标记为s和r。" class="headerlink" title="签名由两部分组成，标记为s和r。"></a>签名由两部分组成，标记为s和r。</h4><h4 id="接收方对收到的消息进行Hash-产生的Hash码和签名-一起输入到验证函数-Ver-。如果说函数的输出-r-部分，则签名有效。"><a href="#接收方对收到的消息进行Hash-产生的Hash码和签名-一起输入到验证函数-Ver-。如果说函数的输出-r-部分，则签名有效。" class="headerlink" title="接收方对收到的消息进行Hash 产生的Hash码和签名 一起输入到验证函数(Ver) 。如果说函数的输出&#x3D; r 部分，则签名有效。"></a>接收方对收到的消息进行Hash 产生的Hash码和签名 一起输入到验证函数(Ver) 。如果说函数的输出&#x3D; r 部分，则签名有效。</h4>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Computer-security/" class="category-chain-item">Computer security</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Computer-security/Crypto/" class="category-chain-item">Crypto</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Computer-security/" class="print-no-link">#Computer security</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>斌头之计算机安全学</div>
+      <div>https://www.mementos.top/2021/12/12/斌头之计算机安全学/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Natsumi</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年12月12日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/04/03/Convolutional-Nerual-Network(Andrew%20Ng)/" title="Convolutional Nerual Network (Andrew Ng)">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Convolutional Nerual Network (Andrew Ng)</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/11/24/ComSec&amp;Crypto%20%E7%BB%BC%E8%BF%B0/" title="ComSec &amp; Crypto 综述">
+                        <span class="hidden-mobile">ComSec &amp; Crypto 综述</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/DynamicRibbon.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script src="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/js/index.js"></script><!-- hexo injector body_end end --></body>
+</html>

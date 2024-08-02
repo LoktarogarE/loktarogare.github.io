@@ -1,0 +1,1222 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><link href="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/css/index.css" rel="stylesheet"/><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/bimg/avatar1.png">
+  <link rel="icon" href="/bimg/avatar1.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Natsumi">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Linux basic commandcommand repo 普通命令 cd   cd ..&#x2F;.. 直接回到根目录，对应在finder中使用 ⇧+⌘+h   ls   ls -al &#x3D;&#x3D; ls -la ls -l &#x3D;&#x3D;  limit ls -a 看全部的 ls -l 看权限 (可以查看某一个文件的权限 :  ls -l myfile) 左到右 一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux &amp; Mac terminal">
+<meta property="og:url" content="https://www.mementos.top/1976/04/01/linux%20&%20mac%20terminal/index.html">
+<meta property="og:site_name" content="Natsumi&#39;s Mementos">
+<meta property="og:description" content="Linux basic commandcommand repo 普通命令 cd   cd ..&#x2F;.. 直接回到根目录，对应在finder中使用 ⇧+⌘+h   ls   ls -al &#x3D;&#x3D; ls -la ls -l &#x3D;&#x3D;  limit ls -a 看全部的 ls -l 看权限 (可以查看某一个文件的权限 :  ls -l myfile) 左到右 一">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="1976-04-01T07:53:17.000Z">
+<meta property="article:modified_time" content="2022-06-02T09:08:26.000Z">
+<meta property="article:author" content="Natsumi">
+<meta property="article:tag" content="Computation tech">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Linux &amp; Mac terminal - Natsumi&#39;s Mementos</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/interact_anime.css">
+<link rel="stylesheet" href="/css/format.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/scroll.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.mementos.top","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/gifs/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+</head>
+
+
+<body>
+  
+  
+    
+
+<style type="text/css">
+    @keyframes spin3D {
+        from {
+            transform: rotate3d(0.5, 0.5, 0.5, 360deg);
+        }
+
+        to {
+            transform: rotate3d(0deg);
+        }
+    }
+
+    #loading {
+        height: 100%;
+        background-color: #172d4781;
+        backdrop-filter: saturate(100%) blur(10px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+        z-index: 99999999;
+    }
+
+    .spinner-box {
+        width: 300px;
+        height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: transparent;
+    }
+
+    .leo {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+    }
+
+    .blue-orbit {
+        width: 175px;
+        height: 175px;
+        border: 2px solid #1a91fa;
+        animation: spin3D 3s linear .2s infinite;
+    }
+
+    .green-orbit {
+        width: 135px;
+        height: 135px;
+        border: 2px solid #00ffdd;
+        animation: spin3D 2s linear 0s infinite;
+    }
+
+    .red-orbit {
+        width: 100px;
+        height: 100px;
+        border: 2px solid #d75151;
+        animation: spin3D 1s linear 0s infinite;
+    }
+
+    .white-orbit-a {
+        width: 70px;
+        height: 70px;
+        border: 1px solid #faf5f5;
+        animation: spin3D 3s linear 0s infinite;
+    }
+
+    .white-orbit-b {
+        width: 70px;
+        height: 70px;
+        border: 1px solid #faf5f5;
+        animation: spin3D 1.5s linear 0s infinite;
+    }
+
+    .nucleus {
+        width: 1px;
+        height: 1px;
+        border: 1px solid #ffffff;
+        animation: spin3D 1s linear 0s infinite;
+    }
+</style>
+
+<div id="loading">
+    <div class="spinner-box">
+        <div class="blue-orbit leo"></div>
+        <div class="green-orbit leo"></div>
+        <div class="red-orbit leo"></div>
+        <div class="white-orbit-a leo"></div>
+        <div class="white-orbit-b leo"></div>
+        <div class="nucleus leo"></div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        const loaded = function () {
+            window.onload = function () {
+                const loader = document.getElementById("loading");
+                loader.className = "fadeout";
+                setTimeout(function () {
+                    loader.style.display = "none";
+                }, 
+                100
+                );
+            }
+        };
+        loaded();
+    })();
+</script>
+  
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Natsumi&#39;s Mementos</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>HOME</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>author</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Road2AI/" target="_self">
+                <i class="iconfont icon-codepen-fill"></i>
+                <span>dev</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/bimg/p1.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Linux &amp; Mac terminal"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="1976-04-01 15:53" pubdate>
+          1976年4月1日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          40 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Linux &amp; Mac terminal</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="Linux-basic-command"><a href="#Linux-basic-command" class="headerlink" title="Linux basic command"></a>Linux basic command</h2><p><a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-command-manual.html">command repo</a></p>
+<h3 id="普通命令"><a href="#普通命令" class="headerlink" title="普通命令"></a>普通命令</h3><ul>
+<li><h4 id="cd"><a href="#cd" class="headerlink" title="cd"></a>cd</h4></li>
+</ul>
+<blockquote>
+<p>cd ..&#x2F;.. 直接回到根目录，对应在finder中使用 ⇧+⌘+h</p>
+</blockquote>
+<ul>
+<li><h4 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h4></li>
+</ul>
+<blockquote>
+<p>ls -al &#x3D;&#x3D; ls -la</p>
+<p>ls -l &#x3D;&#x3D;  limit</p>
+<p>ls -a 看全部的</p>
+<p>ls -l 看权限 (可以查看某一个文件的权限 :  ls -l myfile)</p>
+<h4 id="左到右-一共十位-构成是-type-｜-rwx-｜-rwx-｜-rwx"><a href="#左到右-一共十位-构成是-type-｜-rwx-｜-rwx-｜-rwx" class="headerlink" title="左到右 一共十位 构成是 type ｜  rwx ｜ rwx ｜ rwx"></a>左到右 一共十位 构成是 type ｜  rwx ｜ rwx ｜ rwx</h4><p>type： p、d、l、s、c、b和-</p>
+<ul>
+<li>p表示命名管道文件 </li>
+<li>d表示目录文件 </li>
+<li>l表示符号连接文件 </li>
+<li>-表示普通文件    &#x2F;&#x2F;myfile作为一个txt文件 属于普通文件</li>
+<li>s表示socket文件 </li>
+<li>c表示字符设备文件 </li>
+<li>b表示块设备文件</li>
+</ul>
+<h4 id="剩下9位-每3位一组-分别表示文件所有者的权限，同组用户的权限，其他用户的权限"><a href="#剩下9位-每3位一组-分别表示文件所有者的权限，同组用户的权限，其他用户的权限" class="headerlink" title="剩下9位 每3位一组      分别表示文件所有者的权限，同组用户的权限，其他用户的权限"></a>剩下9位 每3位一组      分别表示文件所有者的权限，同组用户的权限，其他用户的权限</h4><p>⚠️ 首先描述的是所有者的权限 而不是根用户的权限</p>
+<ul>
+<li>r表示可读，可以读出文件的内容</li>
+<li>w表示可写，可以修改文件的内容</li>
+<li>&#x3D;&#x3D;x表示可执行，可运行这个程序  &#x2F;&#x2F; execute&#x3D;&#x3D; </li>
+<li>没有权限的位置用-表示 「所有者 是否可读、可写、可执行｜同组用户是否可读…」</li>
+</ul>
+<h4 id="作为分割，-之后则是文件的其他属性"><a href="#作为分割，-之后则是文件的其他属性" class="headerlink" title=".作为分割， 之后则是文件的其他属性"></a>.作为分割， 之后则是文件的其他属性</h4><ul>
+<li>1 $\Rightarrow$ 有一个硬连接</li>
+<li>root $\Rightarrow$ <strong>所属用户</strong> ｜  之后的 root $\Rightarrow$ <strong>用户所属的组</strong></li>
+<li>0 $\Rightarrow$ <strong>文件字节数</strong></li>
+<li>时间 $\Rightarrow$ <strong>最后修改时间</strong></li>
+</ul>
+</blockquote>
+<ul>
+<li><h4 id="mkdir"><a href="#mkdir" class="headerlink" title="mkdir"></a>mkdir</h4><ul>
+<li>rmdir 删除目录</li>
+</ul>
+</li>
+<li><h4 id="pwd-显示路径-「print-working-directory」"><a href="#pwd-显示路径-「print-working-directory」" class="headerlink" title="pwd 显示路径 「print working directory」"></a>pwd 显示路径 「print working directory」</h4></li>
+<li><h4 id="cat-显示文件-文件连接"><a href="#cat-显示文件-文件连接" class="headerlink" title="cat 显示文件 + 文件连接"></a>cat 显示文件 + 文件连接</h4><ul>
+<li>cat -n 显示行号</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>cat textA &gt; textB 我们把A中的内容给拿到B里了，但B里的内容会被overwrite</p>
+<p>cat testA &gt;&gt; textB 这次则是追加</p>
+</blockquote>
+<ul>
+<li><h4 id="touch-文件存在-修改时间戳｜文件不存在-创建文件"><a href="#touch-文件存在-修改时间戳｜文件不存在-创建文件" class="headerlink" title="touch 文件存在&#x3D;&gt;修改时间戳｜文件不存在&#x3D;&gt;创建文件"></a>touch 文件存在&#x3D;&gt;修改时间戳｜文件不存在&#x3D;&gt;创建文件</h4></li>
+<li><h4 id="echo-显示一行的内容"><a href="#echo-显示一行的内容" class="headerlink" title="echo 显示一行的内容"></a>echo 显示一行的内容</h4></li>
+<li><h4 id="rm-删除文件"><a href="#rm-删除文件" class="headerlink" title="rm 删除文件"></a>rm 删除文件</h4><ul>
+<li>rm -rf (r $\Rightarrow$ recursive ｜ f $\Rightarrow$  force)  可以删除目录 子目录和其中的文件一起全部删除</li>
+</ul>
+</li>
+<li><h4 id="mv-移动文件-也可以改名"><a href="#mv-移动文件-也可以改名" class="headerlink" title="mv 移动文件 也可以改名"></a>mv 移动文件 也可以改名</h4></li>
+</ul>
+<blockquote>
+<ol>
+<li>文件 $\Rightarrow$ 文件 改名字</li>
+<li>文件 $\Rightarrow$ 目录 移动到目录中(⚠️工作目录)</li>
+<li>目录 $\Rightarrow$ 目录 ｜ 如果后面的目录存在，就移动到这个目录下｜如果不存在就改目录名</li>
+<li>目录 $\Rightarrow$ 文件 报错</li>
+</ol>
+</blockquote>
+<ul>
+<li><h4 id="cp-文件和目录复制"><a href="#cp-文件和目录复制" class="headerlink" title="cp 文件和目录复制"></a>cp 文件和目录复制</h4></li>
+</ul>
+<blockquote>
+<p>语法： cp[options] source dest</p>
+<p>-r 复制目录时的参数 可以把目录下所有的文件都复制。 ⚠️ 如果不加这个参数 目录的复制会直接跳过</p>
+</blockquote>
+<ul>
+<li><h4 id="more-less"><a href="#more-less" class="headerlink" title="more &amp; less"></a>more &amp; less</h4></li>
+<li><h4 id="grep-文本字符串过滤"><a href="#grep-文本字符串过滤" class="headerlink" title="grep 文本字符串过滤"></a>grep 文本字符串过滤</h4></li>
+<li><h4 id="wc-文本内容信息统计"><a href="#wc-文本内容信息统计" class="headerlink" title="wc 文本内容信息统计"></a>wc 文本内容信息统计</h4></li>
+<li><h4 id="file-可以测试文件类型"><a href="#file-可以测试文件类型" class="headerlink" title="file 可以测试文件类型"></a>file 可以测试文件类型</h4></li>
+</ul>
+<hr>
+<h3 id="su-sudo"><a href="#su-sudo" class="headerlink" title="su &amp; sudo"></a>su &amp; sudo</h3><ul>
+<li>su是直接切换成超级用户  su- &#x2F; su + 用户名 可以拿来登陆</li>
+<li>使用sudo命令时不需要知道超级用户的口令 使用的是自己的口令</li>
+</ul>
+<h3 id="用户-组"><a href="#用户-组" class="headerlink" title="用户&amp;组"></a>用户&amp;组</h3><ul>
+<li>linux中有三种权限不同的用户： <strong>超级用户 root</strong> ｜ <strong>伪用户</strong>(不能直接登陆系统) ｜ <strong>普通用户</strong>(可以登陆 但只可以管理自己的目录)</li>
+<li>伪用户存在的意义：在使用特殊服务时 我们会自己以伪用户登陆(比如匿名访问ftp客户端 使用ftp客户)</li>
+<li>而 <code>组</code> 是用户的集合 <em><strong>用户被加入组来获得额外的存取权限</strong></em>，因为组中所有的用户都可以共享属于该组的文件。 以下介绍 <code>私有组</code> 和<code>主组</code>的概念</li>
+<li>在linux中 如果创建用户时没有制定他所属的组，那么系统将会<strong>建立一个和用户同名的私有组</strong>，这个<strong>私有组里只有这个用户</strong>「这样在这个新用户中创建的文件不会在公共组中被查到」(私有组都只有一个用户)</li>
+<li>在linux中 <strong>用户可以同时属于多个组 但只能在一个主组中</strong>(在创建用户时 指定一个标准组 那这个用户就属于这个标准组，否则它自己的私有组就是自己的主组)</li>
+</ul>
+<h4 id="用户管理命令"><a href="#用户管理命令" class="headerlink" title="用户管理命令"></a>用户管理命令</h4><p>users 查看可登陆用户</p>
+<ul>
+<li>useradd [-options] username<ul>
+<li>-d 指定这个用户的主目录 缺省时会在&#x2F;home创建</li>
+<li>-g 指定新建用户所在主组名称 缺省时创建和用户名相同的组</li>
+<li>-G 指定新建用户所在附加组名称 系统会在这之后创建和用户名相同的组作为新建用户的主组</li>
+</ul>
+</li>
+<li>usermod 属性修改 (不能修改正在线上的用户的名称、不能修改正在系统上执行程序的用户ID)<ul>
+<li>-c comment 账户注释</li>
+<li>-d home_dir 设置用户主目录</li>
+<li>-e expiredate 设置过期日期</li>
+<li><strong>-u uid 修改用户ID     格式：usermod -u NATSU natsumi     &#x2F;&#x2F;把natsumi改成NATSU</strong></li>
+<li><strong>-l login 修改用户名  格式：usermod -l NAT natsumi &#x2F;&#x2F; 把natsumi改成NATSU</strong></li>
+<li><strong>-g group 强制修改用户的新主组</strong> ｜ -G groups 修改附加组列表<ul>
+<li>比如： usermod -g groupf natsumi     &#x2F;&#x2F;把natsumi加入到groupf组里 (主组)</li>
+<li><strong>usermod -aG sudo natsumi 把组sudo添加到natsumi的附加组列表 这样natsumi可以执行sudo命令</strong>    -G是不行的</li>
+</ul>
+</li>
+<li>-L &#x2F; -U   锁定、解锁用户账户</li>
+<li>-s shell 设置登录后的shell</li>
+</ul>
+</li>
+<li>userdel<ul>
+<li>-f 强制删除 (现在正登陆的用户也可以删除)</li>
+<li>-r 递归删除 会同时删除用户的主目录</li>
+</ul>
+</li>
+</ul>
+<h4 id="组管理命令-groups-username-查看用户加入的组"><a href="#组管理命令-groups-username-查看用户加入的组" class="headerlink" title="组管理命令 groups [username] 查看用户加入的组"></a>组管理命令 groups [username] 查看用户加入的组</h4><ul>
+<li>groupadd<ul>
+<li>-g 可以指定新建组的ID</li>
+</ul>
+</li>
+<li>groupmod 属性修改<ul>
+<li>-n 修改组名 和修改名字一样 是先输改动之后的名字 后输改动之前的名字</li>
+</ul>
+</li>
+<li>groupdel ⚠️ 如果组里有用户 需要先删除用户 再删除这个组</li>
+<li>gpasswd<ul>
+<li>-a [username] [groupname] 添加一个成员到组内</li>
+<li>-d [username] [groupname] 从组内删除一个成员</li>
+<li>-M [usernames] [groupname] 设置成员列表</li>
+<li>-A [usernames] [groupname] 设置组的管理员列表</li>
+<li>-r 删除组的密码</li>
+<li>newgrp 切换用户当前的主组(这个切换需要输入密码 并且是暂时的)</li>
+</ul>
+</li>
+</ul>
+<h4 id="用户密码管理-passwd"><a href="#用户密码管理-passwd" class="headerlink" title="用户密码管理 passwd"></a>用户密码管理 passwd</h4><ul>
+<li>普通用户根据原密码修改自己的密码 而<strong>超级用户可以重置包括root在内的所有用户密码</strong></li>
+<li>passwd [-options] [username]</li>
+<li>-d delete 删除密码</li>
+<li>-l lock 锁定账户</li>
+<li>-u unlock 解锁账户</li>
+<li>-S status 显示状态信息</li>
+</ul>
+<h4 id="与用户管理相关的文件有"><a href="#与用户管理相关的文件有" class="headerlink" title="与用户管理相关的文件有"></a>与用户管理相关的文件有</h4><ul>
+<li><h4 id="–-etc-passwd-用户名和-UID-保存在此"><a href="#–-etc-passwd-用户名和-UID-保存在此" class="headerlink" title="–&#x2F;etc&#x2F;passwd 用户名和 UID 保存在此"></a>–&#x2F;etc&#x2F;passwd 用户名和 UID 保存在此</h4><ul>
+<li>如图 UID &lt; 1000的 是系统用户(伪用户) &#x2F;sbin&#x2F;nologin</li>
+<li>超级用户 UID &#x3D; 0， GID &#x3D; 0</li>
+</ul>
+</li>
+<li><h4 id="–-etc-shadow-用户口令-密码"><a href="#–-etc-shadow-用户口令-密码" class="headerlink" title="–&#x2F;etc&#x2F;shadow 用户口令(密码)"></a>–&#x2F;etc&#x2F;shadow 用户口令(密码)</h4><ul>
+<li>使用<code>:</code>作为分隔符 共有9个字段</li>
+<li>用户名：加密密码：最后一次修改时间：最小修改时间间隔：密码有效期：密码需要变更前的警告天数：密码过期后的宽限时间：账号失效时间：保留字段</li>
+</ul>
+</li>
+<li><p>–&#x2F;etc&#x2F;group 组和GID</p>
+</li>
+<li><p>–&#x2F;etc&#x2F;gshadow 组口令被保存在</p>
+</li>
+<li><p>–&#x2F;etc&#x2F;login.defs 相关配置参数</p>
+</li>
+<li><p>–&#x2F;etc&#x2F;default&#x2F;useradd</p>
+</li>
+</ul>
+<h4 id="成批生成用户"><a href="#成批生成用户" class="headerlink" title="成批生成用户"></a>成批生成用户</h4><p>newusers [filename]    filename 的格式要和 &#x2F;etc&#x2F;passwd 一样才行 利用filename文件生成</p>
+<h4 id="成批创建密码"><a href="#成批创建密码" class="headerlink" title="成批创建密码"></a>成批创建密码</h4><p>chpasswd [filename] filename 每行都应为如下格式： username:passwd </p>
+<p>我们还可以使用pwgen命令 它可以批量生成口令</p>
+<hr>
+<h4 id="linux文件系统-在linux中不同分区构成一颗唯一的目录树"><a href="#linux文件系统-在linux中不同分区构成一颗唯一的目录树" class="headerlink" title="linux文件系统  在linux中不同分区构成一颗唯一的目录树"></a>linux文件系统  在linux中不同分区构成一颗唯一的目录树</h4><h3 id="文件类型"><a href="#文件类型" class="headerlink" title="文件类型"></a>文件类型</h3><ul>
+<li>普通文件<ul>
+<li>文本文件 行是其基本结构</li>
+<li>数据文件 (电子表格 数据库)</li>
+<li>可执行二进制文件</li>
+</ul>
+</li>
+<li>目录文件  就是目录 它也是一种文件 存储一组相关文件的位置、大小等与文件有关的信息</li>
+<li>符号连接文件 指向同一索引文件 使用ls查看时 以字母l开头  -&gt; 指向链接的文件</li>
+<li>设备文件  外设在linux中也被看作文件 它们被放在&#x2F;dev 目录中<ul>
+<li>&#x2F;dev&#x2F;fd0 $\Rightarrow$ 软盘   |    &#x2F;dev&#x2F;hda $\Rightarrow$ 硬盘</li>
+<li></li>
+</ul>
+</li>
+</ul>
+<p><code>隐藏文件</code> ：以 .  开头   使用ls不显示</p>
+<ul>
+<li>&#x2F;bin Binaries 存放二进制命令 | &#x2F;usr 存放普通用户的应用程序、库文件、文档 ｜ &#x2F;lib Libraries</li>
+<li>&#x2F;dev Device 设备目录(disk screen)</li>
+<li>&#x2F;etc  系统配置文件</li>
+<li>&#x2F;sys System 系统信息 ｜ &#x2F;tmp Temporary files 临时文件 ｜ &#x2F;var Variable files 属性经常变化的文件(文件大小、时间、内容经常变化)</li>
+</ul>
+<h4 id="文件名通配符-这个很好用"><a href="#文件名通配符-这个很好用" class="headerlink" title="文件名通配符 这个很好用"></a>文件名通配符 这个很好用</h4><ul>
+<li><em>号 file * 可以匹配0个和任意多个字符    如file123、fileac     「rm file</em>  这几个文件全都被删除」</li>
+<li>？号 只和一个字符匹配 file? $\Rightarrow$ file1    但不可以实现file? $\Rightarrow$ file23</li>
+<li>[]号 和方括号中的 一个字符匹配(但可以同时输入多个字符) 加入!后的是excluded<ul>
+<li>file[1-4] $\Rightarrow$ file1 .2 .3 .4     &#x2F;&#x2F;</li>
+<li>file[!1234] $\rightarrow$ file 1,2,3,4 之外的其他所有</li>
+</ul>
+</li>
+</ul>
+<h5 id="ln-file1-file2-让file1和file2-建立硬链接-｜-ln-s-file1-file2-则是建立软链接"><a href="#ln-file1-file2-让file1和file2-建立硬链接-｜-ln-s-file1-file2-则是建立软链接" class="headerlink" title="ln file1 file2  让file1和file2 建立硬链接  ｜  ln -s file1 file2 则是建立软链接"></a>ln file1 file2  让file1和file2 建立硬链接  ｜  ln -s file1 file2 则是建立软链接</h5><p>硬连接： file1 和 file2同时指向某个储存空间 (删除file1 对 file2没有影响)</p>
+<p>软链接： file2指向file1 而file1才指向一个存储空间   所以file1如果被删除了file2就废了</p>
+<h3 id="文件权限"><a href="#文件权限" class="headerlink" title="文件权限"></a>文件权限</h3><p>root用户(超级用户)享有最高权力 它可以修改&#x2F;etc&#x2F;shadow 账户管理的文件</p>
+<p>rwx 在list命令中已经讲解过  但&#x3D;&#x3D;<em><strong>值得注意的是 在管理目录文件时 x 是指进入目录(使用cd命令)这也是rw命令的基础 没有x命令权限 也不能进行rw</strong></em>&#x3D;&#x3D;  ⚠️ 在只有x权限时 不可以删除文件 也不能列举出文件夹所有文件 比如知道文件名才能访问</p>
+<p>在目录中 w权限是最高权限</p>
+<ul>
+<li><h4 id="chown-change-owner-改变文件-目录的所有者-⚠️只有root用户才可以改变文件所有者-文件的所有者可以改变文件所属的组"><a href="#chown-change-owner-改变文件-目录的所有者-⚠️只有root用户才可以改变文件所有者-文件的所有者可以改变文件所属的组" class="headerlink" title="chown [change owner]改变文件&#x2F;目录的所有者    ⚠️只有root用户才可以改变文件所有者(文件的所有者可以改变文件所属的组)"></a>chown [change owner]改变文件&#x2F;目录的所有者    ⚠️只有root用户才可以改变文件所有者(文件的所有者可以改变文件所属的组)</h4><ul>
+<li><strong>chown natsumi  file1  &#x2F;&#x2F;把file1 的主人换成natsumi</strong></li>
+<li>-R recursive 只适用于目录 ｜ -v verbose 为处理的所有文件显示诊断信息 显示chown命令所做的工作</li>
+<li>chown -R natsumi:group1 &#x2F;tmp &#x2F;&#x2F;把&#x2F;tmp 目录的主人变成 matsuri 和 组 group1</li>
+</ul>
+</li>
+<li><h4 id="chgrp-改变文件-目录所属的组"><a href="#chgrp-改变文件-目录所属的组" class="headerlink" title="chgrp 改变文件&#x2F;目录所属的组"></a>chgrp 改变文件&#x2F;目录所属的组</h4></li>
+<li><h4 id="chmod-改变文件-目录的权限-同样支持-R-v"><a href="#chmod-改变文件-目录的权限-同样支持-R-v" class="headerlink" title="chmod 改变文件&#x2F;目录的权限 同样支持 -R &#x2F; -v"></a>chmod 改变文件&#x2F;目录的权限 同样支持 -R &#x2F; -v</h4><ul>
+<li><strong>linux 不允许用户在创建一个普通文件时 就赋予其可执行权限 必须使用chmod修改</strong></li>
+<li>chmod [who] [+|-|&#x3D;] [permission] [filename]<ul>
+<li>+&#x2F;- 添加或减少某权限</li>
+<li>&#x3D; 直接赋予某权限 但取消其他所有权限</li>
+</ul>
+</li>
+<li>u 主人  g 同组  o 其他  a 所有   (权限有3组 user ｜ 同组 ｜ 其他人)  (这个放在 who 一栏 不需要-)</li>
+<li><strong>chmod a+x file1   &#x2F;&#x2F; 使所有用户都可以执行file1文件</strong></li>
+</ul>
+</li>
+<li><h4 id="umask-设置文件的缺省生成掩码-「umash规定-不允许-的权限」"><a href="#umask-设置文件的缺省生成掩码-「umash规定-不允许-的权限」" class="headerlink" title="umask 设置文件的缺省生成掩码   「umash规定 不允许 的权限」"></a>umask 设置文件的缺省生成掩码   「umash规定 <strong>不允许</strong> 的权限」</h4><ul>
+<li>文件权限的二进制写法： rwx    用0&#x2F;1  3个二进制表示    然后转十进制数   一共3组</li>
+<li>缺省状态下 文件的默认权限为 0666(所有人具有读写权限 但无法执行)  文件夹则为0777「⚠️ 这是缺省时的权限 不是缺省时的mask」</li>
+<li>大多数情况下 root默认mask 0022   普通用户则是 0002    实际权限 &#x3D; 缺省权限-mask</li>
+<li>那么实际上的权限就是 root：文件 0644   文件夹0755 ｜ 普通：文件 0664  文件夹 0775</li>
+</ul>
+</li>
+</ul>
+<h3 id="FACL-ACL-「File-Access-Control-Lists」"><a href="#FACL-ACL-「File-Access-Control-Lists」" class="headerlink" title="FACL(ACL) 「File Access Control Lists」"></a>FACL(ACL) 「File Access Control Lists」</h3><p>如果要细化规定 组内的每个成员具有的不同的权限时 就需要用到ACL权限</p>
+<ul>
+<li><p>getfacl [file&#x2F;dir]</p>
+</li>
+<li><p>setfacl </p>
+<ul>
+<li><p>-R  recursive|  -m 修改ACL ｜ -x 删除ACL ｜ -r 要设置的ACL规则</p>
+<p>setfacl -x u:st &#x2F;project   删除用户的ACL权限</p>
+<p>setfacl -b project&#x2F;       删除目录上所有的ACL权限</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>默认的ACL权限只对目录有效</p>
+<p>设置默认facl后该目录下新建立的文件和目录都会自动用于ACL权力</p>
+<p>setfacl -m d:u:用户名:权限 文件名    更改默认facl</p>
+<p>setfacl -R-m u:用户名:权限 文件名   只有已经创建的文件会被更改文件权限 其他的则不会</p>
+<h3 id="特殊权限"><a href="#特殊权限" class="headerlink" title="特殊权限"></a>特殊权限</h3><ul>
+<li>可执行文件<ul>
+<li>SUID   使用命令的所属者的权限来运行 (而不是命令执行者的权限)   ⚠️ 只对二进制可执行文件生效   <ul>
+<li>占用<strong>文件主人的x位  变为s</strong>    如修改普通用户修改密码 虽然只有root用户可以访问和修改 但由于s位 普通的用户也可以访问&#x2F;etc&#x2F;shadow    「可以访问 但是cat读取不了！」</li>
+</ul>
+</li>
+<li>SGID   使用命令的组权限来运行  <strong>占用组的x位 变为 s</strong></li>
+</ul>
+</li>
+<li>目录的特殊权限<ul>
+<li>SGID 设置该权限的目录中创建的文件 会具有该目录的组权限</li>
+<li>Sticky-bit 带有粘滞位的目录中的文件只能被文件的所属用户和root用户删除(无视权限设置)<ul>
+<li><strong>占用 other的x位 变为 t</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h3><p>查看分区情况：</p>
+<p>•fdisk -l</p>
+<p>•df -lh</p>
+<p>•lsblk</p>
+<p>•blkid</p>
+<p>mkfs</p>
+<p>lsblk</p>
+<p>fdisk &#x2F;dev&#x2F;sdc</p>
+<p>+5G</p>
+<hr>
+<h3 id="vi编辑器"><a href="#vi编辑器" class="headerlink" title="vi编辑器"></a>vi编辑器</h3><ul>
+<li><p>强退 q!              &#x2F;&#x2F;⚠️ !+cmd $\Rightarrow$ 回到SHELL</p>
+</li>
+<li><p>重做 $\Rightarrow$ ⌃ + r </p>
+</li>
+<li><p>u $\Rightarrow$ undo</p>
+</li>
+<li><p>：下</p>
+<ul>
+<li>set nu   加入行号</li>
+<li>set nonu 不要行</li>
+<li>syntax on: 开启语法高亮</li>
+<li>:set number: 显示行号</li>
+<li>:set tabstop&#x3D;4: 设置 Tab 键宽度</li>
+<li>:set expandtab: 使用空格替代 Tab</li>
+<li>:set softtabstop&#x3D;4: 设置软件 Tab (自动Tab)宽度为 4</li>
+<li>:set shiftwidth&#x3D;4: 设置自动缩进宽度为 4</li>
+<li>:set autoindent: 开启自动缩进，通常用于编写程序</li>
+<li>:set textwidth&#x3D;20设置行的宽度</li>
+<li>:set wrap 设置自动换行</li>
+</ul>
+</li>
+</ul>
+<h3 id="管道与重定向"><a href="#管道与重定向" class="headerlink" title="管道与重定向"></a>管道与重定向</h3><p>管道：将前面命令的结果 作为下一个命令的输入来执行    |</p>
+<ul>
+<li><h4 id="echo-平常会使用””-转义字符-在之前加上-就可以正常输出了"><a href="#echo-平常会使用””-转义字符-在之前加上-就可以正常输出了" class="headerlink" title="echo    平常会使用””   转义字符 在之前加上\  就可以正常输出了"></a>echo    平常会使用””   转义字符 在之前加上\  就可以正常输出了</h4></li>
+<li><h4 id="tr-c-d-s-“string1”-“string2”-input-file"><a href="#tr-c-d-s-“string1”-“string2”-input-file" class="headerlink" title="tr -c -d -s [“string1”] [“string2”] &lt; input-file"></a>tr -c -d -s [“string1”] [“string2”] &lt; input-file</h4><ul>
+<li>-c 没有出现在字符串1中的 字母    将被替换为字符串2中的 最后一个字母(ASCII字符才可以)</li>
+<li>-d 删除字符串1中出现了点所有输入字符</li>
+<li>-s 如果没有string2 将string1字符去重    如裹有string2 去重之后再用string2替换1</li>
+<li>input-file 是转换之后的文件名</li>
+</ul>
+</li>
+</ul>
+<h3 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h3><h4 id="查看进程"><a href="#查看进程" class="headerlink" title="查看进程"></a>查看进程</h4><ul>
+<li>ps   process status  静态查看当前的进程<ul>
+<li>输出 PID  TTY(终端) 运行时间  ⌘(产生该进行的命令)</li>
+<li>ps -l  获取PID</li>
+</ul>
+</li>
+<li>top  动态 3s刷新<ul>
+<li>P $\Rightarrow$ CPU使用率排序</li>
+<li>M $\Rightarrow$ 内存使用率排序</li>
+<li>N $\Rightarrow$ PID排序</li>
+<li>q 退出top</li>
+</ul>
+</li>
+<li>pstree</li>
+</ul>
+<h4 id="杀死进程"><a href="#杀死进程" class="headerlink" title="杀死进程"></a>杀死进程</h4><ul>
+<li>kill   这个命令向进程发送信号 而不是直接杀死进程<ul>
+<li>kill -[sign] PID  &#x2F;&#x2F;  kill -1 2246   让2246进程重启  ⚠️ - 不能去 所以 1 实际上是-1<ul>
+<li>1 立即关闭进程然后重启</li>
+<li>2 终止前台进程</li>
+<li><strong>9 强制终止</strong></li>
+<li>15 优雅的退出(程序可以自己选择 退还是不退)</li>
+<li>18 唤醒暂停的进程</li>
+<li>19 暂停前台进程 &#x3D;&#x3D; ctrl+z</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>killall</li>
+<li>pkill  利用进程名称杀死进程 可以杀死终端</li>
+</ul>
+<p>进程有其ProcessID 「PID」</p>
+<p>还有4种识别号：</p>
+<ul>
+<li>real user ID 「RUID」 ｜ real group ID 「RGID」 $\Rightarrow$ 识别正在运行此进程的用户和组<ul>
+<li>一个进程的RUID和RGID就是运行此进程的UID &#x2F; GID</li>
+</ul>
+</li>
+<li>effect user ID 「EUID」｜ effect group ID 「EGID」$\Rightarrow$ 确定一个进程对其访问的文件的权限<ul>
+<li>如果SetUID&#x2F;SetGID 没有被设置 那么它们</li>
+</ul>
+</li>
+</ul>
+<h4 id="进程优先级"><a href="#进程优先级" class="headerlink" title="进程优先级"></a>进程优先级</h4><p>优先级为 -20 - 19  共40级  数字越大 优先级越低 默认时为0</p>
+<ul>
+<li>nice -n 5 top  top命令来到优先级5   &#x2F;&#x2F; 需要在运行命令前调整！</li>
+<li>renice  &#x2F;&#x2F;可以调整正在运行的命令  分为 在top内调整 和 直接renice两种<ul>
+<li>打开top命令 tpye  <code>r</code> 输入调整进程号和优先级值</li>
+<li>10 18625   将PID为18625的进程优先级调整为10   ⚠️ centos 先输入PID 然后调进程</li>
+<li>renice +10 -u natsumi        &#x2F;&#x2F;这时不在top里 直接输就行</li>
+</ul>
+</li>
+</ul>
+<h4 id="进程调度-只能有一个前台进程-在不执行任何前台操作时-这个进程就是SHELL"><a href="#进程调度-只能有一个前台进程-在不执行任何前台操作时-这个进程就是SHELL" class="headerlink" title="进程调度   只能有一个前台进程 在不执行任何前台操作时 这个进程就是SHELL"></a>进程调度   只能有一个前台进程 在不执行任何前台操作时 这个进程就是SHELL</h4><p>通过<code>jobs</code> 查看后台的命令   「只能看自己终端的」  jobs -l  显示PID</p>
+<ul>
+<li><p>-&amp; 调入后台   sleep 10000 &amp;     &#x2F;&#x2F;如果是需要交互的命令 放入后台也无法执行</p>
+<ul>
+<li>find &#x2F; -name install.log &amp;</li>
+<li>执行命令时 ⌃+z 也可以放入后台</li>
+</ul>
+</li>
+<li><p>fg %工作号 $\Rightarrow$ 把暂停的工作恢复到前台(⚠️不是PID 是工作号)</p>
+</li>
+<li><p>bg%工作号 $\Rightarrow$ 把暂停的工作恢复到后台</p>
+</li>
+<li><p>-at</p>
+<ul>
+<li>atq 查看没有执行的工作任务</li>
+<li>atrm 删除已经设置的任务</li>
+<li>at -c [jobnumber]</li>
+</ul>
+</li>
+<li><p>-batch</p>
+</li>
+<li><p>-cron</p>
+</li>
+</ul>
+<hr>
+<h2 id="About-mac-terminal"><a href="#About-mac-terminal" class="headerlink" title="About mac terminal"></a>About mac terminal</h2><ul>
+<li>ohmyzsh自动补全<ul>
+<li><code>git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions</code></li>
+<li>open ~&#x2F;.zshrc 在这个文件里修改 <code>plugins=(git)</code>&#x3D;&gt;<code>plugins=(git zsh-autosuggestions)</code></li>
+</ul>
+</li>
+<li>cd ~&#x2F;.oh-my-zsh&#x2F;themes &amp;&amp; ls   查看当前主题</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="http://lzqlearn.com/blog/e7beb15ab2ea/">MAC中的冷门问题</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Computation-tech/" class="print-no-link">#Computation tech</a>
+      
+        <a href="/tags/Linux/" class="print-no-link">#Linux</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Linux &amp; Mac terminal</div>
+      <div>https://www.mementos.top/1976/04/01/linux &amp; mac terminal/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Natsumi</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>1976年4月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/1976/04/01/about%20Sort/" title="About Sort">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">About Sort</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/1976/04/01/opencv%20%E8%A7%86%E8%A7%89%E7%BC%96%E7%A8%8B/" title="OpenCV 视觉编程">
+                        <span class="hidden-mobile">OpenCV 视觉编程</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/DynamicRibbon.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script src="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/js/index.js"></script><!-- hexo injector body_end end --></body>
+</html>

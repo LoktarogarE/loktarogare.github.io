@@ -1,0 +1,129 @@
+/*  */
+
+/*修改文章页页边距*/
+.post-content {
+    box-sizing: border-box;
+    padding-left: 8%;
+    padding-right: 8%;
+}
+
+/* 修改页面宽度 */
+.col-lg-8.nopadding-x-md .container.nopadding-x-md #board {
+    width: 120%;
+    left: -18%;
+}
+
+@media (max-width: 993px) {
+    .col-lg-8.nopadding-x-md .container.nopadding-x-md #board {
+        width: 100%;
+        left: 0%;
+    }
+}
+
+/* 解决高分屏下元素过宽的问题 */
+.post .row.nomargin-x {
+    max-width: 100rem;
+    margin-right: auto !important;
+    margin-left: auto !important;
+}
+
+/*设置图片居中*/
+img.img-center {
+    display: block;
+    margin: auto;
+    text-align: center;
+}
+
+/* 代码块样式修改 */
+figure.highlight table {
+    background-color: var(--highlight-bg-color) !important;
+    transition: background-color 0.2s ease-in-out;
+    -o-transition: background-color 0.2s ease-in-out;
+    -moz-transition: background-color 0.2s ease-in-out;
+    -webkit-transition: background-color 0.2s ease-in-out;
+    border-radius: 0 0 10px 10px;
+}
+
+figure.highlight table td.gutter {
+    position: static;
+    border-bottom-left-radius: 14px;
+}
+
+figure.highlight table td.code {
+    border-radius: 0 0 10px 10px;
+}
+
+
+/* 修改tabs标签内边距 */
+.post .tag-common.tabs .tab-content .tab-pane,
+.post .tabs-comment .tab-content .tab-pane {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* 修改tabs标签外边框 */
+.post .tag-common.tabs .tab-content,
+.tabs-comment .tab-content {
+    border: none;
+}
+
+.tag-common.tabs ul.nav-tabs li.tab,
+.tabs-comment ul.nav-tabs li.tab {
+    border-bottom: 1px solid var(--line-color);
+}
+
+.post .tag-common.tabs ul.nav-tabs li.tab.active,
+.tabs-comment ul.nav-tabs li.tab.active {
+    border-top-color: var(--tabs-color);
+    border-left-color: var(--line-color);
+    border-right-color: var(--line-color);
+}
+
+.post .tag-common.tabs ul.nav-tabs li.tab.active a,
+.tabs-comment ul.nav-tabs li.tab.active a {
+    color: var(--tabs-color);
+}
+
+.tag-common.tabs ul.nav-tabs,
+.tabs-comment ul.nav-tabs {
+    border: none;
+}
+
+/* 侧边栏样式设置 */
+.post #mysidebar {
+    width: 100%;
+    position: sticky;
+    position: -webkit-sticky;
+    z-index: 99;
+    top: 2rem;
+    transition: background-color .2s ease-in-out, bottom .3s ease;
+  }
+  
+  .post #mysidebar.mysidebar-left {
+    top: 5rem;
+    width: 58%;
+  }
+  
+  .post #mysidebar .content-header {
+    margin-top: 3rem;
+  }
+  
+  .post #mysidebar .content-header .barpack {
+    position: absolute;
+    right: 0;
+  }
+  
+  .post #mysidebar .content-header a {
+    color: var(--sec-text-color);
+    padding: 0.5rem;
+    height: 2rem;
+    margin-bottom: 0.7rem;
+    width: 2rem;
+    background-color: var(--board-bg-color);
+    display: block;
+    font-size: 1rem;
+    border-radius: 7px;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  }
+
+

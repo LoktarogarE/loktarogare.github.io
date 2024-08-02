@@ -1,0 +1,195 @@
+/* 手机端主页进入动画 */
+@media (max-width:424px) {
+    .container.nopadding-x-md .container {
+        animation: getnote-home 1s ease, getsolid-home 0.4s ease-in;
+        animation-fill-mode: both;
+    }
+}
+
+/* 文字上移动画 */
+@keyframes getnote-home {
+    from {
+        transform: translate(0rem, 3rem);
+    }
+
+    to {
+        transform: translate(0, 0);
+    }
+}
+
+/* 渐入动画 */
+@keyframes getsolid-home {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 100;
+    }
+}
+
+
+/* 主页鼠标悬浮动画 */
+@media (min-width:424px) {
+    .row.mx-auto.index-card {
+        transition: 0.5s ease;
+    }
+
+    .row.mx-auto.index-card:hover {
+        transform: scale(1.05);
+    }
+}
+
+/* 手机端入场动画 */
+@media (max-width:424px) {
+
+    .archive .container.nopadding-x-md .container,
+    .tag .container.nopadding-x-md .container,
+    .category .container.nopadding-x-md .container,
+    .thesisReading .container.nopadding-x-md .container,
+    .civilEngineeringBody .container.nopadding-x-md .container {
+        animation: getnote-archive 1s ease, getsolid-archive 0.4s ease-in;
+        animation-fill-mode: both;
+    }
+}
+
+/* 文字上移动画 */
+@keyframes getnote-archive {
+    from {
+        transform: translate(0rem, 3rem);
+    }
+
+    to {
+        transform: translate(0, 0);
+    }
+}
+
+/* 渐入动画 */
+@keyframes getsolid-archive {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 100;
+    }
+}
+
+/* 归档页悬停动画 */
+.archive .list-group .list-group-item,
+.tag .list-group .list-group-item,
+.category .list-group .list-group-item,
+.thesisReading .list-group .list-group-item,
+.civilEngineeringBody .list-group .list-group-item {
+    transition: 0.3s ease-out;
+}
+
+@media (min-width:424px) {
+
+    .archive .list-group .list-group-item:hover,
+    .tag .list-group .list-group-item:hover,
+    .category .list-group .list-group-item:hover,
+    .thesisReading .list-group .list-group-item:hover,
+    .civilEngineeringBody .list-group .list-group-item:hover {
+        transform: scale(1.02);
+    }
+}
+
+
+/* 切换动画 */
+.post .container-fluid.nopadding-x aside.sidebar {
+    animation: getright-post 1s ease;
+    animation-fill-mode: both;
+  }
+
+
+
+/* 页面进入动画 */
+@media (min-width:424px) {
+    .container #board {
+        animation: getup-all 1s ease, getsolid-all 0.4s ease-in-out;
+        animation-fill-mode: both;
+    }
+}
+
+/* 上移动画 */
+@keyframes getup-all {
+    from {
+        transform: translate(0, 4rem);
+    }
+
+    to {
+        transform: translate(0, 0);
+    }
+}
+
+/* 渐入动画 */
+@keyframes getsolid-all {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 100;
+    }
+}
+
+
+/* 按钮进入动画：随页面进入       该动画已弃用，替换成随鼠标出现的动画  */
+/* .post #mysidebar.mysidebar-left{
+  animation: getnotedown 1s ease, getsolid 0.4s ease-in;
+  animation-delay: 1s;
+  animation-fill-mode: both;
+} */
+
+/* 侧边栏整体进入动画 */
+.post .side-col.d-none.d-lg-block.col-lg-2 #mysidebar.mysidebar-left {
+    animation: left-bar-come 0.5s;
+    animation-fill-mode: both;
+    animation-delay: 1s;
+  }
+  
+/* 按钮进入动画：页面触顶后弹出 */
+.post .side-col.d-none.d-lg-block.col-lg-2 #mysidebar .content-header.navbar-dark {
+animation: left-bar-come 0.5s;
+animation-fill-mode: both;
+}
+
+/* 按钮进入动画：随鼠标移动出现 */
+.post .side-col.d-none.d-lg-block.col-lg-2:hover #mysidebar .content-header.mysidebar-collapse {
+animation: left-bar-come 0.5s;
+animation-fill-mode: both;
+}
+
+/* 按钮消失动画：鼠标移走或页面未触顶 */
+.post .side-col.d-none.d-lg-block.col-lg-2 #mysidebar .content-header {
+animation: left-bar-out 0.5s;
+animation-fill-mode: both;
+animation-delay: 0.3s;
+}
+
+/* 进入动画 */
+@keyframes left-bar-come {
+from {
+    transform: translate(14%, 0em);
+    opacity: 0;
+}
+
+to {
+    transform: translate(0, 0);
+    opacity: 100;
+}
+}
+
+/* 出场动画 */
+@keyframes left-bar-out {
+from {
+    transform: translate(0, 0em);
+    opacity: 100;
+}
+
+to {
+    transform: translate(14%, 0);
+    opacity: 0;
+}
+}

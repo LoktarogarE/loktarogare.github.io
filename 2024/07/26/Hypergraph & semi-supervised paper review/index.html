@@ -1,0 +1,976 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><link href="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/css/index.css" rel="stylesheet"/><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/bimg/avatar1.png">
+  <link rel="icon" href="/bimg/avatar1.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Natsumi">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Hypergraph &amp; semi-supervised paper review汇总了这几年的 超图 + 半监督中的有趣文献。 Wasserstein Soft Label Propagation on Hypergraphs: Algorithm and Generalization Error Bounds核心思路：  背景和动机：随着超图在机器学习和数据挖掘算法中的应用不断增加">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Natsumi&#39;s Mementos">
+<meta property="og:url" content="https://www.mementos.top/2024/07/26/Hypergraph%20&%20semi-supervised%20paper%20review/index.html">
+<meta property="og:site_name" content="Natsumi&#39;s Mementos">
+<meta property="og:description" content="Hypergraph &amp; semi-supervised paper review汇总了这几年的 超图 + 半监督中的有趣文献。 Wasserstein Soft Label Propagation on Hypergraphs: Algorithm and Generalization Error Bounds核心思路：  背景和动机：随着超图在机器学习和数据挖掘算法中的应用不断增加">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=Yzg4MTkwMTM5NWQyOGFhYzNlMmU4YzY4YmU4M2Q5NGNfa3c0WHRWcFRObkNBQUxqeXhnMjJ1aFNEUXhVdVM0U1RfVG9rZW46UHM2QmI4S3VNbzk1N254c1loVGNhMThqbjhkXzE3MjE5NzU2ODA6MTcyMTk3OTI4MF9WNA">
+<meta property="og:image" content="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=YzUxODZkMjk2NjllMmQ0M2I3MzJjODg4ODg5ZWVmMWNfcjdGUHFHY3JmbDlETFE3dFk3b3hvMVBVYXg2ZkFSdTNfVG9rZW46TkdsRmJlUDhjbzlxVlF4ZnhQOWNUWERRbjJlXzE3MjE5NzU2ODA6MTcyMTk3OTI4MF9WNA">
+<meta property="og:image" content="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=NWJlMTUwNzlkYTdlODJlNmQ2OGIyZmFjMjQzZjBiZDJfaVNGeDR4VExNQ3NsRWRGQ1gzczNKN1Q0TzMxa0JvYXBfVG9rZW46U0dVTmJQNE1Yb2VQU2Z4TTBBVmM5RUlFbmtiXzE3MjE5NzU2ODA6MTcyMTk3OTI4MF9WNA">
+<meta property="og:image" content="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=MDQ0MzYyMjFkMTYwYmI1ZjZlODUyOGZjMThhYWJhOWNfRGdnS0Z2Z1VQamgxUzEzR0N0bmJrUlBJV0VyVFk0MmRfVG9rZW46R0hNZmJqdHA4b1B1YXZ4Yk14emN4eW4ybktkXzE3MjE5NzU2ODA6MTcyMTk3OTI4MF9WNA">
+<meta property="og:image" content="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=NGYxMjdmODEwODc2ZGVlNjRkODQ1ZDVkNmYxY2I3OGVfM1N2SlZDTDJsRUlmdXV6T2VjQnVWV09KUklqeXRlUmlfVG9rZW46Q2ZkVGJjNTJDbzcxd094Rkk4eWNjaEI5bnZjXzE3MjE5NzU2ODA6MTcyMTk3OTI4MF9WNA">
+<meta property="og:image" content="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=MGQxMjRhZTgxZGFjODRhZjA3NDY1MGFkYjc0MGUyNTBfekhESGdNWnlrYVRMaWV6M3VWb3lUSmN1WkhjTm9JNERfVG9rZW46Skxyc2I4OHlIb2MydDh4WHFlU2MyZUU3bmJiXzE3MjE5NzU2ODA6MTcyMTk3OTI4MF9WNA">
+<meta property="og:image" content="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=OTRmMThhMzRhOGM4ODFiYTE5NjZiZDI5ZTM2ZjQ1ZGZfSHlhVm1CYW5qWFBOdGJVQXZIdGYxdVFjTmd6Qm5oZDJfVG9rZW46RHpmb2JvcnNCb0NoYld4WmFGOWN6QUk5bmRlXzE3MjE5NzU2ODA6MTcyMTk3OTI4MF9WNA">
+<meta property="og:image" content="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=ZWFkZGM5NTAxNGU2ZDkwODZkY2Q4MzdhZGEzNGU4NjBfaThRNFFWRDVXODFMMWZoVmE3alY1cTlXcW9uTFRva2tfVG9rZW46VEh4dmJidDJzb1FXU3J4OXVQa2N0SlVhbjFjXzE3MjE5NzU2ODA6MTcyMTk3OTI4MF9WNA">
+<meta property="og:image" content="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=NmJiMzI1ZDNlZGY4ZjI0NmQwYTY1ZTE2MWQyYzAwOTZfREYxVFRtcUlPdjNXYlNTYnF1bUNFT082Mk1uRG1IeEhfVG9rZW46R3NhdmJ6N2ZFb2F5T1Z4WWVSOGNUelBybkdoXzE3MjE5NzU2ODA6MTcyMTk3OTI4MF9WNA">
+<meta property="og:image" content="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=YjQyNTM2NjYyNzEyNGViMDQ5ZTI4NTI0YjM0MDkwMWZfY09wbk5qNkZ0UHN6NXVVbUx4NG01NFhlaGRuNUQ1V1NfVG9rZW46UEpPWmJpbGlEb01jMWh4ZWljM2NRZTdmblFnXzE3MjE5NzU2ODA6MTcyMTk3OTI4MF9WNA">
+<meta property="og:image" content="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=YTcyNTI5MzE1Mjg3OWQ4MDc1NDVmMDgyZWJhOGNiYWFfZFJORUs0NTdwR1RCRmtnYUVGR3VhSzVEZnNzQ1owejdfVG9rZW46UUVPUWIwSHNMb3Z4VFV4Q2Rwc2NmaGh0bkFkXzE3MjE5NzU2ODA6MTcyMTk3OTI4MF9WNA">
+<meta property="og:image" content="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=ZGNiYjJjYzFjYjQ1MzA2Mjg2MmQ1MTBkZGMzZmY2MmNfNDgzaTFqc2VTYTlsRmVnOW1SMTVHajFvSHlZbTZhemRfVG9rZW46UVhORmJBd1dHbzVxRm94Wldwd2NSM3NtblllXzE3MjE5NzU2ODA6MTcyMTk3OTI4MF9WNA">
+<meta property="og:image" content="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=OTIyNTcwMzZlZWZhYmE2OGM2ZWQ2MWE2OGMxOTQzN2RfbEgwbkNWSmRGU1k3MU1DZDBPaFRDVjhwNkFJVlZkQ0NfVG9rZW46SlNIUGJTd2dab1Z6VUF4UlpMYWNWaTdEbjFpXzE3MjE5NzU2ODA6MTcyMTk3OTI4MF9WNA">
+<meta property="og:image" content="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=ZmIwODkwOGMxMzlhZWE3MjhkMTY2YjYxYTg3NTNlNmJfMnE4NzBFWjdDblF4aUVVaE5lUWVoSDZCdUF3TGRJbXBfVG9rZW46RFJnVmIySHpvb3gxcWF4b1ZNdWNUUHNnbm5lXzE3MjE5NzU2ODA6MTcyMTk3OTI4MF9WNA">
+<meta property="article:published_time" content="2024-07-26T06:37:36.405Z">
+<meta property="article:modified_time" content="2024-07-26T06:37:43.586Z">
+<meta property="article:author" content="Natsumi">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=Yzg4MTkwMTM5NWQyOGFhYzNlMmU4YzY4YmU4M2Q5NGNfa3c0WHRWcFRObkNBQUxqeXhnMjJ1aFNEUXhVdVM0U1RfVG9rZW46UHM2QmI4S3VNbzk1N254c1loVGNhMThqbjhkXzE3MjE5NzU2ODA6MTcyMTk3OTI4MF9WNA">
+  
+  
+  
+  <title>Natsumi&#39;s Mementos</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/interact_anime.css">
+<link rel="stylesheet" href="/css/format.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/scroll.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.mementos.top","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/gifs/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+</head>
+
+
+<body>
+  
+  
+    
+
+<style type="text/css">
+    @keyframes spin3D {
+        from {
+            transform: rotate3d(0.5, 0.5, 0.5, 360deg);
+        }
+
+        to {
+            transform: rotate3d(0deg);
+        }
+    }
+
+    #loading {
+        height: 100%;
+        background-color: #172d4781;
+        backdrop-filter: saturate(100%) blur(10px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+        z-index: 99999999;
+    }
+
+    .spinner-box {
+        width: 300px;
+        height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: transparent;
+    }
+
+    .leo {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+    }
+
+    .blue-orbit {
+        width: 175px;
+        height: 175px;
+        border: 2px solid #1a91fa;
+        animation: spin3D 3s linear .2s infinite;
+    }
+
+    .green-orbit {
+        width: 135px;
+        height: 135px;
+        border: 2px solid #00ffdd;
+        animation: spin3D 2s linear 0s infinite;
+    }
+
+    .red-orbit {
+        width: 100px;
+        height: 100px;
+        border: 2px solid #d75151;
+        animation: spin3D 1s linear 0s infinite;
+    }
+
+    .white-orbit-a {
+        width: 70px;
+        height: 70px;
+        border: 1px solid #faf5f5;
+        animation: spin3D 3s linear 0s infinite;
+    }
+
+    .white-orbit-b {
+        width: 70px;
+        height: 70px;
+        border: 1px solid #faf5f5;
+        animation: spin3D 1.5s linear 0s infinite;
+    }
+
+    .nucleus {
+        width: 1px;
+        height: 1px;
+        border: 1px solid #ffffff;
+        animation: spin3D 1s linear 0s infinite;
+    }
+</style>
+
+<div id="loading">
+    <div class="spinner-box">
+        <div class="blue-orbit leo"></div>
+        <div class="green-orbit leo"></div>
+        <div class="red-orbit leo"></div>
+        <div class="white-orbit-a leo"></div>
+        <div class="white-orbit-b leo"></div>
+        <div class="nucleus leo"></div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        const loaded = function () {
+            window.onload = function () {
+                const loader = document.getElementById("loading");
+                loader.className = "fadeout";
+                setTimeout(function () {
+                    loader.style.display = "none";
+                }, 
+                100
+                );
+            }
+        };
+        loaded();
+    })();
+</script>
+  
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Natsumi&#39;s Mementos</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>HOME</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>author</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Road2AI/" target="_self">
+                <i class="iconfont icon-codepen-fill"></i>
+                <span>dev</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/bimg/p1.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-07-26 14:37" pubdate>
+          2024年7月26日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          44 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <hr>
+<hr>
+<h1 id="Hypergraph-semi-supervised-paper-review"><a href="#Hypergraph-semi-supervised-paper-review" class="headerlink" title="Hypergraph &amp; semi-supervised paper review"></a>Hypergraph &amp; semi-supervised paper review</h1><p>汇总了这几年的 超图 + 半监督中的有趣文献。</p>
+<h1 id="Wasserstein-Soft-Label-Propagation-on-Hypergraphs-Algorithm-and-Generalization-Error-Bounds"><a href="#Wasserstein-Soft-Label-Propagation-on-Hypergraphs-Algorithm-and-Generalization-Error-Bounds" class="headerlink" title="Wasserstein Soft Label Propagation on Hypergraphs: Algorithm and Generalization Error Bounds"></a>Wasserstein Soft Label Propagation on Hypergraphs: Algorithm and Generalization Error Bounds</h1><p>核心思路：</p>
+<ol>
+<li><strong>背景和动机</strong>：随着超图在机器学习和数据挖掘算法中的应用不断增加，<strong>本文探讨了在超图上通过最优传输进行“软标签”传播的</strong>半监督学习算法。软标签（如概率分布、类别成员分数）传播相较于传统的硬标签传播，具有更高的灵活性和信息量，适用于不确定性和分布信息至关重要的场景。</li>
+<li><strong>算法设计</strong>：借鉴Wasserstein传播算法（Solomon et al., 2014），本文将标签传播过程重新构建为<strong>消息传递算法</strong>，通过Wasserstein重心实现了其在超图上的一般化。利用2-Wasserstein距离，提出了一种新的消息传递算法，用于在超图上传播一维分布。</li>
+<li><strong>理论贡献</strong>：在PAC学习框架内，本文提供了在图和超图上传播一维分布的泛化误差界，通过建立所提出算法的算法稳定性，揭示了Wasserstein传播算法在图上的新见解和更深层次的理解。</li>
+</ol>
+<p>贡献</p>
+<ol>
+<li><strong>扩展Wasserstein传播至超图</strong>：提出了基于Wasserstein重心的超图软标签传播算法，并通过多边最优传输问题解决了该算法在超图上的推广。</li>
+<li><strong>算法稳定性和泛化误差界</strong>：在PAC学习框架下，本文建立了使用2-Wasserstein距离传播一维分布的泛化误差界，提供了关于Wasserstein传播算法在图上泛化能力的首个理论结果。</li>
+<li><strong>数值实验和实际应用</strong>：通过在随机超图和UCI数据集（包括国会投票记录和蘑菇特征数据）上的实验，展示了所提出算法的有效性。</li>
+</ol>
+<p><strong>传统的标签传播算法</strong>（如Belkin等人提出的算法）通常用于图（graph）上的标签传播，<strong>其标签为数值或类别变量</strong>。而<strong>Wasserstein传播算法</strong>通过最优传输理论<strong>将标签扩展为概率分布或软标签</strong>（soft label），提高了算法的灵活性和信息量。</p>
+<ul>
+<li><strong>Wasserstein传播算法</strong>最初在图（graph）上定义，其<strong>目的是在节点之间传播概率分布标签</strong>。本文将这一过程重新构建为消息传递算法，并扩展到超图（hypergrap</li>
+</ul>
+<blockquote>
+<p><strong>在图上的Wasserstein标签传播</strong></p>
+</blockquote>
+<p>给定一个图$$G &#x3D; (V, E)$$，定义一个度量空间上的概率分布映射$$\mu: V \to P(N)$$</p>
+<p>假设有一部分节点 $$V_0 \subseteq V$$的标签已知，目标是确定其余节点 $$ V \setminus V_0 $$ 的标签。目标函数为：</p>
+<p>$$ \min_{f: V \to P(N)} \frac{1}{m} \sum_{i&#x3D;1}^{m} W_2^2(\mu_i, f(i)) + \gamma \sum_{(i,j) \in E} \omega_{ij} W_2^2(f(i), f(j)) $$</p>
+<p>其中$$\gamma$$是正则化参数，$$\omega_{ij}$$ 是边$$(i, j)$$的权重，$$W_2$$是2-Wasserstein距离。</p>
+<p><strong>超图上的Wasserstein标签传播</strong></p>
+<p>在超图$$H &#x3D; (V, E)$$上，由于超边（hyperedge）可以包含任意数量的顶点，目标函数需要重新定义。超图上的Wasserstein传播算法基于消息传递更新规则：</p>
+<ol>
+<li><strong>消息传递更新规则</strong></li>
+</ol>
+<p>从节点 i 向超边 E 发送消息$$ J_{i \to E}$$: </p>
+<p>$$J_{i \to E}(b_i) &#x3D; W_2^2(\mu_i, b_i) + \sum_{E’ \in E \setminus {E}: i \in E’} J_{E’ \to i}(b_i) $$</p>
+<p>超边 E 向节点 i 发送消息$$J_{E \to i}$$:</p>
+<p>$$J_{E \to i}(b_i) &#x3D; \min_{f_{E \setminus {i}}} \left[ \text{bar}(E) + \sum_{k \in E \setminus {i}} J_{k \to E}(f_k) \right]$$</p>
+<p>$$\text{bar}(E)$$是超边 E 上的 Wasserstein 重心</p>
+<ol start="2">
+<li><strong>迭代更新信念</strong></li>
+</ol>
+<ul>
+<li>节点  i 的信念  b_i  更新为：</li>
+</ul>
+<p>$$b_i &#x3D; \arg \min_{f_i \in P(N)} \left[ W_2^2(\mu_i, f_i) + \sum_{E \in E: i \in E} J_{E \to i}(f_i) \right] $$     </p>
+<ol start="3">
+<li><strong>最终目标函数</strong></li>
+</ol>
+<ul>
+<li>对整个超图的目标函数为：</li>
+</ul>
+<p>$$\min_{f: V \to P(N)} \frac{1}{m} \sum_{i&#x3D;1}^{m} W_2^2(\mu_i, f(i)) + \gamma \sum_{E \in E} \text{bar}(E) $$     </p>
+<ol start="3">
+<li><strong>Wasserstein重心</strong></li>
+</ol>
+<p>Wasserstein重心的计算是核心步骤之一，具体定义如下：</p>
+<p>给定 k  个概率分布 $$\rho_1, \ldots, \rho_k$$ ，它们的Wasserstein重心为：</p>
+<p>$$\text{bar}({\rho_i}<em>{i&#x3D;1}^k) &#x3D; \inf</em>{\nu \in P(N)} \frac{1}{k} \sum_{i&#x3D;1}^k W_2^2(\rho_i, \nu)$$</p>
+<p>对于一维概率分布，其Wasserstein重心可以通过累积分布函数的逆函数来计算：</p>
+<p>$$F^{-1}<em>{b}(s) &#x3D; \frac{1}{k} \sum</em>{i&#x3D;1}^k F^{-1}_{\rho_i}(s)$$</p>
+<h1 id="Semi-supervised-Hypergraph-Node-Classification-on-Hypergraph-Line-Expansion"><a href="#Semi-supervised-Hypergraph-Node-Classification-on-Hypergraph-Line-Expansion" class="headerlink" title="Semi-supervised Hypergraph Node Classification on Hypergraph Line Expansion"></a>Semi-supervised Hypergraph Node Classification on Hypergraph Line Expansion</h1><h3 id="一句话总结：用-线性扩展（LE）将超图转换为简单图结构"><a href="#一句话总结：用-线性扩展（LE）将超图转换为简单图结构" class="headerlink" title="一句话总结：用 线性扩展（LE）将超图转换为简单图结构"></a>一句话总结：用 线性扩展（LE）将超图转换为简单图结构</h3><p><img src="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=Yzg4MTkwMTM5NWQyOGFhYzNlMmU4YzY4YmU4M2Q5NGNfa3c0WHRWcFRObkNBQUxqeXhnMjJ1aFNEUXhVdVM0U1RfVG9rZW46UHM2QmI4S3VNbzk1N254c1loVGNhMThqbjhkXzE3MjE5NzU2ODA6MTcyMTk3OTI4MF9WNA" srcset="/gifs/loading.gif" lazyload alt="img"></p>
+<h1 id="Self-Supervised-Guided-Hypergraph-Feature-Propagation-for-Semi-Supervised-Classification-with-Missing-Node-Features"><a href="#Self-Supervised-Guided-Hypergraph-Feature-Propagation-for-Semi-Supervised-Classification-with-Missing-Node-Features" class="headerlink" title="Self-Supervised Guided Hypergraph Feature Propagation for Semi-Supervised Classification with Missing Node Features"></a>Self-Supervised Guided Hypergraph Feature Propagation for Semi-Supervised Classification with Missing Node Features</h1><h3 id="一句话总结：-用来解决只给一部分特征的任务。"><a href="#一句话总结：-用来解决只给一部分特征的任务。" class="headerlink" title="一句话总结： 用来解决只给一部分特征的任务。"></a>一句话总结： 用来解决只给一部分特征的任务。</h3><p>SGHFP通过以下步骤进行特征传播和重建：</p>
+<ul>
+<li><strong>特征超图构建</strong>：根据节点的已知特征构建特征超图。</li>
+<li><strong>伪标签超图构建</strong>：利用前一迭代产生的重建特征通过两层GNN构建伪标签超图。</li>
+<li><strong>超图融合</strong>：在每次迭代前，将特征超图和伪标签超图融合，生成更有效的超图。</li>
+<li><strong>特征传播</strong>：使用融合后的超图进行特征传播，重建缺失的节点特征。</li>
+<li><strong>迭代优化</strong>：通过多次迭代优化，最终重建的节点特征用于下游的半监督分类任务。</li>
+</ul>
+<p>自监督引导的超图特征传播（SGHFP）</p>
+<p><img src="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=YzUxODZkMjk2NjllMmQ0M2I3MzJjODg4ODg5ZWVmMWNfcjdGUHFHY3JmbDlETFE3dFk3b3hvMVBVYXg2ZkFSdTNfVG9rZW46TkdsRmJlUDhjbzlxVlF4ZnhQOWNUWERRbjJlXzE3MjE5NzU2ODA6MTcyMTk3OTI4MF9WNA" srcset="/gifs/loading.gif" lazyload alt="img"></p>
+<h1 id="Nonlinear-Feature-Diffusion-on-Hypergraphs"><a href="#Nonlinear-Feature-Diffusion-on-Hypergraphs" class="headerlink" title="Nonlinear Feature Diffusion on Hypergraphs"></a>Nonlinear Feature Diffusion on Hypergraphs</h1><h3 id="一句话总结：-提出一种非线性特征扩散方法，在超图上同时传播特征和标签，以捕捉更复杂的节点间关系。"><a href="#一句话总结：-提出一种非线性特征扩散方法，在超图上同时传播特征和标签，以捕捉更复杂的节点间关系。" class="headerlink" title="一句话总结： 提出一种非线性特征扩散方法，在超图上同时传播特征和标签，以捕捉更复杂的节点间关系。"></a>一句话总结： 提出一种非线性特征扩散方法，在超图上同时传播特征和标签，以捕捉更复杂的节点间关系。</h3><p><img src="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=NWJlMTUwNzlkYTdlODJlNmQ2OGIyZmFjMjQzZjBiZDJfaVNGeDR4VExNQ3NsRWRGQ1gzczNKN1Q0TzMxa0JvYXBfVG9rZW46U0dVTmJQNE1Yb2VQU2Z4TTBBVmM5RUlFbmtiXzE3MjE5NzU2ODA6MTcyMTk3OTI4MF9WNA" srcset="/gifs/loading.gif" lazyload alt="img"></p>
+<h1 id="Sheaf-Hypergraph-Networks-重了-你多下了一个"><a href="#Sheaf-Hypergraph-Networks-重了-你多下了一个" class="headerlink" title="Sheaf Hypergraph Networks (重了, 你多下了一个)"></a>Sheaf Hypergraph Networks (重了, 你多下了一个)</h1><h3 id="一句话总结：通过在超图中引入纤维丛（cellular-sheaf）结构，增强了超图的表示能力，从而更好地建模复杂数据结构。"><a href="#一句话总结：通过在超图中引入纤维丛（cellular-sheaf）结构，增强了超图的表示能力，从而更好地建模复杂数据结构。" class="headerlink" title="一句话总结：通过在超图中引入纤维丛（cellular sheaf）结构，增强了超图的表示能力，从而更好地建模复杂数据结构。"></a>一句话总结：通过在超图中引入纤维丛（cellular sheaf）结构，增强了超图的表示能力，从而更好地建模复杂数据结构。</h3><p><strong>引入纤维丛超图结构</strong>：纤维丛超图通过在超图的节点和超边上关联向量空间，并提供线性投影，使信息在节点和超边之间传递，从而实现更丰富的数据表示。</p>
+<p><strong>提出纤维丛超图拉普拉斯算子</strong>：包括线性和非线性两种形式，提供了更具表达力的归纳偏差，有效地建模复杂现象。</p>
+<p><strong>开发新型<strong><strong>神经网络</strong></strong>模型</strong>：设计了基于纤维丛超图拉普拉斯算子的SheafHyperGNN和SheafHyperGCN模型，实验结果表明，这些模型在多个基准数据集上的表现优于现有方法。</p>
+<p><img src="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=MDQ0MzYyMjFkMTYwYmI1ZjZlODUyOGZjMThhYWJhOWNfRGdnS0Z2Z1VQamgxUzEzR0N0bmJrUlBJV0VyVFk0MmRfVG9rZW46R0hNZmJqdHA4b1B1YXZ4Yk14emN4eW4ybktkXzE3MjE5NzU2ODA6MTcyMTk3OTI4MF9WNA" srcset="/gifs/loading.gif" lazyload alt="img"></p>
+<h1 id="Hypergraph-enhanced-Dual-Semi-supervised-Graph-Classification"><a href="#Hypergraph-enhanced-Dual-Semi-supervised-Graph-Classification" class="headerlink" title="Hypergraph-enhanced Dual Semi-supervised Graph Classification"></a>Hypergraph-enhanced Dual Semi-supervised Graph Classification</h1><h3 id="一句话总结-提出了一种增强的双半监督图分类框架（HEAL），通过超图和线图两个视角捕捉图语义，从而更好地利用未标记图数据，提高分类性能。"><a href="#一句话总结-提出了一种增强的双半监督图分类框架（HEAL），通过超图和线图两个视角捕捉图语义，从而更好地利用未标记图数据，提高分类性能。" class="headerlink" title="一句话总结: 提出了一种增强的双半监督图分类框架（HEAL），通过超图和线图两个视角捕捉图语义，从而更好地利用未标记图数据，提高分类性能。"></a>一句话总结: 提出了一种增强的双半监督图分类框架（HEAL），通过超图和线图两个视角捕捉图语义，从而更好地利用未标记图数据，提高分类性能。</h3><p>HEAL框架包括三个主要模块：</p>
+<ul>
+<li><strong>高阶依赖学习模块</strong>：通过自适应学习超图结构，捕捉节点间的复杂依赖关系。</li>
+<li><strong>线图卷积模块</strong>：利用线图捕捉超边间的交互，从而挖掘更深层次的语义结构。</li>
+<li><strong>关系一致性学习模块</strong>：促进两个分支间的知识传递，增强模型在未标记图上的表现。</li>
+</ul>
+<p><img src="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=NGYxMjdmODEwODc2ZGVlNjRkODQ1ZDVkNmYxY2I3OGVfM1N2SlZDTDJsRUlmdXV6T2VjQnVWV09KUklqeXRlUmlfVG9rZW46Q2ZkVGJjNTJDbzcxd094Rkk4eWNjaEI5bnZjXzE3MjE5NzU2ODA6MTcyMTk3OTI4MF9WNA" srcset="/gifs/loading.gif" lazyload alt="img"></p>
+<h1 id="Hypergraph-Transformer-for-semi-supervised-classification"><a href="#Hypergraph-Transformer-for-semi-supervised-classification" class="headerlink" title="Hypergraph Transformer for semi-supervised classification"></a>Hypergraph Transformer for semi-supervised classification</h1><h3 id="一句话总结-利用Transformer架构有效地捕捉超图中的全局相关性，同时保留局部连接模式。"><a href="#一句话总结-利用Transformer架构有效地捕捉超图中的全局相关性，同时保留局部连接模式。" class="headerlink" title="一句话总结:利用Transformer架构有效地捕捉超图中的全局相关性，同时保留局部连接模式。"></a>一句话总结:利用Transformer架构有效地捕捉超图中的全局相关性，同时保留局部连接模式。</h3><p><strong>提出HyperGraph Transformer框架</strong>：通过Transformer架构结合超图特定组件，实现同时捕捉全局和局部结构信息，提升了超图表示学习的效果。</p>
+<p><strong>设计了新的位置编码机制和结构<strong><strong>正则化</strong></strong>方法</strong>：利用超图关联矩阵进行位置编码和结构正则化，有效地融合了超图的结构信息，提升了模型性能。</p>
+<p><strong>实验验证</strong>：在四个实际数据集上的实验结果表明，HyperGT在节点分类任务中显著优于现有的最先进方法，并展示了各个设计组件的有效性。</p>
+<p><img src="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=MGQxMjRhZTgxZGFjODRhZjA3NDY1MGFkYjc0MGUyNTBfekhESGdNWnlrYVRMaWV6M3VWb3lUSmN1WkhjTm9JNERfVG9rZW46Skxyc2I4OHlIb2MydDh4WHFlU2MyZUU3bmJiXzE3MjE5NzU2ODA6MTcyMTk3OTI4MF9WNA" srcset="/gifs/loading.gif" lazyload alt="img"></p>
+<h1 id="Hypergraph-Label-Propagation-Network"><a href="#Hypergraph-Label-Propagation-Network" class="headerlink" title="Hypergraph Label Propagation Network"></a>Hypergraph Label Propagation Network</h1><h3 id="一句话总结-提出了一种超图标签传播网络（HLPN），将超图标签传播与深度神经网络结合，通过端到端架构优化特征嵌入，从而实现更高效的数据标注。"><a href="#一句话总结-提出了一种超图标签传播网络（HLPN），将超图标签传播与深度神经网络结合，通过端到端架构优化特征嵌入，从而实现更高效的数据标注。" class="headerlink" title="一句话总结: 提出了一种超图标签传播网络（HLPN），将超图标签传播与深度神经网络结合，通过端到端架构优化特征嵌入，从而实现更高效的数据标注。"></a>一句话总结: 提出了一种超图标签传播网络（HLPN），将超图标签传播与深度神经网络结合，通过端到端架构优化特征嵌入，从而实现更高效的数据标注。</h3><p><strong>提出了一种新的超图<strong><strong>半监督学习</strong></strong>框架</strong>：该框架通过稀疏样本捕捉流形结构，并实现端到端学习。</p>
+<p><strong>提高超图学习效率</strong>：相比传统超图方法，HLPN不需要构建整个数据集的超图，从而提高了计算效率。</p>
+<p><strong>实验验证</strong>：在实际数据集上的实验结果表明，HLPN在性能上显著优于最先进的方法。</p>
+<p><img src="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=OTRmMThhMzRhOGM4ODFiYTE5NjZiZDI5ZTM2ZjQ1ZGZfSHlhVm1CYW5qWFBOdGJVQXZIdGYxdVFjTmd6Qm5oZDJfVG9rZW46RHpmb2JvcnNCb0NoYld4WmFGOWN6QUk5bmRlXzE3MjE5NzU2ODA6MTcyMTk3OTI4MF9WNA" srcset="/gifs/loading.gif" lazyload alt="img"></p>
+<h1 id="Hypergraph-Convolutional-Network-based-Weakly-Supervised-Point-Cloud-Semantic-Segmentation-with-Scene-Level-Annotations"><a href="#Hypergraph-Convolutional-Network-based-Weakly-Supervised-Point-Cloud-Semantic-Segmentation-with-Scene-Level-Annotations" class="headerlink" title="Hypergraph Convolutional Network based Weakly Supervised Point Cloud Semantic Segmentation with Scene-Level Annotations"></a>Hypergraph Convolutional Network based Weakly Supervised Point Cloud Semantic Segmentation with Scene-Level Annotations</h1><h3 id="一句话总结-提出了一种基于加权超图卷积网络（WHCN）的弱监督点云语义分割方法，通过场景级别标注学习点级别伪标签，从而提高分割性能。"><a href="#一句话总结-提出了一种基于加权超图卷积网络（WHCN）的弱监督点云语义分割方法，通过场景级别标注学习点级别伪标签，从而提高分割性能。" class="headerlink" title="一句话总结: 提出了一种基于加权超图卷积网络（WHCN）的弱监督点云语义分割方法，通过场景级别标注学习点级别伪标签，从而提高分割性能。"></a>一句话总结: 提出了一种基于加权超图卷积网络（WHCN）的弱监督点云语义分割方法，通过场景级别标注学习点级别伪标签，从而提高分割性能。</h3><p><strong>算法设计</strong>：</p>
+<ul>
+<li><strong>超点生成与超图构建</strong>：利用几何同质划分生成超点，以平衡不同类别点数的不均衡性，并降低模型复杂度。基于高置信度超点种子构建超图。</li>
+<li><strong>加权超图卷积网络</strong>：设计了加权超图卷积网络（WHCN），通过标签传播生成高精度的点级别伪标签。WHCN包括谱超图卷积块和超边注意力模块，调整超边权重以优化标签传播。</li>
+<li><strong>伪标签生成与分割网络训练</strong>：利用生成的伪标签训练分割网络，实现高精度的点云语义分割。</li>
+</ul>
+<p><img src="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=ZWFkZGM5NTAxNGU2ZDkwODZkY2Q4MzdhZGEzNGU4NjBfaThRNFFWRDVXODFMMWZoVmE3alY1cTlXcW9uTFRva2tfVG9rZW46VEh4dmJidDJzb1FXU3J4OXVQa2N0SlVhbjFjXzE3MjE5NzU2ODA6MTcyMTk3OTI4MF9WNA" srcset="/gifs/loading.gif" lazyload alt="img"></p>
+<p><img src="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=NmJiMzI1ZDNlZGY4ZjI0NmQwYTY1ZTE2MWQyYzAwOTZfREYxVFRtcUlPdjNXYlNTYnF1bUNFT082Mk1uRG1IeEhfVG9rZW46R3NhdmJ6N2ZFb2F5T1Z4WWVSOGNUelBybkdoXzE3MjE5NzU2ODA6MTcyMTk3OTI4MF9WNA" srcset="/gifs/loading.gif" lazyload alt="img"></p>
+<h1 id="From-Hypergraph-Energy-Functions-to-Hypergraph-Neural-Networks"><a href="#From-Hypergraph-Energy-Functions-to-Hypergraph-Neural-Networks" class="headerlink" title="From Hypergraph Energy Functions to Hypergraph Neural Networks"></a>From Hypergraph Energy Functions to Hypergraph Neural Networks</h1><h3 id="这个你看了-就不总结了"><a href="#这个你看了-就不总结了" class="headerlink" title="这个你看了, 就不总结了"></a>这个你看了, 就不总结了</h3><h1 id="CHGNN-A-Semi-Supervised-Contrastive-Hypergraph-Learning-Network"><a href="#CHGNN-A-Semi-Supervised-Contrastive-Hypergraph-Learning-Network" class="headerlink" title="CHGNN: A Semi-Supervised Contrastive Hypergraph Learning Network"></a>CHGNN: A Semi-Supervised Contrastive Hypergraph Learning Network</h1><h3 id="一句话总结-提出了一种对比超图神经网络（CHGNN），结合自监督对比学习技术，从标记和未标记数据中学习。CHGNN包括一个自适应超图视图生成器、改进的超图编码器和一个结合相似度损失、节点分类损失和超边同质性损失的联合损失函数。"><a href="#一句话总结-提出了一种对比超图神经网络（CHGNN），结合自监督对比学习技术，从标记和未标记数据中学习。CHGNN包括一个自适应超图视图生成器、改进的超图编码器和一个结合相似度损失、节点分类损失和超边同质性损失的联合损失函数。" class="headerlink" title="一句话总结: 提出了一种对比超图神经网络（CHGNN），结合自监督对比学习技术，从标记和未标记数据中学习。CHGNN包括一个自适应超图视图生成器、改进的超图编码器和一个结合相似度损失、节点分类损失和超边同质性损失的联合损失函数。"></a>一句话总结: 提出了一种对比超图神经网络（CHGNN），结合自监督对比学习技术，从标记和未标记数据中学习。CHGNN包括一个自适应超图视图生成器、改进的超图编码器和一个结合相似度损失、节点分类损失和超边同质性损失的联合损失函数。</h3><p><strong>算法设计</strong>：</p>
+<ul>
+<li><strong>自适应超图视图生成器</strong>：采用自动增强策略，学习最小充分视图的扰动概率分布。</li>
+<li><strong>改进的超图****编码器</strong>：考虑超边的同质性，有效融合信息。</li>
+<li><strong>联合****损失函数</strong>：结合视图生成器的相似度损失、节点分类损失和超边同质性损失，增强监督信号。此外，还包括基础对比损失和交叉验证对比损失，提高对比学习效果。</li>
+</ul>
+<p><img src="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=YjQyNTM2NjYyNzEyNGViMDQ5ZTI4NTI0YjM0MDkwMWZfY09wbk5qNkZ0UHN6NXVVbUx4NG01NFhlaGRuNUQ1V1NfVG9rZW46UEpPWmJpbGlEb01jMWh4ZWljM2NRZTdmblFnXzE3MjE5NzU2ODA6MTcyMTk3OTI4MF9WNA" srcset="/gifs/loading.gif" lazyload alt="img"></p>
+<h1 id="Hypergraph-Dynamic-System"><a href="#Hypergraph-Dynamic-System" class="headerlink" title="Hypergraph Dynamic System"></a>Hypergraph Dynamic System</h1><h3 id="一句话总结-出了一种超图动态系统（HDS），将超图和动态系统联系起来，描述表示的连续动态演化过程。提出的控制扩散超图动态系统通过常微分方程（ODE）实现，设计了一个多层HDSode作为神经实现，包含控制步骤和扩散步骤。"><a href="#一句话总结-出了一种超图动态系统（HDS），将超图和动态系统联系起来，描述表示的连续动态演化过程。提出的控制扩散超图动态系统通过常微分方程（ODE）实现，设计了一个多层HDSode作为神经实现，包含控制步骤和扩散步骤。" class="headerlink" title="一句话总结: 出了一种超图动态系统（HDS），将超图和动态系统联系起来，描述表示的连续动态演化过程。提出的控制扩散超图动态系统通过常微分方程（ODE）实现，设计了一个多层HDSode作为神经实现，包含控制步骤和扩散步骤。"></a>一句话总结: 出了一种超图动态系统（HDS），将超图和动态系统联系起来，描述表示的连续动态演化过程。提出的控制扩散超图动态系统通过常微分方程（ODE）实现，设计了一个多层HDSode作为神经实现，包含控制步骤和扩散步骤。</h3><p>看起来解决了深层的 HGNN 模型的问题?</p>
+<p><strong>算法设计</strong>：</p>
+<ul>
+<li><strong>超图****动态系统</strong>：基于ODE，引入控制和扩散函数，形成超图动态系统模型。</li>
+<li><strong>HDSode框架</strong>：设计了一个多层HDSode框架，实现可控且稳定的超图表示学习。</li>
+<li><strong>稳定性分析</strong>：证明了HDSode的稳定性，并展示了其在捕捉长距离顶点关系方面的能力。</li>
+</ul>
+<p><img src="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=YTcyNTI5MzE1Mjg3OWQ4MDc1NDVmMDgyZWJhOGNiYWFfZFJORUs0NTdwR1RCRmtnYUVGR3VhSzVEZnNzQ1owejdfVG9rZW46UUVPUWIwSHNMb3Z4VFV4Q2Rwc2NmaGh0bkFkXzE3MjE5NzU2ODA6MTcyMTk3OTI4MF9WNA" srcset="/gifs/loading.gif" lazyload alt="img"></p>
+<h1 id="VilLain-Self-Supervised-Learning-on-Hypergraphs-without-Features-via-Virtual-Label-Propagation"><a href="#VilLain-Self-Supervised-Learning-on-Hypergraphs-without-Features-via-Virtual-Label-Propagation" class="headerlink" title="VilLain: Self-Supervised Learning on Hypergraphs without Features via Virtual Label Propagation"></a>VilLain: Self-Supervised Learning on Hypergraphs without Features via Virtual Label Propagation</h1><h3 id="一句话总结-提出了一种新的自监督超图表示学习方法VilLain，基于虚拟标签（v-labels）的传播"><a href="#一句话总结-提出了一种新的自监督超图表示学习方法VilLain，基于虚拟标签（v-labels）的传播" class="headerlink" title="一句话总结: 提出了一种新的自监督超图表示学习方法VilLain，基于虚拟标签（v-labels）的传播"></a>一句话总结: 提出了一种新的自监督超图表示学习方法VilLain，基于虚拟标签（v-labels）的传播</h3><p><strong>算法设计</strong>：</p>
+<ul>
+<li><strong>虚拟标签生成</strong>：假设存在d个虚拟标签，并为每个节点分配一个稀疏的v-label概率分布。</li>
+<li><strong>超图上的v-label传播</strong>：通过交替在节点和超边之间传播v-label，来获得节点和超边的v-label分配矩阵。</li>
+<li><strong>多v-label传播</strong>：为了捕捉复杂的结构-标签模式，将嵌入空间划分为多个子空间，分别进行v-label传播，并最终连接各子空间的输出作为节点嵌入。</li>
+</ul>
+<ol>
+<li><strong>自监督损失函数设计</strong>：结合局部损失和全局损失，通过最大化节点和超边v-label分配向量的熵，确保标签的同质性和全局分布的均衡性和区分性。</li>
+</ol>
+<p><img src="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=ZGNiYjJjYzFjYjQ1MzA2Mjg2MmQ1MTBkZGMzZmY2MmNfNDgzaTFqc2VTYTlsRmVnOW1SMTVHajFvSHlZbTZhemRfVG9rZW46UVhORmJBd1dHbzVxRm94Wldwd2NSM3NtblllXzE3MjE5NzU2ODA6MTcyMTk3OTI4MF9WNA" srcset="/gifs/loading.gif" lazyload alt="img"></p>
+<h1 id="Multi-Task-Hypergraphs-for-Semi-supervised-Learning-using-Earth-Observations"><a href="#Multi-Task-Hypergraphs-for-Semi-supervised-Learning-using-Earth-Observations" class="headerlink" title="Multi-Task Hypergraphs for Semi-supervised Learning using Earth Observations"></a>Multi-Task Hypergraphs for Semi-supervised Learning using Earth Observations</h1><p><strong>背景和动机</strong>：在地球观测（Earth Observation）任务中，通常需要多任务处理不同的观测层数据。然而，由于传感器故障等原因，观测数据常常不完整。这一问题迫切需要一种能够在数据缺失情况下仍能有效学习的半监督学习方法。本文提出了一种强大的多任务超图（Multi-Task Hypergraph），通过利用不同任务之间的高阶依赖关系，在超图上实现多任务半监督学习。每个节点表示一个任务，通过不同路径形成的超边作为无监督教师，生成任务的可靠伪标签。</p>
+<p><strong>多任务超图结构</strong>：每个任务作为超图的节点，不同路径通过超图中的超边形成无监督教师。这些超边既作为教师也作为学生，通过自监督的方式进行学习。</p>
+<p><strong>超边集成模型</strong>：通过集成多个路径生成伪标签，提升伪标签的可靠性和鲁棒性。</p>
+<p><strong>自监督学习过程</strong>：利用NASA NEO数据集，进行大量实验验证多任务半监督学习方法的有效性。实验结果表明，该方法在数据分布逐渐变化的情况下，能够可靠地恢复多达七年的缺失数据。</p>
+<h4 id="主要贡献："><a href="#主要贡献：" class="headerlink" title="主要贡献："></a>主要贡献：</h4><ol>
+<li><strong>提出多任务超图框架</strong>：通过高阶任务依赖关系，实现了一个集成的、鲁棒的半监督学习方法。</li>
+<li><strong>设计了超边集成模型</strong>：利用多个路径生成伪标签，提升了伪标签的可靠性和模型的鲁棒性。</li>
+<li><strong>实验验证</strong>：在NASA NEO数据集上的实验表明，本文方法在多个基准任务上均取得了显著的性能提升，并能够适应数据分布的逐渐变化。</li>
+</ol>
+<p>Efficient and Effective Attributed Hypergraph Clustering via 𝐾-Nearest Neighbor Augmentation </p>
+<h1 id="Efficient-and-Effective-Attributed-Hypergraph-Clustering-via-𝐾-Nearest-Neighbor-Augmentation"><a href="#Efficient-and-Effective-Attributed-Hypergraph-Clustering-via-𝐾-Nearest-Neighbor-Augmentation" class="headerlink" title="Efficient and Effective Attributed Hypergraph Clustering via 𝐾-Nearest Neighbor Augmentation"></a>Efficient and Effective Attributed Hypergraph Clustering via 𝐾-Nearest Neighbor Augmentation</h1><p>属性超图聚类（Attributed Hypergraph Clustering，AHC）旨在将属性超图中的节点划分为k个不相交的簇，使得同一簇内的节点在结构上紧密连接，并且属性相似，而不同簇的节点则属性差异显著。现有的AHC方法在处理大规模属性超图时面临计算成本高、聚类质量不佳等问题。</p>
+<p><strong>算法设计</strong>：本文提出了一种高效的属性超图聚类方法AHCKA（Attributed Hypergraph Clustering via K-nearest neighbor Augmentation），通过几个关键算法设计实现了高效的AHC：</p>
+<ul>
+<li><strong>K-最近邻增强策略</strong>：利用属性信息优化超图结构，通过引入KNN图来构建额外的连接。</li>
+<li><strong>联合随机游走模型</strong>：设计了一个联合随机游走模型，以优化AHC目标。</li>
+<li><strong>高效求解器</strong>：利用矩阵运算和贪心迭代框架，大幅提升计算效率。</li>
+</ul>
+<h4 id="主要贡献：-1"><a href="#主要贡献：-1" class="headerlink" title="主要贡献："></a>主要贡献：</h4><ol>
+<li><strong>提出了KNN增强策略</strong>：通过KNN图构建额外连接，有效利用属性信息提升超图结构的聚类质量。</li>
+<li><strong>设计了联合随机游走模型</strong>：结合超图和KNN图的高阶关系，以优化AHC的目标函数。</li>
+<li><strong>实现了高效求解器</strong>：通过矩阵运算和贪心迭代框架，显著提升了AHC的计算效率。</li>
+</ol>
+<p><img src="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=OTIyNTcwMzZlZWZhYmE2OGM2ZWQ2MWE2OGMxOTQzN2RfbEgwbkNWSmRGU1k3MU1DZDBPaFRDVjhwNkFJVlZkQ0NfVG9rZW46SlNIUGJTd2dab1Z6VUF4UlpMYWNWaTdEbjFpXzE3MjE5NzU2ODA6MTcyMTk3OTI4MF9WNA" srcset="/gifs/loading.gif" lazyload alt="img"></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>本文提出的AHCKA方法通过KNN增强策略、联合随机游走模型和高效求解器，实现了高效的属性超图聚类。在多个实际数据集上的实验验证了其在聚类质量和计算效率上的优势，为大规模属性超图的聚类问题提供了一种有效的解决方案。未来工作将进一步优化KNN增强策略和随机游走模型，提高模型的适用性和鲁棒性。</p>
+<h1 id="MEGA-Multi-View-Semi-Supervised-Clustering-of-Hypergraphs"><a href="#MEGA-Multi-View-Semi-Supervised-Clustering-of-Hypergraphs" class="headerlink" title="MEGA: Multi-View Semi-Supervised Clustering of Hypergraphs"></a><strong>MEGA: Multi-View Semi-Supervised Clustering of Hypergraphs</strong></h1><p>提出了一种多视图半监督超图聚类方法MEGA（Multi-view sEmi-supervised hyperGrAph clustering），结合实体的多种特征和部分已知标签信息，提升聚类性能。</p>
+<p><strong>背景和动机</strong>：在现实世界中，超图模型可以有效地表示复杂的实体间关系。传统的超图聚类方法主要依赖超图的连接结构，忽略了实体的其他属性和多视图关系。本文提出了一种多视图半监督超图聚类方法MEGA（Multi-view sEmi-supervised hyperGrAph clustering），结合实体的多种特征和部分已知标签信息，提升聚类性能。</p>
+<p><strong>算法设计</strong>：MEGA通过以下步骤实现多视图半监督聚类：</p>
+<ul>
+<li><strong>超图标准化切割与加权核K均值</strong>：证明超图标准化切割目标与加权核K均值目标的数学等价性，并基于此开发了一种高效的多级超图聚类算法hGraclus，为MEGA提供良好的初始化。</li>
+<li><strong>多视图聚类目标函数</strong>：将超图结构、实体的多种特征和关系以及部分已知标签信息整合到统一的非负矩阵分解（NMF）框架中，定义多视图聚类目标函数。</li>
+<li><strong>半监督聚类扩展</strong>：通过部分已知标签和成对约束，将多视图聚类目标函数扩展为半监督聚类框架。</li>
+</ul>
+<p><img src="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=ZmIwODkwOGMxMzlhZWE3MjhkMTY2YjYxYTg3NTNlNmJfMnE4NzBFWjdDblF4aUVVaE5lUWVoSDZCdUF3TGRJbXBfVG9rZW46RFJnVmIySHpvb3gxcWF4b1ZNdWNUUHNnbm5lXzE3MjE5NzU2ODA6MTcyMTk3OTI4MF9WNA" srcset="/gifs/loading.gif" lazyload alt="img"></p>
+<p>目标函数:</p>
+<p>$$\min_{W, H, \hat{H}<em>j} \sum</em>{i&#x3D;1}^{p} \alpha_i |X_i - W_iH|<em>F^2 + \sum</em>{j&#x3D;1}^{q} \beta_j |S_j - \hat{H}_j^TH|<em>F^2 + \sum</em>{j&#x3D;1}^{q} \gamma_j |\hat{H}_j - H|_F^2 + |M \circ (P - WH)|_F^2$$</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>https://www.mementos.top/2024/07/26/Hypergraph &amp; semi-supervised paper review/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Natsumi</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年7月26日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/07/26/VF3%20%E5%9B%BE%E5%90%8C%E6%9E%84%E7%AE%97%E6%B3%95/" title="VF3图同构算法">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">VF3图同构算法</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/04/03/Convolutional-Nerual-Network(Andrew%20Ng)/" title="Convolutional Nerual Network (Andrew Ng)">
+                        <span class="hidden-mobile">Convolutional Nerual Network (Andrew Ng)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/DynamicRibbon.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script src="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/js/index.js"></script><!-- hexo injector body_end end --></body>
+</html>
