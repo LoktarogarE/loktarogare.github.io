@@ -18,24 +18,23 @@
   <meta name="author" content="Natsumi">
   <meta name="keywords" content="">
   
-    <meta name="description" content="CV非常依赖图像处理的基本知识！注意学习图像的基础知识 图像的基本知识不同的色彩空间：  灰度 1byte  描述灰白图像，一个数值，单通道  RGB 3byte 描述一张彩色图像，3个数值，一般是三通道，但是可以通过压缩，让RGB三个数值总共占16bit(比如RGB 565)，即两通道  BGR 交换了色彩通道，不同的框架在显示图片时默认的色彩空间是不一样的，但图片的二进制一样，因此颜色可能会出">
+    <meta name="description" content="Here&#39;s something encrypted, password is required to continue reading.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="图像处理初步">
-<meta property="og:url" content="https://www.mementos.top/1976/04/01/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E5%88%9D%E6%AD%A5/index.html">
+<meta property="og:title" content="blog 更新日志">
+<meta property="og:url" content="https://www.mementos.top/2024/08/01/blog%20%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97/index.html">
 <meta property="og:site_name" content="Natsumi&#39;s Mementos">
-<meta property="og:description" content="CV非常依赖图像处理的基本知识！注意学习图像的基础知识 图像的基本知识不同的色彩空间：  灰度 1byte  描述灰白图像，一个数值，单通道  RGB 3byte 描述一张彩色图像，3个数值，一般是三通道，但是可以通过压缩，让RGB三个数值总共占16bit(比如RGB 565)，即两通道  BGR 交换了色彩通道，不同的框架在显示图片时默认的色彩空间是不一样的，但图片的二进制一样，因此颜色可能会出">
+<meta property="og:description" content="Here&#39;s something encrypted, password is required to continue reading.">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.mementos.top/img/imageprocess.png">
-<meta property="article:published_time" content="1976-04-01T07:53:17.000Z">
-<meta property="article:modified_time" content="2022-06-10T06:48:27.000Z">
+<meta property="og:image" content="https://www.mementos.top/bimg/p2.jpg">
+<meta property="article:published_time" content="2024-08-01T10:06:27.404Z">
+<meta property="article:modified_time" content="2024-08-06T03:29:25.530Z">
 <meta property="article:author" content="Natsumi">
-<meta property="article:tag" content="Image Processing">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://www.mementos.top/img/imageprocess.png">
+<meta name="twitter:image" content="https://www.mementos.top/bimg/p2.jpg">
   
   
   
-  <title>图像处理初步 - Natsumi&#39;s Mementos</title>
+  <title>blog 更新日志 - Natsumi&#39;s Mementos</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -336,7 +335,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="图像处理初步"></span>
+            <span id="subtitle" data-typed-text="blog 更新日志"></span>
           
         </div>
 
@@ -347,8 +346,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="1976-04-01 15:53" pubdate>
-          1976年4月1日 下午
+        <time datetime="2024-08-01 18:06" pubdate>
+          2024年8月1日 晚上
         </time>
       </span>
     
@@ -359,7 +358,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          928 字
+          468 字
         
       </span>
     
@@ -370,7 +369,7 @@
         
         
         
-          10 分钟
+          5 分钟
         
       </span>
     
@@ -408,89 +407,30 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">图像处理初步</h1>
+            <h1 id="seo-header">blog 更新日志</h1>
             
             
-              <div class="markdown-body">
-                
-                <p><strong>CV非常依赖图像处理的基本知识！注意学习图像的基础知识</strong></p>
-<h1 id="图像的基本知识"><a href="#图像的基本知识" class="headerlink" title="图像的基本知识"></a>图像的基本知识</h1><p>不同的色彩空间：</p>
-<ul>
-<li><p>灰度 1byte  描述灰白图像，一个数值，单通道</p>
-</li>
-<li><p>RGB 3byte 描述一张彩色图像，3个数值，一般是三通道，但是可以通过压缩，让RGB三个数值总共占16bit(比如RGB 565)，即两通道</p>
-<ul>
-<li>BGR 交换了色彩通道，不同的框架在显示图片时默认的色彩空间是不一样的，但图片的二进制一样，因此颜色可能会出现问题。</li>
-</ul>
-</li>
-<li><h4 id="HSV"><a href="#HSV" class="headerlink" title="HSV"></a>HSV</h4><ul>
-<li>Hue： 色相，用角度度量的色彩 红色为0°，绿色为120°,蓝色为240°，其实吧，直接通过Hue就可以看出来颜色了啊？<ul>
-<li><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h31z6bcrhnj20k50lu0th.jpg" srcset="/gifs/loading.gif" lazyload style="zoom:50%;" /></li>
-</ul>
-</li>
-<li>Saturation: 饱和度, 表示颜色接近光谱色的程度。一种颜色，可以看成是某种光谱色与白色混合的结果。其中光谱色所占的比例愈大，颜色接近光谱色的程度就愈高，颜色的饱和度也就愈高。饱和度高，颜色则深而艳。光谱色的白光成分为0，饱和度达到最高。通常取值范围为0%～100%，值越大，颜色越饱和。 「人话就是：颜色的纯度。控制饱和度的方式是在颜色中加入白色，这个值越大，加入的白色越少，颜色就越纯，换句话说，圆盘的中心就是白色，外圈则是纯色」</li>
-<li>Value: 明度. 明度表示颜色明亮的程度，对于光源色，明度值与发光体的光亮度有关；对于物体色，此值和物体的透射比或反射比有关。通常取值范围为0%（黑）到100%（白） 「和饱和度相对应，就是在颜色中加入黑色的量，这个值越大，加入的黑色越少，明度就越高」</li>
-</ul>
-</li>
-<li><h4 id="HSL"><a href="#HSL" class="headerlink" title="HSL"></a>HSL</h4><ul>
-<li>Hue 还是色相，这和HSV是完全一样的</li>
-<li>Saturation，这个和HSV的饱和度机制不同，<u>具体如何生效？</u></li>
-<li>Lightness：图像亮度 「它一项就相当于HSV中的S和V，最亮为白色，最暗为纯黑色，所以可以看到HSL最上面一圈是白的，最下面一圈是黑的」</li>
-<li>他们的具体区别如下图所示 (左为HSL，右为HSV)</li>
-<li><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h31z81dl11j20yn0j0adg.jpg" srcset="/gifs/loading.gif" lazyload></li>
-</ul>
-</li>
-<li><h4 id="YUV"><a href="#YUV" class="headerlink" title="YUV"></a>YUV</h4><ul>
-<li>颜色编码方法。 考虑到人类的色彩感知能力，在编码时对信息进行下采样</li>
-<li>Y：明度(灰阶值)， U&amp;V(色度，描述色彩和饱和度)</li>
-<li>出现在彩色和黑白电视的过渡时期。</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h1 id="图像的变换-直接处理"><a href="#图像的变换-直接处理" class="headerlink" title="图像的变换(直接处理)"></a>图像的变换(直接处理)</h1><h3 id="反色变换"><a href="#反色变换" class="headerlink" title="反色变换"></a>反色变换</h3><p>目标：<code>增加暗色背景图像里的明亮区域</code></p>
-<p>如果图像灰度值范围为 [0, L], 则反色变换为 </p>
-<p>$输出灰度值output &#x3D; 最大灰度值L - 输入灰度值input$</p>
-<p>也就是说，输出灰度矩阵中的每个点的灰度，是原图像中最大灰度点的灰度 - 自己本身的灰度 </p>
-<p>​	(如图像最大灰度为160，这个像素点的灰度为20，那么转换后它的灰度为 160-20 &#x3D; 140)</p>
-<figure class="highlight python"><i class="iconfont icon-bookmark" type="button" data-toggle="collapse" data-target="#collapse-la6boelzhv39al"></i><div class="collapse show" id="collapse-la6boelzhv39al"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np   <span class="hljs-comment"># matrix manipulation</span><br><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image   <span class="hljs-comment"># read image from hard disk</span><br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt   <span class="hljs-comment"># matplotlib中的绘图工具</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">image_inverse</span>(<span class="hljs-params"><span class="hljs-built_in">input</span></span>):<br>  value_max = np.<span class="hljs-built_in">max</span>(<span class="hljs-built_in">input</span>)  <span class="hljs-comment"># 求出图片的最大灰度值，注意这里是一个整型</span><br>  output = value_max - <span class="hljs-built_in">input</span>  <span class="hljs-comment"># 利用numpy的广播机制，使得value</span><br>  <br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>		<span class="hljs-comment"># asarray 将图像转变为numpy矩阵</span><br>    gray_img = np.asarray(Image.<span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;./x.jpg&#x27;</span>).convert(<span class="hljs-string">&#x27;L&#x27;</span>))<br>		inv_img = image_inverse(gray_img)<br>    <br>    fig = plt.figure()<br>    ax1 = fig.add_subplot(<span class="hljs-number">121</span>)   <span class="hljs-comment"># 指图像数量为一行两列, 第三个1为1号位置</span><br>    ax1.set_title(<span class="hljs-string">&#x27;before&#x27;</span>)<br>    <span class="hljs-comment"># cmap = &#x27;gray&#x27; 意味着图像以灰度图像的形式显示</span><br>    ax1.imshow(gray_img, cmap = <span class="hljs-string">&#x27;gray&#x27;</span>, vmin = <span class="hljs-number">0</span>, vmax = <span class="hljs-number">255</span>)<br>    <br>    ax2 = fig.add_subplot(<span class="hljs-number">122</span>)<br>    ax2.set_title(<span class="hljs-string">&#x27;after&#x27;</span>)<br>    ax2.imshow(inv_img, cmap = <span class="hljs-string">&#x27;gray&#x27;</span>, vmin = <span class="hljs-number">0</span>, vmax = <span class="hljs-number">255</span>)<br>    <br>    plt.show()<br>    <br></code></pre></td></tr></table></div></figure>
+              
+              <div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="d0f6b01188e8d394b74676130bcfcce8e61599905d8b9a2487f70882db3ba50b">52c2541be51f9a75d781c2b392e0fa4047234b7fc16db14ae4f8021f3e334fda76e663b5e816d97a058bc891275ddf42e69403a1bdb763ed59d659e290810ab25054822898c631cd52bda70e798953fdf93663388d3f1836c8fd2bea1ac66f886c11a8646f58d8fcb110c417fb60feb5d549af93fb0d42dcd2c9379289e7b1013f07560d7ae6d483fea55309e453660b9e0972b2e89112d76ba71f1bb30fc4fb6f91864a371cddd2b03944b1235574f715857ec02d5f2e415d4c5a33c5b7e89ce8a1629d0c4f6a6f6d11667a0ecfd830cfc588d85553e057c608f797f76b0b44b2bf7da4b63cc3276b4a16e57eb6ff96af51a0e8cb29eb6ec73b61615ec35fdfb02370ef410b27d4560522fc1e8eefa859218492b6cbb40d15833b90952cd65bd8d0ad65d4c815538e65174890a9bd461b749ac4ffab92071e0b6ca8dd52a8f61902014a4a5de06f8189bded291dcb998b99dc4dd9510bbb4030a8b26c35516a8832e367d42e7cf293d803e9a2c6e479cf3414d1bc806468b0af1703fb481088ae32dd7ca82043d3a6bfe9086f30eddb0a52a6916de1d421136f9cfa45f967e8ff05f29f34ed01eae08dc74ca16eb067e38904e0d8dfb3746d47880b4ee687c283e7d919274242604ca1ec29fc1362f76dd8870f6b941571882a350917a65dca480ddec352cc784181a2f92224b1547034a46842d7ce6c3faddd3be07ca0ecf6345e49ddea4f94ede86a532522018d53c3ad6a2ab8f99e200dd61cbab37670da5f82449414551aac59bb934cb8934d3d51851762c034794f7f83e319c4ed1095f8338d1083654283ce7020b33d053c2769907ceef85420e91b00517c7a9bfa287f0e6809f79b54e13178212b6fe33a6af6bd677d514a588747fd1356cc89204fd6e0959bd98366f85e114d513693a91d60183c0fc9d57d1499bd5d49242b438fb3d3f1c18216cbfbd948ef7e82aeb252f7fc8a344c02dcc59704bb3719304552da2732ee1056f10e7b39ae1c47bc80996a7fef9bddfc2c2eb9cfe81bf814e1e6826e3d126045ad644ee9f9d062c5e7e359b565b367e698f35c66596868fc0a33b8c31bf1ce078520bb2c72a0b836eba53628a9b547e9afba211ec6399699b1c93c1dd259d48293cff92222804fdae36852bf1f347179f98d608fb867861bf27cc6075266c38f10e124cda2a0a819cd15f2b2afbdf3564dec9d0c6625dbc1053954552af357a24ad7d5f70356009e04288f29b8790d3a57c003ba9e1dc928da0a872d2385cd5d0be1a4c2bbe3d1a7c53078b2f959b1e967f749ac211c88f8eef6938368c26c9be3a43d8d04ddc86c2b31e6b95b520e40d2fd9b6c66a2598b41cbd5aa1127c96a695d3e686dfdf572f170a088a7cf30f6c186c1ceb184f502df19a92b859815ec1791eafe0ac24537bb181a0386a42d6744a010d69b53b133c90624695c0043a45859c294bfe85fbcfbc21e4d8708a0ab458377b4ccada752ebc755e2eac5226f685fa597a59efe09ebe70b810907f163722ae86cedd99ac8a5969c32d4c84be3f9280005c93a5064991b617f4bbcd5078016b5ddfdaa1882df0723177d7aabfdce6db6ab9a3262be4ba82c183a4ae868336b9695ac7721f6e7f0888c2065a2a0bf62278b3250ec8cdb88a0a12bf6bf169029ba54bf585ee2f2bc1c31bda25cb65c4336dfca7c7d203be872264f39d6202785e0e938dc37cdce6137f415b4b21fa8590ee17a1858ab8196677cb87ce0db4821ba05e963a255a57218ac5182d3d231f63a1778e59856229269a25d9d6d73f3933b2c68326dee8e08638751d9465c310b6ae9919b14b7ca877e46abc186b3587f83b66029c6f846e4c69e03be3f0a7f89940408e4a9864126852992afae9706819aca56f040664594f414fead920c1bd054d1f0d0d7c9a895713a76470170f9bb01811d44dc24c7674689f1f3532109e57a023f4fac9333079432c411c0ba569b868c3020b9e2cbd338f3861fa94f4e318087d39c13f982278a3abbf21bbe6410aec2f352b8396d54dd56ae0bf52b67225fb97599328436722aee7468988fae2cd518a216f9bf8885e050b4c55702bcbb2f20e2d66eab6d230dc01202a9987cdcf6290bc2a6d6567212824cf73ee67506be88ab7f6f24d66e7ac2fb2fd41eb87c545ec3f4c30af1639b5350cd461410d36ee8665779e9baefb89b8c5df6d9c99b2aacaf25d5d23a70fdf40f963279f62f86f4c0ad1f47eef119c9470847aca142ded965cbebd5a4c8ecf078e8cbc99a1342da5741135789817d3712d7cc372e22f5b7a06986c33d3c8b64d8db08e918aac86e6f70692797df0a26a0f1883232ee43a179c7f29c6e8604a41b3361c804bc5ec88b403fc0cf17fb65c124e00a551c799ec1ece2551120ab181f33a14f14ff6db7eda8ee426a01fd4e840702ba95c588fb5b9e6ee688639baa0b779494d58596ac3c59dd06d81e7a4257cee7bcfe8e71fd06589de0185daeed15eb8684d1e691f35c6f40a5cf9a8bf69d15357971e99a0caab7e460db3051df226c84151815f265f2f7c00c50ca1864fc959616c93c64b9dc0190eccbc98817e06dc584860f2aad0a69c88627721f10068974836a7b89f90effceb71025a5519462f14548da051253234b177acbb30fd46388c5662aa8ea5aa1e19b7e3892a28bb5c378cf9ff9b88933e2619b7002fedc1d608ee887e6e59b0162cc79bf6cf71f9a6d2e49b4401c096e8c6930a52edd9a2cc6c5239cf5eabee10a619236a1ea2868962de2a9027525ce0764505131a89e9e1217a3a324f0822fe6ef4832a2b2bd5325ee2c1d2cb1a95a493ab076e4af813fe33c8d97d3eeb694eeae2448a04ea7448aa6110f83e715db987e250788294a2a12810f1bc294b8179e2214e7a0218257e9d15a810890ed9b6cbdbab69711ef9ba2990bfcd8729ae20b93acd4d7578d8092a2391549dca2dab2cbdd62dc48f45ccfdd610d297848c00a4504f6d92d519551427a7684f3d34abf0589071ee1c70ea1dc802ba79ade6df1a47d3c2d048c037b98263cb5be9b127b9cf0a96e74d020260fcdd857be6656d94146ce11a61cc507853e227099cfa3dbac39b6b88891511be894c6f57f56d58ef4926765601d1457e43d87e5a2561022a2b20de93f227704c72fb7dbd66dadac375b0aaef2d38636ad70174184111fdaab9b86423140f939c10da16a6ce8a9d50c1a242b8ab38dc3d542107fc142d8e1cf6711dc7cdd73b3d0d563f83527c6a9ee36518c3ab1bfbf9ad5f3f8b81829ec77b79ee4f317566967f39479aca389747ed65e271547225dc071e804763549627f1c79d5ac4f90fe05fcc4348338fbdbc90c94fc68072a148445725fe017e1ab8902db53405a1f59d585dee3139da0c80a324906e330489b6b3bfed85087a9313fe28b56e8d896584d61f37756c5bbd205d76561ce91b0b72f8df965057e8994eb3b7dc11dc7c42a29e9ab42af452aadff29d5854e85d13b5a931e567654f767798e586fa921b1a8d0ef5a825947e73ee5ffdb514a0a4ea8077c49ed0789328fb11ddf830861b7fe747b3688e9ea1700d630db92372e5a9dca01b23ce73632912266a0ea90757a1a54c78492bf1aac0548948d79a247b7c91ff6c6b9bd29610c7eab80912bc114eeb47c157bb72ced00dfa6e75a0657b70d70162e90aae23344a4e70edcc5e0a81714777c045b104e738de6ac4bf127ed1e447504eaa33716b9e3643bfa3fa1d7ce46eaf523a2970ef17c9c3818f674a10e72b61fb58b2f9fc8832cc0ed5c034df336b973eca22f251ea54bef5be774a3aabf8b799cc901854ce20a6ff2f4987b88776cb71b04f5ebfffaafa832a0e4f04049a40309785ddd88ce208df5bd537daf79fa13e107ad262afee0ec9d6867a04b280b3075f95982bc2896f19b4b37b7254c2df169105c50b072f3290cc6f11c9682ad89c76c09e16c45a1a0e51e10f4db87b8ed36307df9ed313d10cbd57f0619bc40e8a19cc6d5c08af122b53b549fae1788d0cb8a481541a3ad001a055c9447af9eea315f06227351cfa8d6df70102ee575e448d108a800ecc78aa54819f6020e2c7adc4d94076ec1a23a5688526ba34ec44cac9d6d6b97e369a60c44d97bbb613ef0aff3f237d129542c7f9378ae70f61007d55dafe3729436dc27ef940fe76688facbe5b7fef021c42d714913294a6d045400d5bd9fe566d4a9b502400b112a4838afaa3b1d703d659109779a10cfe8d6df47d8d1cde2ff3b8eafbd21e8f1ffed89ce931657b69b44a714a14b871e41656adbef2c4b35aee8499bcd799008152091d4b7906e947e0efadf25f1b6587d5a3954d464bd40fcfbe4c5ae18277c73e94f4c5f4962906c4b6580fbc6b34693ebaea5ea8491f3ccd45f306f64a7a810678e999b4f5b835c44263d4ca76581392c3045b05e3ea8a565043c27ebbb82c3030b7b48818e3ef6adb55377ca8888b2b3fe692e6aee21cfb33873d1d32949e09cb9330426d69acf9362bd9a14100155fce7d3de40534d4679db8fb02c44264dcdf6672cd08d4ec7c8a0f216b50633032e2af9e71bbfe9f9778db9f3161baf1eb4889afa076df0de21003c0b2c2f44c6aca8049868f55d26e7935bbf22293630b848067f79068401fd1b62156ea866f21705b1d34f97645dbb5607f2d86a0b4abdfb5c100c3b7f2c5b8e9539d85bd3b8cadcc39107c323e2abe213ed38da72fe48af5ec8f00d6f32955485f81fd5b16b0510faae726cc518c475e0953ea5ebc60bfc0708fdd2c313ee4eb3903169c78c948ea8baf135b3feb1e07f849d89c8d21c738749bb11df4ab3717fbb86cb95f737c0ad06fe6cf430e6dc8fa0396bc2928583255419e0457aa170d768b3e3383973771d4dcc222c59042e82932c9fc06063011e469c8180b8b4d9da58ebc5f9598f777567c0dc7bac156823ff89dbd5cc79d5c9c79915345761afc3d754377f3a58e7661673bbea4fd47b8cacb48753c8af7470e37dc4435fe973e8e808e930dc0d43bae6fcda3e0bc13cb43f3abf0e14afb9953a089b23f60a69f4837111c47616f89e34fbf57dea840fee38042b7534e45d3aaca4341304af0651c0a0044a0afab457f0ac70f9df1e6959c2fd393b4fed5ca123ff775289aa0f5916ddb16fec0be261a67b554d2eb43480fb705baddbac86fbea78084a6155108831ca754611c5f3f1ce982af7fb201980bbcd55930bc51aa0976624e8074a3230c90d5c51431b66d6928a5d736b488f21101456daa563fe4c31300d4c0778059b3d5a3e99c80e2fc029ee8fe546469fd6e4ac4b24504b352ec5e5c26e88cfcbbfe76d31faf3c08caf30d7e64ece96cd2a0fcedbfa6d249416de572f8e462cf60c3ed11398880d425c4d0810a08721c9946cac2dabbed52088aa14343f88515189ca0a998cf1b8c228d14d38412982873c462f0ef6868644b3fc2ca9d3902aa9f9102c52ebc7843411f987ac42020923fa623a6e7b3f690789c8538252d12d6ac0d8bd0824b9da40e5faf7610311b2529d23781d0d501e28876d97727eaa46a9f576ef9527e10a43c41f430019538db7bb50f8de1ece625c0740344a61f9e63e6d0d4b49d960c6123ff315b1b1809bd1a23ffbaf3ff34cc61a255d38545ae1a51c14c6893bcd151638fdfd5e13b1831aef0e43eead2eb16c20a82a7245908aeed6a60136a9ea172253255ef2b5e3ae94c9e168e77af5e5f354c09f051752de3f021c3a4b6ec47d952ff8617e830eb6c7d1143cefe1ca340ffe83809c3eb100af34568a5a293fa958e8f2ecb049ceebe735c894ba07c7e957df83fe3968b853554528d32e044d3c20fc39a4cdebd40e8155ae9e27b8adccd2931e7386de136cbf4e1765d62906209159aca5742acc933e8b9531fa1e30276d2fadc5506f66d3c1dbac4cea1d9d3f30b8f534478511973b8f0f75ece910bbc774bded058be3a6355c20136db422a908e4dcee208ebbf30f5895a030a6a39c7a76ac91049859003b9acadce95cfb2911e67d895a5f0770a62afcbc045c33655f68a1966f25ee0e928558756129223d014e6b4ae680c183ce611881ae25f7f548244e4b49f6612c6e08e0d4047790401dafac9d66c4424c6f1130a0189c05c8e48daf6f5391c088b2b80bd095b02dbbaee38acff8e0ef262839c23672fd14a340e447ce45af362f8a6c303b681c25df6588092d4e11cfb045a35d9c043a1cefb67013cb60f07d06e364021a52473b03755cc8888cb2fb913820beb1fd2b9681eceb337ad8c49607eb10c7b1503825c50c6e4627d5f0e286b2425be238eb1805d4111a9a8cfda032111ff9f43e6242eaf7771d59a74d4e416a4dfefb1e757bf5ecda6e04132ced0e4d2e75778bae8d650bfa60ed3eac5f5624a8242087a5ebf6a5d618d864efdb7f8577997349a3ee8cab8d9187242955eeb9bf287e9d62cabca4ac5204752b2af0e7aa6b1024c29974fc609bfe13948d07fdfeaab2a2dd8af35dd71b28f2e8c9e478396f0573d121ca468abcdc7239e8951ea268a2d3af0ce6b2b14b7f2742aa888c063ee548b2516c6bea1923d15790f59471cb37a3bcf06007dbe56adaeac72e6c49682c0d9e2cc5c116580489a001eb93f943625301bce6b94889825258b4fd32</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Hey, password is required here.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">
+              
 
-
-                
-              </div>
+              
             
             <hr/>
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Computer-Graphic-Processing/" class="category-chain-item">Computer Graphic Processing</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Image-Processing/" class="print-no-link">#Image Processing</a>
-      
-    </div>
   
 </div>
 
@@ -500,8 +440,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>图像处理初步</div>
-      <div>https://www.mementos.top/1976/04/01/图像处理初步/</div>
+      <div>blog 更新日志</div>
+      <div>https://www.mementos.top/2024/08/01/blog 更新日志/</div>
     </div>
     <div class="license-meta">
       
@@ -513,7 +453,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>1976年4月1日</div>
+          <div>2024年8月1日</div>
         </div>
       
       
@@ -545,18 +485,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/1976/04/01/opencv%20%E8%A7%86%E8%A7%89%E7%BC%96%E7%A8%8B/" title="OpenCV 视觉编程">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">OpenCV 视觉编程</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/1976/04/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/" title="计算机技术杂谈">
-                        <span class="hidden-mobile">计算机技术杂谈</span>
+                      <a href="/2024/07/29/LRU%20&amp;%20LFU/" title="LRU &amp; LFU">
+                        <span class="hidden-mobile">LRU &amp; LFU</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -715,6 +649,23 @@
   
 
 
+
+
+  
+  <script defer>
+    if (document.getElementById('hbePass') || document.querySelector('hbe-prefix')) {
+      Fluid.utils.waitElementLoaded('hbe-prefix', function() {
+        var hbePrefix = document.querySelector('hbe-prefix');
+        hbePrefix.parentElement.classList.add('markdown-body');
+        Fluid.utils.retry(function() {
+          if (Fluid.boot && Fluid.boot.refresh) {
+            Fluid.boot.refresh();
+            return true;
+          }
+        }, 100, 10);
+      })
+    }
+  </script>
 
 
   
