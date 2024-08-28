@@ -18,17 +18,18 @@
   <meta name="author" content="Natsumi">
   <meta name="keywords" content="">
   
-    <meta name="description" content="about 位运算 (运算符)uint32_t   32位二进制整数  一般情况下 左移就是除二x &amp; x-1 可以检测是否是2的整数次幂  (x&amp;x-1 可以清除最右边的1,如果这个1是第一位的1, 那这个数就变为0)n &amp; 1 (在32位下 1是 00000····001 而不是111···1)   用来检测奇偶性(最后一位是否为1)   偶数结果为0对于x , 取其第">
+    <meta name="description" content="位运算常用 trick 学会用 bitset x &amp; 1 检测 x 是否为奇 x &amp; (x-1) 可以检测是否是2的整数次幂  (x&amp;x-1 可以清除最右边的1,如果这个1是第一位的1, 那这个数就变为0) x &amp; 0xaaaaaaaa 判断 1 是不是都在偶数上，结合 x &amp; x - 1 可以判断 4 的幂 x &amp; 0x55555555 &gt;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="About Bit Manipulation (Bit-Twiddling)">
 <meta property="og:url" content="https://www.mementos.top/1976/04/01/about%20Bit%20Manipulation/index.html">
 <meta property="og:site_name" content="Natsumi&#39;s Mementos">
-<meta property="og:description" content="about 位运算 (运算符)uint32_t   32位二进制整数  一般情况下 左移就是除二x &amp; x-1 可以检测是否是2的整数次幂  (x&amp;x-1 可以清除最右边的1,如果这个1是第一位的1, 那这个数就变为0)n &amp; 1 (在32位下 1是 00000····001 而不是111···1)   用来检测奇偶性(最后一位是否为1)   偶数结果为0对于x , 取其第">
+<meta property="og:description" content="位运算常用 trick 学会用 bitset x &amp; 1 检测 x 是否为奇 x &amp; (x-1) 可以检测是否是2的整数次幂  (x&amp;x-1 可以清除最右边的1,如果这个1是第一位的1, 那这个数就变为0) x &amp; 0xaaaaaaaa 判断 1 是不是都在偶数上，结合 x &amp; x - 1 可以判断 4 的幂 x &amp; 0x55555555 &gt;">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="1976-04-01T07:53:17.000Z">
-<meta property="article:modified_time" content="2024-06-17T08:40:07.685Z">
+<meta property="article:modified_time" content="2024-08-13T06:06:48.508Z">
 <meta property="article:author" content="Natsumi">
 <meta property="article:tag" content="Programming">
+<meta property="article:tag" content="Bit manipulation">
 <meta name="twitter:card" content="summary_large_image">
   
   
@@ -411,8 +412,24 @@
             
               <div class="markdown-body">
                 
-                <h1 id="about-位运算-运算符"><a href="#about-位运算-运算符" class="headerlink" title="about 位运算 (运算符)"></a>about 位运算 (运算符)</h1><h3 id="uint32-t-32位二进制整数-一般情况下-左移就是除二"><a href="#uint32-t-32位二进制整数-一般情况下-左移就是除二" class="headerlink" title="uint32_t   32位二进制整数  一般情况下 左移就是除二"></a>uint32_t   32位二进制整数  一般情况下 左移就是除二</h3><h5 id="x-x-1-可以检测是否是2的整数次幂-x-x-1-可以清除最右边的1-如果这个1是第一位的1-那这个数就变为0"><a href="#x-x-1-可以检测是否是2的整数次幂-x-x-1-可以清除最右边的1-如果这个1是第一位的1-那这个数就变为0" class="headerlink" title="x &amp; x-1 可以检测是否是2的整数次幂  (x&amp;x-1 可以清除最右边的1,如果这个1是第一位的1, 那这个数就变为0)"></a>x &amp; x-1 可以检测是否是2的整数次幂  (x&amp;x-1 可以清除最右边的1,如果这个1是第一位的1, 那这个数就变为0)</h5><h4 id="n-1-在32位下-1是-00000····001-而不是111···1-用来检测奇偶性-最后一位是否为1-偶数结果为0"><a href="#n-1-在32位下-1是-00000····001-而不是111···1-用来检测奇偶性-最后一位是否为1-偶数结果为0" class="headerlink" title="n &amp; 1 (在32位下 1是 00000····001 而不是111···1)   用来检测奇偶性(最后一位是否为1)   偶数结果为0"></a>n &amp; 1 (在32位下 1是 00000····001 而不是111···1)   用来检测奇偶性(最后一位是否为1)   偶数结果为0</h4><h4 id="对于x-取其第i位的二进制-rightarrow-x-i-1-比如在477-汉明距离总和-我们有时候可以将每一个二进制位分开来看"><a href="#对于x-取其第i位的二进制-rightarrow-x-i-1-比如在477-汉明距离总和-我们有时候可以将每一个二进制位分开来看" class="headerlink" title="对于x , 取其第i位的二进制 $\rightarrow$ (x &gt;&gt; i) &amp; 1,  比如在477. 汉明距离总和 我们有时候可以将每一个二进制位分开来看"></a>对于x , 取其第i位的二进制 $\rightarrow$ (x &gt;&gt; i) &amp; 1,  比如在<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/total-hamming-distance/">477. 汉明距离总和</a> 我们有时候可以将每一个二进制位分开来看</h4><h3 id="builtin-popcount-i-计算32位整型里-1的个数"><a href="#builtin-popcount-i-计算32位整型里-1的个数" class="headerlink" title="__builtin_popcount(i) 计算32位整型里 1的个数"></a>__builtin_popcount(i) 计算32位整型里 1的个数</h3><p>编程对于&amp; | ~的运算是基于二进制结果的记忆，但实际上还是逻辑问题</p>
-<table>
+                <h1 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h1><h2 id="常用-trick"><a href="#常用-trick" class="headerlink" title="常用 trick"></a>常用 trick</h2><ul>
+<li>学会用 bitset</li>
+<li><code>x &amp; 1</code> 检测 x 是否为奇</li>
+<li><code>x &amp; (x-1)</code> 可以检测是否是2的整数次幂  (x&amp;x-1 可以清除最右边的1,如果这个1是第一位的1, 那这个数就变为0)<ul>
+<li><code>x &amp; 0xaaaaaaaa</code> 判断 1 是不是都在偶数上，结合 <code>x &amp; x - 1</code> 可以判断 4 的幂</li>
+<li><code>x &amp; 0x55555555 &gt; 0</code> 也可以判断 1 是不是在偶数，这个可以自己设计，可以变动的</li>
+<li>在golang里 貌似 x - 1 不加括号结果是错的</li>
+</ul>
+</li>
+<li><code>(x &gt;&gt; i)  &amp; 1</code> 取出 x 的第 i 位二进制</li>
+</ul>
+<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="Binary，Octal和-Hexadecimal的表示-通用"><a href="#Binary，Octal和-Hexadecimal的表示-通用" class="headerlink" title="Binary，Octal和 Hexadecimal的表示 (通用)"></a>Binary，Octal和 Hexadecimal的表示 (通用)</h3><ul>
+<li>Binary: <code>0b</code></li>
+<li>Octal: <code>0 or 0o</code> (Python和JS允许0o)</li>
+<li>Hexadecimal: <code>0x or 0X</code></li>
+</ul>
+<p>​	</p>
+<h3 id="运算符，运算符顺序"><a href="#运算符，运算符顺序" class="headerlink" title="运算符，运算符顺序"></a>运算符，运算符顺序</h3><table>
 <thead>
 <tr>
 <th>运算符</th>
@@ -451,7 +468,8 @@
 <td>A &gt;&gt; 2 将得到 15，即为 0000 1111</td>
 </tr>
 </tbody></table>
-<h3 id="位运算也有赋值运算符"><a href="#位运算也有赋值运算符" class="headerlink" title="位运算也有赋值运算符"></a>位运算也有赋值运算符</h3><table>
+<p>位运算的赋值运算符</p>
+<table>
 <thead>
 <tr>
 <th>&lt;&lt;&#x3D;</th>
@@ -480,7 +498,8 @@
 <td>C |&#x3D; 2 等同于 C &#x3D; C | 2</td>
 </tr>
 </tbody></table>
-<h3 id="杂项运算符"><a href="#杂项运算符" class="headerlink" title="杂项运算符"></a>杂项运算符</h3><table>
+<p>其他运算符</p>
+<table>
 <thead>
 <tr>
 <th>运算符</th>
@@ -516,7 +535,7 @@
 <td><a target="_blank" rel="noopener" href="https://www.runoob.com/cplusplus/cpp-pointer-operators.html">指针运算符 *</a> 指向一个变量。例如，*var; 将指向变量 var。</td>
 </tr>
 </tbody></table>
-<h3 id="运算符优先级-「由高到低」"><a href="#运算符优先级-「由高到低」" class="headerlink" title="运算符优先级 「由高到低」"></a>运算符优先级 「由高到低」</h3><table>
+<h4 id="运算符优先级-「由高到低」"><a href="#运算符优先级-「由高到低」" class="headerlink" title="运算符优先级 「由高到低」"></a>运算符优先级 「由高到低」</h4><table>
 <thead>
 <tr>
 <th>类别</th>
@@ -600,18 +619,19 @@
 <td>从左到右</td>
 </tr>
 </tbody></table>
-<figure class="highlight apache"><i class="iconfont icon-bookmark" type="button" data-toggle="collapse" data-target="#collapse-lwwfj0lzhv39al"></i><div class="collapse show" id="collapse-lwwfj0lzhv39al"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">0xaaaaaaaa</span> = <span class="hljs-number">10101010101010101010101010101010</span> (偶数位为<span class="hljs-number">1</span>，奇数位为<span class="hljs-number">0</span>）<br><span class="hljs-attribute">0x55555555</span> = <span class="hljs-number">1010101010101010101010101010101</span> (偶数位为<span class="hljs-number">0</span>，奇数位为<span class="hljs-number">1</span>）<br><span class="hljs-attribute">0x33333333</span> = <span class="hljs-number">110011001100110011001100110011</span> (<span class="hljs-number">1</span>和<span class="hljs-number">0</span>每隔两位交替出现)<br><span class="hljs-attribute">0xcccccccc</span> = <span class="hljs-number">11001100110011001100110011001100</span> (<span class="hljs-number">0</span>和<span class="hljs-number">1</span>每隔两位交替出现)<br><span class="hljs-attribute">0x0f0f0f0f</span> = <span class="hljs-number">00001111000011110000111100001111</span> (<span class="hljs-number">1</span>和<span class="hljs-number">0</span>每隔四位交替出现)<br><span class="hljs-attribute">0xf0f0f0f0</span> = <span class="hljs-number">11110000111100001111000011110000</span> (<span class="hljs-number">0</span>和<span class="hljs-number">1</span>每隔四位交替出现)<br></code></pre></td></tr></table></div></figure>
+<figure class="highlight apache"><i class="iconfont icon-bookmark" type="button" data-toggle="collapse" data-target="#collapse-z6qjxnm0dngtsq"></i><div class="collapse show" id="collapse-z6qjxnm0dngtsq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">0xaaaaaaaa</span> = <span class="hljs-number">10101010101010101010101010101010</span> (偶数位为<span class="hljs-number">1</span>，奇数位为<span class="hljs-number">0</span>） (<span class="hljs-number">4</span>的幂)<br><span class="hljs-attribute">0x55555555</span> = <span class="hljs-number">1010101010101010101010101010101</span> (偶数位为<span class="hljs-number">0</span>，奇数位为<span class="hljs-number">1</span>）<br><span class="hljs-attribute">0x33333333</span> = <span class="hljs-number">110011001100110011001100110011</span> (<span class="hljs-number">1</span>和<span class="hljs-number">0</span>每隔两位交替出现)<br><span class="hljs-attribute">0xcccccccc</span> = <span class="hljs-number">11001100110011001100110011001100</span> (<span class="hljs-number">0</span>和<span class="hljs-number">1</span>每隔两位交替出现)<br><span class="hljs-attribute">0x0f0f0f0f</span> = <span class="hljs-number">00001111000011110000111100001111</span> (<span class="hljs-number">1</span>和<span class="hljs-number">0</span>每隔四位交替出现)<br><span class="hljs-attribute">0xf0f0f0f0</span> = <span class="hljs-number">11110000111100001111000011110000</span> (<span class="hljs-number">0</span>和<span class="hljs-number">1</span>每隔四位交替出现)<br></code></pre></td></tr></table></div></figure>
 
 
 
 <hr>
-<h3 id="190-颠倒二进制位-「-和-的区别」"><a href="#190-颠倒二进制位-「-和-的区别」" class="headerlink" title="190. 颠倒二进制位  「&gt;&gt;&#x3D; 和 &gt;&gt; 的区别」"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-bits/">190. 颠倒二进制位</a>  「&gt;&gt;&#x3D; 和 &gt;&gt; 的区别」</h3><figure class="highlight c++"><i class="iconfont icon-bookmark" type="button" data-toggle="collapse" data-target="#collapse-ohf5uplzhv39al"></i><div class="collapse show" id="collapse-ohf5uplzhv39al"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// res 一开始为0, 每次我们都将 res左移, 将n右移</span><br><span class="hljs-function"><span class="hljs-type">uint32_t</span> <span class="hljs-title">reverseBits</span><span class="hljs-params">(<span class="hljs-type">uint32_t</span> n)</span> </span>&#123;<br>        <span class="hljs-type">uint32_t</span> res = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">32</span>; ++i) &#123;<br>            res = (res &lt;&lt; <span class="hljs-number">1</span>) | (n &amp; <span class="hljs-number">1</span>);   <br>            n &gt;&gt;= <span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br></code></pre></td></tr></table></div></figure>
+<h3 id="190-颠倒二进制位-「-和-的区别」"><a href="#190-颠倒二进制位-「-和-的区别」" class="headerlink" title="190. 颠倒二进制位  「&gt;&gt;&#x3D; 和 &gt;&gt; 的区别」"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-bits/">190. 颠倒二进制位</a>  「&gt;&gt;&#x3D; 和 &gt;&gt; 的区别」</h3><figure class="highlight c++"><i class="iconfont icon-bookmark" type="button" data-toggle="collapse" data-target="#collapse-x4c0ujm0dngtsq"></i><div class="collapse show" id="collapse-x4c0ujm0dngtsq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// res 一开始为0, 每次我们都将 res左移, 将n右移</span><br><span class="hljs-function"><span class="hljs-type">uint32_t</span> <span class="hljs-title">reverseBits</span><span class="hljs-params">(<span class="hljs-type">uint32_t</span> n)</span> </span>&#123;<br>        <span class="hljs-type">uint32_t</span> res = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">32</span>; ++i) &#123;<br>            res = (res &lt;&lt; <span class="hljs-number">1</span>) | (n &amp; <span class="hljs-number">1</span>);   <br>            n &gt;&gt;= <span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br></code></pre></td></tr></table></div></figure>
 
 <hr>
-<h3 id="XOR-异或运算的性质"><a href="#XOR-异或运算的性质" class="headerlink" title="XOR 异或运算的性质:"></a>XOR 异或运算的性质:</h3><ol>
+<h3 id="XOR-的性质"><a href="#XOR-的性质" class="headerlink" title="XOR 的性质:"></a>XOR 的性质:</h3><ol>
 <li><p>x⊕x&#x3D;0 ,  x⊕0 &#x3D; x</p>
 </li>
-<li><h4 id="x⊕y-y⊕x-交换律"><a href="#x⊕y-y⊕x-交换律" class="headerlink" title="x⊕y&#x3D;y⊕x (交换律)"></a>x⊕y&#x3D;y⊕x (交换律)</h4></li>
+<li><p>x⊕y&#x3D;y⊕x (交换律)  </p>
+</li>
 <li><p>(x⊕y)⊕z&#x3D;x⊕(y⊕z) (结合律)    「不支持分配律」</p>
 </li>
 <li><p>x⊕y⊕y&#x3D;x (自反性)</p>
@@ -620,9 +640,10 @@
 </li>
 </ol>
 <hr>
-<h4 id="在342-4的幂-偶数位上是1的32位整形-0xaaaaaaaa"><a href="#在342-4的幂-偶数位上是1的32位整形-0xaaaaaaaa" class="headerlink" title="在342. 4的幂  偶数位上是1的32位整形, 0xaaaaaaaa"></a>在<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/power-of-four/">342. 4的幂</a>  偶数位上是1的32位整形, 0xaaaaaaaa</h4><hr>
 <h3 id="如何取按照要求-取一个整型中的某些二进制位？"><a href="#如何取按照要求-取一个整型中的某些二进制位？" class="headerlink" title="如何取按照要求 取一个整型中的某些二进制位？"></a>如何取按照要求 取一个整型中的某些二进制位？</h3><ul>
 <li><h4 id="对于x-取其第i位的二进制-rightarrow-x-i-1-从0开始"><a href="#对于x-取其第i位的二进制-rightarrow-x-i-1-从0开始" class="headerlink" title="对于x , 取其第i位的二进制 $\rightarrow$ (x &gt;&gt; i) &amp; 1 (从0开始)"></a>对于x , 取其第i位的二进制 $\rightarrow$ (x &gt;&gt; i) &amp; 1 (从0开始)</h4></li>
+<li><p>对于x，清除第 i 位的二进制</p>
+</li>
 <li><p>如果我们框定了x的范围，比如我们确认x &lt;&#x3D; 1024 那么32位中必然只需要使用其中最右边的10位</p>
 <ul>
 <li>想取 高4位(即10位中左边的4位) 那显然 res &#x3D; x &gt;&gt; 6</li>
@@ -637,6 +658,7 @@
 <li>直接交换法:  a &#x3D; a - b , b &#x3D; a + b, a &#x3D; b - a;</li>
 <li>异或法 : x &#x3D; x ^ y, y &#x3D; x ^ y, x &#x3D; x ^ y</li>
 </ul>
+<p>__builtin_popcount(i) 计算32位整型里 1的个数</p>
 <ul>
 <li>一句话逻辑运算<ul>
 <li>or &#x3D;&gt; 只要有 1 结果为 1</li>
@@ -665,6 +687,8 @@
       <i class="iconfont icon-tags"></i>
       
         <a href="/tags/Programming/" class="print-no-link">#Programming</a>
+      
+        <a href="/tags/Bit-manipulation/" class="print-no-link">#Bit manipulation</a>
       
     </div>
   
@@ -721,9 +745,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/1976/04/01/about%20Binary%20Search%20%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" title="About Binary Search">
+                      <a href="/1976/04/01/about%20C++%20STL/" title="About C++ STL">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">About Binary Search</span>
+                        <span class="hidden-mobile">About C++ STL</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -731,8 +755,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/1976/04/01/about%20C++%20STL/" title="About C++ STL">
-                        <span class="hidden-mobile">About C++ STL</span>
+                      <a href="/1976/04/01/about%20DP/" title="About Dynamic Programming">
+                        <span class="hidden-mobile">About Dynamic Programming</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -1,0 +1,1255 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><link href="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/css/index.css" rel="stylesheet"/><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/bimg/avatar1.png">
+  <link rel="icon" href="/bimg/avatar1.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Natsumi">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="重要 C++ 五步走  预处理 带#的都处理一通，#define 和 #include 都把内容给换进来，#if 判断下 输出：没有宏和预处理指令的纯C++代码文件   编译 语法分析(写对没)，语义分析(用对没)，生成中间代码并优化 输出：汇编代码   汇编 (Assembly) 汇编器把汇编代码转化成机器代码 输出：机器代码&#x2F;目标文件(.o&#x2F;.obj)   链接 链接器会将">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ shorthand">
+<meta property="og:url" content="https://www.mementos.top/2024/08/27/C++%20shorthand/index.html">
+<meta property="og:site_name" content="Natsumi&#39;s Mementos">
+<meta property="og:description" content="重要 C++ 五步走  预处理 带#的都处理一通，#define 和 #include 都把内容给换进来，#if 判断下 输出：没有宏和预处理指令的纯C++代码文件   编译 语法分析(写对没)，语义分析(用对没)，生成中间代码并优化 输出：汇编代码   汇编 (Assembly) 汇编器把汇编代码转化成机器代码 输出：机器代码&#x2F;目标文件(.o&#x2F;.obj)   链接 链接器会将">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=ODA0ZTQ1M2M0Y2QwYjY1ZDExM2FhYmY5YjY3ZmMyMjlfTE9zNzBoQTJ0VFZ2OXo0dVhFTnM2OUpsOUJiVU5IMXpfVG9rZW46VU5DaWJMSlI1b1l5TzZ4enV4WWMxemxvblZoXzE3MjQ4MzY4NDM6MTcyNDg0MDQ0M19WNA">
+<meta property="og:image" content="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=NGVjNzMxOWQ1YTk0NzkwZWYyZDBhYzM4N2E3ZmU0NTNfNzAzMWdEdkdPaUhIZEdDNFZvcVB5alpEVTJZcGE4UDhfVG9rZW46UnlIRWJEbHY2bzJpN1d4akMwaGN4ODB6bldiXzE3MjQ4MzY4NDM6MTcyNDg0MDQ0M19WNA">
+<meta property="og:image" content="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=ZTAwYjg3YTI3YjhhZDFlZjA3Y2VjOWM2YWExNWM5NjdfZUYwMUZzemtTeFA5VmRYMWRqOHdybE9HT0FCRnN0QXNfVG9rZW46QURYOWJ1Sm5wbzJpS2t4RDUwZWM4ZVBDbkdkXzE3MjQ4MzY4NDM6MTcyNDg0MDQ0M19WNA">
+<meta property="og:image" content="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=NDZjYjRiOWM3YjQwMzUwN2Y0ODVmMWMwOTU3ZTBlZThfVjFpV01OSDREYVRYTWU3dUhMUEdqSXhYWkRyWFRFOG5fVG9rZW46TG1yeWJ1dGtyb05xZmp4MTA4NGMxd1oyblFiXzE3MjQ4MzY4NDM6MTcyNDg0MDQ0M19WNA">
+<meta property="article:published_time" content="2024-08-26T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-08-28T09:24:27.257Z">
+<meta property="article:author" content="Natsumi">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=ODA0ZTQ1M2M0Y2QwYjY1ZDExM2FhYmY5YjY3ZmMyMjlfTE9zNzBoQTJ0VFZ2OXo0dVhFTnM2OUpsOUJiVU5IMXpfVG9rZW46VU5DaWJMSlI1b1l5TzZ4enV4WWMxemxvblZoXzE3MjQ4MzY4NDM6MTcyNDg0MDQ0M19WNA">
+  
+  
+  
+  <title>C++ shorthand - Natsumi&#39;s Mementos</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/interact_anime.css">
+<link rel="stylesheet" href="/css/format.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/scroll.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.mementos.top","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/gifs/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+</head>
+
+
+<body>
+  
+  
+    
+
+<style type="text/css">
+    @keyframes spin3D {
+        from {
+            transform: rotate3d(0.5, 0.5, 0.5, 360deg);
+        }
+
+        to {
+            transform: rotate3d(0deg);
+        }
+    }
+
+    #loading {
+        height: 100%;
+        background-color: #172d4781;
+        backdrop-filter: saturate(100%) blur(10px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+        z-index: 99999999;
+    }
+
+    .spinner-box {
+        width: 300px;
+        height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: transparent;
+    }
+
+    .leo {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+    }
+
+    .blue-orbit {
+        width: 175px;
+        height: 175px;
+        border: 2px solid #1a91fa;
+        animation: spin3D 3s linear .2s infinite;
+    }
+
+    .green-orbit {
+        width: 135px;
+        height: 135px;
+        border: 2px solid #00ffdd;
+        animation: spin3D 2s linear 0s infinite;
+    }
+
+    .red-orbit {
+        width: 100px;
+        height: 100px;
+        border: 2px solid #d75151;
+        animation: spin3D 1s linear 0s infinite;
+    }
+
+    .white-orbit-a {
+        width: 70px;
+        height: 70px;
+        border: 1px solid #faf5f5;
+        animation: spin3D 3s linear 0s infinite;
+    }
+
+    .white-orbit-b {
+        width: 70px;
+        height: 70px;
+        border: 1px solid #faf5f5;
+        animation: spin3D 1.5s linear 0s infinite;
+    }
+
+    .nucleus {
+        width: 1px;
+        height: 1px;
+        border: 1px solid #ffffff;
+        animation: spin3D 1s linear 0s infinite;
+    }
+</style>
+
+<div id="loading">
+    <div class="spinner-box">
+        <div class="blue-orbit leo"></div>
+        <div class="green-orbit leo"></div>
+        <div class="red-orbit leo"></div>
+        <div class="white-orbit-a leo"></div>
+        <div class="white-orbit-b leo"></div>
+        <div class="nucleus leo"></div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        const loaded = function () {
+            window.onload = function () {
+                const loader = document.getElementById("loading");
+                loader.className = "fadeout";
+                setTimeout(function () {
+                    loader.style.display = "none";
+                }, 
+                100
+                );
+            }
+        };
+        loaded();
+    })();
+</script>
+  
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Natsumi&#39;s Mementos</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>HOME</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>author</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/Road2AI/" target="_self">
+                <i class="iconfont icon-codepen-fill"></i>
+                <span>dev</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/bimg/p1.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="C++ shorthand"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-08-27 00:00" pubdate>
+          2024年8月27日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          9.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          92 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">C++ shorthand</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="重要"><a href="#重要" class="headerlink" title="重要"></a>重要</h3><blockquote>
+<h4 id="C-五步走"><a href="#C-五步走" class="headerlink" title="C++ 五步走"></a>C++ 五步走</h4></blockquote>
+<ol>
+<li>预处理<ol>
+<li>带<code>#</code>的都处理一通，#define 和 #include 都把内容给换进来，#if 判断下</li>
+<li>输出：没有宏和预处理指令的纯C++代码文件</li>
+</ol>
+</li>
+<li>编译<ol>
+<li>语法分析(写对没)，语义分析(用对没)，生成中间代码并优化</li>
+<li>输出：汇编代码</li>
+</ol>
+</li>
+<li>汇编 (Assembly)<ol>
+<li>汇编器把汇编代码转化成机器代码</li>
+<li>输出：机器代码&#x2F;目标文件(.o&#x2F;.obj)</li>
+</ol>
+</li>
+<li>链接<ol>
+<li>链接器会将目标文件和库文件链接到一起，包括：<ol>
+<li>符号解析，地址重定位，库链接</li>
+</ol>
+</li>
+<li>输出：可执行文件(.out, .exe)</li>
+</ol>
+</li>
+<li>运行，没啥好说的，os把它加载到内存，加载动态链接库然后执行</li>
+</ol>
+<blockquote>
+<p><strong>链接，****静态库</strong> <strong>&amp; 动态库</strong></p>
+</blockquote>
+<p>链接的步骤：</p>
+<ol>
+<li>符号解析：符号就是变量、函数等等 entity 的名字，编译阶段他们是引用或者定义，而链接器会把他们解析为实际的地址，或者具体的实现</li>
+<li>地址重定位：代码、数据、符号一开始都是用的相对地址，但是生成可执行文件时我们需要绝对地址。重定位有时还会调整一下代码和数据的位置</li>
+<li>合并段：目标文件一般有好几个段，比如.text存代码，.data 存局部变量，链接器会把所有目标文件</li>
+<li>库文件处理：分别处理静态库(.lib&#x2F;.a)，和动态库(.dll, .so)<ol>
+<li>静态库：直接把相关代码copy进exe里</li>
+<li>动态库：记录库的引用，运行时os负责加载它（真链接）</li>
+</ol>
+</li>
+</ol>
+<p><img src="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=ODA0ZTQ1M2M0Y2QwYjY1ZDExM2FhYmY5YjY3ZmMyMjlfTE9zNzBoQTJ0VFZ2OXo0dVhFTnM2OUpsOUJiVU5IMXpfVG9rZW46VU5DaWJMSlI1b1l5TzZ4enV4WWMxemxvblZoXzE3MjQ4MzY4NDM6MTcyNDg0MDQ0M19WNA" srcset="/gifs/loading.gif" lazyload alt="img"></p>
+<blockquote>
+<h4 id="智能指针（Smart-Pointers）-include"><a href="#智能指针（Smart-Pointers）-include" class="headerlink" title="智能指针（Smart Pointers）#include ;"></a>智能指针（Smart Pointers）#include <memory>;</h4></blockquote>
+<p>C++ 11 标准，它是一个类模板，包装一个指针，在智能指针对象声明周期结束时自动释放动态内存</p>
+<p>基本使用方法(以unique为例) </p>
+<ul>
+<li><code>std::unique_ptr&lt;T&gt; ptr = make_unique&lt;T&gt;(initial value)</code>*就用auto吧</li>
+<li><code>ptr.reset()</code> 提前销毁它（不这么做，则是离开作用域之后销毁它）</li>
+</ul>
+<p><strong>三种智能指针：</strong></p>
+<ul>
+<li><code>std::unique_ptr</code> 独占<ul>
+<li>用法：<code>unique_ptr&lt;T&gt; ptr1 = make_unique&lt;T&gt;(init_val);</code></li>
+<li>思想：任何时刻，一个资源只能有一个指针拥有</li>
+<li>特性：<ul>
+<li>禁止复制(不支持‘&#x3D;’)，但可以<code>std::move</code>移动</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>std::shared_ptr</code> 共享<ul>
+<li>用法：<code>shared_ptr&lt;T&gt; ptr1 = make_shared&lt;T&gt;(init_val);</code></li>
+<li>最后一个共享指针销毁时，才会释放这块内存（通过引用计数实现，也就是引用计数归零时释放内存）</li>
+</ul>
+</li>
+<li><code>std::weak_ptr</code> 弱引用(配合share使用)<ul>
+<li>它是 一个由 shared_ptr 管理的对象的 弱引用，它不会增加引用计数，但也不能直接访问，而是需要调用 lock() 方法访问（lock方法会尝试获取指向该对象的shared_ptr, 如果对象无了，那就返回空）</li>
+<li>用法：<code>weak_ptr&lt;T&gt; p = ptr;</code> (ptr 得是共享指针)</li>
+<li>思想：打破共享指针的<code>循环引用</code><ul>
+<li>循环引用：如果两个shared_ptr 互相持有，可能会出现好几个人的count都不为0的情况</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>shared_ptr 的 Reference Counting原理 &amp; 为什么会出现循环引用无法销毁？</p>
+</blockquote>
+<p><code>std::shared_ptr</code> 使用引用计数来跟踪有多少个 <code>shared_ptr</code> 实例共享同一个对象。引用计数可以简单地理解为一个计数器，用来记录当前有多少个 <code>shared_ptr</code> 正在引用该对象</p>
+<ul>
+<li><strong>强引用计数</strong>（use count）：记录当前有多少个 <code>shared_ptr</code> 实例指向同一个对象</li>
+<li><strong>弱引用计数</strong>（weak count）：记录当前有多少个 <code>weak_ptr</code> 实例指向同一个对象。</li>
+</ul>
+<p>使用make_shared 创建对象时，use count 设置为1，每次copy给其他ptr时use count + 1，回收的时候 use count - 1，然后weak count是独立的。</p>
+<p>循环引用的关键是，两边都在等待对方先释放。设想下面的情景：</p>
+<p><img src="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=NGVjNzMxOWQ1YTk0NzkwZWYyZDBhYzM4N2E3ZmU0NTNfNzAzMWdEdkdPaUhIZEdDNFZvcVB5alpEVTJZcGE4UDhfVG9rZW46UnlIRWJEbHY2bzJpN1d4akMwaGN4ODB6bldiXzE3MjQ4MzY4NDM6MTcyNDg0MDQ0M19WNA" srcset="/gifs/loading.gif" lazyload alt="img"></p>
+<p>我们通过 pa 和 pb 申请了Obj A 和 Obj B，同时对象 A 里有一个 B 类型的ptr(也就是 pa-&gt;b_ptr)，它也指向 Obj B，对象 B 亦然，显然 Obj A 和 B 的 count &#x3D; 2。</p>
+<p>s</p>
+<p>此时 ptr_A 和 ptr_B 离开了作用域，因此它们都被销毁，按理来说此时 Obj A 和 Obj B 也应该被销毁，但这时 Obj A 和 Obj B 的 count 都是1，所以没办法触发回收。</p>
+<p><img src="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=ZTAwYjg3YTI3YjhhZDFlZjA3Y2VjOWM2YWExNWM5NjdfZUYwMUZzemtTeFA5VmRYMWRqOHdybE9HT0FCRnN0QXNfVG9rZW46QURYOWJ1Sm5wbzJpS2t4RDUwZWM4ZVBDbkdkXzE3MjQ4MzY4NDM6MTcyNDg0MDQ0M19WNA" srcset="/gifs/loading.gif" lazyload alt="img"></p>
+<p>解决方案：类似一个死锁，必须得有一边先释放count，才能把两个对象都销毁，这也是为什么 weak_ptr 可以解决这个循环引用问题</p>
+<blockquote>
+<p>decltype &amp; auto</p>
+</blockquote>
+<ul>
+<li>auto 在编译期就可以推导出变量的类型<ul>
+<li>限制：不能作为参数，不能定义数组</li>
+</ul>
+</li>
+<li>decltype(declear type)：推导出这个表达式的类型，但是不会执行它</li>
+<li><code>decltype(a) b</code> &#x3D;&gt; 创建一个和 a 一样类型的对象，这点和auto 的用法差不多</li>
+<li>用在返回值 &#x2F; 泛型编程很不错：<ul>
+<li><code>auto add(T1 a, T2 b) -&gt; decltype(a + b)</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="杂项"><a href="#杂项" class="headerlink" title="杂项"></a>杂项</h3><ul>
+<li>Is_A or  Has_A？ </li>
+<li>is-a 对应的是类的继承关系, has-a 则是类的组合关系</li>
+<li>举例：cat is an animal, car has an engine<ul>
+<li>cat 就是派生自 animal，engine则是作为car的成员实现组合</li>
+</ul>
+</li>
+<li>inline（内联） 如果你有for循环，就别用了， 不会生效的</li>
+<li>为什么用 ++i, 而不是 i++：i++ 需要创建一个临时对象(构造和析构而造成的格外开销 )，但是 ++i 不用</li>
+<li>构造函数不能声明为虚函数，析构函数则应当声明为虚函数<ul>
+<li>必须明白，虚函数是通过指向派生类的基类指针&#x2F;引用，来访问派生类的同名函数，所以让virtual关键字起效，一定是通过基类来访问子类的方法。</li>
+<li>构造函数创建的时候马上调用，virtual 是不可能生效的</li>
+<li>析构：假如你的基类指针指向了一个派生类对象，如果你不写成虚函数，那么释放这个指针的时候，它就只会调用基类的析构，那派生类的资源就清理不干净了，就内存泄漏了</li>
+</ul>
+</li>
+<li>为什么创建对象使用指针？而不是直接创建：<ul>
+<li>最重要的是：你直接创建那就是一个局部变量，离开作用域他就被销毁了，假如你在func里创建了一个变量，返回去的话，你这链表、二叉树不就断了吗</li>
+<li>使用new创建指向这个对象的指针时，这个对象实际上会存在堆上，即使创建大量的对象也不容易爆内存（指stack overflow，普通创建的对象会被静态分配到stack区域，而stack区域比heap区域小很多）。</li>
+<li>我可以随时回收它，同时对于有一些对象会涉及到一些变长的属性，创在heap上是可以改长度的</li>
+</ul>
+</li>
+<li>CPP中动态与静态的联想：<ul>
+<li>动态 &#x3D;&gt; 运行时确定、可修改(灵活，但消耗更多资源)、堆空间..</li>
+<li>静态 &#x3D;&gt;  编译时确定、不可修改(只读，性能好)、栈空间…</li>
+</ul>
+</li>
+</ul>
+<h3 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h3><blockquote>
+<p><strong>pointer &amp; refference</strong></p>
+</blockquote>
+<ul>
+<li>指针是一种变量，指针的值是变量的地址 <code>int* prt = &amp;x</code></li>
+<li>引用是变量的别名，必须依赖变量存在，必须初始化，不能改变绑定的对象</li>
+</ul>
+<blockquote>
+<p>函数指针 &amp; 指针函数</p>
+</blockquote>
+<p>Function Pointer：这个指针指向的是一个函数，指向不同的位置就可以用同一个指针访问不同的函数，相当于一个手动多态？用法：</p>
+<figure class="highlight autoit"><i class="iconfont icon-bookmark" type="button" data-toggle="collapse" data-target="#collapse-ehbtzbm0dngtso"></i><div class="collapse show" id="collapse-ehbtzbm0dngtso"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs autoit"><span class="hljs-built_in">int</span> (*<span class="hljs-built_in">ptr</span>)(<span class="hljs-built_in">int</span>, <span class="hljs-built_in">int</span>) = &amp;functionName<span class="hljs-comment">;</span><br></code></pre></td></tr></table></div></figure>
+
+<p>[返回值, (名字), (参数列表)]</p>
+<p>Pointer to Function：返回指针的函数。</p>
+<blockquote>
+<h4 id="const-constexpr"><a href="#const-constexpr" class="headerlink" title="const &amp; constexpr"></a><strong>const &amp; constexpr</strong></h4></blockquote>
+<p><strong>const</strong></p>
+<ul>
+<li>作用：被它修饰的值不能改变。必须在定义的时候就给它赋初值</li>
+<li>修饰成员函数（不能修饰普通函数）：不能在函数中修改任何成员变量或调用非 <code>const</code> 成员函数</li>
+<li>特殊处理：常量指针(底层<strong>const</strong>) &amp; 指针常量(顶层<strong>const</strong>)；口诀：左定值，右定向<ul>
+<li>常量指针 Pointer to a Constant：<code>const int* p = &amp;val</code><ul>
+<li>不可以通过 p 去修改 val。但 p 可以指向另一个变量，也可以直接修改 val</li>
+<li>用法：你准备将一个指针传入func，但你不希望这个函数去修改你传进去的变量本身</li>
+</ul>
+</li>
+<li>指针常量 Constant Pointer：<code>int* const p = &amp;val</code><ul>
+<li>不可以修改 p 指向的变量，但可以通过 p 来修改 val。毕竟指针的值是地址。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>constexpr</strong></p>
+<ul>
+<li>更严格的const，它的值在编译阶段就需要确定，可以和const一起用，可以用在函数上（const不行）用在函数上时这个函数在编译时就会计算。</li>
+<li>简单来说，可以提供鲁棒性保障 + 编译优化？</li>
+</ul>
+<blockquote>
+<h4 id="static-共享数据-隐藏数据"><a href="#static-共享数据-隐藏数据" class="headerlink" title="static 共享数据 &#x2F; 隐藏数据"></a><strong>static</strong> 共享数据 &#x2F; 隐藏数据</h4></blockquote>
+<ol>
+<li>静态局部变量<ol>
+<li>当 <code>static</code> 修饰局部变量时，该变量的生命周期扩展到程序的整个运行周期，而不仅仅限于它所在的函数或代码块。即使函数多次调用，<code>static</code> 局部变量也只会初始化一次，且其值在函数调用之间保持</li>
+<li>（离开这个作用域后当前的变量就不可见了，但回来之后你会发现这个变量还在，而且没有被销毁并重新创建，而是维持最后的value</li>
+</ol>
+</li>
+<li>静态类成员 （当前类成员变为类作用域下的全局变量）<ol>
+<li>当 <code>static</code> 修饰类成员（变量或方法）时，<strong>这个成员属于类而不是某个特定的对象。也就是说，所有类的实例共享这一成员。</strong></li>
+<li>通过<code>Aclass::val / Aclass::method()</code> 可以直接访问，不需要实例化</li>
+<li>对于变量来说，需要在类外声明并定义它，如<code>int Aclass::static_val = 0</code>，所有的对象共享的是同一个变量（副本）</li>
+<li><code>static</code> 成员只能访问 <code>static</code>成员，不能访问别的</li>
+</ol>
+</li>
+<li>静态全局变量&#x2F;函数<ol>
+<li>让当前的变量只在当前的文件可见，那么其他文件定义的同名变量就不会冲突了</li>
+</ol>
+</li>
+</ol>
+<blockquote>
+<p>剩下几个关键字</p>
+</blockquote>
+<ul>
+<li><strong>extern</strong> ：告诉编译器这个变量的定义 可能不在当前文件，对于func，默认会extern<ul>
+<li>声明外部变量，如你在<code>file1.cc</code>定义<code>int a = 10;</code>, 在<code>file2.cc</code>里定义<code>extern int a;</code> 编译器会去其他文件里找这个变量，并连接这两个文件的</li>
+</ul>
+</li>
+<li><strong>volatile</strong> ：确保本条指令不会因编译器的优化而省略，且要求每次直接读值，保证对特殊地址的稳定访问</li>
+<li><strong>final: 放在声明的最后(和 override 一样) 表示这就是最终版本了。如果是</strong> <strong><code>class A final&#123;&#125;</code></strong> <strong>那 A 就不能被继承；如果是一个虚函数，那么我们就不能再继续override他了</strong></li>
+</ul>
+<h1 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h1><p><a target="_blank" rel="noopener" href="https://cpp.tech-academy.co.uk/memory-layout/">Memory Layout</a></p>
+<h3 id="内存分区"><a href="#内存分区" class="headerlink" title="内存分区"></a>内存分区</h3><p><img src="https://nat-sumi.feishu.cn/space/api/box/stream/download/asynccode/?code=NDZjYjRiOWM3YjQwMzUwN2Y0ODVmMWMwOTU3ZTBlZThfVjFpV01OSDREYVRYTWU3dUhMUEdqSXhYWkRyWFRFOG5fVG9rZW46TG1yeWJ1dGtyb05xZmp4MTA4NGMxd1oyblFiXzE3MjQ4MzY4NDM6MTcyNDg0MDQ0M19WNA" srcset="/gifs/loading.gif" lazyload alt="img"></p>
+<p>这图得背</p>
+<ul>
+<li>stack内存自动管理。局部变量超出作用域会直接释放，过大的consume会产生 stack overflow</li>
+<li>heap 是你手动管理的，会出现memory leak，Valgrind 可以检测</li>
+<li>Global&#x2F;Static Memory，程序整个周期都不释放</li>
+<li>Constant Memory，只读区域</li>
+</ul>
+<blockquote>
+<p>静态分配，动态分配 「一般动态 &#x3D;&gt; 运行时决定，静态 &#x3D;&gt; 编译时决定」</p>
+</blockquote>
+<ul>
+<li>动态分配：运行的时候才会分配，一你吃大小可以改变，分配的是heap的空间，也就是你用new的时候才需要操作heap，最后一定需要delete</li>
+<li>静态分配：直接创建的变量、常量会被放在stack &#x2F; static 区域，编译的时候就给你创建好，你运行的时候可以改，但它的大小是不会变的</li>
+</ul>
+<h3 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a>内存泄漏</h3><blockquote>
+<p><strong>new &amp; malloc，选new</strong></p>
+</blockquote>
+<ul>
+<li>new是C++运算符，malloc是库函数（C）</li>
+<li>new是malloc的封装，new会调用构造和析构</li>
+<li>new会返回具体类型指针，是类型安全的</li>
+</ul>
+<blockquote>
+<p><strong>delete &amp; free，选delete</strong></p>
+</blockquote>
+<ul>
+<li>delete会调用析构函数，会把内存块指针置为nullptr，可以正确释放数组；这几个free都不行</li>
+</ul>
+<blockquote>
+<p>Memory Leak 是什么, 怎么解决？</p>
+</blockquote>
+<ul>
+<li>在程序运行时申请的动态内存，如果没有正确释放，就会产生泄漏，因为他们无法被重新分配。</li>
+<li>发生泄漏的可能原因：1. new 了不delete；2. 用来接受 new 的指针被覆盖掉了，没办法再访问它；3. 循环引用（复杂数据结构之间相互引用）</li>
+<li>怎么解决：<ul>
+<li>封装到class里，不要直接申请</li>
+<li>智能指针</li>
+</ul>
+</li>
+<li>检测工具：<ul>
+<li>Valgrind，ASan</li>
+</ul>
+</li>
+</ul>
+<h3 id="内存对齐"><a href="#内存对齐" class="headerlink" title="内存对齐"></a>内存对齐</h3><blockquote>
+<p>struct 有关</p>
+<p>数据结构的起始地址是特定的对齐边界的倍数</p>
+</blockquote>
+<p>在结构体中，编译器为结构体的每个成员按 其自然边界(alignment)分配空间。各个成员按照它们被声明的顺序在内存中顺序存储，第一个成员的地址和整 个结构体的地址相同。 </p>
+<p>对于一个空的结构体，C++会为他的 instance 分配 1 byte（空的class也是如此），确保每个实例都有唯一的内存地址。</p>
+<p>内存对齐的核心：尽量让CPU少访问几次内存，</p>
+<p>比如int，如果放在0x00000002 上面，那CPU就需要取两次了，放0x00000004一次就取走了</p>
+<h1 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h1><ul>
+<li>OOP explain：OOP 是一种程序设计范式，它基于一个个对象，来组织代码，一个对象是一个包含属性 和 行为的实例，</li>
+<li>why OOP：与之相对的是面向过程编程，使用OOP时问题的基本单元就变成了对象</li>
+<li>好处：可重用性（继承）、模块化（封装）、和灵活性（多态）</li>
+</ul>
+<p>OOP 三大特性：继承，封装，多态</p>
+<h3 id="继承-Inheritance"><a href="#继承-Inheritance" class="headerlink" title="继承 Inheritance"></a><strong>继承 Inheritance</strong></h3><blockquote>
+<p><strong>基本概念</strong></p>
+</blockquote>
+<ul>
+<li>Base Class 父类：Base class 的私有成员无论哪种继承，都是不可访问的</li>
+<li>Derived Class 派生类：可以直接使用父类的属性和方法，并且可以添加新的属性和方法或重写（覆盖）父类的方法。</li>
+<li><code>protected</code>：和 private 最大的区别就是，protected 派生类是可以访问的，但是 private 对象派生类是无法访问的</li>
+</ul>
+<blockquote>
+<p>基本类型</p>
+</blockquote>
+<ul>
+<li>公共继承 <code>class Dervied : public Base</code><ul>
+<li>正常访问就行（私有的不能访问）</li>
+</ul>
+</li>
+<li>保护继承 <code>class Derived : protected Base</code><ul>
+<li>Base class 的所有成员都被视为保护成员，你可以写方法调用，但不能从外面访问了（不能利用对象来访问它）（<code>public</code> 和 <code>protected</code>都变为<code>protected</code>）</li>
+</ul>
+</li>
+<li>私有继承 <code>class Derived : private Base</code><ul>
+<li>Base class 的所有成员都被视为 Derived class 的私有成员，也就是说，如果你是 Dervied class 的子类，那么你只能访问 Derived class <strong>新定义</strong>的 public 和 protected 对象，而 Base class 里的所有对象都不能访问</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>特性</strong></p>
+</blockquote>
+<ul>
+<li>重载和覆盖（重写）（Overloading and Overriding）</li>
+</ul>
+<p>​     「 静态多态」&amp;「动态多态（在派生类中重新定义基类中已经定义的虚函数）」 </p>
+<p>​      「同名不同参数 &amp; 虚函数（名和参数都要相同）  」</p>
+<ul>
+<li><strong>多重继承（Multiple Inheritance）&amp; 虚继承（Virtual Inheritance）</strong><ul>
+<li>一个类可以同时继承多个父类</li>
+<li>菱形继承：D 继承了 C 和 B，然而 C 和 B 都是 A 的子类，这时在 C 和 B 的继承声明时 写成<strong>虚继承</strong> <code>class C : virtual public A</code>，可以避免在派生类里面生成多个A的实例</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>继承 &#x2F; 派生的思路（结合设计模式理解）</p>
+</blockquote>
+<ul>
+<li>单继承：表示 is-a 关系，最经典的例子： <code>class cat : public Animal</code> &#x3D;&gt; cat is animal</li>
+<li>抽象类与接口：我的基类包含一些<code>纯虚函数</code>，存在的意义就是定义出通用的接口，本身是不会实例化的，让子类去实现具体细节</li>
+<li>模版方法模式：我先定义一个算法框架，然后另外一些步骤写成虚函数，让子类可以去实现自己的version</li>
+<li>可以使用组合的方式（就是在一个class里去创建另一个class的对象），维护其实挺方便的</li>
+</ul>
+<h3 id="封装-Encapsulation"><a href="#封装-Encapsulation" class="headerlink" title="封装 Encapsulation"></a><strong>封装 Encapsulation</strong></h3><p>封装的主要体现就是利用<code>访问控制修饰符</code>(public, private…)，以及使用 getter &amp; setter的思想</p>
+<h3 id="多态-Polymorphism"><a href="#多态-Polymorphism" class="headerlink" title="多态 Polymorphism"></a>多态 Polymorphism</h3><p>允许一个接口或方法可以表现为多种不同的形式。换句话说，多态使得不同类型的对象可以用统一的方式处理，而具体的行为则取决于对象的实际类型。</p>
+<blockquote>
+<p><strong>虚函数&#x2F;纯虚函数 &amp; 虚函数表(virtual table&#x2F;vtable)</strong></p>
+</blockquote>
+<ul>
+<li>虚函数：基类函数声明时添加 virtual：<code>virtual void show()</code>；派生类里覆盖它：<code>void show() override</code>。这时你的（指向派生类对象的）基类指针调用show函数时，会调用派生类里的函数，而不是基类里的。（指向哪个派生类对象就调用哪个派生类的虚函数）<ul>
+<li><code>Base* basePtr = new Derived()</code></li>
+<li>virtual 体现在它是所谓的 <code>动态联编/绑定</code>,它的调用是在运行的时候确定的，而不是编译时</li>
+</ul>
+</li>
+<li>纯虚函数：<code>virtual void show()=0</code>，这时编译器会要求子类必须override这个函数，同时，只要你的class声明了纯虚函数，它就会变成抽象类，不能创建它的实例，而只能由子类去继承并且实现你给出的接口。<ul>
+<li>比如：animal : cat&#x2F;dog 这组关系，创建一个animal 的 instance 是有点奇怪的</li>
+<li>我在子类里实现纯虚函数之后，它就会变成一个普通虚函数，继续派生时子类可以override 它</li>
+</ul>
+</li>
+<li>vtable<ul>
+<li>编译器在编译时生成的一个数组，存储类中所有虚函数的指针（如果你定义了虚函数，编译器就会为你创建vtable）</li>
+<li>工作原理：对于有虚函数的类，在创建对象时会额外创建一个隐藏指针<code>vptr</code>指向这个类的vtable 和虚函数表（指针数组</li>
+</ul>
+</li>
+<li>用法：<ul>
+<li>基类指针直接指向派生类对象，然后通过这个指针直接调用派生类的函数</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>重载和覆盖（Overloading and Overriding）</p>
+</blockquote>
+<ul>
+<li>overload，静态多态：<ul>
+<li>同个field里允许多个名字一样的方法存在（前提是参数列表不一样）</li>
+<li>运算符重载</li>
+</ul>
+</li>
+<li>override，动态多态：<ul>
+<li>子类可以重新定义父类中的<strong>虚函数</strong>，运行时可以调用子类的版本 (<code>void functionName() override</code>)</li>
+</ul>
+</li>
+</ul>
+<h1 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h1><figure class="highlight c++"><i class="iconfont icon-bookmark" type="button" data-toggle="collapse" data-target="#collapse-uil54xm0dngtso"></i><div class="collapse show" id="collapse-uil54xm0dngtso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;thread&gt;</span></span><br><br><span class="hljs-comment">// 创建 thread t，并执行一个lambda 表达式</span><br><span class="hljs-function">std::thread <span class="hljs-title">t</span><span class="hljs-params">([&amp;]()&#123;&#125;)</span></span>;<br><span class="hljs-comment">// join 阻塞当前的线程，它只能调用一次，用了主线程得等你执行完再，只能调一次</span><br>t.<span class="hljs-built_in">join</span>();<br><span class="hljs-comment">// detach() 可以分离线程</span><br><br>mutex m; <span class="hljs-comment">// 实例化m，不是定义变量</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">proc1</span><span class="hljs-params">()</span> </span>&#123;<br>    m.<span class="hljs-built_in">lock</span>();<br>    <span class="hljs-comment">// do something...</span><br>    m.<span class="hljs-built_in">unlock</span>();<br>&#125;<br></code></pre></td></tr></table></div></figure>
+
+<h1 id="STL"><a href="#STL" class="headerlink" title="STL"></a>STL</h1><blockquote>
+<p>👷</p>
+</blockquote>
+<h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><h3 id="单例模式（创建型）："><a href="#单例模式（创建型）：" class="headerlink" title="单例模式（创建型）："></a>单例模式（创建型）：</h3><p>用于确保一个类只有一个实例，并提供一个全局访问点，在需要实例化的场景下使用</p>
+<p>数据库连接池、日志管理等，避免一个全局访问的类频繁的创建和销毁，浪费资源</p>
+<p>资源共享：当多个模块或系统需要共享某⼀资源时，可以使⽤单例模式确保该资源只被创建⼀次，避免重复创建和浪费资源。</p>
+<p>控制资源访问：单例模式可以⽤于控制对特定资源的访问，例如数据库连接池、线程池等。</p>
+<p> 配置管理器：当整个应⽤程序需要共享⼀些配置信息时，可以使⽤单例模式将配置信息存储在单例类中，⽅便 全局访问和管理。 </p>
+<p>⽇志记录器：单例模式可以⽤于创建⼀个全局的⽇志记录器，⽤于记录系统中的⽇志信息。</p>
+<p> 线程池：在多线程环境下，使⽤单例模式管理线程池，确保线程池只被创建⼀次，提⾼线程池的利⽤率。 </p>
+<p>缓存：单例模式可以⽤于实现缓存系统，确保缓存只有⼀个实例，避免数据不⼀致性和内存浪费。</p>
+<figure class="highlight c++"><i class="iconfont icon-bookmark" type="button" data-toggle="collapse" data-target="#collapse-idcpd6m0dngtso"></i><div class="collapse show" id="collapse-idcpd6m0dngtso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">singleton</span>&#123;<span class="hljs-comment">//懒汉式</span><br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-type">static</span> singleton* instance;<br>    <span class="hljs-built_in">singleton</span>()&#123;&#125;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">static</span> singleton* <span class="hljs-title">getinstance</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-keyword">if</span>(instance == <span class="hljs-literal">nullptr</span>)&#123;<br>            instance = <span class="hljs-keyword">new</span> <span class="hljs-built_in">singleton</span>();<br>        &#125;<br>        <span class="hljs-keyword">return</span> &amp;instance;<br>    <span class="hljs-comment">// 获取单例实例的静态成员函数</span><br>    <span class="hljs-function"><span class="hljs-type">static</span> Singleton* <span class="hljs-title">getInstance</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> instance;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></div></figure>
+
+<h3 id="工厂模式-创建型-："><a href="#工厂模式-创建型-：" class="headerlink" title="工厂模式(创建型)："></a>工厂模式(创建型)：</h3><p>当⼀个类不知道它所需要的类的时候。 当⼀个类希望通过其⼦类来指定创建对象的时候。 当类将创建对象的职责委托给多个帮助⼦类中的某⼀个，并且希望将哪⼀个帮助⼦类是代理者的信息局部化 时。 </p>
+<p>举例来说： </p>
+<p>在数据库操作中，通过⼯⼚模式可以根据不同的数据库类型（MySQL、Oracle等）创建对应的数据库连接对 象 </p>
+<p>通过⼯⼚模式可以根据配置⽂件或其他条件选择不同类型的⽇志记录器，如⽂件⽇志记录器、数据库⽇志记录 器等。</p>
+<p> 在图形⽤户界⾯（GUI）库中，可以使⽤⼯⼚模式创建不同⻛格或主题的界⾯元素，如按钮、⽂本框等。</p>
+<p> 在加密算法库中，可以使⽤⼯⼚模式根据需要选择不同的加密算法，例如对称加密、⾮对称加密等。</p>
+<p> 在⽂件解析过程中，可以使⽤⼯⼚模式根据⽂件类型选择不同的解析器，如XML解析器、JSON解析器等。 </p>
+<p>在⽹络通信库中，可以使⽤⼯⼚模式创建不同类型的⽹络连接对象，如TCP连接、UDP连接等。</p>
+<figure class="highlight c++"><i class="iconfont icon-bookmark" type="button" data-toggle="collapse" data-target="#collapse-ac566qm0dngtso"></i><div class="collapse show" id="collapse-ac566qm0dngtso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;memory&gt;</span></span><br><br><span class="hljs-comment">// 抽象图形类</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Shape</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">draw</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>= <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">virtual</span> ~<span class="hljs-built_in">Shape</span>() &#123;&#125;<br>&#125;;<br><br><span class="hljs-comment">// 具体图形类：圆形</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Circle</span> : <span class="hljs-keyword">public</span> Shape &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">draw</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> <span class="hljs-keyword">override</span> </span>&#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Drawing a circle.&quot;</span> &lt;&lt; std::endl;<br>    &#125;<br>&#125;;<br><br><span class="hljs-comment">// 具体图形类：正方形</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Square</span> : <span class="hljs-keyword">public</span> Shape &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">draw</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> <span class="hljs-keyword">override</span> </span>&#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Drawing a square.&quot;</span> &lt;&lt; std::endl;<br>    &#125;<br>&#125;;<br><br><span class="hljs-comment">// 图形工厂类</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">ShapeFactory</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-comment">// 创建图形对象的静态方法</span><br>    <span class="hljs-function"><span class="hljs-type">static</span> std::unique_ptr&lt;Shape&gt; <span class="hljs-title">createShape</span><span class="hljs-params">(<span class="hljs-type">const</span> std::string&amp; type)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (type == <span class="hljs-string">&quot;Circle&quot;</span>) &#123;<br>            <span class="hljs-keyword">return</span> std::<span class="hljs-built_in">make_unique</span>&lt;Circle&gt;();<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (type == <span class="hljs-string">&quot;Square&quot;</span>) &#123;<br>            <span class="hljs-keyword">return</span> std::<span class="hljs-built_in">make_unique</span>&lt;Square&gt;();<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>; <span class="hljs-comment">// 不支持的图形类型</span><br>        &#125;<br>    &#125;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-comment">// 使用工厂创建图形对象</span><br>    std::unique_ptr&lt;Shape&gt; circle = ShapeFactory::<span class="hljs-built_in">createShape</span>(<span class="hljs-string">&quot;Circle&quot;</span>);<br>    std::unique_ptr&lt;Shape&gt; square = ShapeFactory::<span class="hljs-built_in">createShape</span>(<span class="hljs-string">&quot;Square&quot;</span>);<br><br>    <span class="hljs-comment">// 绘制图形</span><br>    <span class="hljs-keyword">if</span> (circle) &#123;<br>        circle-&gt;<span class="hljs-built_in">draw</span>();<br>    &#125;<br>    <span class="hljs-keyword">if</span> (square) &#123;<br>        square-&gt;<span class="hljs-built_in">draw</span>();<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></div></figure>
+
+<h3 id="观察者模式（行为型）："><a href="#观察者模式（行为型）：" class="headerlink" title="观察者模式（行为型）："></a>观察者模式（行为型）：</h3><p>它定义了⼀种⼀对多的依赖关系，让多个观察者对象同时监听某⼀个主题对象。这个主题 对象在状态变化时，会通知所有的观察者对象，使他们能够⾃动更新⾃⼰。</p>
+<p>使⽤场景  </p>
+<ol>
+<li>事件处理：当⼀个对象的状态发⽣改变时，观察者模式可以⽤于通知和处理与该对象相关的事件。这在图形⽤ 户界⾯（GUI）开发中是很常⻅的，例如按钮点击事件、⿏标移动事件等。 </li>
+<li>发布订阅：观察者模式可以⽤于实现发布-订阅模型，其中⼀个主题（发布者）负责发送通知，⽽多个观察者 （订阅者）监听并响应这些通知。这种模型在消息队列系统、事件总线等场景中经常使⽤。</li>
+<li>MVC架构：观察者模式常被⽤于实现MVC架构中的模型和视图之间的通信。当模型的状态发⽣改变时，所有相关的视图都会得到通知并更新显示。 </li>
+<li>异步编程：观察者模式可以⽤于处理异步任务的完成事件。任务完成时，通知所有相关的观察者进⾏后续处理。</li>
+</ol>
+<figure class="highlight c++"><i class="iconfont icon-bookmark" type="button" data-toggle="collapse" data-target="#collapse-geoudmm0dngtso"></i><div class="collapse show" id="collapse-geoudmm0dngtso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;vector&gt;</span></span><br><br><span class="hljs-comment">// 抽象观察者类</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Observer</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">update</span><span class="hljs-params">(<span class="hljs-type">const</span> std::string&amp; message)</span> </span>= <span class="hljs-number">0</span>;<br>&#125;;<br><br><span class="hljs-comment">// 具体观察者类</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">ConcreteObserver</span> : <span class="hljs-keyword">public</span> Observer &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">ConcreteObserver</span>(<span class="hljs-type">const</span> std::string&amp; name) : <span class="hljs-built_in">name_</span>(name) &#123;&#125;<br><br>    <span class="hljs-comment">// 实现观察者的更新方法</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">update</span><span class="hljs-params">(<span class="hljs-type">const</span> std::string&amp; message)</span> <span class="hljs-keyword">override</span> </span>&#123;<br>        std::cout &lt;&lt; name_ &lt;&lt; <span class="hljs-string">&quot; received message: &quot;</span> &lt;&lt; message &lt;&lt; std::endl;<br>    &#125;<br><br><span class="hljs-keyword">private</span>:<br>    std::string name_;<br>&#125;;<br><br><span class="hljs-comment">// 抽象主题类</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Subject</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-comment">// 注册观察者</span><br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">attach</span><span class="hljs-params">(Observer* observer)</span> </span>= <span class="hljs-number">0</span>;<br>    <br>    <span class="hljs-comment">// 移除观察者</span><br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">detach</span><span class="hljs-params">(Observer* observer)</span> </span>= <span class="hljs-number">0</span>;<br>    <br>    <span class="hljs-comment">// 通知所有观察者</span><br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">notify</span><span class="hljs-params">(<span class="hljs-type">const</span> std::string&amp; message)</span> </span>= <span class="hljs-number">0</span>;<br>&#125;;<br><br><span class="hljs-comment">// 具体主题类</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">ConcreteSubject</span> : <span class="hljs-keyword">public</span> Subject &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-comment">// 注册观察者</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">attach</span><span class="hljs-params">(Observer* observer)</span> <span class="hljs-keyword">override</span> </span>&#123;<br>        observers_.<span class="hljs-built_in">push_back</span>(observer);<br>    &#125;<br>    <br>    <span class="hljs-comment">// 移除观察者</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">detach</span><span class="hljs-params">(Observer* observer)</span> <span class="hljs-keyword">override</span> </span>&#123;<br>        <span class="hljs-keyword">auto</span> it = std::<span class="hljs-built_in">find</span>(observers_.<span class="hljs-built_in">begin</span>(), observers_.<span class="hljs-built_in">end</span>(), observer);<br>        <span class="hljs-keyword">if</span> (it != observers_.<span class="hljs-built_in">end</span>()) &#123;<br>            observers_.<span class="hljs-built_in">erase</span>(it);<br>        &#125;<br>    &#125;<br>    <br>    <span class="hljs-comment">// 通知所有观察者</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">notify</span><span class="hljs-params">(<span class="hljs-type">const</span> std::string&amp; message)</span> <span class="hljs-keyword">override</span> </span>&#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> observer : observers_) &#123;<br>            observer-&gt;<span class="hljs-built_in">update</span>(message);<br>        &#125;<br>    &#125;<br><br><span class="hljs-keyword">private</span>:<br>    std::vector&lt;Observer*&gt; observers_;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-comment">// 创建具体主题对象</span><br>    ConcreteSubject subject;<br><br>    <span class="hljs-comment">// 创建具体观察者对象</span><br>    <span class="hljs-function">ConcreteObserver <span class="hljs-title">observer1</span><span class="hljs-params">(<span class="hljs-string">&quot;Observer 1&quot;</span>)</span></span>;<br>    <span class="hljs-function">ConcreteObserver <span class="hljs-title">observer2</span><span class="hljs-params">(<span class="hljs-string">&quot;Observer 2&quot;</span>)</span></span>;<br><br>    <span class="hljs-comment">// 注册观察者</span><br>    subject.<span class="hljs-built_in">attach</span>(&amp;observer1);<br>    subject.<span class="hljs-built_in">attach</span>(&amp;observer2);<br><br>    <span class="hljs-comment">// 发送消息给所有观察者</span><br>    subject.<span class="hljs-built_in">notify</span>(<span class="hljs-string">&quot;Hello, observers!&quot;</span>);<br><br>    <span class="hljs-comment">// 移除一个观察者</span><br>    subject.<span class="hljs-built_in">detach</span>(&amp;observer1);<br><br>    <span class="hljs-comment">// 再次发送消息给所有观察者</span><br>    subject.<span class="hljs-built_in">notify</span>(<span class="hljs-string">&quot;Goodbye, observer 1!&quot;</span>);<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></div></figure>
+
+<h3 id="代理模式（结构型）"><a href="#代理模式（结构型）" class="headerlink" title="代理模式（结构型）"></a>代理模式（结构型）</h3><p>⽬的是在访问某个对象时引⼊⼀种代理对象，通过代理对象控制对原始对象的访问。代理模式可以⽤于实现控制对对象的访问、延迟加载、实现权限控制、监控对象等场景。 </p>
+<ol>
+<li>抽象主题（ Subject ): 定义了代理对象和真实对象的共同接⼝，使得代理对象能够替代真实对象。 </li>
+<li>真实主题 Real Subject : 是实际执⾏业务逻辑的对象，是代理模式中的被代理对象。 </li>
+<li>代理 Proxy : 包含⼀个指向真实主题的引⽤，提供与真实主题相同的接⼝，可以控制对真实主题的访问，并在需要时负责创建或删除真实主题的实例。</li>
+</ol>
+<figure class="highlight c++"><i class="iconfont icon-bookmark" type="button" data-toggle="collapse" data-target="#collapse-qndvglm0dngtso"></i><div class="collapse show" id="collapse-qndvglm0dngtso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span><br><br><span class="hljs-comment">// 抽象主题类</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Subject</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">request</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>= <span class="hljs-number">0</span>;<br>&#125;;<br><br><span class="hljs-comment">// 具体主题类</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">RealSubject</span> : <span class="hljs-keyword">public</span> Subject &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">request</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> <span class="hljs-keyword">override</span> </span>&#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;RealSubject: Handling request.&quot;</span> &lt;&lt; std::endl;<br>    &#125;<br>&#125;;<br><br><span class="hljs-comment">// 代理类</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Proxy</span> : <span class="hljs-keyword">public</span> Subject &#123;<br><span class="hljs-keyword">private</span>:<br>    RealSubject* realSubject;<br><br>    <span class="hljs-comment">// 验证权限的辅助函数</span><br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">checkAccess</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>&#123;<br>        <span class="hljs-comment">// 模拟权限检查</span><br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Proxy: Checking access prior to executing the request.&quot;</span> &lt;&lt; std::endl;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>; <span class="hljs-comment">// 在实际应用中应该根据具体需求进行权限验证</span><br>    &#125;<br><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">Proxy</span>() : <span class="hljs-built_in">realSubject</span>(<span class="hljs-keyword">new</span> <span class="hljs-built_in">RealSubject</span>()) &#123;&#125;<br><br>    ~<span class="hljs-built_in">Proxy</span>() &#123;<br>        <span class="hljs-keyword">delete</span> realSubject;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">request</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> <span class="hljs-keyword">override</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">checkAccess</span>()) &#123;<br>            realSubject-&gt;<span class="hljs-built_in">request</span>();<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            std::cout &lt;&lt; <span class="hljs-string">&quot;Proxy: Access denied.&quot;</span> &lt;&lt; std::endl;<br>        &#125;<br>    &#125;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    Proxy proxy;<br>    proxy.<span class="hljs-built_in">request</span>();<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></div></figure>
+
+<p>在这个示例中，<code>Subject</code> 是抽象主题类，定义了请求的接口。<code>RealSubject</code> 是具体主题类，实现了真正的请求处理逻辑。<code>Proxy</code> 是代理类，代理了真实主题对象，可以在执行请求之前进行权限验证等操作。在 <code>main</code> 函数中，创建了代理对象 <code>proxy</code>，并调用了它的 <code>request</code> 方法来处理请求。</p>
+<h3 id="策略模式（行为型）"><a href="#策略模式（行为型）" class="headerlink" title="策略模式（行为型）"></a>策略模式（行为型）</h3><p>定义了⼀系列算法，把它们单独封装起来，并且使它们可以互相替换，使得算法可以独⽴于使⽤它的客户端⽽变化（算法所完成的功能类型是⼀样的，对外接⼝也是⼀样的，只是不同的策略为引起环境⻆⾊表现出不同的⾏为。）</p>
+<p>缺点：可能需要定义⼤量的策略类，并且这些策略类都要提供给客户端</p>
+<p>策略模式使得算法可以独立于使用它的客户端变化</p>
+<figure class="highlight c++"><i class="iconfont icon-bookmark" type="button" data-toggle="collapse" data-target="#collapse-zwsxyym0dngtso"></i><div class="collapse show" id="collapse-zwsxyym0dngtso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-comment">// 抽象策略类</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Strategy</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">execute</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>= <span class="hljs-number">0</span>;<br>&#125;;<br><br><span class="hljs-comment">// 具体策略类 - 策略A</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">ConcreteStrategyA</span> : <span class="hljs-keyword">public</span> Strategy &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">execute</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> <span class="hljs-keyword">override</span> </span>&#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Executing strategy A.&quot;</span> &lt;&lt; std::endl;<br>    &#125;<br>&#125;;<br><br><span class="hljs-comment">// 具体策略类 - 策略B</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">ConcreteStrategyB</span> : <span class="hljs-keyword">public</span> Strategy &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">execute</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> <span class="hljs-keyword">override</span> </span>&#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Executing strategy B.&quot;</span> &lt;&lt; std::endl;<br>    &#125;<br>&#125;;<br><br><span class="hljs-comment">// 上下文类</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Context</span> &#123;<br><span class="hljs-keyword">private</span>:<br>    Strategy* strategy;<br><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">Context</span>(Strategy* strategy) : <span class="hljs-built_in">strategy</span>(strategy) &#123;&#125;<br><br>    ~<span class="hljs-built_in">Context</span>() &#123;<br>        <span class="hljs-keyword">delete</span> strategy;<br>    &#125;<br><br>    <span class="hljs-comment">// 设置新的策略</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">setStrategy</span><span class="hljs-params">(Strategy* newStrategy)</span> </span>&#123;<br>        <span class="hljs-keyword">delete</span> strategy;<br>        strategy = newStrategy;<br>    &#125;<br><br>    <span class="hljs-comment">// 执行当前策略</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">executeStrategy</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>&#123;<br>        strategy-&gt;<span class="hljs-built_in">execute</span>();<br>    &#125;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-comment">// 创建上下文对象</span><br>    ConcreteStrategyA strategyA;<br>    <span class="hljs-function">Context <span class="hljs-title">context</span><span class="hljs-params">(&amp;strategyA)</span></span>;<br><br>    <span class="hljs-comment">// 执行策略A</span><br>    context.<span class="hljs-built_in">executeStrategy</span>();<br><br>    <span class="hljs-comment">// 切换至策略B</span><br>    ConcreteStrategyB strategyB;<br>    context.<span class="hljs-built_in">setStrategy</span>(&amp;strategyB);<br><br>    <span class="hljs-comment">// 执行策略B</span><br>    context.<span class="hljs-built_in">executeStrategy</span>();<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></div></figure>
+
+<p>在这个示例中，<code>Strategy</code> 是抽象策略类，定义了一个执行策略的纯虚函数。<code>ConcreteStrategyA</code> 和 <code>ConcreteStrategyB</code> 是具体策略类，分别实现了不同的算法。<code>Context</code> 是上下文类，负责维护当前使用的策略对象，并在需要时执行相应的策略。</p>
+<p>在 <code>main</code> 函数中，首先创建了一个上下文对象，并使用策略A初始化它，然后执行了策略A。接着，通过调用 <code>setStrategy</code> 方法切换至策略B，并执行了策略B。这样，客户端可以在运行时灵活地选择不同的策略来执行任务。</p>
+<h3 id="装饰模式（结构型）"><a href="#装饰模式（结构型）" class="headerlink" title="装饰模式（结构型）"></a>装饰模式（结构型）</h3><p>它允许在不改变原始类接⼝的情况下，动态地添加功能或责任。灵活地扩展功能</p>
+<p>装饰模式通过创建⼀个装饰类，包裹原始类的实例，并在保持原始类接⼝不变的情况下，提供额外的功 能。就增加功能来说，装饰模式⽐⽣成⼦类更为灵活</p>
+<figure class="highlight c++"><i class="iconfont icon-bookmark" type="button" data-toggle="collapse" data-target="#collapse-t4r4pcm0dngtso"></i><div class="collapse show" id="collapse-t4r4pcm0dngtso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span><br><br><span class="hljs-comment">// 抽象组件类</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Component</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">operation</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>= <span class="hljs-number">0</span>;<br>&#125;;<br><br><span class="hljs-comment">// 具体组件类</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">ConcreteComponent</span> : <span class="hljs-keyword">public</span> Component &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">operation</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> <span class="hljs-keyword">override</span> </span>&#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;ConcreteComponent: Doing something.&quot;</span> &lt;&lt; std::endl;<br>    &#125;<br>&#125;;<br><br><span class="hljs-comment">// 抽象装饰器类</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Decorator</span> : <span class="hljs-keyword">public</span> Component &#123;<br><span class="hljs-keyword">protected</span>:<br>    Component* component;<br><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">Decorator</span>(Component* component) : <span class="hljs-built_in">component</span>(component) &#123;&#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">operation</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> <span class="hljs-keyword">override</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (component) &#123;<br>            component-&gt;<span class="hljs-built_in">operation</span>();<br>        &#125;<br>    &#125;<br>&#125;;<br><br><span class="hljs-comment">// 具体装饰器类 - 装饰器A</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">ConcreteDecoratorA</span> : <span class="hljs-keyword">public</span> Decorator &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">ConcreteDecoratorA</span>(Component* component) : <span class="hljs-built_in">Decorator</span>(component) &#123;&#125;<br><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">operation</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> <span class="hljs-keyword">override</span> </span>&#123;<br>        Decorator::<span class="hljs-built_in">operation</span>(); <br>        <span class="hljs-built_in">addFunctionalityA</span>();<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">addFunctionalityA</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>&#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;ConcreteDecoratorA: Adding functionality A.&quot;</span> &lt;&lt; std::endl;<br>    &#125;<br>&#125;;<br><br><span class="hljs-comment">// 具体装饰器类 - 装饰器B</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">ConcreteDecoratorB</span> : <span class="hljs-keyword">public</span> Decorator &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">ConcreteDecoratorB</span>(Component* component) : <span class="hljs-built_in">Decorator</span>(component) &#123;&#125;<br><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">operation</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> <span class="hljs-keyword">override</span> </span>&#123;<br>        Decorator::<span class="hljs-built_in">operation</span>();<br>        <span class="hljs-built_in">addFunctionalityB</span>();<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">addFunctionalityB</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>&#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;ConcreteDecoratorB: Adding functionality B.&quot;</span> &lt;&lt; std::endl;<br>    &#125;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-comment">// 创建具体组件对象</span><br>    ConcreteComponent* component = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ConcreteComponent</span>();<br><br>    <span class="hljs-comment">// 使用装饰器A包裹组件对象</span><br>    ConcreteDecoratorA* decoratorA = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ConcreteDecoratorA</span>(component);<br><br>    <span class="hljs-comment">// 使用装饰器B包裹装饰器A</span><br>    ConcreteDecoratorB* decoratorB = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ConcreteDecoratorB</span>(decoratorA);<br><br>    <span class="hljs-comment">// 执行操作</span><br>    decoratorB-&gt;<span class="hljs-built_in">operation</span>();<br><br>    <span class="hljs-comment">// 释放内存</span><br>    <span class="hljs-keyword">delete</span> decoratorB;<br>    <span class="hljs-keyword">delete</span> decoratorA;<br>    <span class="hljs-keyword">delete</span> component;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></div></figure>
+
+<p>在这个示例中，<code>Component</code> 是抽象组件类，定义了一个操作函数。<code>ConcreteComponent</code> 是具体组件类，实现了实际的操作逻辑。<code>Decorator</code> 是抽象装饰器类，继承自 <code>Component</code>，并持有一个指向组件的指针。<code>ConcreteDecoratorA</code> 和 <code>ConcreteDecoratorB</code> 是具体装饰器类，分别实现了不同的功能扩展。在 <code>main</code> 函数中，首先创建了一个具体组件对象，然后使用装饰器A包裹组件对象，再使用装饰器B包裹装饰器A，最后执行了操作。通过装饰器的嵌套组合，可以动态地扩展对象的功能。</p>
+<h3 id="适配器模式（结构型）"><a href="#适配器模式（结构型）" class="headerlink" title="适配器模式（结构型）"></a>适配器模式（结构型）</h3><p>用于将一个类的接口转换成客户端所期望的另一个接口。这种模式通常用于旧接口与新接口不兼容的情况下，通过适配器将旧接口适配成新接口，使得客户端可以无需修改现有代码而直接使用旧接口。</p>
+<figure class="highlight c++"><i class="iconfont icon-bookmark" type="button" data-toggle="collapse" data-target="#collapse-y75sz4m0dngtso"></i><div class="collapse show" id="collapse-y75sz4m0dngtso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-comment">// 圆孔类（目标接口）</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">RoundHole</span> &#123;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-type">double</span> radius;<br><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">RoundHole</span>(<span class="hljs-type">double</span> radius) : <span class="hljs-built_in">radius</span>(radius) &#123;&#125;<br><br>    <span class="hljs-function"><span class="hljs-type">double</span> <span class="hljs-title">getRadius</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> radius;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">fits</span><span class="hljs-params">(RoundPeg* peg)</span> <span class="hljs-type">const</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> peg-&gt;<span class="hljs-built_in">getRadius</span>() &lt;= radius;<br>    &#125;<br>&#125;;<br><br><span class="hljs-comment">// 圆钉类（目标接口）</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">RoundPeg</span> &#123;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-type">double</span> radius;<br><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">RoundPeg</span>(<span class="hljs-type">double</span> radius) : <span class="hljs-built_in">radius</span>(radius) &#123;&#125;<br><br>    <span class="hljs-function"><span class="hljs-type">double</span> <span class="hljs-title">getRadius</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> radius;<br>    &#125;<br>&#125;;<br><br><span class="hljs-comment">// 方钉类（需要被适配的类）</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">SquarePeg</span> &#123;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-type">double</span> width;<br><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">SquarePeg</span>(<span class="hljs-type">double</span> width) : <span class="hljs-built_in">width</span>(width) &#123;&#125;<br><br>    <span class="hljs-function"><span class="hljs-type">double</span> <span class="hljs-title">getWidth</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> width;<br>    &#125;<br>&#125;;<br><br><span class="hljs-comment">// 适配器类</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">SquarePegAdapter</span> : <span class="hljs-keyword">public</span> RoundPeg &#123;<br><span class="hljs-keyword">private</span>:<br>    SquarePeg* peg;<br><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">SquarePegAdapter</span>(SquarePeg* peg) : <span class="hljs-built_in">peg</span>(peg), <span class="hljs-built_in">RoundPeg</span>(peg-&gt;<span class="hljs-built_in">getWidth</span>() / <span class="hljs-number">2</span>) &#123;&#125;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-function">RoundHole <span class="hljs-title">hole</span><span class="hljs-params">(<span class="hljs-number">5</span>)</span></span>;<br>    <span class="hljs-function">RoundPeg <span class="hljs-title">peg</span><span class="hljs-params">(<span class="hljs-number">5</span>)</span></span>;<br>    <span class="hljs-function">SquarePeg <span class="hljs-title">squarePeg</span><span class="hljs-params">(<span class="hljs-number">4</span>)</span></span>;<br>    <span class="hljs-function">SquarePegAdapter <span class="hljs-title">adapter</span><span class="hljs-params">(&amp;squarePeg)</span></span>;<br><br>    <span class="hljs-comment">// 圆钉可以直接插入圆孔</span><br>    <span class="hljs-keyword">if</span> (hole.<span class="hljs-built_in">fits</span>(&amp;peg)) &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Round peg fits round hole.&quot;</span> &lt;&lt; std::endl;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Round peg does not fit round hole.&quot;</span> &lt;&lt; std::endl;<br>    &#125;<br><br>    <span class="hljs-comment">// 通过适配器，方钉也可以插入圆孔</span><br>    <span class="hljs-keyword">if</span> (hole.<span class="hljs-built_in">fits</span>(&amp;adapter)) &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Square peg fits round hole (via adapter).&quot;</span> &lt;&lt; std::endl;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Square peg does not fit round hole.&quot;</span> &lt;&lt; std::endl;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></div></figure>
+
+<p>在这个示例中，<code>RoundHole</code> 和 <code>RoundPeg</code> 分别是目标接口，代表了圆孔和圆钉。<code>SquarePeg</code> 是需要被适配的类，代表了方钉。<code>SquarePegAdapter</code> 是适配器类，继承自 <code>RoundPeg</code>，通过适配器，方钉可以被当作圆钉来使用。在 <code>main</code> 函数中，首先创建了一个圆孔和一个圆钉，然后创建了一个方钉并通过适配器将其适配成了圆钉，最后分别测试了圆钉和适配后的方钉是否能插入圆孔。</p>
+<h3 id="创建型模式"><a href="#创建型模式" class="headerlink" title="创建型模式"></a>创建型模式</h3><p>1、<strong>单例(singleton)模式</strong>： 保证⼀个类只有⼀个实例，并提供⼀个访问它的全局访问点</p>
+<p>2、<strong>工厂方法(factory method)模式</strong>： 定义⼀个创建对象的接⼝，但由⼦类决定需要实例化哪⼀个类。⼯⼚⽅法使得⼦类实例化的过程推迟 </p>
+<p>3、抽象⼯⼚(abstract factory)模式： 提供⼀个接⼝，可以创建⼀系列相关或相互依赖的对象，⽽⽆需指定他们具体的类 </p>
+<p>4、原型(prototype)模式： ⽤原型实例指定创建对象的类型，并且通过拷⻉这个原型来创建新的对象 </p>
+<p>5、构建器(builder)模式： 将⼀个复杂类的表示与其构造相分离，使得相同的构建过程能够得出不同的表示</p>
+<h3 id="结构型模式"><a href="#结构型模式" class="headerlink" title="结构型模式"></a>结构型模式</h3><p>1、<strong>代理(proxy)模式</strong>： 为其他对象提供⼀种代理以控制这个对象的访问 </p>
+<p>2、<strong>装饰(decorator)模式</strong>： 动态地给⼀个对象添加⼀些额外的职责。它提供了⽤⼦类扩展功能的⼀个灵活的替代，⽐派⽣⼀个⼦类更加灵活 ——速记关键字：附加职责 </p>
+<p>3、<strong>适配器(adapter)模式</strong>： 将⼀个类的接⼝转换成⽤户希望得到的另⼀个接⼝。它使原本不相容的接⼝得以协同⼯作——速记关键字:转换接⼝ </p>
+<p>2、桥接(bridge)模式： 将类的抽象部分和它的实现部分分离开来，使它们可以独⽴地变化——速记关键字：继承树拆分 </p>
+<p>3、组合(composite)模式： 将对象组合成树型结构以表示“整体-部分”的层次结构，使得⽤户对单个对象和组合对象的使⽤具有⼀致性——速记 关键字：树形⽬录结构 </p>
+<p>5、外观(facade)模式： 定义⼀个⾼层接⼝，为⼦系统中的⼀组接⼝提供⼀个⼀致的外观，从⽽简化了该⼦系统的使⽤——速记关键字：对 外统⼀接⼝ </p>
+<p>6、享元(flyweight)模式： 提供⽀持⼤量细粒度对象共享的有效⽅法 </p>
+<p>示</p>
+<h3 id="行为型模式"><a href="#行为型模式" class="headerlink" title="行为型模式"></a>行为型模式</h3><p>1、<strong>观察者(observer)模式</strong>： 定义对象间的⼀种⼀对多的依赖关系，当⼀个对象的状态发⽣改变时，所有依赖于它的对象都得到通知并⾃动更新 </p>
+<p>2、<strong>策略(strategy)模式</strong>： 定义⼀系列算法，把它们⼀个个封装起来，并且使它们之间可互相替换，从⽽让算法可以独⽴于使⽤它的⽤户⽽变 化 </p>
+<p>3、职责链(chain of responsibility)模式： 通过给多个对象处理请求的机会，减少请求的发送者与接收者之间的耦合。将接收对象链接起来，在链中传递请 求，直到有⼀个对象处理这个请求——速记关键字：传递职责 </p>
+<p>4、命令(command)模式： 将⼀个请求封装为⼀个对象，从⽽可⽤不同的请求对客户进⾏参数化，将请求排队或记录请求⽇志，⽀持可撤销的 操作——速记关键字：⽇志记录，可撤销 </p>
+<p>5、解释器(interpreter)模式： 给定⼀种语⾔，定义它的⽂法表示，并定义⼀个解释器，该解释器⽤来根据⽂法表示来解释语⾔中的句⼦ </p>
+<p>6、迭代器(iterator)模式： 提供⼀种⽅法来顺序访问⼀个聚合对象中的各个元素⽽不需要暴露该对象的内部表示 </p>
+<p>7、中介者(mediator)模式： ⽤⼀个中介对象来封装⼀系列的对象交互。它使各对象不需要显式地相互调⽤，从⽽达到低耦合，还可以独⽴地改 变对象间的交互——速记关键字：不直接引⽤ </p>
+<p>8、备忘录(memento)模式： 在不破坏封装性的前提下，捕获⼀个对象的内部状态，并在该对象之外保存这个状态，从⽽可⽤在以后将该对象恢 复到原先保存的状态 </p>
+<p>9、状态(state)模式： 允许⼀个对象在其内部状态改变时改变它的⾏为——速记关键字：状态变成类 </p>
+<p>10、模板⽅法(template method)模式： 定义⼀个操作中的算法⻣架，⽽将⼀些步骤延迟到⼦类中，使得⼦类可以不改变⼀个算法的结构即可重新定义算法 的某些特定步骤 </p>
+<p>11、访问者(visitor)模式： 表示⼀个作⽤于某对象结构中的各元素的操作，使得在不改变各元素的类的前提下定义作⽤于这些元素的新操作 </p>
+<h3 id="设计原则"><a href="#设计原则" class="headerlink" title="设计原则"></a>设计原则</h3><p> 单⼀职责  在设计类的时候要尽量缩⼩粒度，使功能明确、单⼀，不要做多余的事情（⾼内聚，低耦合） </p>
+<p>开闭原则  软件实体（类、模块、函数等）应该对扩展开放，对修改关闭。这意味着可以通过扩展来添加新功能，⽽不必修改现有代码。 </p>
+<p>⾥⽒替换  ⼦类型必须能够替换掉它们的基类型。在程序中，如果有⼀个基类和⼀个⼦类，那么可以⽤⼦类对象替换基类对象，⽽程序的⾏为仍然是正确的。 </p>
+<p>接⼝隔离  不应该强迫⼀个类实现它不需要的接⼝。⼀个类不应该对它⽤不到的⽅法负责。 </p>
+<p>依赖倒置  ⾼层模块不应该依赖于低层模块，⽽是应该依赖于抽象。抽象不应该依赖于具体实现，具体实现应该依赖于抽象。 ⽐如Java的操作数据库，Java定义了⼀组接⼝，由各个数据库去实现它，Java不依赖于他们，数据库依赖于Java </p>
+<p>组合优于继承  继承耦合度⾼，组合耦合度低 继承基类是固定好的，但是组合通过组合类的指针，可以传⼊不同的类，避免⾼耦合</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/C/" class="print-no-link">#C++</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>C++ shorthand</div>
+      <div>https://www.mementos.top/2024/08/27/C++ shorthand/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Natsumi</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年8月27日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/08/01/blog%20%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97/" title="blog 更新日志">
+                        <span class="hidden-mobile">blog 更新日志</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/DynamicRibbon.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script src="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/js/index.js"></script><!-- hexo injector body_end end --></body>
+</html>
