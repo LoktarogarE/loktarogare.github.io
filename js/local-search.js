@@ -84,7 +84,9 @@
             }
             // 0x05. show search results
             if (isMatch) {
-              resultHTML += '<a href=\'' + data_url + '\' class=\'list-group-item list-group-item-action font-weight-bolder search-list-title\'>' + orig_data_title + '</a>';
+              var defined_data_url = data_url.replace(/&/g, '&amp;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+              var defined_data_title = orig_data_title.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+              resultHTML += '<a href=\'' + defined_data_url + '\' class=\'list-group-item list-group-item-action font-weight-bolder search-list-title\'>' + defined_data_title + '</a>';
               var content = orig_data_content;
               if (first_occur >= 0) {
                 // cut out 100 characters
@@ -107,7 +109,8 @@
 
                 // highlight all keywords
                 keywords.forEach(function(keyword) {
-                  var regS = new RegExp(keyword, 'gi');
+                  var escapedKeyword = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                  var regS = new RegExp(escapedKeyword, 'gi');
                   match_content = match_content.replace(regS, '<span class="search-word">' + keyword + '</span>');
                 });
 

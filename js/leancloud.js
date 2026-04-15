@@ -128,7 +128,13 @@
     // 如果有页面浏览数节点，则请求浏览数并自增
     var viewCtn = document.querySelector('#leancloud-page-views-container');
     if (viewCtn) {
-      var path = eval(CONFIG.web_analytics.leancloud.path || 'window.location.pathname');
+      var path = (function() {
+        var configPath = CONFIG.web_analytics.leancloud.path;
+        if (!configPath || configPath === 'window.location.pathname') {
+          return window.location.pathname;
+        }
+        return String(configPath);
+      })();
       var target = decodeURI(path.replace(/\/*(index.html)?$/, '/'));
       var viewGetter = getRecord(Counter, target).then((record) => {
         enableIncr && incrArr.push(buildIncrement(record.objectId));
