@@ -63,7 +63,8 @@ Fluid.plugins = {
 
         var imageTitle = $image.attr('title') || $image.attr('alt');
         if (imageTitle) {
-          $imageWrap.attr('title', imageTitle).attr('data-caption', imageTitle);
+          var sanitizedTitle = imageTitle.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+          $imageWrap.attr('title', sanitizedTitle).attr('data-caption', sanitizedTitle);
         }
       }
     });
@@ -91,7 +92,8 @@ Fluid.plugins = {
       } else {
         var imageTitle = $target.attr('title') || $target.attr('alt');
         if (imageTitle) {
-          $target.after(`<figcaption aria-hidden="true" class="image-caption">${imageTitle}</figcaption>`);
+          var sanitizedCaption = imageTitle.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+          $target.after(`<figcaption aria-hidden="true" class="image-caption">${sanitizedCaption}</figcaption>`);
         }
       }
     });
